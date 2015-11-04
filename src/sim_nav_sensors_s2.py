@@ -49,7 +49,7 @@ class SimNavSensorsS2:
 
         # Create publishers
         self.pub_bms = rospy.Publisher('/cola2_safety/emus_bms', 
-                                       EMUSBMS,
+                                       EmusBms,
                                        queue_size = 2)
                                        
         self.pub_imu = rospy.Publisher('/cola2_navigation/imu', 
@@ -117,7 +117,7 @@ class SimNavSensorsS2:
 
     def pub_bms_callback(self, event):
         """ This method is a callback of a timer. This publishes bms data """
-        msg = EMUSBMS()
+        msg = EmusBms()
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = 'sparus2'
         msg.voltage = 29.0
