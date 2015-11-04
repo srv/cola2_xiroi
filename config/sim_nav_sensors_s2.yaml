@@ -1,0 +1,27 @@
+# Sensors information
+dynamics/sparus2/ned_origin_latitude: 38.5200248466315 #41.77737 # 41.7684
+dynamics/sparus2/ned_origin_longitude: -28.6320306729769 #3.03376 # 3.032
+
+# Sant Feliu (41.78077, 3.04748)
+# Piscina (41.967283, 2.836075)
+
+# DVL type: "linkquest" or "rdi" or "none"
+sim_nav_sensors/dvl_type: "rdi"
+
+# Transformation wrt vehicle frame: [x, y, z, roll, pitch, yaw] (in meters and degrees!!!)
+sim_nav_sensors/imu/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Not used yet!
+sim_nav_sensors/dvl/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Not used yet!
+sim_nav_sensors/gps/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Not used yet!
+
+# Sensors publication periods
+sim_nav_sensors/imu/period: 0.1
+sim_nav_sensors/dvl/period: 0.2
+sim_nav_sensors/gps/period: 1.0
+
+# Water density
+sim_nav_sensors/water_density: 1000
+
+# Sensors covariances
+sim_nav_sensors/imu/orientation_covariance: [0.0001, 0.0001, 0.0001]
+sim_nav_sensors/dvl/velocity_covariance: [0.0015, 0.0015, 0.0015]  # Not computed!
+sim_nav_sensors/gps/position_covariance: [0.5, 0.5]  # Not computed!

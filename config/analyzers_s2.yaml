@@ -1,0 +1,18 @@
+pub_rate: 1.0
+base_path: ''
+analyzers:
+  navigation:
+    type: GenericAnalyzer
+    path: navigation
+    name: ['/navigator']
+
+  control:
+    type: GenericAnalyzer
+    path: control
+    name: ['/teleoperation', '/captain', '/actuators']
+
+  safety:
+    type: GenericAnalyzer
+    path: safety
+    name: ['/safe_depth_altitude', '/virtual_cage', '/up_time', '/diagnostics_supervisor']
+

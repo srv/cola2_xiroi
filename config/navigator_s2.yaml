@@ -1,0 +1,42 @@
+# Sensors/Model covariances
+navigator/dvl_bottom_covariance: [0.002, 0.002, 0.002]
+navigator/dvl_water_covariance: [0.02, 0.02, 0.02]
+navigator/gps_covariance: [0.5, 0.5]
+navigator/usbl_covariance: [0.25, 0.25]
+navigator/pressure_covariance: 0.1
+navigator/model_covariance: [0.02, 0.02, 0.02]
+
+# If DVL data > "navigatior/dvl_max_v" (m/s) discard it
+navigator/dvl_max_v: 1.2
+
+# Set filter and NED initialization
+navigator/initialize_filter_from_gps: true
+navigator/use_gps_data: true
+navigator/initialize_ned_from_gps: false # if true use current gps position as ned origin, otherwise use predefined ned origin
+navigator/ned_latitude: 38.5200248466315 #42.954 #38.5200248466315 # 41.768860505
+navigator/ned_longitude: -28.6320306729769 #10.602 #-28.6320306729769 # 3.03170557637
+#navigator/ned_latitude: 38.5220043026949 # 41.768860505
+#navigator/ned_longitude: -28.6327135174139 # 3.03170557637
+
+navigator/use_usbl_data: false
+
+# Depth sensor correction. This value is added to the depth in meters
+navigator/depth_correction: -0.32
+navigator/water_density: 1000  # Pool -> 1000 Sea -> 1030?
+
+navigator/robot_frame_id: "/sparus2"
+navigator/world_frame_id: "/world"
+
+# Define landmark topics
+navigator/landmark_topics: ["/pose_ekf_slam/landmark_update/panel_centre"]
+
+# Define Extra TFs needed by the navigator
+bumblebee2/tf: [0.45, -0.06, -0.12, 80.0, 0.0, 90.0]
+g500/stereo_front/tf: [0.45, -0.06, -0.12, 80.0, 0.0, 90.0]
+usbl_head/tf: [-0.5, 0.0, 0.1, 0.0, 0.0, 0.0]
+fastrax_it_500_gps/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pressure_sensor/tf: [0.389, 0.0, 0.0, 0.0, 0.0, 0.0]
+adis_imu/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+teledyne_explorer_dvl/tf: [0.0, 0.0, 0.0, 180.0, 0.0, 135.0]
+evologics/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+

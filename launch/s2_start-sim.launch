@@ -1,0 +1,43 @@
+<launch>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableJoystick" default="false"/>
+    <arg name="joystickDevice" default="/dev/input/js0"/>
+    <arg name="enableLog" default="false" />
+    <arg name="enableUWSim" default="true" />
+    <arg name="enableShadders" default="false" />
+    <arg name="webGui" default="true"/>
+
+    <!-- ################################################################################## -->
+
+    <!-- Load S2 core -->
+    <include file="$(find cola2_s2)/launch/s2_core-sim.launch">
+        <arg name="enableSafety" value="$(arg enableSafety)" />
+        <arg name="enableJoystick" value="$(arg enableJoystick)" />
+        <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+    </include>
+
+
+    <group if="$(arg enableUWSim)">
+        <node if="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(find cola2_s2)/scenes/scene_1.xml --dataPath $(find cola2_s2)/ " respawn="false"/>
+        <node unless="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(find cola2_s2)/scenes/scene_1.xml --dataPath $(find cola2_s2)/ --disableShaders" respawn="false"/>
+    </group>
+
+    <!-- Run Log -->
+    <node if="$(arg enableLog)" name="bag_record" output="screen" pkg="rosbag" type="record" args="-a -x '(/uwsim/(.)*)(/camera/image_m(.)*)|(/camera/image_c(.)*)|(/camera/image_rect/(.)*)|(/camera/image_rect)|(/camera/image_raw)|(/camera/image_rect_color/compressed)|(/camera/image_raw/compressed)' --split --size 1024 -o /home/$(env LOGNAME)/s2" />
+
+    <!-- Run web GUI -->
+    <group if="$(arg webGui)">
+        <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_navigation/nav_sts 4.0 /cola2_navigation/nav_sts_hz"/>
+        <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_world_waypoint_req 2.0 /cola2_control/merged_world_waypoint_req_hz"/>
+        <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_velocity_req 2.0 /cola2_control/merged_body_velocity_req_hz"/>
+        <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_force_req 2.0 /cola2_control/merged_body_force_req_hz"/>
+        <node name="thrusters_data_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/thrusters_data 4.0 /cola2_control/thrusters_data_hz"/>
+
+        <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+    </group>
+
+
+    <!-- Extra frame for rotate the Z in RViz -->
+    <node pkg="tf" type="static_transform_publisher" name="rviz_to_world" args="0.0 0.0 0.0 0.0 0.0 3.14159 /rviz /world 100" />
+</launch>
+

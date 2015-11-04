@@ -1,0 +1,29 @@
+# General parameters
+move_mode/min_velocity_los: [0.2, 0.0, 0.0, 0.0, 0.0, 0.0]
+move_mode/max_angle_error: 0.3
+move_mode/max_velocity: [0.5, 0.2, 0.5, 0.0, 0.3, 0.3]
+
+# Sparus LOS
+move_mode/sparus_los/acceptance_radius: 3.0  # Do not change
+move_mode/sparus_los/los_radius: 6.0  # Do not change
+move_mode/sparus_los/low_surge: 0.3  # Choose 0.2, 0.3, 0.4 or 0.5
+move_mode/sparus_los/high_surge: 1.0  # Choose 0.5, 1.0, 1.5 or 2.0
+move_mode/sparus_los/sway_correction: True
+move_mode/sparus_los/heave_mode_in_3D: False
+move_mode/sparus_los/safety_max_distance_btw_waypoints: 500  # [m]
+
+#Pose PID per DoF
+pilot/pid_x_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pilot/pid_x_z_yaw_kp: [0.2, 0.0, 0.3, 0.0, 0.0, 0.8]
+pilot/pid_x_z_yaw_ti: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pilot/pid_x_z_yaw_td: [0.2, 0.0, 0.0, 0.0, 0.0, 0.3]
+
+pilot/pid_x_y_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pilot/pid_x_y_z_yaw_kp: [1.0, 1.0, 0.5, 0.0, 0.0, 0.8]
+pilot/pid_x_y_z_yaw_ti: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pilot/pid_x_y_z_yaw_td: [0.2, 0.2, 0.1, 0.0, 0.0, 0.3]
+
+pilot/relative_pid_x_y_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+pilot/relative_pid_x_y_z_yaw_kp: [0.2, 0.2, 0.2, 0.0, 0.0, 0.4]
+pilot/relative_pid_x_y_z_yaw_ti: [8.0, 8.0, 8.0, 0.0, 0.0, 8.0]
+pilot/relative_pid_x_y_z_yaw_td: [0.1, 0.1, 0.1, 0.0, 0.0, 0.1]

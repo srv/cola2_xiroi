@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot name="sparus">
+  <link name="base_sparus">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://cola2_s2/data/robot/sparus/sparus.osg" />
+      </geometry>
+    </visual>
+  </link>
+</robot>

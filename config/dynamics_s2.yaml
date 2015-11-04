@@ -1,0 +1,60 @@
+# sparus2 dynamics model
+# WARNING!!!
+# The thrusters allocation matrix "b" is defined in the code. It can not be changed using parameters.
+
+vehicle_name: "sparus2"
+
+dynamics/sparus2/number_of_thrusters: 3
+dynamics/sparus2/thrusters_topic: "/cola2_control/sim_thrusters_data"
+dynamics/sparus2/number_of_fins: 2
+dynamics/sparus2/fins_topic: "/cola2_control/sim_fins_data"
+
+dynamics/sparus2/a_fins: 0.0094
+# Parameters for NACA 0015 airfoil
+dynamics/sparus2/k_cd_fins: 1.8
+dynamics/sparus2/k_cl_fins: 1.1
+# 20 degrees = pi / 9 = 0.3491
+dynamics/sparus2/max_fins_angle: 0.3941
+
+dynamics/sparus2/period: 0.05
+dynamics/sparus2/mass: 34.5
+dynamics/sparus2/gravity_center: [0.0, 0.0, 0.01]
+dynamics/sparus2/g: 9.81
+dynamics/sparus2/radius: 0.2009312118
+dynamics/sparus2/surface_radius: 0.4
+
+# Forward and backward thrusters coef 0.000020833333
+dynamics/sparus2/ctf: 0.000020833333
+dynamics/sparus2/ctb: 0.000020833333
+
+dynamics/sparus2/max_thrusters_rpm: 1200
+dynamics/sparus2/dzv: 0.05
+dynamics/sparus2/dv: 0.05
+dynamics/sparus2/dh: 0.40
+dynamics/sparus2/density: 1030.0
+
+dynamics/sparus2/thrusters_matrix: [[0.0, 1.0, 1.0],[0.0, 0.0, 0.0],[1.0, 0.0, 0.0],[0.0, 0.0, 0.0],[0.0, 0.0, 0.0],[0.0, -0.16, 0.16]]
+
+# [0.1337, 0.0, 0.0, 0.0, 1.6643, 0.0, 0.0, 0.0, 1.6643]
+dynamics/sparus2/tensor: [0.7, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 8.0]
+dynamics/sparus2/damping: [-20.0, -60.0, -60.0, -1.0, -8.0, -8.0]
+dynamics/sparus2/quadratic_damping: [-30.0, -60.0, -60.0, 0.0, -10.0, -10.0]
+
+#Meters and Rads [X, Y, Z, Roll, Pitch, Yaw]
+dynamics/sparus2/initial_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+dynamics/sparus2/initial_velocity: [0, 0, 0, 0, 0, 0]
+
+dynamics/sparus2/odom_topic_name: "/sparus/ros_odom_to_pat"
+dynamics/sparus2/altitude_range_topic_name: "/sparus/range"
+dynamics/sparus2/frame_id: "sparus2_dynamics"
+dynamics/sparus2/world_frame_id: "world"
+
+# Collisions from UWSim. Let it empty if not available
+dynamics/sparus2/uwsim_contact_sensor: ""
+
+#WATER CURRENTs SIMULATION
+dynamics/current_mean: [0.0, 0.0, 0.0]
+dynamics/current_sigma: [0.01, 0.01, 0.01]
+dynamics/current_min: [-0.0, -0.0, -0.0]
+dynamics/current_max: [0.0, 0.0, 0.0]
+dynamics/current_enabled: False

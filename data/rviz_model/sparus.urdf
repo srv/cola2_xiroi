@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="Sparus 2 AUV">
+
+  <link name="sparus2">
+    <visual>
+      <geometry>
+        <cylinder length="1.105" radius="0.125"/>
+      </geometry>
+      <material name="body_white">
+            <color rgba="1.0 1.0 1.0 1.0"/>
+      </material>
+      <origin xyz="-0.2475 0 0" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <link name="sparus2_payload">
+    <visual>
+      <geometry>
+        <cylinder length="0.37" radius="0.125"/>
+      </geometry>
+      <material name="payload">
+        <color rgba="0.992 0.886 0.302 1.0"/>
+      </material>
+      <origin xyz="0.49 0 0" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <link name="sparus2_payload_sphere">
+    <visual>
+      <geometry>
+        <sphere radius="0.125"/>
+      </geometry>
+      <material name="payload_sphere">
+        <color rgba="0.992 0.886 0.302 1.0"/>
+      </material>
+      <origin xyz="0.673 0 0" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <link name="motor_left">
+    <visual>
+      <geometry>
+        <cylinder length="0.3" radius="0.05"/>
+      </geometry>
+      <material name="motor_left">
+        <color rgba="0.9 0.9 0.9 1.0"/>
+      </material>
+      <origin xyz="-0.6 0.18 0" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <link name="motor_right">
+    <visual>
+      <geometry>
+        <cylinder length="0.3" radius="0.05"/>
+      </geometry>
+      <material name="motor_right">
+        <color rgba="0.9 0.9 0.9 1.0"/>
+      </material>
+      <origin xyz="-0.6 -0.18 0" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <link name="antenna">
+    <visual>
+      <geometry>
+        <box size="0.3 0.04 0.09"/>
+      </geometry>
+      <material name="antenna">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+      <origin xyz="-0.6 0.0 -0.2" rpy="0 1.57 0"/>
+    </visual>
+  </link>
+
+  <joint name="sparus_to_payload" type="fixed">
+    <parent link="sparus2"/>
+    <child link="sparus2_payload"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="payload_to_sphere" type="fixed">
+    <parent link="sparus2_payload"/>
+    <child link="sparus2_payload_sphere"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="sparus_to_motor_left" type="fixed">
+    <parent link="sparus2"/>
+    <child link="motor_left"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="sparus_to_motor_right" type="fixed">
+    <parent link="sparus2"/>
+    <child link="motor_right"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="sparus_to_antenaa" type="fixed">
+    <parent link="sparus2"/>
+    <child link="antenna"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>
