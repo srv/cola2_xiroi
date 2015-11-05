@@ -1,10 +1,10 @@
 #include "ros/ros.h"
 #include <dynamic_reconfigure/server.h>
-#include <cola2_s2/controller_sparus2Config.h>
 #include <cola2_lib/cola2_control/IAUVController.hpp>
 #include <cola2_lib/cola2_control/IAUVROSController.hpp>
 #include "cola2_lib/cola2_rosutils/RosUtil.h"
 #include "include/SPARUS2Controller.hpp"
+#include <cola2_s2/controller_sparus2Config.h>
 
 class SPARUS2ROSController: public IAUVROSController
 {
@@ -30,7 +30,7 @@ public:
 
 
     void
-    setParams( cola2_control::controller_sparus2Config &config,
+    setParams( cola2_s2::controller_sparus2Config &config,
                uint32_t level )
     {
         std::vector< double > tcm;
@@ -138,8 +138,8 @@ private:
     SPARUS2Controller *_auv_controller;
 
     // Dynamic reconfigure parameters
-    dynamic_reconfigure::Server< cola2_control::controller_sparus2Config > _param_server;
-    dynamic_reconfigure::Server< cola2_control::controller_sparus2Config >::CallbackType _f;
+    dynamic_reconfigure::Server< cola2_s2::controller_sparus2Config > _param_server;
+    dynamic_reconfigure::Server< cola2_s2::controller_sparus2Config >::CallbackType _f;
 };
 
 
