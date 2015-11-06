@@ -10,7 +10,7 @@
     <!-- ################################################################################## -->
 
     <!-- Load S2 core -->
-    <include file="$(find cola2_s2)/launch/s2_core-sim.launch">
+    <include file="$(find cola2_s2)/launch/sim_s2_core.launch">
         <arg name="enableSafety" value="$(arg enableSafety)" />
         <arg name="enableJoystick" value="$(arg enableJoystick)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
@@ -32,12 +32,9 @@
         <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_velocity_req 2.0 /cola2_control/merged_body_velocity_req_hz"/>
         <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_force_req 2.0 /cola2_control/merged_body_force_req_hz"/>
         <node name="thrusters_data_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/thrusters_data 4.0 /cola2_control/thrusters_data_hz"/>
-
         <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
     </group>
-
 
     <!-- Extra frame for rotate the Z in RViz -->
     <node pkg="tf" type="static_transform_publisher" name="rviz_to_world" args="0.0 0.0 0.0 0.0 0.0 3.14159 /rviz /world 100" />
 </launch>
-

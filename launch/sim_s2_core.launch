@@ -11,14 +11,14 @@
 
 <!--  ################################################################## -->
 
-    <rosparam command="load" file="$(find cola2_s2)/config/safety_s2.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/safety.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/dynamics_s2.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/sim_nav_sensors_s2.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/navigator_s2.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/sim_nav_sensors.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/navigator.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/controller_sparus2-sim.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/teleoperation_s2.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/map_ack_s2.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/sim_controller.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/map_ack.yaml"/>
     <param name="robot_description" command="cat $(find cola2_s2)/data/rviz_model/sparus.urdf"/>
 
     <!-- SAFETY NODES -->
@@ -28,7 +28,7 @@
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
-        <rosparam command="load" file="$(find cola2_s2)/config/analyzers_s2.yaml" />
+        <rosparam command="load" file="$(find cola2_s2)/config/analyzers.yaml" />
     </node>
     <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
 

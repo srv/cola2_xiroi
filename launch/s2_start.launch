@@ -3,8 +3,7 @@
     <arg name="enableActuators" default="false"/>
     <arg name="enableImu" default="true"/>
     <arg name="enableSafety" default="true"/>
-    <arg name="enableAvoidCollision" default="false"/>
-
+    
     <!--Sparus Payload Params -->
     <arg name="Camera" default="false"/>
     <arg name="enableBumblebee" default="false"/>
@@ -79,7 +78,7 @@
     <arg name="ROSMaster" value="http://192.168.1.61:11311" />
 
     <!-- LOAD PARAMETERS -->
-    <rosparam command="load" file="$(find cola2_s2)/config/map_ack_s2.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/map_ack.yaml"/>
 
     <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
     <!-- LOAD S2 CORE -->
@@ -87,7 +86,6 @@
         <arg name="enableActuators" value="$(arg enableActuators)"/>
         <arg name="enableImu" value="$(arg enableImu)"/>
         <arg name="enableSafety" value="$(arg enableSafety)"/>
-        <arg name="enableAvoidCollision" value="$(arg enableAvoidCollision)"/>
     </include>
 
     <!-- RUN JOYSTICK -->
@@ -113,10 +111,7 @@
         <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_velocity_req 2.0 /cola2_control/merged_body_velocity_req_hz"/>
         <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_force_req 2.0 /cola2_control/merged_body_force_req_hz"/>
         <node name="thrusters_data_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/thrusters_data 4.0 /cola2_control/thrusters_data_hz"/>
-
-
         <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
-        <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" />
     </group>
 
     <!-- LOAD S2 PAYLOAD -->
@@ -136,7 +131,6 @@
         <arg name="enableAirmarEchosounder" value="$(arg enableAirmarEchosounder)"/>
    </include>
 
-
     <!-- BAG LOGS: in home folder of linux user, format is s2_xxxxxxxxx.bag -->
     <group if="$(arg enableLog)">
         <node name="bag_record" output="screen" pkg="rosbag" type="record" args="-a -x '(/stereo_camera/(.)*)|(/camera/(.)*)|(/octo(.)*)|(/(.)*cells(.)*)|/projected_map|/multibeam_cloud' /stereo_camera/left/camera_info /stereo_camera/left/image_raw /stereo_camera/right/camera_info /stereo_camera/right/image_raw --split --size 1024 -o /home/cirs/s2" />
@@ -144,4 +138,3 @@
     </group>
 
 </launch>
-

@@ -1,32 +1,31 @@
 <launch>
-
     <!--Sparus Payload Params -->
     <arg name="Camera" default="false"/>
-    <arg name="enableBumblebee" default="true"/>
-    <arg name="enableBumblebeeTF" default="true"/>
+    <arg name="enableBumblebee" default="false"/>
+    <arg name="enableBumblebeeTF" default="false"/>
     <arg name="Guppy" default="false"/>
     <arg name="Aris" default="false"/>
     <arg name="Multibeam" default="false"/>
     <arg name="SSS" default="false"/>
-    <arg name="Micron" default="true"/>
-    <arg name="EchoSounders" default="true"/>
+    <arg name="Micron" default="false"/>
+    <arg name="EchoSounders" default="false"/>
     <arg name="enableModem" default="false"/>
-    <arg name="enableRotativePayload" default="true"/>
+    <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
 
-
     <!-- LOAD PARAMETERS -->
-    <rosparam command="load" file="$(find cola2_s2)/config/imagenex_side_scan_sonar_s2.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/bt878_framegrabber_s2.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/imagenex_side_scan_sonar.yaml"/>
+    <rosparam command="load" file="$(find cola2_s2)/config/bt878_framegrabber.yaml"/>
     <!--rosparam command="load" file="$(find cola2_perception_dev)/config/soundmetrics_aris3000.yaml"/-->
+    
     <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
 
     <!-- PERCEPTION -->
     <!-- aris -->
-    <!--group if="$(arg Aris)">
-        <node name="soundmetrics_aris3000" pkg="cola2_perception_dev" type="soundmetrics_aris3000.py" respawn="true"/>
-    </group-->
+    <group if="$(arg Aris)">
+        <node name="soundmetrics_aris3000" pkg="soundmetrics_aris3000" type="soundmetrics_aris3000.py" respawn="true"/>
+    </group>
 
     <!-- Guppy -->
     <group if="$(arg Guppy)">
@@ -41,15 +40,14 @@
 
     <!-- Multibeam -->
     <group if="$(arg Multibeam)">
-        <rosparam command="load" file="$(find imaginex_multibeam_sonar)/config/imagenex_multibeam_sonar_s2.yaml"/>
+        <rosparam command="load" file="$(find imaginex_multibeam_sonar)/config/imagenex_multibeam_sonar.yaml"/>
         <node name="multibeam" pkg="imaginex_multibeam_sonar" type="multibeam_online.py" output="screen"/>
-        <!--node type="mbAltitude.py" pkg="eurathlon_main" name="mb_altitude"/-->
     </group>
 
     <!-- Frame Grabber -->
-    <!--group if="$(arg Camera)">
-        <node name="framegrabber_s2" pkg="cola2_perception_dev" type="framegrabber_s2" respawn="true"/>
-    </group-->
+    <group if="$(arg Camera)">
+        <node name="framegrabber_s2" pkg="bt878_framegrabber" type="framegrabber" respawn="true"/>
+    </group>
 
     <!-- Micron -->
     <!-- Run Tritech MSIS driver as Micron -->
@@ -67,8 +65,8 @@
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos13" args="0.6 0.0 0.0 0.79 0.0 0.0 /sparus2 /echosounder13 100" />
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos14" args="0.6 0.0 0.0 0.0 0.0 0.0 /sparus2 /echosounder14 100" />
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="0.6 0.0 0.0 0.0 -0.79 0.0 /sparus2 /echosounder15 100" />
- <!--       <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="1.0 0.0 0.09 0.0 0.0 0.0 /sparus2 /echosounder15 100" /> -->
-       <node unless="$(arg Micron)" pkg="tf" type="static_transform_publisher" name="sparus2_to_micron" args="0.5 0.0 0.0 0.0 -1.57 0.0 /sparus2 /micron 100" />
+        <!--node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="1.0 0.0 0.09 0.0 0.0 0.0 /sparus2 /echosounder15 100" / -->
+        <node unless="$(arg Micron)" pkg="tf" type="static_transform_publisher" name="sparus2_to_micron" args="0.5 0.0 0.0 0.0 -1.57 0.0 /sparus2 /micron 100" />
 
         <!-- Driver -->
         <node name="echosounders_driver" pkg="imaginex_echosounder" type="echosounders_driver.py" output="screen">
@@ -89,10 +87,9 @@
 
     <!-- Communications -->
     <group if="$(arg enableModem)">
-        <rosparam command="load" file="$(find cola2_s2)/config/evologics_modem_s2.yaml" />
+        <rosparam command="load" file="$(find cola2_s2)/config/evologics_modem.yaml" />
         <node name="evologics_modem" pkg="evologics_modem" type="evologics_modem_ros.py" respawn="true"/>
     </group>
-
 
     <!-- ROTATIVE PAYLOAD -->
     <group if="$(arg enableRotativePayload)">
@@ -100,9 +97,8 @@
     </group>
 
     <!--  ENABLE BEACONS CONTROL BOARD -->
-    <!--node if="$(arg enableBeacons)" name="switch_board" pkg="cola2_safety_dev" type="sparus_switch_board.py" output="screen" /-->
+    <node if="$(arg enableBeacons)" name="switch_board" pkg="s2_switch_board" type="s2_switch_board.py" output="screen" />
 
     <!-- Airmar Echosounder -->
-    <!--include if="$(arg enableAirmarEchosounder)" file="$(find cola2_perception_dev)/launch/airmarEchosounder.launch"/-->
+    <include if="$(arg enableAirmarEchosounder)" file="$(find cola2_s2)/launch/airmar_echosounder.launch"/>
 </launch>
-
