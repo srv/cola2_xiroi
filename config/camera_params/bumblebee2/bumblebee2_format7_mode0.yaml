@@ -1,0 +1,37 @@
+# Example camera parameters (for Bumblebee2)
+
+# Parameters (no lens required/used)
+guid: 00b09d0100ad589b          # (defaults to first camera on bus)
+iso_speed: 400  # IEEE1394a
+video_mode: format7_mode0   # 1024x768 @ 30fps bayer pattern
+frame_rate: 30 # max fps (Hz)
+format7_color_coding: raw8  # for bayer (we can use others, even rgb8 directly)
+# With raw8, we don't need to configure bayer pattern and method, actually we
+# cannot change them
+#bayer_pattern: grgb
+#bayer_method: HQ
+auto_brightness: 3 # Manual (3)
+brightness: 0
+auto_exposure: 3 # Manual (3)
+exposure: 350
+# Is better to increase gain than shutter speed, becuase gain produce salt&pepper
+# noise, while shutter speed produce motion blur, which is harder to deal with.
+auto_gain: 3 # Manual (3)
+gain: 426 # approx. 15dB
+# We cannot set gamma manually in ROS (diamondback), so we switch it off
+auto_gamma: 0 # Off (0)
+#gamma: 1024    # gamma 1
+auto_saturation: 3 # Manual (3)
+saturation: 1000
+auto_sharpness: 3 # Manual (3)
+sharpness: 1000
+# See comment above wrt to gain and shutter speed setting.
+auto_shutter: 3 # Manual (3)
+shutter: 264 # approx. 12.5ms
+auto_white_balance: 3 # Manual (3)
+white_balance_BU: 613
+white_balance_RV: 677
+frame_id: bumblebee2
+camera_info_url: cameras_cirs://calibration/bumblebee2/format7_mode0/calibration_bumblebee2.yaml
+strobe: false
+

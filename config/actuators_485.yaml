@@ -1,0 +1,11 @@
+# Common parameters
+thrusters/request_info: True
+thrusters/max_step: 0.1
+thrusters/symmetric: True
+
+# vertical, right (estribord), left (babord)
+thrusters/addresses: [164, 10, 80]
+thrusters/signs: [1, -1, 1]
+thrusters/limiter: [0.6, 1.0, 1.0]
+
+fins/address: 116

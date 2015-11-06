@@ -1,0 +1,6 @@
+evologics_modem/debug: False
+evologics_modem/serialtty: "/dev/ttyS10"
+evologics_modem/ownid: 3
+evologics_modem/mtype: "S"
+evologics_modem/doutput: -1
+evologics_modem/tf: [0.5, 0.0, -0.1]

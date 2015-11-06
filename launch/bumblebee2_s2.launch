@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Usage:
+  roslaunch cameras_cirs bumblebee2_girona500.launch view:=true
+  -->
+
+  <!-- Logger config -->
+  <!-- For the camera1394stereo driver only -->
+  <env name="ROSCONSOLE_CONFIG_FILE"
+       value="$(find camera1394stereo)/config/camera1394stereo.config"/>
+
+  <!-- Arguments -->
+  <!-- Show video output (both RAW and rectified) -->
+  <arg name="view" default="false"/>
+  <!-- Camera params (config) -->
+  <!-- stereo (using camera1394stereo, since camera1394 doesn't support it) -->
+  <arg name="params"
+       default="$(find cola2_s2)/config/camera_params/bumblebee2/bumblebee2_format7_mode3_s2.yaml"/>
+
+  <!-- Stereo Camera driver -->
+  <node pkg="camera1394stereo" type="camera1394stereo_node"
+        name="camera1394stereo_node" output="screen">
+    <rosparam file="$(arg params)"/>
+  </node>
+
+  <!-- Show video output -->
+  <group if="$(arg view)">
+    <!-- Image viewer (RAW left image) -->
+    <node pkg="image_view" type="image_view" name="raw_left_image">
+      <remap from="image" to="stereo_camera/left/image_raw"/>
+    </node>
+
+    <!-- Image viewer (RAW right image) -->
+    <node pkg="image_view" type="image_view" name="raw_right_image">
+      <remap from="image" to="stereo_camera/right/image_raw"/>
+    </node>
+  </group>
+</launch>
+

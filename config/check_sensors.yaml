@@ -1,0 +1,4 @@
+check_sensors/bumblebee: False
+check_sensors/profiler: False
+check_sensors/micron: False
+

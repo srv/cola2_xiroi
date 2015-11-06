@@ -1,0 +1,34 @@
+# SPARUS II SERIAL PORTS
+teledyne_explorer_dvl/sp_path: "/dev/ttyS5"
+teledyne_explorer_dvl/sp_baud_rate: 115200
+teledyne_explorer_dvl/sp_char_size: 8
+teledyne_explorer_dvl/sp_stop_bits: 1
+teledyne_explorer_dvl/sp_parity: "NONE"
+teledyne_explorer_dvl/sp_flow_control: "NONE"
+teledyne_explorer_dvl/sp_timeout: 1000
+
+fastrax_it_500/sp_path: "/dev/ttyS6"
+fastrax_it_500/sp_baud_rate: 9600
+fastrax_it_500/sp_char_size: 8
+fastrax_it_500/sp_stop_bits: 1
+fastrax_it_500/sp_parity: "NONE"
+fastrax_it_500/sp_flow_control: "NONE"
+fastrax_it_500/sp_timeout: 10000
+
+actuators_485/sp_path: "/dev/ttyS7"
+actuators_485/sp_baud_rate: 57600
+actuators_485/sp_char_size: 8
+actuators_485/sp_stop_bits: 1
+actuators_485/sp_parity: "NONE"
+actuators_485/sp_flow_control: "NONE"
+
+adis_imu/sp_path: "/dev/ttyS8"
+adis_imu/sp_baud_rate: 57600
+adis_imu/sp_char_size: 8
+adis_imu/sp_stop_bits: 2
+adis_imu/sp_parity: "NONE"
+adis_imu/sp_flow_control: "NONE"
+adis_imu/device_timeout: 1000
+
+mon_control_board/sp_path: '/dev/ttyS9'
+mon_control_board/sp_baud_rate: 19200

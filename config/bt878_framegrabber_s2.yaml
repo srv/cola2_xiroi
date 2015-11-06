@@ -1,0 +1,42 @@
+bt878_framegrabber/lights_on: False
+
+bt878_framegrabber/tf: [0.56, 0.0, 0.51, 0.0, 0.0, 0.0]
+bt878_framegrabber/digital_output: 7
+bt878_framegrabber/device_id: 0
+bt878_framegrabber/video_input: 0
+
+bt878_framegrabber/width: 720
+bt878_framegrabber/height: 540
+bt878_framegrabber/color: True
+
+
+bt878_framegrabber/focal_length: [766.49708, 766.49708] #[737.250777, 740.432120]
+bt878_framegrabber/principal_point: [389.163683, 198.342036] #[339.642299, 273.090231]
+bt878_framegrabber/distortion_coeffs: [-0.358182, 0.116278, 0.020469, -0.007174, 0.0] #[-0.493339, 0.314037, -0.002524, 0.006195, 0.000000]
+bt878_framegrabber/pmatrix_fx: 700.706421
+bt878_framegrabber/pmatrix_fy: 732.152832
+bt878_framegrabber/pmatrix_cx: 389.268959
+bt878_framegrabber/pmatrix_cy: 197.799274
+
+# Ranges from 0 to 65535
+bt878_framegrabber/brightness: 0
+bt878_framegrabber/contrast: 512
+bt878_framegrabber/saturation: 256
+bt878_framegrabber/hue: 10
+
+# Ranges from 0 to 100
+bt878_framegrabber/uv_ratio: 90
+
+bt878_framegrabber/verbose: True
+bt878_framegrabber/fps: 2
+
+# Possibilities V4L2_PIX_FMT_RGB32, V4L2_PIX_FMT_YUYV, V4L2_PIX_FMT_RGB24, V4L2_PIX_FMT_RGB565
+bt878_framegrabber/v4l2_pix_fmt: "V4L2_PIX_FMT_YUYV"
+
+# Possibilities V4L2_FIELD_ALTERNATE, V4L2_FIELD_INTERLACED, V4L2_FIELD_BOTTOM, V4L2_FIELD_TOP
+bt878_framegrabber/v4l2_field_type: "V4L2_FIELD_INTERLACED"
+
+bt878_framegrabber/save: False
+bt878_framegrabber/file_prefix: "cam"
+bt878_framegrabber/file_ext: ".jpg"
+

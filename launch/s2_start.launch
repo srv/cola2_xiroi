@@ -1,0 +1,147 @@
+<launch>
+    <!-- Sparus Core params -->
+    <arg name="enableActuators" default="false"/>
+    <arg name="enableImu" default="true"/>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableAvoidCollision" default="false"/>
+
+    <!--Sparus Payload Params -->
+    <arg name="Camera" default="false"/>
+    <arg name="enableBumblebee" default="false"/>
+    <arg name="enableBumblebeeTF" default="false"/>
+    <arg name="Guppy" default="false"/>
+    <arg name="Multibeam" default="false"/>
+    <arg name="SSS" default="false"/>
+    <arg name="Micron" default="false"/>
+    <arg name="Aris" default="false"/>
+    <arg name="EchoSounders" default="false"/>
+    <arg name="enableModem" default="false"/>
+    <arg name="enableRotativePayload" default="false"/>
+    <arg name="enableBeacons" default="false"/>
+    <arg name="enableAirmarEchosounder" default="false"/>
+
+    <!-- Sparus Start params -->
+    <arg name="enableGUI" default="false" />
+    <arg name="enableJoystick" default="true" />
+    <arg name="enableLog" default="false" />
+
+
+    <!--  #################  DEFINE JOYSTICK DEVICE  #################  -->
+    <arg name="joystickDevice" value="/dev/input/js0"/>
+    <!--arg name="joystickDevice" value="/dev/input/js1"/-->
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_A33B9336-joystick"/ -->
+
+    <!--  ################# SET REMOTE MACHINE  #################  -->
+
+    <!-- NARCIS' MACBOOK PRO JOYSTICK SETTINGS -->
+<!--
+    <arg name="desktopUserName" value="narcis"/>
+    <arg name="desktopMachineAddr" value="narcis-vb" />
+-->
+
+    <!-- BLACK MACBOOK -->
+<!--
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="cirs-macbook" />
+-->
+
+    <!-- JUANDAVID -->
+<!--
+    <arg name="desktopUserName" value="juandhv"/>
+    <arg name="desktopMachineAddr" value="juandhv-MacBookPro" />
+-->
+
+    <!-- SUPERLAPTOP -->
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="cirs-G74Sx" />
+
+    <!-- TOSHI -->
+<!--
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="toshi" />
+-->
+    <!-- A Palomer laptop -->
+<!--
+    <arg name="desktopUserName" value="apalomer"/>
+    <arg name="desktopMachineAddr" value="apalomer-N56J"/>
+-->
+
+    <!-- newasus -->
+<!--
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="cirs-newasus"/>
+-->
+
+    <!--S2 address-->
+    <arg name="desktopMachineName" value="remote_machine" />
+    <arg name="ROSMaster" value="http://192.168.1.61:11311" />
+
+    <!-- LOAD PARAMETERS -->
+    <rosparam command="load" file="$(find cola2_s2)/config/map_ack_s2.yaml"/>
+
+    <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
+    <!-- LOAD S2 CORE -->
+    <include file="$(find cola2_s2)/launch/s2_core.launch">
+        <arg name="enableActuators" value="$(arg enableActuators)"/>
+        <arg name="enableImu" value="$(arg enableImu)"/>
+        <arg name="enableSafety" value="$(arg enableSafety)"/>
+        <arg name="enableAvoidCollision" value="$(arg enableAvoidCollision)"/>
+    </include>
+
+    <!-- RUN JOYSTICK -->
+    <group if="$(arg enableJoystick)">
+        <machine name="$(arg desktopMachineName)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2/env.bash"/>
+        <node name="map_ack" pkg="cola2_control" type="map_ack.py" respawn="true" output="screen" machine="$(arg desktopMachineName)"/>
+        <!-- JOYSTICK -->
+        <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineName)">
+            <param name="dev" value="$(arg joystickDevice)"/>
+            <param name="deadzone" value="0.1"/>
+        </node>
+    </group>
+
+    <group unless="$(arg enableJoystick)">
+        <node name="keyboard" pkg="cola2_control" type="keyboard" />
+    </group>
+
+
+    <!-- RUN WEB GUI -->
+    <group if="$(arg enableGUI)">
+        <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_navigation/nav_sts 4.0 /cola2_navigation/nav_sts_hz"/>
+        <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_world_waypoint_req 2.0 /cola2_control/merged_world_waypoint_req_hz"/>
+        <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_velocity_req 2.0 /cola2_control/merged_body_velocity_req_hz"/>
+        <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_force_req 2.0 /cola2_control/merged_body_force_req_hz"/>
+        <node name="thrusters_data_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/thrusters_data 4.0 /cola2_control/thrusters_data_hz"/>
+
+
+        <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+        <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" />
+    </group>
+
+    <!-- LOAD S2 PAYLOAD -->
+    <include file="$(find cola2_s2)/launch/s2_payload.launch">
+        <arg name="Camera" value="$(arg Camera)"/>
+        <arg name="enableBumblebee" value="$(arg enableBumblebee)"/>
+        <arg name="enableBumblebeeTF" value="$(arg enableBumblebeeTF)"/>
+        <arg name="Guppy" value="$(arg Guppy)"/>
+        <arg name="Multibeam" value="$(arg Multibeam)"/>
+        <arg name="SSS" value="$(arg SSS)"/>
+        <arg name="Micron" value="$(arg Micron)"/>
+        <arg name="Aris" value="$(arg Aris)"/>
+        <arg name="EchoSounders" value="$(arg EchoSounders)"/>
+        <arg name="enableModem" value="$(arg enableModem)"/>
+        <arg name="enableRotativePayload" value="$(arg enableRotativePayload)"/>
+        <arg name="enableBeacons" value="$(arg enableBeacons)"/>
+        <arg name="enableAirmarEchosounder" value="$(arg enableAirmarEchosounder)"/>
+   </include>
+
+
+    <!-- BAG LOGS: in home folder of linux user, format is s2_xxxxxxxxx.bag -->
+    <group if="$(arg enableLog)">
+        <node name="bag_record" output="screen" pkg="rosbag" type="record" args="-a -x '(/stereo_camera/(.)*)|(/camera/(.)*)|(/octo(.)*)|(/(.)*cells(.)*)|/projected_map|/multibeam_cloud' /stereo_camera/left/camera_info /stereo_camera/left/image_raw /stereo_camera/right/camera_info /stereo_camera/right/image_raw --split --size 1024 -o /home/cirs/s2" />
+        <node if="$(arg Camera)" name="camera_record" output="screen" pkg="rosbag" type="record" args="/camera/image_color /camera/camera_info --split --size 2048 -o /home/cirs/s2_camera" />
+    </group>
+
+</launch>
+
