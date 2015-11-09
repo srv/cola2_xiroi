@@ -73,7 +73,7 @@
     </group>
 
     <!-- CONTROL STACK -->
-    <node name="controller" pkg="cola2_control" type="controller_sparus2" respawn="true"/>
+    <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
 
     <!-- GUIDANCE NODES -->
     <node name="captain" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>

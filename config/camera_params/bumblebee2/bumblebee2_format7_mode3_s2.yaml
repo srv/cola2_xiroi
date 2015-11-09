@@ -42,7 +42,7 @@ white_balance_RV: 677 #677 #950 --> sea
 frame_id: bumblebee2
 # Calibration files are taken from the not slow version,
 # because they're the same.
-camera_info_url_left: package://cameras_cirs/calibration/bumblebee2/format7_mode3/${NAME}.yaml
-camera_info_url_right: package://cameras_cirs/calibration/bumblebee2/format7_mode3/${NAME}.yaml
+camera_info_url_left: package://cola2_s2/config/camera_calibration/${NAME}.yaml
+camera_info_url_right: package://cola2_s2/config/camera_calibration/${NAME}.yaml
 strobe: false
 

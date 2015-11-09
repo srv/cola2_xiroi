@@ -1,6 +1,6 @@
 <launch>
     <!-- Sparus Core params -->
-    <arg name="enableActuators" default="false"/>
+    <arg name="enableActuators" default="true"/>
     <arg name="enableImu" default="true"/>
     <arg name="enableSafety" default="true"/>
     
