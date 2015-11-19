@@ -90,7 +90,7 @@
 
     <!-- RUN JOYSTICK -->
     <group if="$(arg enableJoystick)">
-        <machine name="$(arg desktopMachineName)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2/env.bash"/>
+        <machine name="$(arg desktopMachineName)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2_core/env.bash"/>
         <node name="map_ack" pkg="cola2_control" type="map_ack.py" respawn="true" output="screen" machine="$(arg desktopMachineName)"/>
         <!-- JOYSTICK -->
         <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineName)">
