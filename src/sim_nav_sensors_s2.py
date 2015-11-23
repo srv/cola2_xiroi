@@ -351,52 +351,54 @@ class SimNavSensorsS2:
     def pub_gps_callback(self, event):
         """ This method is a callback of a timer. This publishes gps data """
         # Publish GPS data only near to surface
+        gps = FastraxIt500Gps()
+        gps.header.stamp = rospy.Time.now()
+        gps.header.frame_id = 'fastrax_it_500_gps'
+        north = (self.odom.pose.pose.position.x +
+                 np.random.normal(0.0, self.gps_position_covariance[0]))
+        east = (self.odom.pose.pose.position.y +
+                np.random.normal(0.0, self.gps_position_covariance[1]))
+        gps.north = north
+        gps.east = east
         if self.odom.pose.pose.position.z < 0.5:
-            gps = FastraxIt500Gps()
-            gps.header.stamp = rospy.Time.now()
-            gps.header.frame_id = 'fastrax_it_500_gps'
-            north = (self.odom.pose.pose.position.x +
-                     np.random.normal(0.0, self.gps_position_covariance[0]))
-            east = (self.odom.pose.pose.position.y +
-                    np.random.normal(0.0, self.gps_position_covariance[1]))
-            gps.north = north
-            gps.east = east
             gps.data_quality = 1
-            gps.h_dop = 0.98
-            gps.v_dop = 1.37
+        else:
+            gps.data_quality = 0
+        gps.h_dop = 0.98
+        gps.v_dop = 1.37
 
-            lat, lon, h = self.ned.ned2geodetic(np.array([north, east, 0.0]))
-            deg_lat, deg_lon = NED.degree2DegreeMinute(lat, lon)
+        lat, lon, h = self.ned.ned2geodetic(np.array([north, east, 0.0]))
+        deg_lat, deg_lon = NED.degree2DegreeMinute(lat, lon)
 
-            if deg_lat < 0.0:
-                gps.latitude_hemisphere = 1
-                deg_lat = -deg_lat
-            else:
-                gps.latitude_hemisphere = 0
+        if deg_lat < 0.0:
+            gps.latitude_hemisphere = 1
+            deg_lat = -deg_lat
+        else:
+            gps.latitude_hemisphere = 0
 
-            if deg_lon < 0.0:
-                gps.longitude_hemisphere = 2
-                deg_lon = -deg_lon
-            else:
-                gps.longitude_hemisphere = 3
+        if deg_lon < 0.0:
+            gps.longitude_hemisphere = 2
+            deg_lon = -deg_lon
+        else:
+            gps.longitude_hemisphere = 3
 
-            gps.latitude = deg_lat
-            gps.longitude = deg_lon
+        gps.latitude = deg_lat
+        gps.longitude = deg_lon
 
-            #rospy.loginfo("%s: publishing gps", self.name)
-            self.pub_gps.publish(gps)
+        #rospy.loginfo("%s: publishing gps", self.name)
+        self.pub_gps.publish(gps)
 
-            # Publish GPS TF
-            gps_tf = tf.TransformBroadcaster()
-            o = tf.transformations.quaternion_from_euler(
-                                    math.radians(self.gps_tf_array[3]),
-                                    math.radians(self.gps_tf_array[4]),
-                                    math.radians(self.gps_tf_array[5]),
-                                    'sxyz')
-            gps_tf.sendTransform((self.gps_tf_array[0],
-                                  self.gps_tf_array[1],
-                                  self.gps_tf_array[2]), o, gps.header.stamp,
-                                  'gps_from_sim_nav_sensors', 'sparus2')
+        # Publish GPS TF
+        gps_tf = tf.TransformBroadcaster()
+        o = tf.transformations.quaternion_from_euler(
+                                math.radians(self.gps_tf_array[3]),
+                                math.radians(self.gps_tf_array[4]),
+                                math.radians(self.gps_tf_array[5]),
+                                'sxyz')
+        gps_tf.sendTransform((self.gps_tf_array[0],
+                              self.gps_tf_array[1],
+                              self.gps_tf_array[2]), o, gps.header.stamp,
+                              'gps_from_sim_nav_sensors', 'sparus2')
 
 
     def get_config(self):
