@@ -7,7 +7,7 @@ navigator/pressure_covariance: 0.1
 navigator/model_covariance: [0.02, 0.02, 0.02]
 
 # If DVL data > "navigatior/dvl_max_v" (m/s) discard it
-navigator/dvl_max_v: 1.2
+navigator/dvl_max_v: 1.5
 
 # Set filter and NED initialization
 navigator/initialize_filter_from_gps: true

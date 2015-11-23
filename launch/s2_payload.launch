@@ -1,16 +1,16 @@
 <launch>
     <!--Sparus Payload Params -->
     <arg name="Camera" default="false"/>
-    <arg name="enableBumblebee" default="false"/>
-    <arg name="enableBumblebeeTF" default="false"/>
+    <arg name="enableBumblebee" default="true"/>
+    <arg name="enableBumblebeeTF" default="true"/>
     <arg name="Guppy" default="false"/>
     <arg name="Aris" default="false"/>
     <arg name="Multibeam" default="false"/>
     <arg name="SSS" default="false"/>
-    <arg name="Micron" default="false"/>
-    <arg name="EchoSounders" default="false"/>
-    <arg name="enableModem" default="false"/>
-    <arg name="enableRotativePayload" default="false"/>
+    <arg name="Micron" default="true"/>
+    <arg name="EchoSounders" default="true"/>
+    <arg name="enableModem" default="true"/>
+    <arg name="enableRotativePayload" default="true"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
 
