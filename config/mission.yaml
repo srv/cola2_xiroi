@@ -1,0 +1,24 @@
+# If the trajectory is absolute replace north east for latitude, longitude
+trajectory/north: [5.0, 5.0, -5.0, -5.0]
+trajectory/east: [5.0, -5.0, -5.0, 5.0]
+
+# Depth or altitude. First and last waypoints must be 0.0 
+trajectory/z: [0.0, 3.0, 3.0, 0.0]
+
+# If altitude_mode is False then is Depth otherwise Altitude
+trajectory/altitude_mode: [False, False, False, False]
+
+# Default mode for girona500 = 'los' and for sparus = 'sparus_los'
+trajectory/mode: 'sparus_los'
+
+# Trajectory timeout in minutes
+trajectory/time_out: 10
+
+# Optional parameters
+# Keep position for X seconds after reaching a waypoint
+trajectory/wait: [0.0, 10.0, 10.0, 0.0]
+
+# Actions to be executed before moving to this waypoint
+#trajectory/actions: ['actionA', '', '', '']
+#trajectory/actionA: ['/cola2_control/disable_thrusters', ''] # example of an empty service
+
