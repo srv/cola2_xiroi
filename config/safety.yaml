@@ -11,6 +11,7 @@ safety/min_nav_update: 2.0
 safety/min_wifi_update: 30.0  # in MORPH change for 10000 if buoy detached
 safety/min_modem_update: 400
 safety/usbl_safety_always_on: false
+safety/min_dvl_good_data: 20
 
 safety/min_battery_charge: 0.0
 safety/min_distance_to_wall: 5.0 #MORPH only
