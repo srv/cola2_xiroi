@@ -5,33 +5,29 @@
 # IF YOU CHANGE IT, USE rosinstall FOR THE CHANGES TO TAKE EFFECT
 - setup-file: {local-name: /opt/ros/hydro/setup.sh}
 # Basic COLA2
-#- git: {local-name: auv_msgs,  uri: 'git@bitbucket.org:udg_cirs/auv_msgs.git',  version: master}
-#- git: {local-name: cola2, uri: 'git@bitbucket.org:udg_cirs/cola2.git', version: master}
-#- git: {local-name: cola2_dev, uri: 'git@bitbucket.org:udg_cirs/cola2_dev.git', version: master}
-- git: {local-name: auv_msgs, uri:  'git@bitbucket.org:udg_cirs/auv_msgs.git',  version: master}
-- git: {local-name: cola2_core, uri:     'git@bitbucket.org:udg_cirs/cola2_core.git',     version: master}
-- git: {local-name: cola2_g500, uri: 'git@bitbucket.org:udg_cirs/cola2_g500.git', version: master}
-- git: {local-name: cola2_s2, uri: 'git@bitbucket.org:udg_cirs/cola2_s2.git', version: master}
+- git: {local-name: src/auv_msgs, uri:  'git@bitbucket.org:udg_cirs/auv_msgs.git',  version: master}
+- git: {local-name: src/cola2_core, uri:     'git@bitbucket.org:udg_cirs/cola2_core.git',     version: master}
+- git: {local-name: src/cola2_s2, uri: 'git@bitbucket.org:udg_cirs/cola2_s2.git', version: master}
 
 # COLA2 DEV
-- git: {local-name: teledyne_explorer_dvl, uri: 'git@bitbucket.org:udg_cirs/teledyne_explorer_dvl.git', version: master}
-- git: {local-name: adis_imu, uri: 'git@bitbucket.org:udg_cirs/adis_imu.git', version: master}
-- git: {local-name: fastrax_it_500_gps, uri: 'git@bitbucket.org:udg_cirs/fastrax_it_500_gps.git', version: master}
-- git: {local-name: s2_actuators, uri: 'git@bitbucket.org:udg_cirs/s2_actuators.git', version: master}
-- git: {local-name: emus_bms, uri: 'git@bitbucket.org:udg_cirs/emus_bms.git', version: master}
-- git: {local-name: imaginex_side_scan_sonar, uri: 'git@bitbucket.org:udg_cirs/imaginex_side_scan_sonar.git', version: master}
-- git: {local-name: imaginex_multibeam_sonar, uri: 'git@bitbucket.org:udg_cirs/imaginex_multibeam_sonar.git', version: master}
-- git: {local-name: imaginex_echosounder, uri: 'git@bitbucket.org:udg_cirs/imaginex_echosounder.git', version: master}
-- git: {local-name: evologics_modem, uri: 'git@bitbucket.org:udg_cirs/evologics_modem.git', version: master}
-- git: {local-name: bt878_framegrabber, uri: 'git@bitbucket.org:udg_cirs/bt878_framegrabber.git', version: master}
-- git: {local-name: camera1394stereo, uri: 'https://github.com/srv/camera1394stereo.git', version: indigo}
-- git: {local-name: tritech_msis, uri: 'git@bitbucket.org:udg_cirs/tritech_msis.git', version: master}
-- git: {local-name: s2_rotative_payload, uri: 'git@bitbucket.org:udg_cirs/s2_rotative_payload.git', version: master}
-- git: {local-name: s2_mon_control_board, uri: 'git@bitbucket.org:udg_cirs/s2_mon_control_board.git', version: master}
+- git: {local-name: src/teledyne_explorer_dvl, uri: 'git@bitbucket.org:udg_cirs/teledyne_explorer_dvl.git', version: master}
+- git: {local-name: src/adis_imu, uri: 'git@bitbucket.org:udg_cirs/adis_imu.git', version: master}
+- git: {local-name: src/fastrax_it_500_gps, uri: 'git@bitbucket.org:udg_cirs/fastrax_it_500_gps.git', version: master}
+- git: {local-name: src/s2_actuators, uri: 'git@bitbucket.org:udg_cirs/s2_actuators.git', version: master}
+- git: {local-name: src/emus_bms, uri: 'git@bitbucket.org:udg_cirs/emus_bms.git', version: master}
+- git: {local-name: src/imaginex_side_scan_sonar, uri: 'git@bitbucket.org:udg_cirs/imaginex_side_scan_sonar.git', version: master}
+- git: {local-name: src/imaginex_multibeam_sonar, uri: 'git@bitbucket.org:udg_cirs/imaginex_multibeam_sonar.git', version: master}
+- git: {local-name: src/imaginex_echosounder, uri: 'git@bitbucket.org:udg_cirs/imaginex_echosounder.git', version: master}
+- git: {local-name: src/evologics_modem, uri: 'git@bitbucket.org:udg_cirs/evologics_modem.git', version: master}
+- git: {local-name: src/bt878_framegrabber, uri: 'git@bitbucket.org:udg_cirs/bt878_framegrabber.git', version: master}
+- git: {local-name: src/camera1394stereo, uri: 'https://github.com/srv/camera1394stereo.git', version: indigo}
+- git: {local-name: src/tritech_msis, uri: 'git@bitbucket.org:udg_cirs/tritech_msis.git', version: master}
+- git: {local-name: src/s2_rotative_payload, uri: 'git@bitbucket.org:udg_cirs/s2_rotative_payload.git', version: master}
+- git: {local-name: src/s2_mon_control_board, uri: 'git@bitbucket.org:udg_cirs/s2_mon_control_board.git', version: master}
 
 # MORPH architecture
 #- git: {local-name: morph-ros-pkg,      uri: 'morph:morph-ros-pkg.git',      version: catkin}
-#- git: {local-name: morph-cmre-ros-pkg, uri: 'morph:morph-cmre-ros-pkg.git', version: develop}
+- git: {local-name: src/morph-cmre-ros-pkg, uri: 'morph:morph-cmre-ros-pkg.git', version: develop}
 #- git: {local-name: morph-ist-ros-pkg,  uri: 'morph:morph-ist-ros-pkg.git',  version: catkin}
 #- git: {local-name: morph-iut-ros-pkg,  uri: 'morph:morph-iut-ros-pkg.git',  version: catkin}
 #- git: {local-name: morph-udg-ros-pkg,  uri: 'morph:morph-udg-ros-pkg',      version: master}
