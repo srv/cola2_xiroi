@@ -1,0 +1,35 @@
+pub_rate: 1.0
+base_path: ''
+analyzers:
+  navigation:
+    type: GenericAnalyzer
+    path: navigation
+    name: [
+        '/navigator', 
+        '/fastrax_it_500_gps', 
+        '/teledyne_explorer_dvl'
+    ]
+
+  control:
+    type: GenericAnalyzer
+    path: control
+    name: [
+        '/teleoperation', 
+        '/captain', 
+        '/s2_actuators',
+        '/controller'
+    ]
+
+  safety:
+    type: GenericAnalyzer
+    path: safety
+    name: [
+        '/safe_depth_altitude', 
+        '/virtual_cage', 
+        '/up_time', 
+        '/diagnostics_supervisor',
+        '/battery',
+        'check_sensors',
+        '/s2_mon_control_board'
+    ]
+
