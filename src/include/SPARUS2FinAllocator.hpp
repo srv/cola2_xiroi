@@ -19,20 +19,22 @@ public:
                          _old_ret( n_fins ),
                          _is_init( false )
     {
-        // Load params
-        _max_fin_force = 26.15;
-        _max_fin_angle = 40;
-        _min_fin_angle = -40;
-        _fin_distance_surge = 0.65;
-        _fin_distance_yaw = 0.14;
-        //_force_to_fins_ratio = 10;
+		if ( _n_fins > 0 ) {
+			// Load params
+			_max_fin_force = 26.15;
+			_max_fin_angle = 40;
+			_min_fin_angle = -40;
+			_fin_distance_surge = 0.65;
+			_fin_distance_yaw = 0.14;
+			//_force_to_fins_ratio = 10;
 
-        Eigen::MatrixXd fcm( 6, _n_fins );
-        fcm << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.14, 0.14, 0.65, 0.65, 0.0, 0.0;
-        std::cout << "fcm: \n" << fcm << "\n";
+			Eigen::MatrixXd fcm( 6, _n_fins );
+			fcm << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.14, 0.14, 0.65, 0.65, 0.0, 0.0;
+			std::cout << "fcm: \n" << fcm << "\n";
 
-        // Compute pseudoinverse
-        _fcm_inv = ( fcm.transpose() * fcm ).inverse() * fcm.transpose();
+			// Compute pseudoinverse
+			_fcm_inv = ( fcm.transpose() * fcm ).inverse() * fcm.transpose();
+		}
     }
 
     ~FinAllocatorSPARUS2()
