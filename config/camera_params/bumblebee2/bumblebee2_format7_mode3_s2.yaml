@@ -24,7 +24,7 @@ exposure: 350
 # Is better to increase gain than shutter speed, becuase gain produce salt&pepper
 # noise, while shutter speed produce motion blur, which is harder to deal with.
 auto_gain: 2 # Auto (2) Manual (3)
-gain: 413 # approx. 15dB 413
+gain: 1 # approx. 15dB 413
 # We cannot set gamma manually in ROS (electric), so we don't touch it
 # It must be set to Manual (3) with value 4095 (max, approx. gamma 4)
 #auto_gamma: 0 # Off (0)
@@ -37,8 +37,8 @@ sharpness: 1000
 auto_shutter: 2 # Auto (2), Manual (3)
 shutter: 264 # approx. 12.5ms
 auto_white_balance: 3 #Auto (2) Manual (3)
-white_balance_BU: 613 #613
-white_balance_RV: 677 #677 #950 --> sea
+white_balance_BU: 480 #613
+white_balance_RV: 800 #677 #677 #970 --> sea
 frame_id: bumblebee2
 # Calibration files are taken from the not slow version,
 # because they're the same.

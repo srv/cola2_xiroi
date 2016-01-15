@@ -4,11 +4,11 @@ sonar_type: "micron"
 
 # Dynamic Parameters
 rangeScale: 20
-#cont: true
+cont: false
 #llim: 0
 #rlim: 360
-llim: 315
-rlim: 45
+llim: 135 # 315
+rlim: 225 # 45
 igain: 60
 soundSpeed: 1500
 soundSpeedAutomatic: false
@@ -36,9 +36,9 @@ channel2: True
 
 # Transformation
 # Sparus2 horizontal
-tf_x: 0.7
+tf_x: 0.885 # 0.7
 tf_y: 0.0
-tf_z: -0.15
+tf_z: -0.21 # -0.15
 tf_roll: 0.0
 tf_pitch: 0.0
 tf_yaw: 3.14159

@@ -4,15 +4,33 @@ analyzers:
   navigation:
     type: GenericAnalyzer
     path: navigation
-    name: ['/navigator']
+    name: [
+        '/navigator',
+        '/fastrax_it_500_gps',
+        '/teledyne_explorer_dvl'
+    ]
 
   control:
     type: GenericAnalyzer
     path: control
-    name: ['/teleoperation', '/captain', '/actuators']
+    name: [
+        '/teleoperation',
+        '/captain',
+        '/s2_actuators',
+        '/controller',
+        'joystick: Joystick Driver Status'
+    ]
 
   safety:
     type: GenericAnalyzer
     path: safety
-    name: ['/safe_depth_altitude', '/virtual_cage', '/up_time', '/diagnostics_supervisor']
+    name: [
+        '/safe_depth_altitude',
+        '/virtual_cage',
+        '/up_time',
+        '/diagnostics_supervisor',
+        '/battery',
+        '/check_sensors',
+        '/s2_mon_control_board'
+    ]
 

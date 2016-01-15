@@ -1,0 +1,48 @@
+<launch>
+    <!-- DEVICES CONFIG -->
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_9C49A89B-joystick"/-->
+    <arg name="joystickDevice" value="/dev/input/js1"/>
+    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
+    <arg name="sparusUserName" value="$(env LOGNAME)"/>
+
+    <!--<arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="toshi"/>
+    <arg name="desktopMachineName" value="toshi"/>/-->
+
+     <!-- SUPERLAPTOP -->
+<!-- 
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="cirs-G74Sx" />
+    <arg name="desktopMachineName" value="cirs-G74Sx" />
+-->
+
+    <!-- JUANDAVID -->
+    <arg name="desktopUserName" value="juandhv"/>
+    <arg name="desktopMachineAddr" value="brain-Ubuntu" />
+    <arg name="desktopMachineName" value="brain-Ubuntu" />
+    
+    <!--arg name="desktopMachineAddr" value="192.168.1.67"/-->
+    <!--arg name="ROSMaster" value="http://192.168.1.155:11311"/-->
+
+    <!-- MACHINES -->
+    <!--machine name="sparus" address="localhost" user="$(arg sparusUserName)" default="true"/-->
+    <machine name="$(arg desktopMachineName)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)"/>
+
+<!--_______________________________________________________________________________________________________________________-->
+
+
+
+    <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineName)">
+        <param name="dev" value="$(arg joystickDevice)"/>
+    </node>
+
+    <rosparam command="load" file="$(find cola2_s2)/config/s2_serial_ports.yaml"/>
+
+    <node name="test_actuators_open_loop" pkg="cola2_s2" type="test_actuators_open_loop.py" respawn="false"/>
+
+    <rosparam command="load" file="$(find cola2_s2)/config/actuators_485.yaml"/>
+    <node name="actuators" pkg="s2_actuators" type="s2_actuators" respawn="false" output="screen"/>
+
+    <node name="emus_bms_client" pkg="emus_bms" type="emus_bms_client" respawn="true"/>
+</launch>
