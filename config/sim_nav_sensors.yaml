@@ -1,6 +1,6 @@
 # Sensors information
-dynamics/sparus2/ned_origin_latitude: 38.5200248466315 #41.77737 # 41.7684
-dynamics/sparus2/ned_origin_longitude: -28.6320306729769 #3.03376 # 3.032
+dynamics/sparus2/ned_origin_latitude: 41.77737 # 41.7684
+dynamics/sparus2/ned_origin_longitude: 3.03876 # 3.032
 
 # Sant Feliu (41.78077, 3.04748)
 # Piscina (41.967283, 2.836075)
