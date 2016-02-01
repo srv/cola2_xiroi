@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot name="Sparus2">
+
+<!-- Links -->
+
+  <link name="sparus2">
+    <visual>
+      <origin xyz="0.0 0 0" rpy="-1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://cola2_s2/data/model/sparus2.3ds" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  
+</robot>

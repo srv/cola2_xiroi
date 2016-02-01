@@ -19,7 +19,10 @@
     <rosparam command="load" file="$(find cola2_s2)/config/sim_controller.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/map_ack.yaml"/>
-    <param name="robot_description" command="cat $(find cola2_s2)/data/rviz_model/sparus.urdf"/>
+    <param name="robot_description_sparus2" textfile="$(find cola2_s2)/data/model/sparus2.urdf"/>
+    <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
+        <remap from="robot_description" to="robot_description_sparus2"/>
+    </node>
 
     <!-- SAFETY NODES -->
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
@@ -36,7 +39,7 @@
     <node name="dynamics" pkg="cola2_sim" type="dynamics.py"/>
     <node name="sim_nav_sensors_s2" pkg="cola2_s2" type="sim_nav_sensors_s2.py" output="screen"/>
     <node name="sim_actuators_s2" pkg="cola2_s2" type="sim_actuators_s2.py" output="screen"/>
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>    
+    <!--node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/-->    
     
     <!-- NAVIGATION NODES -->
     <node name="navigator" pkg="cola2_s2" type="navigator_s2" respawn="false" output="screen"/>

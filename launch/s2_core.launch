@@ -20,8 +20,10 @@
     <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/controller.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
-    <param name="robot_description" command="cat $(find cola2_s2)/data/rviz_model/sparus.urdf"/>
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <param name="robot_description_sparus2" textfile="$(find cola2_s2)/data/model/sparus2.urdf"/>
+    <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
+        <remap from="robot_description" to="robot_description_sparus2"/>
+    </node>
 
 
 
