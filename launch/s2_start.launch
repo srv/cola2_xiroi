@@ -99,7 +99,9 @@
     </group>
 
     <group unless="$(arg enableJoystick)">
-        <node name="keyboard" pkg="cola2_control" type="keyboard" />
+        <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
+            <remap from="/keyboard" to="/cola2_control/keyboard_data"/>
+        </node>
     </group>
 
 
