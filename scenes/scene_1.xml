@@ -70,7 +70,7 @@
 
 <vehicle>
   <name>sparus</name>
-   <file>scenes/sparus.urdf</file>
+   <file>data/model/sparus2.urdf</file>
     <position>
       <x>0.0</x>
       <y>0.0</y>
