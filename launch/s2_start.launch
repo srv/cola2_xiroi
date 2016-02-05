@@ -90,18 +90,21 @@
     <!-- RUN JOYSTICK -->
     <group if="$(arg enableJoystick)">
         <machine name="$(arg desktopMachineAddr)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2_core/env.bash"/>
-        <node name="map_ack" pkg="cola2_control" type="map_ack.py" respawn="true" output="screen" machine="$(arg desktopMachineAddr)"/>
+        <!--node name="map_ack" pkg="cola2_control" type="map_ack.py" respawn="true" output="screen" machine="$(arg desktopMachineAddr)"/-->
         <!-- JOYSTICK -->
         <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineAddr)">
             <param name="dev" value="$(arg joystickDevice)"/>
             <param name="deadzone" value="0.1"/>
         </node>
+        <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10"/>
     </group>
 
     <group unless="$(arg enableJoystick)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
-            <remap from="/keyboard" to="/cola2_control/keyboard_data"/>
+            <!-- remap from="/keyboard" to="/cola2_control/keyboard_data"/-->
+            <remap from="/keyboard" to="/joy"/>
         </node>
+        <node name="keyboard_to_teleoperation" pkg="cola2_control" type="keyboard_to_teleoperation.py" />
     </group>
 
 

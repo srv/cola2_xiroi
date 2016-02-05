@@ -39,26 +39,26 @@
     <node name="dynamics" pkg="cola2_sim" type="dynamics.py"/>
     <node name="sim_nav_sensors_s2" pkg="cola2_s2" type="sim_nav_sensors_s2.py" output="screen"/>
     <node name="sim_actuators_s2" pkg="cola2_s2" type="sim_actuators_s2.py" output="screen"/>
-    
+
     <!-- NAVIGATION NODES -->
     <node name="navigator" pkg="cola2_s2" type="navigator_s2" respawn="false" output="screen"/>
 
-    <!-- CONTROL STACK -->    
+    <!-- CONTROL STACK -->
     <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
 
     <!-- GUIDANCE NODES -->
     <node name="pilot" pkg="cola2_control" type="pilot.py" respawn="false" output="screen"/>
     <node name="captain" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>
-   
+
     <!-- TELEOPERATION NODES -->
     <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" output="screen"/>
-    
+
     <group if="$(arg enableJoystick)">
         <node respawn="true" pkg="joy" type="joy_node" name="joystick">
             <param name="dev" value="$(arg joystickDevice)"/>
             <param name="deadzone" value="0.05"/>
         </node>
-        <node respawn="false" pkg="cola2_control" type="logitech_fx10_to_teleoperation.py" name="fx10"/>
+        <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10"/>
     </group>
     <group unless="$(arg enableJoystick)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
