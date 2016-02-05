@@ -59,6 +59,9 @@
         <param name="dev" value="$(arg joystickDevice)"/>
         <param name="deadzone" value="0.05"/>
     </node>
-    <node unless="$(arg enableJoystick)" name="keyboard" pkg="cola2_control" type="keyboard" output="screen"/>
+    <node unless="$(arg enableJoystick)" name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
+        <remap from="/keyboard" to="/cola2_control/keyboard_data"/>
+    </node>
+        
 
 </launch>
