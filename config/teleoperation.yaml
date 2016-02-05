@@ -1,7 +1,7 @@
 # teleoperation.py config file
 teleoperation/max_pos: [0.0, 0.0, 5.0, 3.14159265359, 1.0, 3.14159265359]
 teleoperation/min_pos: [0.0, 0.0, 0.0, -3.14159265359, -1.0, -3.14159265359]
-teleoperation/max_vel: [0.5, 0.0, 0.5, 0.0, 0.0, 0.5]
+teleoperation/max_vel: [1.0, 0.0, 0.5, 0.0, 0.0, 0.5]
 teleoperation/min_vel: [-0.3, 0.0, -0.5, 0.0, 0.0, -0.5]
 teleoperation/pose_controlled_axis: [False, False, False, False, False, False]
 teleoperation/base_pose: [0, 0, 0, 0, 0, 0]

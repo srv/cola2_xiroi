@@ -1,0 +1,46 @@
+# Sonar type
+name: "seaking_profiler"
+sonar_type: "seaking_profiler"
+
+# Digital output
+# digitalOutput: 6
+
+# Dynamic parameters
+rangeScale: 30
+cont: false
+llim: 90
+rlim: 270
+igain: 40
+soundSpeed: 1500
+soundSpeedAutomatic: false
+min_range: 1.5
+step: 2
+nbins: 400
+
+# Sensor static parameters
+adlow: 0
+adspan: 255
+adc8on: True
+scanright: True
+invert: false
+spPath: "/dev/ttyS4"
+spBaudRate: 115200
+spCharSize: 8
+spStopBits: 1
+spParity: "NONE"
+spFlowControl: "NONE"
+spTimeout: 10000
+spPeriod: 100
+slope1: 110
+slope2: 150
+channel2: True
+
+# Transformation
+tf_x: 0.38
+tf_y: 0.35
+tf_z: -0.55
+tf_roll: 0.0
+tf_pitch: 0.0
+tf_yaw: 3.14159
+frame_id: "sparus2"
+child_id: "seaking_profiler"

@@ -20,9 +20,9 @@ bayer_method: None
 auto_brightness: 2 # Manual (3)
 brightness: 0
 auto_exposure: 3 # Manual (3)
-exposure: 350
+exposure: 210
 # Is better to increase gain than shutter speed, becuase gain produce salt&pepper
-# noise, while shutter speed produce motion blur, which is harder to deal with.
+#tosparus noise, while shutter speed produce motion blur, which is harder to deal with.
 auto_gain: 2 # Auto (2) Manual (3)
 gain: 1 # approx. 15dB 413
 # We cannot set gamma manually in ROS (electric), so we don't touch it
@@ -38,7 +38,7 @@ auto_shutter: 2 # Auto (2), Manual (3)
 shutter: 264 # approx. 12.5ms
 auto_white_balance: 3 #Auto (2) Manual (3)
 white_balance_BU: 480 #613
-white_balance_RV: 800 #677 #677 #970 --> sea
+white_balance_RV: 900 #677 #677 #970 --> sea
 frame_id: bumblebee2
 # Calibration files are taken from the not slow version,
 # because they're the same.
