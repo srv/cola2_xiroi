@@ -1,18 +1,19 @@
 <launch>
     <!--Sparus Payload Params -->
     <arg name="Camera" default="false"/>
-    <arg name="enableBumblebee" default="true"/>
-    <arg name="enableBumblebeeTF" default="true"/>
+    <arg name="enableBumblebee" default="false"/>
+    <arg name="enableBumblebeeTF" default="false"/>
     <arg name="Guppy" default="false"/>
     <arg name="Aris" default="false"/>
     <arg name="Multibeam" default="false"/>
     <arg name="SSS" default="false"/>
-    <arg name="Micron" default="true"/>
+    <arg name="Micron" default="false"/>
     <arg name="EchoSounders" default="true"/>
-    <arg name="enableModem" default="true"/>
-    <arg name="enableRotativePayload" default="true"/>
+    <arg name="enableModem" default="false"/>
+    <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
+    <arg name="enableProfiler" default="true"/>
 
     <!-- LOAD PARAMETERS -->
     <rosparam command="load" file="$(find cola2_s2)/config/imagenex_side_scan_sonar.yaml"/>
@@ -54,6 +55,14 @@
     <group if="$(arg Micron)">
         <node name="micron" pkg="tritech_msis" type="tritech_msis" output="screen">
             <rosparam command="load" file="$(find cola2_s2)/config/micron_params.yaml"/>
+        </node>
+    </group>
+
+    <!-- Profiler -->
+    <!-- Run Tritech MSIS driver as Profiler -->
+    <group if="$(arg enableProfiler)"> 
+        <node name="profiler" pkg="tritech_msis" type="tritech_msis" output="screen">
+            <rosparam command="load" file="$(find cola2_s2)/config/profiler_params.yaml"/>
         </node>
     </group>
 

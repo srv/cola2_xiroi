@@ -18,6 +18,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
+	<arg name="enableProfiler" default="false"/>    
 
     <!-- Sparus Start params -->
     <arg name="enableGUI" default="true" />
@@ -26,7 +27,7 @@
 
 
     <!--  #################  DEFINE JOYSTICK DEVICE  #################  -->
-    <arg name="joystickDevice" value="/dev/input/js0"/>
+    <arg name="joystickDevice" value="/dev/input/js1"/>
     <!--arg name="joystickDevice" value="/dev/input/js1"/-->
     <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
     <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
@@ -35,9 +36,11 @@
     <!--  ################# SET REMOTE MACHINE  #################  -->
 
     <!-- NARCIS' MACBOOK PRO JOYSTICK SETTINGS -->
+<!--    
     <arg name="desktopUserName" value="narcis"/>
     <arg name="desktopMachineAddr" value="narcis-vm" />
-
+    
+-->
     <!-- BLACK MACBOOK -->
 <!--
     <arg name="desktopUserName" value="cirs"/>
@@ -45,9 +48,9 @@
 -->
 
     <!-- JUANDAVID -->
-    <!-- arg name="desktopUserName" value="juandhv"/>
+    <arg name="desktopUserName" value="juandhv"/>
     <arg name="desktopMachineAddr" value="brain-Ubuntu" />
-    <arg name="desktopMachineName" value="brain-Ubuntu" /-->
+    <arg name="desktopMachineName" value="brain-Ubuntu" />
 
     <!-- SUPERLAPTOP -->
 <!--
@@ -133,6 +136,7 @@
         <arg name="enableRotativePayload" value="$(arg enableRotativePayload)"/>
         <arg name="enableBeacons" value="$(arg enableBeacons)"/>
         <arg name="enableAirmarEchosounder" value="$(arg enableAirmarEchosounder)"/>
+		<arg name="enableProfiler" value="$(arg enableProfiler)"/>        
    </include>
 
     <!-- BAG LOGS: in home folder of linux user, format is s2_xxxxxxxxx.bag -->

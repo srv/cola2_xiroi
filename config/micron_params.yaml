@@ -3,13 +3,13 @@ name: "micron"
 sonar_type: "micron"
 
 # Dynamic Parameters
-rangeScale: 20
+rangeScale: 10
 cont: false
 #llim: 0
 #rlim: 360
-llim: 135 # 315
-rlim: 225 # 45
-igain: 60
+llim: 120 # 315
+rlim: 240 # 45
+igain: 45
 soundSpeed: 1500
 soundSpeedAutomatic: false
 min_range: 0.5

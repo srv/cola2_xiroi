@@ -10,11 +10,11 @@ navigator/model_covariance: [0.02, 0.02, 0.02]
 navigator/dvl_max_v: 1.5
 
 # Set filter and NED initialization
-navigator/initialize_filter_from_gps: true
-navigator/use_gps_data: true
+navigator/initialize_filter_from_gps: false
+navigator/use_gps_data: false
 navigator/initialize_ned_from_gps: false # if true use current gps position as ned origin, otherwise use predefined ned origin
-navigator/ned_latitude: 41.777499 #42.954 #38.5200248466315 # 41.768860505
-navigator/ned_longitude: 3.038071 #10.602 #-28.6320306729769 # 3.03170557637
+navigator/ned_latitude: 41.777433 #42.954 #38.5200248466315 # 41.768860505
+navigator/ned_longitude: 3.037977 #10.602 #-28.6320306729769 # 3.03170557637
 #navigator/ned_latitude: 38.5220043026949 # 41.768860505
 #navigator/ned_longitude: -28.6327135174139 # 3.03170557637
 
