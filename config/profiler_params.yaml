@@ -6,14 +6,14 @@ sonar_type: "seaking_profiler"
 # digitalOutput: 6
 
 # Dynamic parameters
-rangeScale: 30
+rangeScale: 10
 cont: false
 llim: 90
 rlim: 270
 igain: 40
 soundSpeed: 1500
 soundSpeedAutomatic: false
-min_range: 1.5
+min_range: 0.5
 step: 2
 nbins: 400
 
@@ -36,10 +36,10 @@ slope2: 150
 channel2: True
 
 # Transformation
-tf_x: 0.38
-tf_y: 0.35
-tf_z: -0.55
-tf_roll: 0.0
+tf_x: 0.885
+tf_y: 0.0
+tf_z: 0.1
+tf_roll: 3.14159
 tf_pitch: 0.0
 tf_yaw: 3.14159
 frame_id: "sparus2"
