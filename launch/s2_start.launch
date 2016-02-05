@@ -141,5 +141,7 @@
         <node name="bag_record" output="screen" pkg="rosbag" type="record" args="-a -x '(/stereo_camera/(.)*)|(/camera/(.)*)|(/octo(.)*)|(/(.)*cells(.)*)|/projected_map|/multibeam_cloud' /stereo_camera/left/camera_info /stereo_camera/left/image_raw /stereo_camera/right/camera_info /stereo_camera/right/image_raw --split --size 1024 -o /home/cirs/s2" />
         <node if="$(arg Camera)" name="camera_record" output="screen" pkg="rosbag" type="record" args="/camera/image_color /camera/camera_info --split --size 2048 -o /home/cirs/s2_camera" />
     </group>
+    
+    <param name="robot_description" textfile="$(find cola2_s2)/data/model/sparus2.urdf" />
 
 </launch>
