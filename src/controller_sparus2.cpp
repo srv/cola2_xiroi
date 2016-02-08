@@ -12,7 +12,7 @@ public:
 
     SPARUS2ROSController( const std::string name,
                        const std::string frame_id ):
-        IAUVROSController( name, frame_id,40.0 ) // This value is a model for MORPH wspeed
+        IAUVROSController( name, frame_id ) 
     { }
 
     void
@@ -168,4 +168,3 @@ main( int argc, char **argv )
 
     return 0;
 }
-
