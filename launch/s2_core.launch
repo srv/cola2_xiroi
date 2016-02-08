@@ -10,6 +10,7 @@
     </node>
 
     <!--  #################  Load safety nodes  #################  -->
+    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen"/>
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
     <node name="s2_mon_control_board" pkg="s2_mon_control_board" type="s2_mon_control_board.py" respawn="true" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" respawn="true" output="screen"/>

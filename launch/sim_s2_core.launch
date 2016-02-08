@@ -11,6 +11,7 @@
     </node>
 
     <!-- Safety nodes -->
+    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen"/>
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
     <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
