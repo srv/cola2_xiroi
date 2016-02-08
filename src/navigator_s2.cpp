@@ -564,6 +564,10 @@ public:
                 pose.pose.position.x = north;
                 pose.pose.position.y = east;
                 pose.pose.position.z = depth;
+                pose.pose.orientation.x = 0.0;  // pointing upwards
+                pose.pose.orientation.y = 0.70710678;
+                pose.pose.orientation.z = 0.0;
+                pose.pose.orientation.w = 0.70710678;
                 _pub_gps_ned.publish( pose );
 
                 // If everything is correctly initialized update filter with GPS data
