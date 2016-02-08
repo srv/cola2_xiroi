@@ -33,7 +33,13 @@ public:
         _bottom_status( 0 ),
         _gps_samples( 0 ),
         _echosounder_range( -1.0 ),
-        _use_usbl_data( false )
+        _use_usbl_data( false ),
+        _gps_samples_to_init(5),
+        _declination( 0.0 ),
+        _surface_to_depth_sensor_distance( 0.0 ),
+        _depth_sensor_offset( 0.0 ),
+        _last_pressure( 0.0 ),
+        _initialize_depth_sensor_offset( false )
     {
         // Init subscribers
         _sub_explorer_dvl = _n.subscribe( "/cola2_navigation/teledyne_explorer_dvl", 2, &S2RosNavigator::updateExplorerDvl, this );
@@ -51,6 +57,7 @@ public:
 
         // Init services
         _reset_navigation_srv = _n.advertiseService("/cola2_navigation/reset_navigation", &S2RosNavigator::resetNavigation, this );
+        _set_depth_sensor_offset_srv = _n.advertiseService("/cola2_navigation/set_depth_sensor_offset", &S2RosNavigator::setDepthSensorOffset, this );
 
         // Init timer
         _timer = _n.createTimer( ros::Duration(1.0), &S2RosNavigator::checkNavigatorDiagnostics, this );
@@ -170,6 +177,15 @@ public:
         return true;
     }
 
+    bool
+    setDepthSensorOffset( std_srvs::Empty::Request &req,
+                          std_srvs::Empty::Response &res ) {
+        // std::cout << "_surface_to_depth_sensor_distance: " << _surface_to_depth_sensor_distance << "\n";
+        // std::cout << "_last_pressure: " << _last_pressure << "\n";
+        _depth_sensor_offset = _surface_to_depth_sensor_distance - _last_pressure;
+        std::cout << "[Navigator] Set depth sensor offset at " << _depth_sensor_offset << ".\n";
+        return true;
+    }
 
     void
     initFilter() {
@@ -438,21 +454,23 @@ public:
     updatePressure( const ros::MessageEvent<cola2_msgs::PressureSensor const> & msg )
     {
         _last_pressure_data = msg.getMessage()->header.stamp.toSec();
+        double bar_to_meters_depth = 100000.0 / ( _water_density * 9.81 );
+        _last_pressure = msg.getMessage()->pressure * bar_to_meters_depth;
 
         if ( _ekf_init && _ned_init ) {
             _diagnostic.check_frequency();
 
             // Check if sensor frame_id is defined
             checkFrameId( msg.getMessage()->header.frame_id );
-            double bar_to_meters_depth = 100000.0 / ( _water_density * 9.81 );
-            Eigen::Vector3d position( 0.0, 0.0, msg.getMessage()->pressure * bar_to_meters_depth + _depth_correction );
+
+            Eigen::Vector3d position( 0.0, 0.0, _last_pressure + _depth_sensor_offset );
             Eigen::Matrix3d covariance = Eigen::Matrix3d::Zero(3, 3);
             covariance(0, 0) = 9999.0;
             covariance(1, 1) = 9999.0;
             covariance(2, 2) = _pressure_covariance;
 
             // If vehicle submerged reset GPS counter.
-            if ( msg.getMessage()->pressure * bar_to_meters_depth + _depth_correction > 1.0 ) {
+            if ( _last_pressure + _depth_sensor_offset > 1.0 ) {
                 _gps_samples = 0;
             }
 
@@ -507,6 +525,9 @@ public:
 
             _diagnostic.check_frequency();
             _gps_samples++;
+            // std::cout << " -----> GPS SAMPLES: " << _gps_samples << "\n";
+            // std::cout << "_initialize_filter_from_gps: " << _initialize_filter_from_gps << "\n";
+            // std::cout << "_ekf_init: " << _ekf_init << "\n";
 
             // Check if sensor frame_id is defined
             checkFrameId( msg.getMessage()->header.frame_id );
@@ -534,21 +555,38 @@ public:
                     _ekf_init = true;
                     _diagnostic.add( "ekf_init", "True" );
 
+                    // If initialise depth_sensor_offset is on
+                    if( _initialize_depth_sensor_offset ) {
+                        std_srvs::Empty::Request req;
+                        std_srvs::Empty::Response res;
+                        setDepthSensorOffset( req, res );
+                    }
                 }
             } // initialize the filter if necessary
             else if( _initialize_filter_from_gps && !_ekf_init ) {
-                // transform lat log to NED and init the filter
-                double latitude = dms2DegInt( msg.getMessage()->latitude, int(msg.getMessage()->latitude_hemisphere) );
-                double longitude = dms2DegInt( msg.getMessage()->longitude, int(msg.getMessage()->longitude_hemisphere) );
-                double north, east, depth;
-                _ned->geodetic2Ned( latitude, longitude, 0.0, north, east, depth );
-                Eigen::VectorXd x = Eigen::MatrixXd::Zero(6, 1);
-                x(0) = north;
-                x(1) = east;
-                _ekf_slam_auv->initEkf( x, _p_var );
-                _ekf_slam_auv->setLastPredictionTime( msg.getMessage()->header.stamp.toSec() );
-                _ekf_init = true;
-                _diagnostic.add( "ekf_init", "True" );
+                if( _gps_samples >= _gps_samples_to_init ) {
+                    // transform lat log to NED and init the filter
+                    double latitude = dms2DegInt( msg.getMessage()->latitude, int(msg.getMessage()->latitude_hemisphere) );
+                    double longitude = dms2DegInt( msg.getMessage()->longitude, int(msg.getMessage()->longitude_hemisphere) );
+                    double north, east, depth;
+                    _ned->geodetic2Ned( latitude, longitude, 0.0, north, east, depth );
+                    std:: cout << "Init filter at position: " << north << ", " << east << "\n";
+
+                    Eigen::VectorXd x = Eigen::MatrixXd::Zero(6, 1);
+                    x(0) = north;
+                    x(1) = east;
+                    _ekf_slam_auv->initEkf( x, _p_var );
+                    _ekf_slam_auv->setLastPredictionTime( msg.getMessage()->header.stamp.toSec() );
+                    _ekf_init = true;
+                    _diagnostic.add( "ekf_init", "True" );
+
+                    // If initialise depth_sensor_offset is on
+                    if( _initialize_depth_sensor_offset ) {
+                        std_srvs::Empty::Request req;
+                        std_srvs::Empty::Response res;
+                        setDepthSensorOffset( req, res );
+                    }
+                }
             }
             else {
                 // Take current lat, long and convert it to NED
@@ -760,17 +798,15 @@ private:
     double _last_echosounder_data;
     double _last_mb_data;
 
-
     // Other data
     double _sound_velocity;
     unsigned int _bottom_status;
     unsigned int _gps_samples;
     double _echosounder_range;
     double _mb_range;
-    double _declination;
-
 
     ros::ServiceServer _reset_navigation_srv;
+    ros::ServiceServer _set_depth_sensor_offset_srv;
 
     // To be loaded from config file
     Eigen::Quaterniond _auv_imu_rotation;
@@ -783,13 +819,17 @@ private:
     std::vector<double>  _usbl_covariance;
     Eigen::Vector3d _model_velocity;
     double _water_density;
-    double _depth_correction;
 
     bool _initialize_ned_from_gps;
     bool _initialize_filter_from_gps;
     bool _use_gps_data;
     bool _use_usbl_data;
     unsigned int _gps_samples_to_init;
+    double _declination;
+    double _surface_to_depth_sensor_distance;
+    double _depth_sensor_offset;
+    double _last_pressure;
+    bool _initialize_depth_sensor_offset;
 
     std::vector< std::string > _landmark_topics;
 
@@ -807,23 +847,19 @@ private:
         cola2::rosutil::loadParam( "navigator/ned_latitude", _init_latitude );
         cola2::rosutil::loadParam( "navigator/ned_longitude", _init_longitude );
         cola2::rosutil::loadParam( "navigator/use_usbl_data", _use_usbl_data );
-
         cola2::rosutil::loadParam( "navigator/declination_in_degrees", declination_in_degrees );
         _declination = deg2Rad( declination_in_degrees );
-
+        cola2::rosutil::loadParam( "navigator/surface_to_depth_sensor_distance", _surface_to_depth_sensor_distance );
+        cola2::rosutil::loadParam( "navigator/initialize_depth_sensor_offset", _initialize_depth_sensor_offset );
         cola2::rosutil::loadParam( "navigator/robot_frame_id", _vehicle_frame_id );
         cola2::rosutil::loadParam( "navigator/world_frame_id", _world_frame_id );
-
         cola2::rosutil::loadParam( "navigator/dvl_bottom_covariance", _dvl_bottom_covariance );
         cola2::rosutil::loadParam( "navigator/dvl_water_covariance", _dvl_water_covariance );
         cola2::rosutil::loadParam( "navigator/gps_covariance", _gps_covariance );
         cola2::rosutil::loadParam( "navigator/pressure_covariance", _pressure_covariance );
         cola2::rosutil::loadParam( "navigator/model_covariance", _model_covariance );
         cola2::rosutil::loadParam( "navigator/usbl_covariance", _usbl_covariance );
-
         cola2::rosutil::loadParam( "navigator/water_density", _water_density );
-        cola2::rosutil::loadParam( "navigator/depth_correction", _depth_correction );
-
         cola2::rosutil::loadParam( "navigator/landmark_topics", _landmark_topics );
     }
 };

@@ -21,7 +21,7 @@ dynamics/sparus2/mass: 34.5
 dynamics/sparus2/gravity_center: [0.0, 0.0, 0.01]
 dynamics/sparus2/g: 9.81
 dynamics/sparus2/radius: 0.2009312118
-dynamics/sparus2/surface_radius: 0.4
+dynamics/sparus2/surface_radius: 0.4 # Aixo esta malament! Per aixo sempre es queda enfonsat!
 
 # Forward and backward thrusters coef 0.000020833333
 dynamics/sparus2/ctf: 0.000020833333
