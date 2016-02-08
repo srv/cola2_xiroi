@@ -1,86 +1,43 @@
 <launch>
-    <!-- Sparus Core params -->
+    <!--  ################# Input arguments  #################  -->
     <arg name="enableActuators" default="false"/>
     <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
-    <arg name="useNewNavigator" default="true"/>
 
-    <!-- LOAD PARAMETERS -->
-    <rosparam command="load" file="$(find cola2_s2)/config/check_sensors.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/safety.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/teledyne_explorer_dvl.yaml"/>
-    <group if="$(arg enableImu)">
-        <rosparam command="load" file="$(find cola2_s2)/config/adis_imu.yaml"/>
-        <rosparam command="load" file="$(find cola2_s2)/config/imu_angle_estimator.yaml"/>
-    </group>
-    <rosparam command="load" file="$(find cola2_s2)/config/fastrax_it_500_gps.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/actuators_485.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/s2_serial_ports.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/navigator.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/controller.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
-    <param name="robot_description_sparus2" textfile="$(find cola2_s2)/data/model/sparus2.urdf"/>
+    <!--  #################  Robot description  #################  -->
     <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
         <remap from="robot_description" to="robot_description_sparus2"/>
     </node>
 
+    <!--  #################  Load safety nodes  #################  -->
+    <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
+    <node name="s2_mon_control_board" pkg="s2_mon_control_board" type="s2_mon_control_board.py" respawn="true" output="screen"/>
+    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" respawn="true" output="screen"/>
+    <node name="emus_bms_client" pkg="emus_bms" type="emus_bms_client" respawn="true" output="screen"/>
+    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" respawn="true" output="screen"/>
+    <node name="set_pose" pkg="cola2_safety" type="set_pose.py"/>
+    <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" respawn="true" output="screen"/>
+    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
+    <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator"/>
+    <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
+    <node name="check_sensors" pkg="cola2_safety" type="check_sensors.py" />
+    <node name="computer_logger" pkg="cola2_safety" type="computer_logger.py" respawn="true" output="screen"/>
 
-
-    <!-- RViz transform-->
-    <node pkg="tf" type="static_transform_publisher" name="rviz_to_world" args="0.0 0.0 0.0 0.0 0.0 3.14159 /rviz /world 100" />
-
-
-    <!-- DRIVERS -->
+    <!--  #################  Run Navigation Stack  #################  -->
     <node name="teledyne_explorer_dvl" pkg="teledyne_explorer_dvl" type="teledyne_explorer_dvl" respawn="true"/>
     <group if="$(arg enableImu)">
         <node name="adis_imu" pkg="adis_imu" type="adis_imu" respawn="true" output="screen"/>
         <node name="imu_angle_estimator" pkg="adis_imu" type="imu_angle_estimator.py" respawn="true" output="screen"/>
     </group>
     <node name="fastrax_it_500_gps" pkg="fastrax_it_500_gps" type="fastrax_it_500_gps" respawn="true" output="screen"/>
-    <node name="emus_bms_client" pkg="emus_bms" type="emus_bms_client" respawn="true" output="screen"/>
     <node if="$(arg enableActuators)" name="s2_actuators" pkg="s2_actuators" type="s2_actuators" respawn="true"/>
-    <node name="s2_mon_control_board" pkg="s2_mon_control_board" type="s2_mon_control_board.py" respawn="true" output="screen"/>
-    <node name="set_pose" pkg="cola2_safety" type="set_pose.py"/>
-
-
-    <!-- SAFETY NODES -->
-    <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
-    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" respawn="true" output="screen"/>
-    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" respawn="true" output="screen"/>
-    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
-    <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" respawn="true" output="screen"/>
-    <node name="computer_logger" pkg="cola2_safety" type="computer_logger.py" respawn="true" output="screen"/>
-    <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
-        <rosparam command="load" file="$(find cola2_s2)/config/analyzers.yaml" />
+    <node name="navigator" pkg="cola2_s2" type="navigator_s2" respawn="false" output="screen">
+        <remap from="/airmar_echosounder" to="/echosounders/e15"/>
     </node>
-    <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
-    <node name="check_sensors" pkg="cola2_safety" type="check_sensors.py" />
 
-
-    <!-- NAVIGATION NODES -->
-
-    <group if="$(arg useNewNavigator)">
-        <rosparam command="load" file="$(find cola2_s2)/config/navigator.yaml"/>
-        <node name="navigator" pkg="cola2_s2" type="navigator_s2" respawn="false" output="screen">
-            <remap from="/airmar_echosounder" to="/echosounders/e15"/>
-        </node>
-    </group>
-    <group unless="$(arg useNewNavigator)">
-        <node name="navigator" pkg="cola2_s2" type="navigator_s2.py" respawn="true" output="screen"/>
-        <node name="ekf_slam" pkg="pose_ekf_slam" type="ekf_slam.py" respawn="true" output="screen" >
-            <param name="world_frame_name" type="string" value="world"/>
-            <param name="robot_frame_name" type="string" value="sparus2"/>
-        </node>
-    </group>
-
-    <!-- CONTROL STACK -->
-    <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
-
-    <!-- GUIDANCE NODES -->
-    <node name="captain" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>
-    <node name="pilot" pkg="cola2_control" type="pilot.py" respawn="false" output="screen"/>
- 
-    <!-- TELEOPERATION NODES -->
+    <!--  #################  Run Control Stack  #################  -->
     <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" respawn="true" output="screen"/>
+    <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
+    <node name="pilot" pkg="cola2_control" type="pilot.py" respawn="false" output="screen"/>
+    <node name="captain" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>
 </launch>
