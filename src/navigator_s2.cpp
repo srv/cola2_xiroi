@@ -33,7 +33,8 @@ public:
         _bottom_status( 0 ),
         _gps_samples( 0 ),
         _echosounder_range( -1.0 ),
-        _use_usbl_data( false )
+        _use_usbl_data( false ),
+        _gps_samples_to_init(3)
     {
         // Init subscribers
         _sub_explorer_dvl = _n.subscribe( "/cola2_navigation/teledyne_explorer_dvl", 2, &S2RosNavigator::updateExplorerDvl, this );
