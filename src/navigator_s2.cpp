@@ -295,7 +295,8 @@ public:
                                         orientation,
                                         orientation_cov,
                                         angular_velocity,
-                                        angular_velocity_cov );
+                                        angular_velocity_cov,
+                                        _declination );
 
             publish( msg.getMessage()->header.stamp );
             _imu_init = true;
@@ -771,6 +772,7 @@ private:
     unsigned int _gps_samples;
     double _echosounder_range;
     double _mb_range;
+    double _declination;
 
 
     ros::ServiceServer _reset_navigation_srv;
@@ -800,8 +802,9 @@ private:
 
     void
     getConfig(){
-        // Load params from ROS param server
+        double declination_in_degrees;
 
+        // Load params from ROS param server
         cola2::rosutil::loadParam( "navigator/dvl_max_v", _dvl_max_v );
         cola2::rosutil::loadParam( "navigator/initialize_ned_from_gps", _initialize_ned_from_gps );
         cola2::rosutil::loadParam( "navigator/initialize_filter_from_gps", _initialize_filter_from_gps );
@@ -809,6 +812,9 @@ private:
         cola2::rosutil::loadParam( "navigator/ned_latitude", _init_latitude );
         cola2::rosutil::loadParam( "navigator/ned_longitude", _init_longitude );
         cola2::rosutil::loadParam( "navigator/use_usbl_data", _use_usbl_data );
+
+        cola2::rosutil::loadParam( "navigator/declination_in_degrees", declination_in_degrees );
+        _declination = deg2Rad( declination_in_degrees );
 
         cola2::rosutil::loadParam( "navigator/robot_frame_id", _vehicle_frame_id );
         cola2::rosutil::loadParam( "navigator/world_frame_id", _world_frame_id );

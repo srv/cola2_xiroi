@@ -18,6 +18,9 @@ navigator/ned_longitude: 3.037977 #10.602 #-28.6320306729769 # 3.03170557637
 #navigator/ned_latitude: 38.5220043026949 # 41.768860505
 #navigator/ned_longitude: -28.6327135174139 # 3.03170557637
 
+# Set spot current magnetic declination in degrees (http://www.magnetic-declination.com/)
+navigator/declination_in_degrees: 0.5
+
 navigator/use_usbl_data: false
 
 # Depth sensor correction. This value is added to the depth in meters
@@ -39,4 +42,3 @@ pressure_sensor/tf: [0.389, 0.0, 0.0, 0.0, 0.0, 0.0]
 adis_imu/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 teledyne_explorer_dvl/tf: [0.0, 0.0, 0.0, 180.0, 0.0, 135.0]
 evologics/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-
