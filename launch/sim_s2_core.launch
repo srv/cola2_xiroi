@@ -1,58 +1,40 @@
 <launch>
-    <!-- FLAGS -->
+    <!--  ##############  Input arguments  ##############  -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
+    <arg name="joystickDevice" default="/dev/input/js0"/>
 
-    <!-- DEVICES CONFIG -->
-    <arg name="joystickDevice" default="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/>
-    <!--arg name="joystickDevice" default="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_9C49A89B-joystick"/-->
-    <!--arg name="joystickDevice" default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
-
-
-<!--  ################################################################## -->
-
-    <rosparam command="load" file="$(find cola2_s2)/config/safety.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/dynamics_s2.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/sim_nav_sensors.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/navigator.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/sim_controller.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
-    <rosparam command="load" file="$(find cola2_s2)/config/map_ack.yaml"/>
-    <param name="robot_description_sparus2" textfile="$(find cola2_s2)/data/model/sparus2.urdf"/>
+    <!--  ##############  LOAD NODES  ##############  -->
+    <!-- Robot description Sparus2 -->
     <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
         <remap from="robot_description" to="robot_description_sparus2"/>
     </node>
 
-    <!-- SAFETY NODES -->
+    <!-- Safety nodes -->
+    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen"/>
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
-    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
-    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
+    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
-    <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
-        <rosparam command="load" file="$(find cola2_s2)/config/analyzers.yaml" />
-    </node>
+    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
+    <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" />
     <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
 
-    <!-- SIMULATION -->
+    <!-- Run dynamics -->
     <node name="dynamics" pkg="cola2_sim" type="dynamics.py"/>
     <node name="sim_nav_sensors_s2" pkg="cola2_s2" type="sim_nav_sensors_s2.py" output="screen"/>
     <node name="sim_actuators_s2" pkg="cola2_s2" type="sim_actuators_s2.py" output="screen"/>
 
-    <!-- NAVIGATION NODES -->
+    <!-- Run Navigation Stack -->
     <node name="navigator" pkg="cola2_s2" type="navigator_s2" respawn="false" output="screen"/>
 
-    <!-- CONTROL STACK -->
+    <!-- Run Control Stack -->
+    <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" output="screen"/>
     <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
-
-    <!-- GUIDANCE NODES -->
     <node name="pilot" pkg="cola2_control" type="pilot.py" respawn="false" output="screen"/>
     <node name="captain" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>
 
-    <!-- TELEOPERATION NODES -->
-    <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" output="screen"/>
-
+    <!-- Run Teleoperation -->
     <group if="$(arg enableJoystick)">
         <node respawn="true" pkg="joy" type="joy_node" name="joystick">
             <param name="dev" value="$(arg joystickDevice)"/>

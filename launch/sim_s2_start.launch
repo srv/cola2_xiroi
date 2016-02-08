@@ -1,4 +1,5 @@
 <launch>
+    <!--  ##############  Configurable arguments  ##############  -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
@@ -7,8 +8,17 @@
     <arg name="enableShadders" default="false" />
     <arg name="webGui" default="true"/>
 
-    <!-- ################################################################################## -->
+    <!-- Load Sparus2 configs (do not modify) -->
+    <include file="$(find cola2_s2)/launch/s2_configs.launch">
+        <arg name="isSimulation" value="true"/>
+    </include>
 
+    <!--  #################  OVERRIDE CONFIGS  #################  -->
+    <!-- Overidden configs here (when copying this file for your own project) -->
+    <!-- <rosparam command="load" file="$(find mynode)/config/navigator.yaml/> -->
+    <!-- <param name="/safe_depth_altitude/min_altitude" value="4.0"/> -->
+
+    <!-- ################################################################################## -->
     <!-- Load S2 core -->
     <include file="$(find cola2_s2)/launch/sim_s2_core.launch">
         <arg name="enableSafety" value="$(arg enableSafety)" />
@@ -16,7 +26,7 @@
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
     </include>
 
-
+    <!-- Run UWSim -->
     <group if="$(arg enableUWSim)">
         <node if="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(find cola2_s2)/scenes/scene_1.xml --dataPath $(find cola2_s2)/ " respawn="false"/>
         <node unless="$(arg enableShadders)" name="uwsim" pkg="uwsim" type="uwsim" args=" --configfile $(find cola2_s2)/scenes/scene_1.xml --dataPath $(find cola2_s2)/ --disableShaders" respawn="false"/>
