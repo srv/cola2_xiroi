@@ -1,7 +1,7 @@
 #include <string>
 #include "ros/ros.h"
-#include <cola2_lib/cola2_navigation/EkfRosBase.hpp>
-#include <cola2_lib/cola2_navigation/EkfSlamAuv.hpp>
+#include <cola2_lib/cola2_navigation/EkfRosBase.h>
+#include <cola2_lib/cola2_navigation/EkfSlamAuv.h>
 #include <cola2_lib/cola2_navigation/nav_utils.h>
 #include "sensor_msgs/Imu.h"
 #include "sensor_msgs/LaserScan.h"

@@ -6,7 +6,7 @@
 #include <Eigen/Dense>
 #include <Eigen/SVD>
 #include <sstream>
-#include <cola2_lib/cola2_control/Request.hpp>
+#include <cola2_lib/cola2_control/Request.h>
 
 #include <math.h>
 #include <complex>

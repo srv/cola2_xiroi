@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include <dynamic_reconfigure/server.h>
-#include <cola2_lib/cola2_control/IAUVController.hpp>
-#include <cola2_lib/cola2_control/IAUVROSController.hpp>
+#include <cola2_lib/cola2_control/IAUVController.h>
+#include <cola2_lib/cola2_control/IAUVROSController.h>
 #include "cola2_lib/cola2_rosutils/RosUtil.h"
 #include "include/SPARUS2Controller.hpp"
 #include <cola2_s2/controller_sparus2Config.h>

@@ -1,11 +1,11 @@
 #ifndef __SPARUS2_CONTROLLER__
 #define __SPARUS2_CONTROLLER__
 
-#include <cola2_lib/cola2_control/Merge.hpp>
-#include <cola2_lib/cola2_control/NDofController.hpp>
-#include <cola2_lib/cola2_control/Pid.hpp>
-#include <cola2_lib/cola2_control/Poly.hpp>
-#include <cola2_lib/cola2_control/IAUVController.hpp>
+#include <cola2_lib/cola2_control/Merge.h>
+#include <cola2_lib/cola2_control/NDofController.h>
+#include <cola2_lib/cola2_control/Pid.h>
+#include <cola2_lib/cola2_control/Poly.h>
+#include <cola2_lib/cola2_control/IAUVController.h>
 #include "SPARUS2ThrusterAllocator.hpp"
 #include "SPARUS2FinAllocator.hpp"
 #include <algorithm>
@@ -156,8 +156,6 @@ public:
     void
     iteration( double current_time )
     {
-        _mtx.lock();
-
         // Merge pose requests
         Request desired_pose = _pose_merge.merge( current_time );
         _merged_pose = desired_pose;
@@ -461,8 +459,6 @@ public:
         // Compute fin setpoints
         //_fin_setpoints = _fin_allocator.calibration( fins_setpoints );
         _fin_setpoints = _fin_allocator.compute( fins_wrench, _thruster_setpoints, _twist_feedback );
-
-        _mtx.unlock();
     }
 
 
