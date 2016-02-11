@@ -83,6 +83,7 @@ class VehicleStatusParser:
 
     def update_diagnostics(self, diagnostics):
         """ Check diagnostics messages to fill vehicle status."""
+        temp_bat = temp_pc = temp_thr = 0.0
         for status in diagnostics.status:
 
             # Get vehicle initialized status
@@ -199,17 +200,23 @@ class VehicleStatusParser:
                 self.status.modem_data_age = modem_age
 
             # Temperature
-            if __getDiagnostic__(status, '/safety/ battery') or \
-                    __getDiagnostic__(status, '/safety/ computer_logger') or \
-                    __getDiagnostic__(status, '/control/ s2_actuators'):
+            if __getDiagnostic__(status, '/safety/ battery'):
                 temp_bat = float(__getDiagnostic__(status,
                                                    '/safety/ battery',
                                                    'max_cell_temperature',
                                                    0.0))
+                self.status.internal_temperature = [temp_bat, temp_pc, temp_thr]
+
+
+            if __getDiagnostic__(status, '/safety/ computer_logger'):
                 temp_pc = float(__getDiagnostic__(status,
                                                   '/safety/ computer_logger',
                                                   'cpu_temperature',
                                                   0.0))
+                self.status.internal_temperature = [temp_bat, temp_pc, temp_thr]
+
+
+            if __getDiagnostic__(status, '/control/ s2_actuators'):
                 temp_thr = float(__getDiagnostic__(status,
                                                    '/control/ s2_actuators',
                                                    'max_thruster_temperature',
