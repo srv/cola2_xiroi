@@ -18,7 +18,7 @@
     <arg name="Micron" default="false"/>
     <arg name="Aris" default="false"/>
     <arg name="EchoSounders" default="true"/>
-    <arg name="enableModem" default="true"/>
+    <arg name="enableModem" default="false"/>
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
@@ -27,7 +27,7 @@
     <!-- SPARUS OTHER PARAMS -->
     <arg name="enableLog" default="false" />
     <arg name="enableGUI" default="true" />
-    <arg name="enableJoystick" default="true" />
+    <arg name="enableJoystick" default="false" />
     <arg name="enableRVizTF" value="true" />
 
     <!-- Load Sparus2 configs (do not modify) -->
@@ -78,12 +78,6 @@
    </include>
 
     <!--  #################  LOAD S2 OTHERS  #################  -->
-    <group unless="$(arg enableJoystick)">
-        <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
-            <remap from="/keyboard" to="/joy"/>
-        </node>
-        <node name="keyboard_to_teleoperation" pkg="cola2_control" type="keyboard_to_teleoperation.py" />
-    </group>
 
    <!-- Enable rosbridge -->
    <group if="$(arg enableGUI)">

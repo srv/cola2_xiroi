@@ -1,0 +1,6 @@
+<launch>
+	<node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
+	    <remap from="/keyboard" to="/joy"/>
+	</node>
+	<node name="keyboard_to_teleoperation" pkg="cola2_control" type="keyboard_to_teleoperation.py" />
+</launch>
