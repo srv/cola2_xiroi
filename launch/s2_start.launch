@@ -60,15 +60,13 @@
 -->
 
     <!-- JUANDAVID -->
-    <arg name="desktopUserName" value="juandhv"/>
+    <!--arg name="desktopUserName" value="juandhv"/>
     <arg name="desktopMachineAddr" value="brain-Ubuntu" />
-    <arg name="desktopMachineName" value="brain-Ubuntu" />
+    <arg name="desktopMachineName" value="brain-Ubuntu" /-->
 
     <!-- SUPERLAPTOP -->
-<!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-G74Sx" />
--->
 
     <!-- TOSHI -->
 <!--
@@ -127,7 +125,7 @@
             <param name="dev" value="$(arg joystickDevice)"/>
             <param name="deadzone" value="0.1"/>
         </node>
-        <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10"/>
+        <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10" machine="$(arg desktopMachineAddr)"/>
     </group>
     <group unless="$(arg enableJoystick)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
