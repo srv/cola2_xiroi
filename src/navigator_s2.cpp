@@ -12,6 +12,7 @@
 #include "cola2_msgs/FastraxIt500Gps.h"
 #include "cola2_msgs/PressureSensor.h"
 #include "auv_msgs/BodyForceReq.h"
+#include "cola2_msgs/Detection.h"
 
 #define USE_MODEL           false // Use force to velocity model to simulate DVL data if no botton and water velocity availables
 #define INVALID_ALTITUDE    -3.2665
@@ -47,9 +48,9 @@ public:
         _sub_echosounder = _n.subscribe( "/airmar_echosounder", 2, &S2RosNavigator::updateEchosounder, this );
         _sub_imu = _n.subscribe( "/cola2_navigation/imu", 2, &S2RosNavigator::updateImu, this );
         _sub_gps = _n.subscribe( "/cola2_navigation/fastrax_it_500_gps", 2, &S2RosNavigator::updateGps, this );
-        _sub_usbl = _n.subscribe( "/lsv/position_abs_wifi", 2, &S2RosNavigator::updateUSBL, this );
-        _sub_usbl_2 = _n.subscribe( "/cola2_navigation/usbl_update", 2, &S2RosNavigator::updateUSBLEvologics, this );
+        _sub_usbl = _n.subscribe( "/cola2_navigation/usbl_update", 2, &S2RosNavigator::updateUSBLEvologics, this );
         _sub_mb = _n.subscribe("/multibeam_range",2,&S2RosNavigator::updateMb, this);
+        _sub_detection = _n.subscribe( "/cola2_navigation/detection_update", 2, &S2RosNavigator::updateLandmark, this );
 
         if( USE_MODEL ) {
             _sub_model = _n.subscribe( "/cola2_control/merged_body_force_req", 2, &S2RosNavigator::updateBodyForceReq, this );
@@ -87,12 +88,6 @@ public:
 
         // Init EKF
         initFilter();
-
-        // Add subscribers for every possible landmark topic --> data from config <--
-        for( std::vector< std::string >::iterator it = _landmark_topics.begin(); it != _landmark_topics.end(); it++ ) {
-            std::cout << "Subscribe to landmark topic " << *it << "\n";
-            _sub_landmarks.push_back( _n.subscribe( *it, 2,&S2RosNavigator::updateLandmark, this ) );
-        }
     }
 
 
@@ -629,47 +624,6 @@ public:
         }
     }
 
-
-    void
-    updateUSBL( const ros::MessageEvent<nav_msgs::Odometry const> & msg )
-    {
-        if ( _use_usbl_data ) {
-            _diagnostic.check_frequency();
-
-            // Check if sensor frame_id is defined
-            checkFrameId( msg.getMessage()->header.frame_id );
-
-            // If everything is correctly initialized update filter with GPS data
-            if( _ekf_init && _ned_init ) {
-                Eigen::Vector3d position_increment = getPositionIncrementFrom( msg.getMessage()->header.stamp.toSec() );
-                if ( position_increment[0] > 0.0 ) {
-
-                    std::cout << "USBL data at " << msg.getMessage()->header.stamp.sec << ":\n" << msg.getMessage()->pose.pose.position.x << ", " << msg.getMessage()->pose.pose.position.y << "\n" ;
-                    std::cout << "Increment from: \n" << position_increment << "\n";
-
-                    // Compute position vector and covariance matrix
-                    Eigen::Vector3d position( msg.getMessage()->pose.pose.position.x + position_increment[1],
-                                              msg.getMessage()->pose.pose.position.y + position_increment[2],
-                                              0.0 );
-
-                    Eigen::Matrix3d covariance = Eigen::Matrix3d::Zero(3, 3);
-                    covariance(0, 0) = _usbl_covariance.at(0);
-                    covariance(1, 1) = _usbl_covariance.at(1);
-                    covariance(2, 2) = 9999.0;
-
-                    // TODO: Check Frame ID
-                    _ekf_slam_auv->positionUpdate( msg.getMessage()->header.frame_id,
-                                                   msg.getMessage()->header.stamp.toSec() + position_increment[0],
-                                                   position,
-                                                   covariance );
-
-                    publish( msg.getMessage()->header.stamp + ros::Duration( position_increment[0] ) );
-                }
-            }
-        }
-    }
-
-
     void
     updateUSBLEvologics( const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped const> & msg )
     {
@@ -723,12 +677,12 @@ public:
 
 
     void
-    updateLandmark( const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped const> & msg )
+    updateLandmark(const ros::MessageEvent<cola2_msgs::Detection const> & msg)
     {
         // std::cout << "Received Landmark update:\n";
         // std::cout << msg.getPublisherName() << "\n";
 
-        if ( _ekf_init && _ned_init ) {
+        if (_ekf_init && _ned_init &&  msg.getMessage()->detected) {
             _diagnostic.check_frequency();
 
             // Check if sensor frame_id is defined
@@ -756,7 +710,7 @@ public:
             //TODO: How to resolve landmark id??? --> Right now landmark_id = Publisher
             //      it means that each node can publish only one landmark!
             _ekf_slam_auv->landmarkUpdate( msg.getMessage()->header.frame_id,
-                                           msg.getPublisherName(),
+                                           msg.getMessage()->id,
                                            msg.getMessage()->header.stamp.toSec(),
                                            position,
                                            orientation,
@@ -780,10 +734,8 @@ private:
     ros::Subscriber _sub_imu;
     ros::Subscriber _sub_gps;
     ros::Subscriber _sub_usbl;
-    ros::Subscriber _sub_usbl_2;
     ros::Subscriber _sub_mb;
-
-    std::vector< ros::Subscriber > _sub_landmarks;
+    ros::Subscriber _sub_detection;
 
     // Initialization flags
     bool _dvl_init;
@@ -864,7 +816,6 @@ private:
         cola2::rosutil::loadParam( "navigator/model_covariance", _model_covariance );
         cola2::rosutil::loadParam( "navigator/usbl_covariance", _usbl_covariance );
         cola2::rosutil::loadParam( "navigator/water_density", _water_density );
-        cola2::rosutil::loadParam( "navigator/landmark_topics", _landmark_topics );
     }
 };
 
