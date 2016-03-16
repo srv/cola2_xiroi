@@ -24,16 +24,6 @@
 - git: {local-name: src/tritech_msis, uri: 'git@bitbucket.org:udg_cirs/tritech_msis.git', version: master}
 - git: {local-name: src/s2_rotative_payload, uri: 'git@bitbucket.org:udg_cirs/s2_rotative_payload.git', version: master}
 - git: {local-name: src/s2_mon_control_board, uri: 'git@bitbucket.org:udg_cirs/s2_mon_control_board.git', version: master}
+- git: {local-name: src/camera1394, uri: 'https://github.com/ros-drivers/camera1394.git', version: master}
 
-# MORPH architecture
-#- git: {local-name: morph-ros-pkg,      uri: 'morph:morph-ros-pkg.git',      version: catkin}
-- git: {local-name: src/morph-cmre-ros-pkg, uri: 'morph:morph-cmre-ros-pkg.git', version: develop}
-#- git: {local-name: morph-ist-ros-pkg,  uri: 'morph:morph-ist-ros-pkg.git',  version: catkin}
-#- git: {local-name: morph-iut-ros-pkg,  uri: 'morph:morph-iut-ros-pkg.git',  version: catkin}
-#- git: {local-name: morph-udg-ros-pkg,  uri: 'morph:morph-udg-ros-pkg',      version: master}
-
-# MORPH CV
-#- git: {local-name: morph-jacobs-ros-pkg,  uri: 'morph:morph-jacobs-ros-pkg.git',  version: master}
-#- git: {local-name: partner-release-jacobs-common-ros-pkg,  uri: 'morph:partner-release-jacobs-common-ros-pkg.git',  version: catkin}
-#- git: {local-name: release-jacobs-surface-patches-perception-ros-pkg,  uri: 'morph:release-jacobs-surface-patches-perception-ros-pkg.git',  version: master}
 
