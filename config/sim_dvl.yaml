@@ -1,0 +1,15 @@
+# DVL type and rotation
+#sim_dvl/dvl_type: "linkquest"
+#sim_dvl/dvl_rotation: [0.0, 0.0, 45.0]
+sim_dvl/dvl_type: "rdi"
+sim_dvl/dvl_rotation: [180.0, 0.0, 135.0]
+
+# Model parameters
+sim_dvl/asymmetry: 1.4
+sim_dvl/mass: 70.0
+sim_dvl/linear_damping: 15.0
+sim_dvl/quadratic_damping: 40.0
+sim_dvl/thruster_thrust: 30.0
+
+# Bottom depth in meters
+sim_dvl/bottom_depth: 5.0
