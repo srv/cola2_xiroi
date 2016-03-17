@@ -96,11 +96,11 @@ class LogitechFX10(JoystickBase):
 
         # left-right (yaw control pose)
         if(joy.axes[CROSS_HORIZONTAL] == MOVE_RIGHT):
-            self.left_right = self.left_right + 0.1
+            self.left_right = self.left_right + 0.05
             if self.left_right > 1.0:
                 self.left_right = -1.0
         elif(joy.axes[CROSS_HORIZONTAL] == MOVE_LEFT):
-            self.left_right = self.left_right - 0.1
+            self.left_right = self.left_right - 0.05
             if self.left_right < -1.0:
                 self.left_right = 1.0
 
