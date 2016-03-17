@@ -86,11 +86,11 @@ class LogitechFX10(JoystickBase):
 
         # up-down (depth control pose)
         if(joy.axes[CROSS_VERTICAL] == MOVE_DOWN):
-            self.up_down = self.up_down + 0.1
+            self.up_down = self.up_down + 0.05
             if self.up_down > 1.0:
                 self.up_down = 1.0
         elif(joy.axes[CROSS_VERTICAL] == MOVE_UP):
-            self.up_down = self.up_down - 0.1
+            self.up_down = self.up_down - 0.05
             if self.up_down < -1.0:
                 self.up_down = -1.0
 
@@ -98,11 +98,11 @@ class LogitechFX10(JoystickBase):
         if(joy.axes[CROSS_HORIZONTAL] == MOVE_RIGHT):
             self.left_right = self.left_right + 0.1
             if self.left_right > 1.0:
-                self.left_right = 1.0
+                self.left_right = -1.0
         elif(joy.axes[CROSS_HORIZONTAL] == MOVE_LEFT):
             self.left_right = self.left_right - 0.1
             if self.left_right < -1.0:
-                self.left_right = -1.0
+                self.left_right = 1.0
 
         self.joy_msg.axes[JoystickBase.AXIS_POSE_Z] = self.up_down
         self.joy_msg.axes[JoystickBase.AXIS_POSE_YAW] = self.left_right
