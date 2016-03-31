@@ -353,6 +353,14 @@ public:
             // Compute pose error
             std::vector< double >  pose_error = computeError( desired_pose.getValues(), _pose_feedback );
 
+            // If desired pose in is near to 0 and current pose is near to 0 disable Z axis
+            if( _pose_feedback.at(2) < 1.0 && desired_pose.getValues().at(2) < 1.0 ) {
+                std::vector< bool > disable_axis = velocity_req.getDisabledAxis();
+                disable_axis.at(2) = true;
+                velocity_req.setDisabledAxis(disable_axis);
+                std::cout << "Disable Z axis because to close to surface\n";
+            }
+
             // Compute PID between pose error and zero
             desired_pose.setValues( pose_error );
             std::vector< double > zero(6, 0.0);
