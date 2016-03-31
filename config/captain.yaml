@@ -1,0 +1,3 @@
+/captain/max_distance_to_waypoint: 250.0
+/captain/tolerance: [1.5, 1.5, 1.0, 0.0, 0.0, 0.1]
+
