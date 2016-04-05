@@ -7,6 +7,8 @@
     <arg name="enableUWSim" default="true" />
     <arg name="enableShadders" default="false" />
     <arg name="webGui" default="true"/>
+   	<arg name="enableNewCaptain" default="true" />
+   	<arg name="enableNewPilot" default="true" />
 
     <!-- Load Sparus2 configs (do not modify) -->
     <include file="$(find cola2_s2)/launch/s2_configs.launch">
@@ -24,6 +26,8 @@
         <arg name="enableSafety" value="$(arg enableSafety)" />
         <arg name="enableJoystick" value="$(arg enableJoystick)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+		<arg name="enableNewCaptain" value="$(arg enableNewCaptain)" />
+   		<arg name="enableNewPilot" value="$(arg enableNewPilot)" />
     </include>
 
     <!-- Run UWSim -->

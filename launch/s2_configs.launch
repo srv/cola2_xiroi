@@ -5,6 +5,8 @@
 
     <!--  ##############  COLA2_CORE_COMMON  ##############  -->
     <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
+	<rosparam command="load" file="$(find cola2_s2)/config/pilot_new.yaml"/>
+	<rosparam command="load" file="$(find cola2_s2)/config/captain.yaml"/>   
     <rosparam command="load" file="$(find cola2_s2)/config/safety.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/teleoperation.yaml"/>
     <rosparam command="load" file="$(find cola2_s2)/config/navigator.yaml"/>

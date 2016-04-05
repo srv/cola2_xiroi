@@ -4,6 +4,8 @@
     <arg name="enableActuators" default="true"/>
     <arg name="enableImu" default="true"/>
     <arg name="enableSafety" default="true"/>
+    <arg name="enableNewCaptain" default="true" />
+   	<arg name="enableNewPilot" default="true" />
 
     <!-- SPARUS PAYLOAD PARAMS -->
     <arg name="Camera" default="false"/>
@@ -96,6 +98,8 @@
         <arg name="enableActuators" value="$(arg enableActuators)"/>
         <arg name="enableImu" value="$(arg enableImu)"/>
         <arg name="enableSafety" value="$(arg enableSafety)"/>
+        <arg name="enableNewCaptain" value="$(arg enableNewCaptain)" />
+   		<arg name="enableNewPilot" value="$(arg enableNewPilot)" />
     </include>
 
     <!--  #################  LOAD S2 PAYLOAD  #################  -->
