@@ -8,8 +8,8 @@ trajectory/z: [0.0, 3.0, 3.0, 0.0]
 # If altitude_mode is False then is Depth otherwise Altitude
 trajectory/altitude_mode: [False, False, False, False]
 
-# Default mode for girona500 = 'los' and for sparus = 'sparus_los'
-trajectory/mode: 'sparus_los'
+# Default mode for girona500 = 'los_cte' and for sparus = 'los_cte'
+trajectory/mode: 'los_cte'
 
 # Trajectory timeout in minutes
 trajectory/time_out: 10

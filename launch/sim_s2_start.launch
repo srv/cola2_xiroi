@@ -7,6 +7,7 @@
     <arg name="enableUWSim" default="true" />
     <arg name="enableShadders" default="false" />
     <arg name="webGui" default="true"/>
+	<arg name="enableRviz" default="true" /> 
    	<arg name="enableNewCaptain" default="true" />
    	<arg name="enableNewPilot" default="true" />
 
@@ -51,4 +52,12 @@
 
     <!-- Extra frame for rotate the Z in RViz -->
     <node pkg="tf" type="static_transform_publisher" name="rviz_to_world" args="0.0 0.0 0.0 0.0 0.0 3.14159 /rviz /world 100" />
+	
+    <!-- RViz -->
+    <group if="$(arg enableRviz)">
+		<param name="robot_description" textfile="$(find cola2_s2)/data/model/sparus2.urdf" />
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_s2)/scenes/rviz_s2_sim.rviz"/>
+    </group>
+    	    
 </launch>
