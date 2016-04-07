@@ -647,6 +647,14 @@ public:
                     std::cout << "USBL NED data at " << msg.getMessage()->header.stamp.sec << ":\n" << north << ", " << east << "\n" ;
                     std::cout << "Increment from: \n" << position_increment << "\n";
 
+                    geometry_msgs::PointStamped point;
+                    point.header.stamp = msg.getMessage()->header.stamp;
+                    point.header.frame_id = "world";
+                    point.point.x = north;
+                    point.point.y = east;
+                    point.point.z = _ekf_slam_auv->getStateVector()(2);  // current navigation z
+                    _pub_usbl_ned.publish( point );
+
                     // Compute position vector and covariance matrix
                     Eigen::Vector3d position( north + position_increment[1],
                                               east + position_increment[2],
