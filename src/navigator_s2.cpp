@@ -717,13 +717,19 @@ public:
 
             //TODO: How to resolve landmark id??? --> Right now landmark_id = Publisher
             //      it means that each node can publish only one landmark!
-            _ekf_slam_auv->landmarkUpdate( msg.getMessage()->header.frame_id,
-                                           msg.getMessage()->id,
-                                           msg.getMessage()->header.stamp.toSec(),
-                                           position,
-                                           orientation,
-                                           covariance );
+            int res = _ekf_slam_auv->landmarkUpdate( msg.getMessage()->header.frame_id,
+                                                     msg.getMessage()->id,
+                                                     msg.getMessage()->header.stamp.toSec(),
+                                                     position,
+                                                     orientation,
+                                                     covariance );
             publish( msg.getMessage()->header.stamp );
+            ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 1, "landmark '%s' not validated yet", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 2, "landmark '%s' first sight", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 3, "landmark '%s' updated", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 4, "landmark '%s' not updated / too big mahalanobis", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 5, "landmark '%s' no imu / no prediction", msg.getMessage()->id.c_str());
             // _ekf_slam_auv->showStateVector();
         }
     }
