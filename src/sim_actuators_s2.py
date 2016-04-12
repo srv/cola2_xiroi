@@ -24,6 +24,16 @@ class SimActuatorsS2 :
 
         self.last_trusters_update = rospy.Time().now()
 
+        # Create publishers
+        self.pub_thrusters = rospy.Publisher(
+                                   '/cola2_control/sim_thrusters_data',
+                                   Setpoints,
+                                   queue_size = 2)
+
+        self.pub_fins = rospy.Publisher('/cola2_control/sim_fins_data',
+                                        Setpoints,
+                                        queue_size = 2)
+
         # Create subscribers
         rospy.Subscriber('/cola2_control/thrusters_data',
                          Setpoints,
@@ -33,16 +43,6 @@ class SimActuatorsS2 :
                          Setpoints,
                          self.update_fins,
                          queue_size = 1)
-
-        # Create publishers
-        self.pub_thrusters = rospy.Publisher(
-                                   '/cola2_control/sim_thrusters_data',
-                                   Setpoints,
-                                   queue_size = 2)
-                                   
-        self.pub_fins = rospy.Publisher('/cola2_control/sim_fins_data',
-                                        Setpoints,
-                                        queue_size = 2)
 
         # Timer
         rospy.Timer(rospy.Duration(1.0), self.check_thrusters)
@@ -56,6 +56,7 @@ class SimActuatorsS2 :
         self.last_trusters_update = rospy.Time().now()
         msg = Setpoints()
         msg.header = thrusters.header
+
         # Linear approach with max rpm of 1200
         msg.setpoints = 1200 * np.array(thrusters.setpoints).clip(min=-1,
                                                                   max=1)
@@ -75,6 +76,7 @@ class SimActuatorsS2 :
         """ Fins callback """
         msg = Setpoints()
         msg.header = fins.header
+
         # Linear approach with max angle of 60 degrees
         msg.setpoints = 1.0471975512 * np.array(fins.setpoints).clip(min=-1,
                                                                      max=1)
@@ -86,7 +88,5 @@ if __name__ == '__main__':
         rospy.init_node('sim_actuators_s2')
         sim_actuators_s2 = SimActuatorsS2(rospy.get_name())
         rospy.spin()
-
     except rospy.ROSInterruptException:
         pass
-
