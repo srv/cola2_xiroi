@@ -8,7 +8,7 @@ pilot/goto_max_angle_error: 0.3
 pilot/goto_max_surge: 0.5
 pilot/goto_surge_proportional_gain: 0.4
 
-pilot/dubins_yaw_ki: 0.003
+pilot/dubins_yaw_ki: 0.0
 pilot/dubins_yaw_kp: 0.09
 pilot/dubins_lookahead_sec: 4.0
 pilot/dubins_acceptance_sec: 3.0
