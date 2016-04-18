@@ -777,6 +777,11 @@ public:
                                                  msg.getMessage()->header.stamp.toSec(),
                                                  msg.getMessage()->range.data,
                                                  covariance);
+
+            rangeMarker(msg.getMessage()->id,
+                        msg.getMessage()->range.data,
+                        msg.getMessage()->sigma.data);
+
             publish(msg.getMessage()->header.stamp);
             ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
             ROS_DEBUG_COND(res == 1, "landmark '%s' not validated yet", msg.getMessage()->id.c_str());
