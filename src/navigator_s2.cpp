@@ -13,6 +13,8 @@
 #include "cola2_msgs/PressureSensor.h"
 #include "auv_msgs/BodyForceReq.h"
 #include "cola2_msgs/Detection.h"
+#include "cola2_msgs/RangeDetection.h"
+#include "cola2_msgs/AddLandmark.h"
 
 #define USE_MODEL           false // Use force to velocity model to simulate DVL data if no botton and water velocity availables
 #define INVALID_ALTITUDE    -3.2665
@@ -51,6 +53,8 @@ public:
         _sub_usbl = _n.subscribe( "/cola2_navigation/usbl_update", 2, &S2RosNavigator::updateUSBLEvologics, this );
         _sub_mb = _n.subscribe("/multibeam_range",2,&S2RosNavigator::updateMb, this);
         _sub_detection = _n.subscribe( "/cola2_navigation/detection_update", 2, &S2RosNavigator::updateLandmark, this );
+        _sub_range = _n.subscribe("/cola2_navigation/range_update", 2, &S2RosNavigator::updateRange, this);
+
 
         if( USE_MODEL ) {
             _sub_model = _n.subscribe( "/cola2_control/merged_body_force_req", 2, &S2RosNavigator::updateBodyForceReq, this );
@@ -59,6 +63,7 @@ public:
         // Init services
         _reset_navigation_srv = _n.advertiseService("/cola2_navigation/reset_navigation", &S2RosNavigator::resetNavigation, this );
         _set_depth_sensor_offset_srv = _n.advertiseService("/cola2_navigation/set_depth_sensor_offset", &S2RosNavigator::setDepthSensorOffset, this );
+        _add_landmark_srv = _n.advertiseService("/cola2_navigation/add_landmark", &S2RosNavigator::addLandmarkSrv, this );
 
         // Init timer
         _timer = _n.createTimer( ros::Duration(1.0), &S2RosNavigator::checkNavigatorDiagnostics, this );
@@ -161,6 +166,26 @@ public:
         if( !_ekf_init ) ROS_FATAL_STREAM( _name << ": EKF not initialized" );
         if( !_ned_init ) ROS_FATAL_STREAM( _name << ": NED not initialized" );
         if( !is_nav_data_ok ) ROS_FATAL_STREAM( _name << ": Missing NAV data" );
+    }
+
+
+    bool
+    addLandmarkSrv(cola2_msgs::AddLandmark::Request &req,
+                   cola2_msgs::AddLandmark::Response &res ) {
+        std::cout << "[Navigator] Add landmark\n";
+        Eigen::VectorXd landmark = Eigen::VectorXd::Zero(6);
+        Eigen::MatrixXd landmark_cov = Eigen::MatrixXd::Zero(6, 6);
+        landmark(0) = req.landmark.pose.position.x;
+        landmark(1) = req.landmark.pose.position.y;
+        landmark(2) = req.landmark.pose.position.z;
+        for (unsigned int i = 0; i < 6; i++ ) {
+            for (unsigned int j = 0; j < 6; j++) {
+                landmark_cov(i, j) = req.landmark.covariance.at(i*6+j);
+            }
+        }
+        _ekf_slam_auv->addLandmark(landmark, landmark_cov, req.id.data);
+        res.success = true;
+        return true;
     }
 
 
@@ -734,6 +759,34 @@ public:
         }
     }
 
+    void
+    updateRange(const ros::MessageEvent<cola2_msgs::RangeDetection const> & msg)
+    {
+        // std::cout << "Received Landmark update:\n";
+        // std::cout << msg.getPublisherName() << "\n";
+
+        if (_ekf_init && _ned_init) {
+            _diagnostic.check_frequency();
+
+
+            Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(1, 1);
+            covariance(0, 0) = msg.getMessage()->sigma.data;
+            // std::cout << "covariance:\n" << covariance << "\n";
+
+            int res = _ekf_slam_auv->rangeUpdate(msg.getMessage()->id,
+                                                 msg.getMessage()->header.stamp.toSec(),
+                                                 msg.getMessage()->range.data,
+                                                 covariance);
+            publish(msg.getMessage()->header.stamp);
+            ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 1, "landmark '%s' not validated yet", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 3, "landmark '%s' updated", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 4, "landmark '%s' not updated / too big mahalanobis", msg.getMessage()->id.c_str());
+            ROS_DEBUG_COND(res == 5, "landmark '%s' no imu / no prediction", msg.getMessage()->id.c_str());
+            // _ekf_slam_auv->showStateVector();
+        }
+    }
+
 
 private:
     // EKF object
@@ -750,6 +803,8 @@ private:
     ros::Subscriber _sub_usbl;
     ros::Subscriber _sub_mb;
     ros::Subscriber _sub_detection;
+    ros::Subscriber _sub_range;
+
 
     // Initialization flags
     bool _dvl_init;
@@ -777,6 +832,7 @@ private:
 
     ros::ServiceServer _reset_navigation_srv;
     ros::ServiceServer _set_depth_sensor_offset_srv;
+    ros::ServiceServer _add_landmark_srv;
 
     // To be loaded from config file
     Eigen::Quaterniond _auv_imu_rotation;
