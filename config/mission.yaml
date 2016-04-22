@@ -1,9 +1,9 @@
 # If the trajectory is absolute replace north east for latitude, longitude
-trajectory/north: [5.0, 5.0, -5.0, -5.0]
-trajectory/east: [5.0, -5.0, -5.0, 5.0]
+trajectory/north: [15.0, 15.0, -5.0, -5.0]
+trajectory/east: [15.0, -5.0, -5.0, 15.0]
 
-# Depth or altitude. First and last waypoints must be 0.0 
-trajectory/z: [0.0, 3.0, 3.0, 0.0]
+# Depth or altitude. First and last waypoints must be 0.0
+trajectory/z: [4.0, 4.0, 4.0, 4.0]
 
 # If altitude_mode is False then is Depth otherwise Altitude
 trajectory/altitude_mode: [False, False, False, False]
@@ -15,10 +15,18 @@ trajectory/mode: 'los_cte'
 trajectory/time_out: 10
 
 # Optional parameters
+# Tolerance for all waypoints [x (m), y (m), z (m), roll (rad), pitch (rad), yaw (rad)]
+trajectory/tolerance: [8.0, 8.0, 4.0, 0.5, 0.5, 0.3]
+
 # Keep position for X seconds after reaching a waypoint
 trajectory/wait: [0.0, 10.0, 10.0, 0.0]
+
+# Surge speed while performing trajectory
+# trajectory/surge: [0.5, 0.6, 0.7, 0.8]
+
+# If True, duplicates initial and final waypoints at surface
+trajectory/force_initial_final_waypoints_at_surface: true
 
 # Actions to be executed before moving to this waypoint
 #trajectory/actions: ['actionA', '', '', '']
 #trajectory/actionA: ['/cola2_control/disable_thrusters', ''] # example of an empty service
-
