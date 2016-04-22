@@ -770,17 +770,17 @@ public:
 
 
             Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(1, 1);
-            covariance(0, 0) = msg.getMessage()->sigma.data;
+            covariance(0, 0) = msg.getMessage()->sigma;
             // std::cout << "covariance:\n" << covariance << "\n";
 
             int res = _ekf_slam_auv->rangeUpdate(msg.getMessage()->id,
                                                  msg.getMessage()->header.stamp.toSec(),
-                                                 msg.getMessage()->range.data,
+                                                 msg.getMessage()->range,
                                                  covariance);
 
             rangeMarker(msg.getMessage()->id,
-                        msg.getMessage()->range.data,
-                        msg.getMessage()->sigma.data);
+                        msg.getMessage()->range,
+                        msg.getMessage()->sigma);
 
             publish(msg.getMessage()->header.stamp);
             ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
