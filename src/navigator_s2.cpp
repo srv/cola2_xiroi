@@ -740,8 +740,6 @@ public:
             covariance(5, 5) = msg.getMessage()->pose.covariance.at(35);
             // std::cout << "covariance:\n" << covariance << "\n";
 
-            //TODO: How to resolve landmark id??? --> Right now landmark_id = Publisher
-            //      it means that each node can publish only one landmark!
             int res = _ekf_slam_auv->landmarkUpdate( msg.getMessage()->header.frame_id,
                                                      msg.getMessage()->id,
                                                      msg.getMessage()->header.stamp.toSec(),
