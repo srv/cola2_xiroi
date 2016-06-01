@@ -1,12 +1,12 @@
 <launch>
   <group ns="guppy">
-    <node pkg="camera1394stereo" type="camera1394stereo_node" name="camera1394_node" output="screen" >
+    <node pkg="camera1394" type="camera1394_node" name="camera1394_node" output="screen" >
       <param name="guid" value="000a4701120aa237"/>
       <param name="reset_on_open" value="false"/>
       <param name="iso_speed" value="800"/>
-      <param name="frame_rate" value="5"/> <!--"7.5"/-->
+      <param name="frame_rate" value="7.5"/> <!--"15"/-->
       <!-- param name="video_mode" value="1024x768_mono8" /> -->
-      <param name="video_mode" value="1024x768_yuv422" />
+      <param name="video_mode" value="1280x960_rgb8" />
       <param name="num_dma_buffers" value="4" />
       <param name="auto_shutter" value="2"/>
 
