@@ -15,6 +15,7 @@
 #include "cola2_msgs/Detection.h"
 #include "cola2_msgs/RangeDetection.h"
 #include "cola2_msgs/AddLandmark.h"
+#include "cola2_msgs/Action.h"
 
 #define USE_MODEL           false // Use force to velocity model to simulate DVL data if no botton and water velocity availables
 #define INVALID_ALTITUDE    -3.2665
@@ -64,6 +65,7 @@ public:
         _reset_navigation_srv = _n.advertiseService("/cola2_navigation/reset_navigation", &S2RosNavigator::resetNavigation, this );
         _set_depth_sensor_offset_srv = _n.advertiseService("/cola2_navigation/set_depth_sensor_offset", &S2RosNavigator::setDepthSensorOffset, this );
         _add_landmark_srv = _n.advertiseService("/cola2_navigation/add_landmark", &S2RosNavigator::addLandmarkSrv, this );
+        _reset_nav_action_srv = _n.advertiseService("/cola2_navigation/reset_navigation_action", &S2RosNavigator::resetNavigationAction, this );
 
         // Init timer
         _timer = _n.createTimer( ros::Duration(1.0), &S2RosNavigator::checkNavigatorDiagnostics, this );
@@ -190,9 +192,17 @@ public:
 
 
     bool
-    resetNavigation( std_srvs::Empty::Request &req,
-                     std_srvs::Empty::Response &res ) {
+    resetNavigation(std_srvs::Empty::Request &req,
+                    std_srvs::Empty::Response &res) {
         std::cout << "[Navigator] Reset navigation...\n";
+        initFilter();
+        return true;
+    }
+
+    bool
+    resetNavigationAction(cola2_msgs::Action::Request &req,
+                          cola2_msgs::Action::Response &res) {
+        std::cout << "[Navigator] Reset navigation through action...\n";
         initFilter();
         return true;
     }
@@ -215,6 +225,8 @@ public:
         _diagnostic.add( "ned_init", "False" );
         _diagnostic.add( "ekf_init", "False" );
         _diagnostic.add( "imu_init", "False" );
+
+        getConfig();
 
         // Init NED from config file if necessary
         if( !_initialize_ned_from_gps ) {
@@ -434,6 +446,7 @@ public:
                 Eigen::Matrix3d covariance = Eigen::MatrixXd::Identity(3, 3);
                 if( dvl_update == 1 ) { // TODO: MISSING --> depth > 1.5 condition !!!
                     // bottom data and vehicle not in surface
+                    // std::cout << "_dvl_bottom_covariance.size(): " << _dvl_bottom_covariance.size() << std::endl;
                     assert( _dvl_bottom_covariance.size() == 3 );
                     covariance(0,0) = _dvl_bottom_covariance.at(0);
                     covariance(1,1) = _dvl_bottom_covariance.at(1);
@@ -834,6 +847,7 @@ private:
     double _mb_range;
 
     ros::ServiceServer _reset_navigation_srv;
+    ros::ServiceServer _reset_nav_action_srv;
     ros::ServiceServer _set_depth_sensor_offset_srv;
     ros::ServiceServer _add_landmark_srv;
 
@@ -867,11 +881,11 @@ private:
     void
     getConfig(){
         double declination_in_degrees;
-
+        
         // Load params from ROS param server
-        cola2::rosutil::loadParam( "navigator/dvl_max_v", _dvl_max_v );
-        cola2::rosutil::loadParam( "navigator/initialize_ned_from_gps", _initialize_ned_from_gps );
-        cola2::rosutil::loadParam( "navigator/initialize_filter_from_gps", _initialize_filter_from_gps );
+        cola2::rosutil::loadParam( "navigator/dvl_max_v", _dvl_max_v);
+        cola2::rosutil::loadParam( "navigator/initialize_ned_from_gps", _initialize_ned_from_gps);
+        cola2::rosutil::loadParam( "navigator/initialize_filter_from_gps", _initialize_filter_from_gps);
         cola2::rosutil::loadParam( "navigator/use_gps_data", _use_gps_data );
         cola2::rosutil::loadParam( "navigator/ned_latitude", _init_latitude );
         cola2::rosutil::loadParam( "navigator/ned_longitude", _init_longitude );
@@ -882,13 +896,13 @@ private:
         cola2::rosutil::loadParam( "navigator/initialize_depth_sensor_offset", _initialize_depth_sensor_offset );
         cola2::rosutil::loadParam( "navigator/robot_frame_id", _vehicle_frame_id );
         cola2::rosutil::loadParam( "navigator/world_frame_id", _world_frame_id );
-        cola2::rosutil::loadParam( "navigator/dvl_bottom_covariance", _dvl_bottom_covariance );
-        cola2::rosutil::loadParam( "navigator/dvl_water_covariance", _dvl_water_covariance );
-        cola2::rosutil::loadParam( "navigator/gps_covariance", _gps_covariance );
-        cola2::rosutil::loadParam( "navigator/pressure_covariance", _pressure_covariance );
-        cola2::rosutil::loadParam( "navigator/model_covariance", _model_covariance );
-        cola2::rosutil::loadParam( "navigator/usbl_covariance", _usbl_covariance );
-        cola2::rosutil::loadParam( "navigator/water_density", _water_density );
+        cola2::rosutil::loadParam( "navigator/dvl_bottom_covariance", _dvl_bottom_covariance);
+        cola2::rosutil::loadParam( "navigator/dvl_water_covariance", _dvl_water_covariance);
+        cola2::rosutil::loadParam( "navigator/gps_covariance", _gps_covariance);
+        cola2::rosutil::loadParam( "navigator/pressure_covariance", _pressure_covariance);
+        cola2::rosutil::loadParam( "navigator/model_covariance", _model_covariance);
+        cola2::rosutil::loadParam( "navigator/usbl_covariance", _usbl_covariance);
+        cola2::rosutil::loadParam( "navigator/water_density", _water_density);
     }
 };
 
