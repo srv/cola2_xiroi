@@ -1,15 +1,13 @@
 <launch>
     <arg name="vehiclename" default="sparus"/>
     <node name="sparus_bag" output="screen" pkg="rosbag" type="record" args="
-        -a -x '/stereo_camera(.*)|/octo(.*)'
+        -a -x '/guppy(.*)|/octo(.*)'
         --split --size 2048 -o $(env HOME)/$(arg vehiclename)" />
 
     <node name="sparus_image_bag" output="screen" pkg="rosbag" type="record" args="
         /position
         /pose_ekf_slam/odometry
-        /stereo_camera/left/camera_info
-        /stereo_camera/left/image_raw
-        /stereo_camera/right/camera_info
-        /stereo_camera/right/image_raw
+        /guppy/camera/camera_info
+        /guppy/camera/image_raw
         --split --size 2048 -o $(env HOME)/$(arg vehiclename)_image" />
 </launch>
