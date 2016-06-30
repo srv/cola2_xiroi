@@ -3,3 +3,8 @@ adis_imu/g_acceleration: 9.80665
 adis_imu/software_reset: False
 adis_imu/restore_factory_calibration: False
 adis_imu/binary_mode: False
+
+adis_imu/max_line_length: 20
+adis_imu/min_line_length: 5
+adis_imu/max_pressure: 30.0
+adis_imu/min_pressure: 0.0
