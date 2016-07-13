@@ -19,3 +19,7 @@ pilot/anchor_min_surge: -0.1
 pilot/anchor_max_surge: 0.3
 pilot/anchor_safety_distance: 50.0
 pilot/anchor_max_angle_error: 0.5
+
+pilot/path_tolerance: 2.0
+pilot/path_lookahead: 10.0
+pilot/path_surge_speed: 1.0
