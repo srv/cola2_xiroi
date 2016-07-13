@@ -3,3 +3,4 @@ adis_imu/g_acceleration: 9.80665
 adis_imu/software_reset: False
 adis_imu/restore_factory_calibration: False
 adis_imu/binary_mode: False
+adis_imu/digital_output: -1
