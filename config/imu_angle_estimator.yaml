@@ -1,74 +1,22 @@
 # imu_angle_estimator.py config file
-imu_angle_estimator/configuration_package: "cola2_s2"
-imu_angle_estimator/adis_topic_name: "cola2_navigation/adis_imu_data"
+imu_angle_estimator/configuration_package: "cola2_s2" # Path where the configuration of the "imu_angle_estimator" node is available
+imu_angle_estimator/calibration_file_path: "/home/cirs/" # Path where some visual calibration outputs are stored
+
 imu_angle_estimator/merging_filter_coefficient: 0.995  # From 0.0 (only tilt angles) to 1.0 (only gyro). Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
 imu_angle_estimator/max_gyro_bias_buffer_size: 18000  # Max size of the averaging filter. Must be an integer greater than zero
-imu_angle_estimator/min_gyro_bias_buffer_size: 100  # Min size of the averaging filter. Representative of initial waiting time. Must be an integer greater than zero
-imu_angle_estimator/filter_divergence_buffer_size: 1000  # Size of the buffer used to check divergence
-imu_angle_estimator/acceleration_limit: 0.20  # Acceleration limit in m/s^2 to start applying filter_reduction_factor
-imu_angle_estimator/rates_limit: 0.5  # Rates limit in rad/s to start applying filter_reduction_factor
-imu_angle_estimator/filter_reduction_factor: 0.5  # From 0.0 (no tilt angles when limits is reached) to 1.0 (limits don't matter)
-imu_angle_estimator/pub_topic: "/cola2_navigation/imu"
-imu_angle_estimator/pub_info_topic: "/cola2_navigation/imu_info"
-imu_angle_estimator/frame_id: "adis_imu"
-imu_angle_estimator/angle_covariance: 0.1
-imu_angle_estimator/angular_velocity_covariance: 0.1
-imu_angle_estimator/acceleration_covariance: 0.1
-imu_angle_estimator/soft_iron: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
-imu_angle_estimator/hard_iron: [[0.0], [0.0], [0.0]]
-imu_angle_estimator/tf: [0.36377, -0.02093, -0.08490, 90.0, 0.0, 90.0]  # [0.36377, -0.02093, -0.08490, 90.0, 0.0, 90.0] Position of the imu with respect to the AUV. Angles in degrees
-imu_angle_estimator/calibration_file_path: "/home/cirs/"
 
-# Declination is now defined in navigator.yaml file
-# imu_angle_estimator/declination: 0.02 #-0.17 #0.0258947 # 0.8  -0.4537  # This value is ADDED to the yaw output of the filter in rads
+# The output data is with respect to the "adis_imu" frame but orientated in the vehicle frame. This "trick" is necessary for calibration purposes.
+imu_angle_estimator/frame_id: "adis_imu"
+imu_angle_estimator/tf: [0.36377, -0.02093, -0.08490, 90.0, 0.0, 90.0]  # Position of the imu with respect to the AUV. Angles in degrees
 
 # Imu calibration here
-#imu_angle_estimator/soft_iron: [[1.12777808e+00, -9.33921072e-19, 1.52525923e-02], [-9.33921072e-19, 1.00000000e+00, -1.11480134e-19], [1.52525923e-02, -1.11480134e-19, 1.00182067e+00]]
-#imu_angle_estimator/hard_iron: [[-4.10100087e-02], [3.08837190e-19], [-5.04386065e-03]]
-
-#imu_angle_estimator/soft_iron: [[1.10522597e+00, -6.27129701e-19, 1.02421435e-02], [-6.27129701e-19, 1.00000000e+00, -6.10415125e-20], [1.02421435e-02, -6.10415125e-20, 1.00099692e+00]]
-#imu_angle_estimator/hard_iron: [[-3.81753629e-02], [2.05869403e-19], [-3.36221354e-03]]
-
-#imu_angle_estimator/soft_iron: [[1.11082611209, -6.01452027598e-19, 0.00982278143046], [-6.01452027598e-19, 1.0, -5.33081211311e-20], [0.00982278143046, -5.33081211311e-20, 1.00087061644]]
-#imu_angle_estimator/hard_iron: [[-0.0851136900999], [-1.48602775396e-19], [0.00242694764619]]
-
-#imu_angle_estimator/soft_iron: [[1.0961584429, -5.47543069625e-19, 0.00894235225737], [-5.47543069625e-19, 1.0, -5.09193249922e-20], [0.00894235225737, -5.09193249922e-20, 1.00083160315]]
-#imu_angle_estimator/hard_iron: [[-0.0844494867285], [1.05204748168e-18], [-0.0171818066826]]
-
-#imu_angle_estimator/soft_iron: [[1.10434476777, -6.05859149653e-19, 0.0098947575727], [-6.05859149653e-19, 1.0, -5.74521323624e-20], [0.0098947575727, -5.74521323624e-20, 1.00093829551]]
-#imu_angle_estimator/hard_iron: [[-0.0820911606999], [1.09381035821e-18], [-0.0178638687411]]
-
-#imu_angle_estimator/soft_iron: [[1.10057322854, -5.14001525136e-19, 0.00839455917457], [-5.14001525136e-19, 1.0, -4.29022343351e-20], [0.00839455917457, -4.29022343351e-20, 1.0007006698]]
-#imu_angle_estimator/hard_iron: [[-0.0987842322976], [9.97938267372e-19], [-0.0162981069673]]
-
-#imu_angle_estimator/soft_iron: [[1.10502793672, -1.79153101331e-19, 0.00292588880944], [-1.79153101331e-19, 1.0, -4.99088214753e-21], [0.00292588880944, -4.99088214753e-21, 1.00008150998]]
-#imu_angle_estimator/hard_iron: [[-0.0427098006616], [5.00848958518e-19], [-0.00817975436686]]
-
-#imu_angle_estimator/soft_iron: [[1.10341911457, -9.23364060153e-19, 0.0150801775162], [-9.23364060153e-19, 1.0, -1.34641395804e-19], [0.0150801775162, -1.34641395804e-19, 1.00219893348]]
-#imu_angle_estimator/hard_iron: [[-0.0417689185313], [1.90566095744e-19], [-0.00311228330883]]
-
-#imu_angle_estimator/soft_iron: [[1.1470455493, -9.50825046133e-19, 0.0155286642629], [-9.50825046133e-19, 1.0, -1.00411355426e-19], [0.0155286642629, -1.00411355426e-19, 1.00163989604]]
-#imu_angle_estimator/hard_iron: [[-0.0513023056785], [-9.89598740213e-19], [0.0161619076551]]
-
-#imu_angle_estimator/soft_iron: [[1.04183470609, -2.45145688734e-19, 0.00400366514462], [-2.45145688734e-19, 1.0, -2.34609333016e-20], [0.00400366514462, -2.34609333016e-20, 1.00038315877]]
-#imu_angle_estimator/hard_iron: [[-0.0590452244243], [6.57155797817e-20], [-0.001073252308]]
-
-#imu_angle_estimator/soft_iron: [[1.05596196194, -5.15903406806e-19, 0.00842562028517], [-5.15903406806e-19, 1.0, -7.76742998077e-20], [0.00842562028517, -7.76742998077e-20, 1.00126855948]]
-#imu_angle_estimator/hard_iron: [[-0.0620824991801], [-8.26210344872e-20], [0.00134934845356]]
-
-#imu_angle_estimator/soft_iron: [[1.0434276438, -2.02074165086e-19, 0.00330023055091], [-2.02074165086e-19, 1.0, -1.53563784439e-20], [0.00330023055091, -1.53563784439e-20, 1.00025079697]]
-#imu_angle_estimator/hard_iron: [[-0.0331881491354], [2.34248691369e-19], [-0.00382569779484]]
-
-#Alliance - NATO
+# Alliance - NATO
 #imu_angle_estimator/soft_iron: [[1.04447897427, 1.8970667048e-19, -0.00309824736558], [1.8970667048e-19, 1.0, -1.32142928588e-20], [-0.00309824736558, -1.32142928588e-20, 1.00021581291]]
 #imu_angle_estimator/hard_iron: [[-0.0339891339972], [3.95076761901e-19], [-0.0064523062561]]
 
-#Alliance Payload Multibeam + camera
-#imu_angle_estimator/soft_iron: [[1.02634243733, -2.58263180921e-19, 0.00421789712449], [-2.58263180921e-19, 1.0, -4.13525716912e-20], [0.00421789712449, -4.13525716912e-20, 1.00067536105]]
-#imu_angle_estimator/hard_iron: [[-0.0632309331377], [2.73643882498e-19], [-0.00446909133933]]
-
-# imu_angle_estimator/soft_iron: [[1.03387719512, 4.58017872634e-20, -0.000747999950603], [4.58017872634e-20, 1.0, -1.01129194703e-21], [-0.000747999950603, -1.01129194703e-21, 1.00001651565]]
-# imu_angle_estimator/hard_iron: [[-0.0454425646283], [-2.48213651666e-19], [0.00405363655609]]
+# Alliance Payload Multibeam + camera
+# imu_angle_estimator/soft_iron: [[1.02634243733, -2.58263180921e-19, 0.00421789712449], [-2.58263180921e-19, 1.0, -4.13525716912e-20], [0.00421789712449, -4.13525716912e-20, 1.00067536105]]
+# imu_angle_estimator/hard_iron: [[-0.0632309331377], [2.73643882498e-19], [-0.00446909133933]]
 
 # 13/04/2016 St. Feliu harbour
 # imu_angle_estimator/soft_iron: [[1.03886857219, -3.07069553737e-19, 0.00501482638016], [-3.07069553737e-19, 1.0, -3.96181390721e-20], [0.00501482638016, -3.96181390721e-20, 1.00064701331]]
