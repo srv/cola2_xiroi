@@ -29,10 +29,10 @@ class LogitechFX10(JoystickBase):
         # Create client to services:
         # ... enable keep position
         rospy.wait_for_service(
-            '/cola2_control/enable_keep_position_g500', 10)
+            '/cola2_control/enable_keep_position_3dof', 10)
         try:
             self.enable_keep_pose = rospy.ServiceProxy(
-                '/cola2_control/enable_keep_position_s2', Empty)
+                '/cola2_control/enable_keep_position_3dof', Empty)
         except rospy.ServiceException, e:
             rospy.lofwarn("%s: Service call failed: %s", self.name, e)
 
