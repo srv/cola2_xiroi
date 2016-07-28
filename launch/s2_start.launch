@@ -4,8 +4,7 @@
     <arg name="enableActuators" default="true"/>
     <arg name="enableImu" default="true"/>
     <arg name="enableSafety" default="true"/>
-    <arg name="enableNewCaptain" default="true" />
-   	<arg name="enableNewPilot" default="true" />
+    <arg name="enableRemoteJoystick" default="true"/>
 
     <!-- SPARUS PAYLOAD PARAMS -->
     <arg name="Camera" default="false"/>
@@ -21,7 +20,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
-	<arg name="enableProfiler" default="false"/>
+	  <arg name="enableProfiler" default="false"/>
 
     <!-- SPARUS OTHER PARAMS -->
     <arg name="enableLog" default="false" />
@@ -50,42 +49,39 @@
     <!--  ################# SET REMOTE MACHINE  #################  -->
 
     <!-- NARCIS' MACBOOK PRO JOYSTICK SETTINGS -->
-<!--
+    <!--
     <arg name="desktopUserName" value="narcis"/>
     <arg name="desktopMachineAddr" value="narcis-vm" />
-
--->
+    -->
     <!-- BLACK MACBOOK -->
-<!--
+    <!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-macbook" />
--->
-
+    -->
     <!-- JUANDAVID -->
-    <!--arg name="desktopUserName" value="juandhv"/>
+    <!--
+    <arg name="desktopUserName" value="juandhv"/>
     <arg name="desktopMachineAddr" value="brain-Ubuntu" />
-    <arg name="desktopMachineName" value="brain-Ubuntu" /-->
-
+    <arg name="desktopMachineName" value="brain-Ubuntu" />
+    -->
     <!-- SUPERLAPTOP -->
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-G74Sx" />
-
     <!-- TOSHI -->
-<!--
+    <!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="toshi" />
--->
+    -->
     <!-- A Palomer laptop -->
-<!--
+    <!--
     <arg name="desktopUserName" value="apalomer"/>
     <arg name="desktopMachineAddr" value="apalomer-N56J"/>
--->
-
+    -->
     <!-- newasus -->
-<!--
+    <!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-newasus"/>
--->
+    -->
 
     <!--S2 address-->
     <!--arg name="desktopMachineName" value="remote_machine" /-->
@@ -98,8 +94,6 @@
         <arg name="enableActuators" value="$(arg enableActuators)"/>
         <arg name="enableImu" value="$(arg enableImu)"/>
         <arg name="enableSafety" value="$(arg enableSafety)"/>
-        <arg name="enableNewCaptain" value="$(arg enableNewCaptain)" />
-   		<arg name="enableNewPilot" value="$(arg enableNewPilot)" />
     </include>
 
     <!--  #################  LOAD S2 PAYLOAD  #################  -->
@@ -122,18 +116,18 @@
 
     <!--  #################  LOAD S2 OTHERS  #################  -->
     <group if="$(arg enableJoystick)">
-        <machine name="$(arg desktopMachineAddr)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2_core/env.bash"/>
-        <!--node name="map_ack" pkg="cola2_control" type="map_ack.py" respawn="true" output="screen" machine="$(arg desktopMachineAddr)"/-->
-        <!-- JOYSTICK -->
-        <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineAddr)">
-            <param name="dev" value="$(arg joystickDevice)"/>
-            <param name="deadzone" value="0.1"/>
-        </node>
-        <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10" machine="$(arg desktopMachineAddr)"/>
+        <group if="$(arg enableRemoteJoystick)">
+            <machine name="$(arg desktopMachineAddr)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2_core/env.bash"/>
+            <!-- JOYSTICK -->
+            <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineAddr)">
+                <param name="dev" value="$(arg joystickDevice)"/>
+                <param name="deadzone" value="0.1"/>
+            </node>
+            <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10" machine="$(arg desktopMachineAddr)"/>
+        </group>
     </group>
     <group unless="$(arg enableJoystick)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
-            <!-- remap from="/keyboard" to="/cola2_control/keyboard_data"/-->
             <remap from="/keyboard" to="/joy"/>
         </node>
         <node name="keyboard_to_teleoperation" pkg="cola2_control" type="keyboard_to_teleoperation.py" />
@@ -147,6 +141,7 @@
        <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_force_req 2.0 /cola2_control/merged_body_force_req_hz"/>
        <node name="thrusters_data_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/thrusters_data 4.0 /cola2_control/thrusters_data_hz"/>
        <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+       <include file="$(find cola2_s2)/launch/rosbridge_tcp.launch" />
    </group>
 
    <!-- RViz transform-->

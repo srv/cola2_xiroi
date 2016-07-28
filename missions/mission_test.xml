@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<mission>
+    <configuration>
+        <key>test_param</key>
+        <value>test_value</value>
+    </configuration>
+    <maneuver type="waypoint">
+        <position>
+            <latitude>41.7772</latitude>
+            <longitude>3.03875</longitude>
+            <z>5.0</z>
+            <altitude_mode>false</altitude_mode>
+        </position>
+        <tolerance>
+            <x>2.000000</x>
+            <y>2.000000</y>
+            <z>1.000000</z>
+        </tolerance>
+        <speed>0.450000</speed>
+    </maneuver>
+    <action>
+        <action_id>/test_action</action_id>
+        <parameters>
+            <param>p1</param>
+            <param>p2</param>
+        </parameters>
+    </action>
+    <maneuver type="park">
+        <position>
+            <latitude>41.7772</latitude>
+            <longitude>3.03875</longitude>
+            <z>5.0</z>
+            <altitude_mode>false</altitude_mode>
+        </position>
+        <tolerance>
+            <x>2.400000</x>
+            <y>2.400000</y>
+            <z>0.300000</z>
+        </tolerance>
+        <time>15</time>
+    </maneuver>
+    <maneuver type="section">
+        <initial_position>
+            <latitude>41.7772</latitude>
+            <longitude>3.03875</longitude>
+            <z>5.000000</z>
+            <altitude_mode>false</altitude_mode>
+        </initial_position>
+        <final_position>
+            <latitude>41.77737</latitude>
+            <longitude>3.038758</longitude>
+            <z>2.0</z>
+            <altitude_mode>false</altitude_mode>
+        </final_position>
+        <tolerance>
+            <x>1.800000</x>
+            <y>2.000000</y>
+            <z>1.000000</z>
+        </tolerance>
+        <speed>0.750000</speed>
+    </maneuver>
+</mission>
