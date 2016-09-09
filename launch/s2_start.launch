@@ -133,7 +133,7 @@
         <node name="keyboard_to_teleoperation" pkg="cola2_control" type="keyboard_to_teleoperation.py" />
     </group>
 
-   <!-- Enable web GUI -->
+   <!-- Enable rosbridge -->
    <group if="$(arg enableGUI)">
        <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_navigation/nav_sts 4.0 /cola2_navigation/nav_sts_hz"/>
        <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_world_waypoint_req 2.0 /cola2_control/merged_world_waypoint_req_hz"/>

@@ -6,7 +6,7 @@
     <arg name="enableLog" default="false" />
     <arg name="enableUWSim" default="false" />
     <arg name="enableShadders" default="false" />
-    <arg name="webGui" default="true"/>
+    <arg name="enableGUI" default="true"/>
     <arg name="enableRviz" default="true" />
 
     <!-- Load Sparus2 configs (do not modify) -->
@@ -36,8 +36,8 @@
     <!-- Run Log -->
     <node if="$(arg enableLog)" name="bag_record" output="screen" pkg="rosbag" type="record" args="-a -x '(/uwsim/(.)*)(/camera/image_m(.)*)|(/camera/image_c(.)*)|(/camera/image_rect/(.)*)|(/camera/image_rect)|(/camera/image_raw)|(/camera/image_rect_color/compressed)|(/camera/image_raw/compressed)' --split --size 1024 -o /home/$(env LOGNAME)/s2" />
 
-    <!-- Run web GUI -->
-    <group if="$(arg webGui)">
+    <!-- Run rosbridge -->
+    <group if="$(arg enableGUI)">
         <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_navigation/nav_sts 4.0 /cola2_navigation/nav_sts_hz"/>
         <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_world_waypoint_req 2.0 /cola2_control/merged_world_waypoint_req_hz"/>
         <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages /cola2_control/merged_body_velocity_req 2.0 /cola2_control/merged_body_velocity_req_hz"/>
