@@ -20,7 +20,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
-	  <arg name="enableProfiler" default="false"/>
+	<arg name="enableProfiler" default="false"/>
 
     <!-- SPARUS OTHER PARAMS -->
     <arg name="enableLog" default="false" />
@@ -88,7 +88,7 @@
     <!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-newasus"/>
-
+    -->
     <!-- S2 address -->
     <!--arg name="desktopMachineName" value="remote_machine" /-->
     <arg name="ROSMaster" value="http://192.168.1.61:11311" />
