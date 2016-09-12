@@ -4,15 +4,15 @@
       <param name="guid" value="000a4701120aa237"/>
       <param name="reset_on_open" value="false"/>
       <param name="iso_speed" value="800"/>
-      <param name="frame_rate" value="7.5"/> <!--"15"/-->
+      <param name="frame_rate" value="15"/> <!--"15"/-->
       <!-- param name="video_mode" value="1024x768_mono8" /> -->
       <param name="video_mode" value="1280x960_rgb8" />
       <param name="num_dma_buffers" value="4" />
       <param name="auto_shutter" value="2"/>
 
-      <!--param name="auto_white_balance" value="2"/>
+      <param name="auto_white_balance" value="2"/>
       <param name="white_balance_BU" value="613"/>
-      <param name="white_balance_RV" value="950"/-->
+      <param name="white_balance_RV" value="950"/>
 
       <param name="external_trigger" value="0"/>
       <!-- param name="bayer_pattern" value="rggb" -->
