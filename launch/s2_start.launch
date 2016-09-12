@@ -2,7 +2,7 @@
     <!--  ##############  Configurable arguments  ##############  -->
     <!-- SPARUS CORE PARAMS -->
     <arg name="enableActuators" default="true"/>
-    <arg name="enableImu" default="true"/>
+    <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
     <arg name="enableNewCaptain" default="true" />
    	<arg name="enableNewPilot" default="true" />
@@ -17,7 +17,7 @@
     <arg name="Micron" default="false"/>
     <arg name="Aris" default="false"/>
     <arg name="EchoSounders" default="false"/>
-    <arg name="enableModem" default="false"/>
+    <arg name="enableModem" default="true"/>
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
@@ -41,7 +41,7 @@
 
 
     <!--  #################  DEFINE JOYSTICK DEVICE  #################  -->
-    <arg name="joystickDevice" value="/dev/input/js1"/>
+    <arg name="joystickDevice" value="/dev/input/js0"/>
     <!--arg name="joystickDevice" value="/dev/input/js1"/-->
     <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
     <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
@@ -67,8 +67,14 @@
     <arg name="desktopMachineName" value="brain-Ubuntu" /-->
 
     <!-- SUPERLAPTOP -->
+    <!--
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-G74Sx" />
+    -->
+
+    <!-- ASUS NEW -->
+    <arg name="desktopUserName" value="cirs"/>
+    <arg name="desktopMachineAddr" value="cirs-F555L" />
 
     <!-- TOSHI -->
 <!--
@@ -86,6 +92,13 @@
     <arg name="desktopUserName" value="cirs"/>
     <arg name="desktopMachineAddr" value="cirs-newasus"/>
 -->
+  <!-- new newasus -->
+<!--
+  <arg name="desktopUserName" value="cirs"/>
+  <arg name="desktopMachineAddr" value="cirs-F555L"/>
+-->
+
+
 
     <!--S2 address-->
     <!--arg name="desktopMachineName" value="remote_machine" /-->
