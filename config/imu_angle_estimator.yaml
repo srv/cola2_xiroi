@@ -1,7 +1,7 @@
 # imu_angle_estimator.py config file
 imu_angle_estimator/adis_topic_name: "cola2_navigation/adis_imu_data"
-imu_angle_estimator/merging_filter_coefficient: 0.995  # From 0.0 (only tilt angles) to 1.0 (only gyro). Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
-imu_angle_estimator/max_gyro_bias_buffer_size: 18000  # Max size of the averaging filter. Must be an integer greater than zero
+imu_angle_estimator/merging_filter_coefficient: 0.998  # From 0.0 (only tilt angles) to 1.0 (only gyro). Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
+imu_angle_estimator/max_gyro_bias_buffer_size: 36000  # Max size of the averaging filter. Must be an integer greater than zero
 imu_angle_estimator/min_gyro_bias_buffer_size: 100  # Min size of the averaging filter. Representative of initial waiting time. Must be an integer greater than zero
 imu_angle_estimator/filter_divergence_buffer_size: 1000  # Size of the buffer used to check divergence
 imu_angle_estimator/acceleration_limit: 0.20  # Acceleration limit in m/s^2 to start applying filter_reduction_factor
@@ -74,6 +74,11 @@ imu_angle_estimator/calibration_file_path: "/home/cirs/"
 # imu_angle_estimator/hard_iron: [[-0.0586175074009], [-3.54206336565e-20], [0.000578462846287]]
 
 # 13/06/2016 St. Feliu Harbour payload guppy + multibeam
-imu_angle_estimator/soft_iron: [[1.0378235234, -2.47970904345e-19, 0.00404967219149], [-2.47970904345e-19, 1.0, -2.65496385691e-20], [0.00404967219149, -2.65496385691e-20, 1.0004335885]]
-imu_angle_estimator/hard_iron: [[-0.0466180737678], [6.40853946768e-19], [-0.0104659391951]]
+#imu_angle_estimator/soft_iron: [[1.0378235234, -2.47970904345e-19, 0.00404967219149], [-2.47970904345e-19, 1.0, -2.65496385691e-20], [0.00404967219149, -2.65496385691e-20, 1.0004335885]]
+#imu_angle_estimator/hard_iron: [[-0.0466180737678], [6.40853946768e-19], [-0.0104659391951]]
+
+
+# 05/07/2016 Cascais (Portugal)
+imu_angle_estimator/soft_iron: [[1.03818506071, -3.47050637079e-19, 0.00566776702182], [-3.47050637079e-19, 1.0, -5.15123485229e-20], [0.00566776702182, -5.15123485229e-20, 1.00084126049]]
+imu_angle_estimator/hard_iron: [[-0.0506125599126], [5.78768639032e-19], [-0.00945200917415]]
 
