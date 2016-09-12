@@ -36,6 +36,8 @@ class SimNavSensorsS2:
         self.name = name
 
         # Load dynamic parameters
+        self.simulate_altidude = True
+        self.sea_bottom_depth = 20.0
         self.get_config()
         self.ned = NED.NED(self.latitude, self.longitude, 0.0)
         self.odom = Odometry()
@@ -112,6 +114,7 @@ class SimNavSensorsS2:
 
     def update_altitude(self, range_data):
         """ This method is a callback of the range input message """
+        self.simulate_altidude = False
         self.altitude = range_data.range
 
 
@@ -332,6 +335,14 @@ class SimNavSensorsS2:
         dvl.bi_y_axis = dvl_data[1]
         dvl.bi_z_axis = dvl_data[2]
         dvl.bi_status = "A"
+
+        # If simulated altitude, compute it
+        if self.simulate_altidude:
+            self.altitude = self.sea_bottom_depth - self.odom.pose.pose.position.z
+            # print 'Altitude: ', self.altitude
+            if self.altitude < 0.5:
+                self.altitude = -1.0
+
         dvl.bd_range = self.altitude
         self.pub_dvl.publish(dvl)
 
@@ -421,6 +432,7 @@ class SimNavSensorsS2:
                       'gps_tf_array': "sim_nav_sensors/gps/tf",
                       'imu_period': "sim_nav_sensors/imu/period",
                       'dvl_period': "sim_nav_sensors/dvl/period",
+                      'sea_bottom_depth': "sim_nav_sensors/sea_bottom_depth",
                       'gps_period': "sim_nav_sensors/gps/period",
                       'imu_orientation_covariance': "sim_nav_sensors/imu/orientation_covariance",
                       'dvl_velocity_covariance': "sim_nav_sensors/dvl/velocity_covariance",
