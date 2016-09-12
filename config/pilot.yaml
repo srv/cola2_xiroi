@@ -1,29 +1,25 @@
-# General parameters
-move_mode/min_velocity_los: [0.2, 0.0, 0.0, 0.0, 0.0, 0.0]
-move_mode/max_angle_error: 0.3
-move_mode/max_velocity: [0.5, 0.2, 0.5, 0.0, 0.3, 0.3]
+pilot/los_cte_delta: 10.0
+pilot/los_cte_distance_to_max_velocity: 4.0
+pilot/los_cte_max_surge_velocity: 0.5
+pilot/los_cte_min_surge_velocity: 0.2
+pilot/los_cte_min_velocity_ratio: 0.1
 
-# Sparus LOS
-move_mode/sparus_los/acceptance_radius: 2.0  # Do not change
-move_mode/sparus_los/los_radius: 4.0  # Do not change
-move_mode/sparus_los/low_surge: 0.5  # Choose 0.2, 0.3, 0.4 or 0.5
-move_mode/sparus_los/high_surge: 0.5  # Choose 0.5, 1.0, 1.5 or 2.0
-move_mode/sparus_los/sway_correction: True
-move_mode/sparus_los/heave_mode_in_3D: False
-move_mode/sparus_los/safety_max_distance_btw_waypoints: 500  # [m]
+pilot/goto_max_angle_error: 0.3
+pilot/goto_max_surge: 0.5
+pilot/goto_surge_proportional_gain: 0.4
 
-#Pose PID per DoF
-pilot/pid_x_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pilot/pid_x_z_yaw_kp: [0.2, 0.0, 0.3, 0.0, 0.0, 0.8]
-pilot/pid_x_z_yaw_ti: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pilot/pid_x_z_yaw_td: [0.2, 0.0, 0.0, 0.0, 0.0, 0.3]
+pilot/dubins_yaw_ki: 0.0
+pilot/dubins_yaw_kp: 0.09
+pilot/dubins_lookahead_sec: 4.0
+pilot/dubins_acceptance_sec: 3.0
 
-pilot/pid_x_y_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pilot/pid_x_y_z_yaw_kp: [1.0, 1.0, 0.5, 0.0, 0.0, 0.8]
-pilot/pid_x_y_z_yaw_ti: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pilot/pid_x_y_z_yaw_td: [0.2, 0.2, 0.1, 0.0, 0.0, 0.3]
+pilot/anchor_kp: 0.1
+pilot/anchor_radius: 1.0
+pilot/anchor_min_surge: -0.1
+pilot/anchor_max_surge: 0.3
+pilot/anchor_safety_distance: 50.0
+pilot/anchor_max_angle_error: 0.5
 
-pilot/relative_pid_x_y_z_yaw_feed_forward_force: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pilot/relative_pid_x_y_z_yaw_kp: [0.2, 0.2, 0.2, 0.0, 0.0, 0.4]
-pilot/relative_pid_x_y_z_yaw_ti: [8.0, 8.0, 8.0, 0.0, 0.0, 8.0]
-pilot/relative_pid_x_y_z_yaw_td: [0.1, 0.1, 0.1, 0.0, 0.0, 0.1]
+pilot/path_tolerance: 2.0
+pilot/path_lookahead: 10.0
+pilot/path_surge_speed: 1.0

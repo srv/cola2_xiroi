@@ -3,9 +3,7 @@
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
-	<arg name="enableNewCaptain" default="false" />
-   	<arg name="enableNewPilot" default="false" />
-   	
+
     <!--  ##############  LOAD NODES  ##############  -->
     <!-- Robot description Sparus2 -->
     <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
@@ -33,19 +31,9 @@
     <!-- Run Control Stack -->
     <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" output="screen"/>
     <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
-    <group if="$(arg enableNewCaptain)">    
-    	<node name="captain" pkg="cola2_control" type="captain" respawn="false" output="screen"/>
-	</group>
-	<group unless="$(arg enableNewCaptain)">
-		<node name="captain_old" pkg="cola2_control" type="captain.py" respawn="false" output="screen"/>
-	</group>
-	<group if="$(arg enableNewPilot)">    
-    	<node name="pilot" pkg="cola2_control" type="pilot" respawn="false" output="screen"/>
-	</group>
-	<group unless="$(arg enableNewPilot)">
-		<node name="pilot_old" pkg="cola2_control" type="pilot.py" respawn="false" output="screen"/>
-	</group>
-
+    <node name="captain" pkg="cola2_control" type="captain" respawn="false" output="screen"/>
+	  <node name="pilot" pkg="cola2_control" type="pilot" respawn="false" output="screen"/>
+	
     <!-- Run Teleoperation -->
     <group if="$(arg enableJoystick)">
         <node respawn="true" pkg="joy" type="joy_node" name="joystick">

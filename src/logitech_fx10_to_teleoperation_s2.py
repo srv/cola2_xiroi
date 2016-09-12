@@ -1,10 +1,14 @@
 #! /usr/bin/env python
+"""LogitechFX10 controler node."""
+
 import rospy
 from cola2_lib.JoystickBase import JoystickBase
 from std_srvs.srv import Empty
 
 
 class LogitechFX10(JoystickBase):
+    """LogitechFX10 controler class."""
+
     """
         This class inherent from JoystickBase. It has to overload the
         method update_joy(self, joy) that receives a sensor_msgs/Joy
@@ -15,7 +19,7 @@ class LogitechFX10(JoystickBase):
     """
 
     def __init__(self, name):
-        """ Constructor """
+        """Class Constructor."""
         JoystickBase.__init__(self, name)
         # rospy.loginfo("%s: LogitechFX10 constructor", name)
 
@@ -29,10 +33,10 @@ class LogitechFX10(JoystickBase):
         # Create client to services:
         # ... enable keep position
         rospy.wait_for_service(
-            '/cola2_control/enable_keep_position_g500', 10)
+            '/cola2_control/enable_keep_position_3dof', 10)
         try:
             self.enable_keep_pose = rospy.ServiceProxy(
-                '/cola2_control/enable_keep_position_s2', Empty)
+                '/cola2_control/enable_keep_position_3dof', Empty)
         except rospy.ServiceException, e:
             rospy.lofwarn("%s: Service call failed: %s", self.name, e)
 
@@ -45,7 +49,26 @@ class LogitechFX10(JoystickBase):
         except rospy.ServiceException, e:
             rospy.lofwarn("%s: Service call failed: %s", self.name, e)
 
+        # ... enable thrusters
+        rospy.wait_for_service(
+            '/cola2_control/enable_thrusters', 10)
+        try:
+            self.enable_thrusters = rospy.ServiceProxy(
+                '/cola2_control/enable_thrusters', Empty)
+        except rospy.ServiceException, e:
+            rospy.logwarn("%s: Service call failed: %s", self.name, e)
+
+        # ... disable thrusters
+        rospy.wait_for_service(
+            '/cola2_control/disable_thrusters', 10)
+        try:
+            self.disable_thrusters = rospy.ServiceProxy(
+                '/cola2_control/disable_thrusters', Empty)
+        except rospy.ServiceException, e:
+            rospy.logwarn("%s: Service call failed: %s", self.name, e)
+
     def update_joy(self, joy):
+        """Receive joy raw data."""
         """ Transform FX10 joy data into 12 axis data (pose + twist)
         and sets the buttons that especify if position or velocity
         commands are used in the teleoperation."""
@@ -146,14 +169,24 @@ class LogitechFX10(JoystickBase):
 
         # ... automatic/manual pitch control
         if self.depth_pose_control:
-            if joy.buttons[BUTTON_LEFT] == 1.0:
+            if joy.axes[LEFT_TRIGGER] < -0.9 and joy.buttons[BUTTON_LEFT] == 1.0:
                 self.joy_msg.buttons[JoystickBase.BUTTON_POSE_PITCH] = 1.0
                 self.joy_msg.buttons[JoystickBase.BUTTON_TWIST_Q] = 0.0
                 rospy.loginfo("%s: Set pitch mode to manual", self.name)
-            if joy.buttons[BUTTON_RIGHT] == 1.0:
+            if joy.axes[RIGHT_TRIGGER] < -0.9 and joy.buttons[BUTTON_RIGHT] == 1.0:
                 self.joy_msg.buttons[JoystickBase.BUTTON_POSE_PITCH] = 0.0
                 self.joy_msg.buttons[JoystickBase.BUTTON_TWIST_Q] = 1.0
                 rospy.loginfo("%s: Set pitch mode to automatic", self.name)
+
+        # Enable/disable thrusters
+        if joy.axes[LEFT_TRIGGER] < -0.9 and joy.axes[RIGHT_TRIGGER] < -0.9:
+            rospy.loginfo("%s: DISABLE THRUSTERS!", self.name)
+            self.disable_thrusters()
+            rospy.sleep(1.0)
+
+        if joy.buttons[BUTTON_LEFT] == 1.0 and joy.buttons[BUTTON_RIGHT] == 1.0:
+            rospy.loginfo("%s: ENABLE THRUSTERS!", self.name)
+            self.enable_thrusters()
 
 if __name__ == '__main__':
     """ Initialize the logitech_fx10 node. """

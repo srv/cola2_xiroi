@@ -28,21 +28,21 @@ class SimActuatorsS2 :
         self.pub_thrusters = rospy.Publisher(
                                    '/cola2_control/sim_thrusters_data',
                                    Setpoints,
-                                   queue_size = 2)
+                                   queue_size=2)
 
         self.pub_fins = rospy.Publisher('/cola2_control/sim_fins_data',
                                         Setpoints,
-                                        queue_size = 2)
+                                        queue_size=2)
 
         # Create subscribers
         rospy.Subscriber('/cola2_control/thrusters_data',
                          Setpoints,
                          self.update_thrusters,
-                         queue_size = 1)
+                         queue_size=1)
         rospy.Subscriber('/cola2_control/fins_data',
                          Setpoints,
                          self.update_fins,
-                         queue_size = 1)
+                         queue_size=1)
 
         # Timer
         rospy.Timer(rospy.Duration(1.0), self.check_thrusters)
