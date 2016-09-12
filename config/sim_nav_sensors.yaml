@@ -7,6 +7,7 @@ dynamics/sparus2/ned_origin_longitude: 3.03876 # 3.032
 
 # DVL type: "linkquest" or "rdi" or "none"
 sim_nav_sensors/dvl_type: "rdi"
+sim_nav_sensors/sea_bottom_depth: 15.0
 
 # Transformation wrt vehicle frame: [x, y, z, roll, pitch, yaw] (in meters and degrees!!!)
 sim_nav_sensors/imu/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Not used yet!
