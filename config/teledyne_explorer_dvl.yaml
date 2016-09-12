@@ -38,5 +38,5 @@ teledyne_explorer_dvl/data_stream_select: "6"
 teledyne_explorer_dvl/device_timeout: 3000
 
 # Transformation wrt vehicle frame: [x, y, z, roll, pitch, yaw] (in meters and degrees!!!)
-teledyne_explorer_dvl/tf: [0.0, 0.0, 0.0, 180.0, 0.0, 135.0]
+teledyne_explorer_dvl/tf: [-0.4, 0.0, 0.1, 180.0, 0.0, 135.0]
 teledyne_explorer_dvl/frame_id: "/sparus2"
