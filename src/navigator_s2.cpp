@@ -116,6 +116,7 @@ public:
              ROS_WARN_STREAM(_name << ": IMU not initialized");
              _diagnostic.add("imu_initialized", "False");
              _diagnostic.add("last_imu_data", std::to_string(0.0));
+             is_nav_data_ok = false;
         }
 
         // Check dvl data
@@ -130,6 +131,7 @@ public:
             ROS_WARN_STREAM(_name << ": DVL not initialized");
             _diagnostic.add("dvl_initialized", "False");
             _diagnostic.add("last_dvl_data", std::to_string(0.0));
+            is_nav_data_ok = false;
         }
 
         // Check altitude data
@@ -141,6 +143,7 @@ public:
         }
         else {
             _diagnostic.add("last_altitude_data", std::to_string(0.0));
+            is_nav_data_ok = false;
         }
 
         // Check presure data
@@ -155,6 +158,7 @@ public:
             ROS_WARN_STREAM(_name << ": Preassure not initialized");
             _diagnostic.add("pressure_initialized", "False");
             _diagnostic.add("last_depth_data", std::to_string(0.0));
+            is_nav_data_ok = false;
         }
 
         // Check gps data
@@ -170,6 +174,7 @@ public:
                 ROS_WARN_STREAM(_name << ": GPS not initialized");
                 _diagnostic.add("gps_initialized", "False");
                 _diagnostic.add("last_gps_data", std::to_string(0.0));
+                is_nav_data_ok = false;
             }
         }
 
@@ -200,7 +205,7 @@ public:
 
         if( !_ekf_init ) ROS_WARN_STREAM( _name << ": EKF not initialized" );
         if( !_ned_init ) ROS_WARN_STREAM( _name << ": NED not initialized" );
-        if( !is_nav_data_ok ) ROS_WARN_STREAM( _name << ": Missing NAV data" );
+        // if( !is_nav_data_ok ) ROS_WARN_STREAM( _name << ": Missing NAV data" );
     }
 
 
