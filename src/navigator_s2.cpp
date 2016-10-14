@@ -105,34 +105,71 @@ public:
         bool is_nav_data_ok = true;
 
         // Check imu data
-        _diagnostic.add( "last_imu_data", std::to_string( now - _last_imu_data ) );
-        if( now - _last_imu_data > 1.0 ) {
-            is_nav_data_ok = false;
+        if(_imu_init) {
+            _diagnostic.add("last_imu_data", std::to_string(now - _last_imu_data));
+            _diagnostic.add("imu_initialized", "True");
+            if(now - _last_imu_data > 1.0) {
+                is_nav_data_ok = false;
+            }
+        }
+        else {
+             ROS_WARN_STREAM(_name << ": IMU not initialized");
+             _diagnostic.add("imu_initialized", "False");
+             _diagnostic.add("last_imu_data", std::to_string(0.0));
         }
 
         // Check dvl data
-        _diagnostic.add( "last_dvl_data", std::to_string( now - _last_dvl_data ) );
-        if( now - _last_dvl_data > 2.0 ) {
-            is_nav_data_ok = false;
+        if(_dvl_init){
+            _diagnostic.add("last_dvl_data", std::to_string(now - _last_dvl_data));
+            _diagnostic.add("dvl_initialized", "True");
+            if(now - _last_dvl_data > 2.0) {
+                is_nav_data_ok = false;
+            }
+        }
+        else {
+            ROS_WARN_STREAM(_name << ": DVL not initialized");
+            _diagnostic.add("dvl_initialized", "False");
+            _diagnostic.add("last_dvl_data", std::to_string(0.0));
         }
 
         // Check altitude data
-        _diagnostic.add( "last_altitude_data", std::to_string( now - _last_altitude_data ) );
-        if( now - _last_altitude_data > 5.0 ) {
-            is_nav_data_ok = false;
+        if(_dvl_init){ // Add an '_altitude_init'? What happens if altitude take from
+            _diagnostic.add("last_altitude_data", std::to_string(now - _last_altitude_data));
+            if(now - _last_altitude_data > 5.0) {
+                is_nav_data_ok = false;
+            }
+        }
+        else {
+            _diagnostic.add("last_altitude_data", std::to_string(0.0));
         }
 
         // Check presure data
-        _diagnostic.add( "last_depth_data", std::to_string( now - _last_pressure_data ) );
-        if( now - _last_pressure_data > 2.0 ) {
-            is_nav_data_ok = false;
+        if(_pressure_init){
+            _diagnostic.add("last_depth_data", std::to_string(now - _last_pressure_data));
+            _diagnostic.add("pressure_initialized", "True");
+            if( now - _last_pressure_data > 2.0 ) {
+                is_nav_data_ok = false;
+            }
+        }
+        else {
+            ROS_WARN_STREAM(_name << ": Preassure not initialized");
+            _diagnostic.add("pressure_initialized", "False");
+            _diagnostic.add("last_depth_data", std::to_string(0.0));
         }
 
         // Check gps data
-        if( _use_gps_data ) {
-            _diagnostic.add( "last_gps_data", std::to_string( now - _last_gps_data ) );
-            if( now - _last_gps_data > 3.0 ) {
-                is_nav_data_ok = false;
+        if(_use_gps_data){
+            if(_gps_init){
+                _diagnostic.add("last_gps_data", std::to_string(now - _last_gps_data));
+                _diagnostic.add("gps_initialized", "True");
+                if(now - _last_gps_data > 3.0) {
+                    is_nav_data_ok = false;
+                }
+            }
+            else {
+                ROS_WARN_STREAM(_name << ": GPS not initialized");
+                _diagnostic.add("gps_initialized", "False");
+                _diagnostic.add("last_gps_data", std::to_string(0.0));
             }
         }
 
@@ -145,7 +182,7 @@ public:
         // If filter or NED not initialized set to Warning
         if( !_ekf_init || !_ned_init ) {
             is_nav_data_ok = false;
-            ROS_FATAL_STREAM("EKF or NED not yet init");
+            ROS_WARN_STREAM("EKF or NED not yet init");
         }
 
         // If all nav data is ok set navigator to Ok
@@ -161,13 +198,9 @@ public:
         //     _diagnostic.setLevel( diagnostic_msgs::DiagnosticStatus::ERROR );
         // }
 
-        if( !_dvl_init ) ROS_FATAL_STREAM( _name << ": DVL not initialized" );
-        if( !_pressure_init ) ROS_FATAL_STREAM( _name << ": Pressure not initialized" );
-        if( _use_gps_data && !_gps_init ) ROS_FATAL_STREAM( _name << ": GPS not initialized" );
-        if( !_imu_init ) ROS_FATAL_STREAM( _name << ": IMU not initialized" );
-        if( !_ekf_init ) ROS_FATAL_STREAM( _name << ": EKF not initialized" );
-        if( !_ned_init ) ROS_FATAL_STREAM( _name << ": NED not initialized" );
-        if( !is_nav_data_ok ) ROS_FATAL_STREAM( _name << ": Missing NAV data" );
+        if( !_ekf_init ) ROS_WARN_STREAM( _name << ": EKF not initialized" );
+        if( !_ned_init ) ROS_WARN_STREAM( _name << ": NED not initialized" );
+        if( !is_nav_data_ok ) ROS_WARN_STREAM( _name << ": Missing NAV data" );
     }
 
 
@@ -434,7 +467,6 @@ public:
                 }
                 else
                 {
-
                     _altitude = INVALID_ALTITUDE;
                     _diagnostic.add("Altitude", "Invalid altitude");
                     _diagnostic.add( "Altitude from echosounder", "false" );
@@ -451,7 +483,6 @@ public:
                     covariance(0,0) = _dvl_bottom_covariance.at(0);
                     covariance(1,1) = _dvl_bottom_covariance.at(1);
                     covariance(2,2) = _dvl_bottom_covariance.at(2)*2.0;
-
                 }
                 if( dvl_update == 2 ) {
                     // no bottom data or vehicle in the surface
@@ -881,7 +912,7 @@ private:
     void
     getConfig(){
         double declination_in_degrees;
-        
+
         // Load params from ROS param server
         cola2::rosutil::loadParam( "navigator/dvl_max_v", _dvl_max_v);
         cola2::rosutil::loadParam( "navigator/initialize_ned_from_gps", _initialize_ned_from_gps);
