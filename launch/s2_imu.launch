@@ -4,5 +4,5 @@
     <rosparam command="load" file="$(find cola2_s2)/config/imu_angle_estimator.yaml"/>
     <node name="adis_imu" pkg="adis_imu" type="adis_imu" respawn="true" output="screen"/>
     <node name="imu_angle_estimator" pkg="adis_imu" type="imu_angle_estimator.py" respawn="true" output="screen"/>
-    <node name="imu_bag_recorder" output="screen" pkg="rosbag" type="record" args="/cola2_navigation/imu /cola2_navigation/imu_info /cola2_navigation/adis_imu_data -o $(env HOME)/sparus_imu"/>
+    <!--node name="imu_bag_recorder" output="screen" pkg="rosbag" type="record" args="/cola2_navigation/imu /cola2_navigation/imu_info /cola2_navigation/adis_imu_data -o $(env HOME)/sparus_imu"/-->
 </launch>
