@@ -31,6 +31,7 @@ analyzers:
         '/diagnostics_supervisor',
         '/battery',
         '/check_sensors',
-        '/s2_mon_control_board'
+        '/s2_mon_control_board',
+        '/evologics_modem'
     ]
 
