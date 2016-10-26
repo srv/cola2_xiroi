@@ -3,6 +3,7 @@
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
+    <arg name="enableProfiler" default="false"/>
 
     <!--  ##############  LOAD NODES  ##############  -->
     <!-- Robot description Sparus2 -->
@@ -36,7 +37,19 @@
 
     <!--  #################  Other nodes  #################  -->
     <node name="bag_node" pkg="cola2_lib" type="bag_node.py" output="screen"/>
-    
+    <group if="$(arg enableProfiler)">
+      <node name="sim_profiler" pkg="cola2_sim" type="sim_profiler.py" output="screen">
+          <param name="frame_id" value="sparus2"/>
+          <!-- If these parameters change, the sparus2.urdf must change too -->
+          <param name="tf_x" value="0.7"/>
+          <param name="tf_y" value="0.0"/>
+          <param name="tf_z" value="-0.15"/>
+          <param name="tf_roll" value="0.0"/>
+          <param name="tf_pitch" value="0.0"/>
+          <param name="tf_yaw" value="3.14159"/>
+      </node>
+    </group>
+
     <!-- Run Teleoperation -->
     <group if="$(arg enableJoystick)">
         <node respawn="true" pkg="joy" type="joy_node" name="joystick">

@@ -84,11 +84,11 @@
 
     <rangeSensor>
       <name>sonar_sparus</name>
-      <relativeTo>base_sparus</relativeTo>
+      <relativeTo>sparus2</relativeTo>
       <range>10</range>
       <visible>0</visible>
       <position>
-        <x>-0.1</x>
+        <x>-0.2</x>
         <y>0.0</y>
         <z>0.15</z>
       </position>
@@ -98,6 +98,24 @@
         <y>1.57</y>
       </orientation>
     </rangeSensor>
+
+    <rangeSensor>
+       <name>profiler</name>
+       <relativeTo>seaking_profiler</relativeTo>
+       <range>100</range>
+       <visible>0</visible>
+       <position>
+         <x>0</x>
+         <y>0</y>
+         <z>0</z>
+       </position>
+       <orientation>
+         <r>0</r>
+         <p>0</p>
+         <y>0</y>
+       </orientation>
+     </rangeSensor>
+
   </vehicle>
 
 
@@ -304,11 +322,27 @@
       <vehicleName> sparus </vehicleName>
     </PATToROSOdom>
 
+    <ArmToROSJointState>
+      <topic>/uwsim/joint_state</topic>
+      <vehicleName> sparus </vehicleName>
+    </ArmToROSJointState>
+
+    <ROSJointStateToArm>
+      <topic>/uwsim/joint_state_command</topic>
+      <vehicleName> sparus </vehicleName>
+    </ROSJointStateToArm>
+
     <RangeSensorToROSRange>
       <name>sonar_sparus</name>
       <topic> /sparus/range</topic>
       <rate>5</rate>
     </RangeSensorToROSRange>
+
+    <RangeSensorToROSRange>
+       <name>profiler</name>
+       <topic>/seaking_range </topic>
+       <rate>30</rate>
+     </RangeSensorToROSRange>
 
   </rosInterfaces>
 </UWSimScene>

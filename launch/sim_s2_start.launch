@@ -5,6 +5,7 @@
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <arg name="enableLog" default="false" />
     <arg name="enableUWSim" default="false" />
+    <arg name="enableProfiler" default="false"/> <!-- only if UWSim is enabled -->
     <arg name="enableShadders" default="false" />
     <arg name="enableGUI" default="true"/>
     <arg name="enableRviz" default="true" />
@@ -25,6 +26,7 @@
         <arg name="enableSafety" value="$(arg enableSafety)" />
         <arg name="enableJoystick" value="$(arg enableJoystick)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+        <arg name="enableProfiler" default="$(arg enableProfiler)"/>
 		</include>
 
     <!-- Run UWSim -->
