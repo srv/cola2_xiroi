@@ -3,7 +3,7 @@
 # diagnostics_supervisor
 diagnostics_supervisor/timeout: 3600  # Seconds
 safety/min_imu_update: 10.0
-safety/min_depth_update: 20.0
+safety/min_depth_update: 10.0
 safety/min_altitude_update: 60.0
 safety/min_gps_update: 30.0
 safety/min_dvl_update: 20.0
@@ -50,5 +50,3 @@ virtual_cage/east_origin: -500.0
 virtual_cage/north_longitude: 1000.0
 virtual_cage/east_longitude: 1000.0
 virtual_cage/enabled: true
-
-
