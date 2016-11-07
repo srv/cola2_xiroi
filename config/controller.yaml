@@ -38,9 +38,9 @@ controller/p_sway_td: 0.0
 controller/p_sway_i_limit: 0.0
 controller/p_sway_fff: 0.0
 
-controller/p_heave_kp: 0.9
+controller/p_heave_kp: 1.2
 controller/p_heave_ti: 0.0
-controller/p_heave_td: 0.5
+controller/p_heave_td: 0.0
 controller/p_heave_i_limit: 0.0
 controller/p_heave_fff: 0.0
 
@@ -87,11 +87,11 @@ controller/t_sway_td: 0.0
 controller/t_sway_i_limit: 1.0
 controller/t_sway_fff: 0.0
 
-controller/t_heave_kp: 3.0
-controller/t_heave_ti: 8.0
-controller/t_heave_td: 0.0
-controller/t_heave_i_limit: 0.25
-controller/t_heave_fff: 0.0 #0.26
+controller/t_heave_kp: 5.0
+controller/t_heave_ti: 0.0
+controller/t_heave_td: 4.0
+controller/t_heave_i_limit: 0.0
+controller/t_heave_fff: 0.05 #0.26
 
 controller/t_roll_kp: 0.0
 controller/t_roll_ti: 0.0
