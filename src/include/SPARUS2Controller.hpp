@@ -161,7 +161,7 @@ public:
         _merged_pose = desired_pose;
 
         float th0_coef = 1;
-        float boy_coef = 1;
+        float boy_coef = 0.0; //TODO: Use to be 1.0 (narcis)
         bool apply_boy_coef = false;
 
         // SPARUS II fins
