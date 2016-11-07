@@ -72,6 +72,8 @@ public:
 
         // Load configurations
         getConfig();
+        _bar_to_meters_depth = 100000.0 / ( _water_density * 9.81 );
+
         assert( _model_covariance.size() == 3 );
         _q_var = Eigen::MatrixXd::Zero(3, 1);
         _q_var << _model_covariance.at(0), _model_covariance.at(1), _model_covariance.at(2);
@@ -522,33 +524,38 @@ public:
     void
     updatePressure( const ros::MessageEvent<cola2_msgs::PressureSensor const> & msg )
     {
-        _last_pressure_data = msg.getMessage()->header.stamp.toSec();
-        double bar_to_meters_depth = 100000.0 / ( _water_density * 9.81 );
-        _last_pressure = msg.getMessage()->pressure * bar_to_meters_depth;
+        if (msg.getMessage()->pressure == -99 || msg.getMessage()->temperature == -99) {
+            // Last pressure data and time are not updated
+            ROS_ERROR_STREAM(_name << ": invalid pressure!\n");
+        }
+        else {
+            _last_pressure_data = msg.getMessage()->header.stamp.toSec();
+            _last_pressure = msg.getMessage()->pressure * _bar_to_meters_depth;
 
-        if ( _ekf_init && _ned_init ) {
-            _diagnostic.check_frequency();
+          if (_ekf_init && _ned_init) {
+              _diagnostic.check_frequency();
 
-            // Check if sensor frame_id is defined
-            checkFrameId( msg.getMessage()->header.frame_id );
+              // Check if sensor frame_id is defined
+              checkFrameId(msg.getMessage()->header.frame_id);
 
-            Eigen::Vector3d position( 0.0, 0.0, _last_pressure + _depth_sensor_offset );
-            Eigen::Matrix3d covariance = Eigen::Matrix3d::Zero(3, 3);
-            covariance(0, 0) = 9999.0;
-            covariance(1, 1) = 9999.0;
-            covariance(2, 2) = _pressure_covariance;
+              Eigen::Vector3d position(0.0, 0.0, _last_pressure + _depth_sensor_offset);
+              Eigen::Matrix3d covariance = Eigen::Matrix3d::Zero(3, 3);
+              covariance(0, 0) = 9999.0;
+              covariance(1, 1) = 9999.0;
+              covariance(2, 2) = _pressure_covariance;
 
-            // If vehicle submerged reset GPS counter.
-            if ( _last_pressure + _depth_sensor_offset > 1.0 ) {
-                _gps_samples = 0;
-            }
+              // If vehicle submerged reset GPS counter.
+              if (_last_pressure + _depth_sensor_offset > 1.0) {
+                  _gps_samples = 0;
+              }
 
-            _ekf_slam_auv->positionUpdate( msg.getMessage()->header.frame_id,
-                                           msg.getMessage()->header.stamp.toSec(),
-                                           position,
-                                           covariance );
-            publish( msg.getMessage()->header.stamp );
-            _pressure_init = true;
+              _ekf_slam_auv->positionUpdate( msg.getMessage()->header.frame_id,
+                                             msg.getMessage()->header.stamp.toSec(),
+                                             position,
+                                             covariance );
+              publish( msg.getMessage()->header.stamp );
+              _pressure_init = true;
+          }
         }
     }
 
@@ -898,6 +905,7 @@ private:
     std::vector<double>  _usbl_covariance;
     Eigen::Vector3d _model_velocity;
     double _water_density;
+    double _bar_to_meters_depth;
 
     bool _initialize_ned_from_gps;
     bool _initialize_filter_from_gps;
