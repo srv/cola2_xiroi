@@ -66,6 +66,7 @@ public:
         _set_depth_sensor_offset_srv = _n.advertiseService("/cola2_navigation/set_depth_sensor_offset", &S2RosNavigator::setDepthSensorOffset, this );
         _add_landmark_srv = _n.advertiseService("/cola2_navigation/add_landmark", &S2RosNavigator::addLandmarkSrv, this );
         _reset_nav_action_srv = _n.advertiseService("/cola2_navigation/reset_navigation_action", &S2RosNavigator::resetNavigationAction, this );
+        _reset_landmarks_srv = _n.advertiseService("/cola2_navigation/reset_landmarks", &S2RosNavigator::resetLandmarks, this );
 
         // Init timer
         _timer = _n.createTimer( ros::Duration(1.0), &S2RosNavigator::checkNavigatorDiagnostics, this );
@@ -236,6 +237,14 @@ public:
                     std_srvs::Empty::Response &res) {
         std::cout << "[Navigator] Reset navigation...\n";
         initFilter();
+        return true;
+    }
+
+    bool
+    resetLandmarks(std_srvs::Empty::Request &req,
+                   std_srvs::Empty::Response &res) {
+        std::cout << "[Navigator] Reset landmarks...\n";
+        _ekf_slam_auv->resetLandmarks();
         return true;
     }
 
@@ -891,6 +900,7 @@ private:
 
     ros::ServiceServer _reset_navigation_srv;
     ros::ServiceServer _reset_nav_action_srv;
+    ros::ServiceServer _reset_landmarks_srv;
     ros::ServiceServer _set_depth_sensor_offset_srv;
     ros::ServiceServer _add_landmark_srv;
 
