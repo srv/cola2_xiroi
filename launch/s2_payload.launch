@@ -13,7 +13,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
-    <arg name="enableProfiler" default="true"/>
+    <arg name="enableProfiler" default="false"/>
 
     <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
 
@@ -34,6 +34,7 @@
     <node if="$(arg Camera)" name="framegrabber_s2" pkg="bt878_framegrabber" type="framegrabber" respawn="true"/>
     <node if="$(arg Micron)" name="micron" pkg="tritech_msis" type="tritech_msis" output="screen"/>
     <node if="$(arg enableProfiler)" name="profiler" pkg="tritech_msis" type="tritech_msis" output="screen"/>
+    <node pkg="tf" type="static_transform_publisher" name="sparus2_to_seaking_profiler" args="0.7 0.0 -0.14 3.1416 0.0 0.0 /sparus2 /seaking_profiler 100" />
 
     <!-- Echosounders -->
     <group if="$(arg EchoSounders)">
@@ -42,8 +43,7 @@
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos12" args="0.6 0.0 0.0 -0.79 0.0 0.0 /sparus2 /echosounder12 100" />
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos13" args="0.6 0.0 0.0 0.79 0.0 0.0 /sparus2 /echosounder13 100" />
         <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos14" args="0.6 0.0 0.0 0.0 0.0 0.0 /sparus2 /echosounder14 100" />
-        <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="0.6 0.0 0.0 0.0 -0.79 0.0 /sparus2 /echosounder15 100" />
-        <!--node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="1.0 0.0 0.09 0.0 0.0 0.0 /sparus2 /echosounder15 100" / -->
+        <node pkg="tf" type="static_transform_publisher" name="sparus2_to_echos15" args="0.6 0.0 0.0 0.0 -1.57 0.0 /sparus2 /echosounder15 100" />
 
         <node name="echosounders_driver" pkg="imaginex_echosounder" type="echosounders_driver.py" output="screen"/>
     </group>
