@@ -221,6 +221,12 @@ public:
         landmark(0) = req.landmark.pose.position.x;
         landmark(1) = req.landmark.pose.position.y;
         landmark(2) = req.landmark.pose.position.z;
+        Eigen::Vector3d rpy = getRPY(
+            Eigen::Quaterniond(req.landmark.pose.orientation.w,
+                               req.landmark.pose.orientation.x,
+                               req.landmark.pose.orientation.y,
+                               req.landmark.pose.orientation.z).toRotationMatrix());
+        landmark.tail(3) = rpy;
         for (unsigned int i = 0; i < 6; i++ ) {
             for (unsigned int j = 0; j < 6; j++) {
                 landmark_cov(i, j) = req.landmark.covariance.at(i*6+j);
