@@ -954,6 +954,7 @@ private:
         _declination = deg2Rad( declination_in_degrees );
         cola2::rosutil::loadParam( "navigator/surface_to_depth_sensor_distance", _surface_to_depth_sensor_distance );
         cola2::rosutil::loadParam( "navigator/initialize_depth_sensor_offset", _initialize_depth_sensor_offset );
+        cola2::rosutil::loadParam( "navigator/depth_sensor_offset", _depth_sensor_offset );
         cola2::rosutil::loadParam( "navigator/robot_frame_id", _vehicle_frame_id );
         cola2::rosutil::loadParam( "navigator/world_frame_id", _world_frame_id );
         cola2::rosutil::loadParam( "navigator/dvl_bottom_covariance", _dvl_bottom_covariance);
