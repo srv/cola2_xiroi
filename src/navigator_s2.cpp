@@ -267,8 +267,14 @@ public:
                           std_srvs::Empty::Response &res ) {
         // std::cout << "_surface_to_depth_sensor_distance: " << _surface_to_depth_sensor_distance << "\n";
         // std::cout << "_last_pressure: " << _last_pressure << "\n";
-        _depth_sensor_offset = _surface_to_depth_sensor_distance - _last_pressure;
-        std::cout << "[Navigator] Set depth sensor offset at " << _depth_sensor_offset << ".\n";
+
+        if(std::abs(_surface_to_depth_sensor_distance - _last_pressure) < 2.0) {
+          _depth_sensor_offset = _surface_to_depth_sensor_distance - _last_pressure;
+          std::cout << "[Navigator] Set depth sensor offset at " << _depth_sensor_offset << ".\n";
+        }
+        else {
+          std::cout << "[Navigator] Error setting depth ofsset! " << _surface_to_depth_sensor_distance - _last_pressure << ".\n";
+        }
         return true;
     }
 
