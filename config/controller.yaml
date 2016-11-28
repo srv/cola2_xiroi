@@ -1,11 +1,12 @@
+# Enbale thrusters
+controller/enable_thrusters: False
+
 # DEPTH TO PITCH PID CONTROLLER
 controller/d_p_kp: 0.15
 controller/d_p_ti: 12.0
 controller/d_p_td: 0.0
 controller/d_p_limit: 0.2
 controller/d_p_fff: 0.0
-
-
 
 # ROLL PID CONTROLLER
 controller/f_roll_kp: 0.4
@@ -14,16 +15,12 @@ controller/f_roll_td: 0.0
 controller/f_roll_i_limit: 0.25
 controller/f_roll_fff: 0.0
 
-
-
 # PITCH PID CONTROLLER
 controller/f_pitch_kp: 0.8
 controller/f_pitch_ti: 15.0
 controller/f_pitch_td: 8.0
 controller/f_pitch_i_limit: 0.1
 controller/f_pitch_fff: 0.0
-
-
 
 # POSE PID CONTROLLER
 controller/p_surge_kp: 0.0
@@ -62,8 +59,6 @@ controller/p_yaw_td: 2.0
 controller/p_yaw_i_limit: 0.0
 controller/p_yaw_fff: 0.0
 
-
-
 # MAX VELOCITY
 /controller/max_velocity_x: 2.0
 /controller/max_velocity_y: 0.0
@@ -71,8 +66,6 @@ controller/p_yaw_fff: 0.0
 /controller/max_velocity_roll: 0.0
 /controller/max_velocity_pitch: 0.0
 /controller/max_velocity_yaw: 0.30
-
-
 
 # TWIST PID CONTROLLER
 controller/t_surge_kp: 0.25
@@ -111,8 +104,6 @@ controller/t_yaw_td: 0.0
 controller/t_yaw_i_limit: 0.15
 controller/t_yaw_fff: 0.0
 
-
-
 # TWIST POLY CONTROLLER ( A + Bx + Cx^2 )
 controller/poly_surge_A: 0.0
 controller/poly_surge_B: 9.9239
@@ -138,8 +129,6 @@ controller/poly_yaw_A: 0.0
 controller/poly_yaw_B: 0.0
 controller/poly_yaw_C: 53.2837
 
-
-
 # SIGNIFICANCE OF THE POLYNOMIAL RESULT ( must be between 0 and 1 )
 controller/poly_surge_percentatge: 1.0
 controller/poly_sway_percentatge: 0.0
@@ -147,8 +136,6 @@ controller/poly_heave_percentatge: 1.0
 controller/poly_roll_percentatge: 0.0
 controller/poly_pitch_percentatge: 0.0
 controller/poly_yaw_percentatge: 1.0
-
-
 
 # MAX WRENCH
 /controller/max_wrench_X: 154.0
@@ -158,15 +145,12 @@ controller/poly_yaw_percentatge: 1.0
 /controller/max_wrench_Pitch: 17.15
 /controller/max_wrench_Yaw: 14.43
 
-
-
 # THRUSTER ALLOCATOR
 /controller/max_force_thruster_forward: 77.0
 /controller/max_force_thruster_backward: 43.0
 /controller/thruster_distance_yaw: 0.16783
 
 /controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.16783, 0.16783]
-
 
 # FIN ALLOCATOR
 /controller/max_fin_force: 26.15

@@ -190,8 +190,8 @@ public:
                     // With velocity control the desired pitch is 0.0
                     desired_pitch = 0.0;
 
-                    std::cout << "XXXXXXXXXXXXXXXXX HEAVE VELOCITY CONTROL ENABLED XXXXXXXXXXXXXXXXX \n";
-                    std::cout << "XXXXXXXXXXXXXXXXXX SETTING DESIRED PITCH TO 0.0 XXXXXXXXXXXXXXXXXX \n\n";
+                    // std::cout << "XXXXXXXXXXXXXXXXX HEAVE VELOCITY CONTROL ENABLED XXXXXXXXXXXXXXXXX \n";
+                    // std::cout << "XXXXXXXXXXXXXXXXXX SETTING DESIRED PITCH TO 0.0 XXXXXXXXXXXXXXXXXX \n\n";
                 }
                 // Modify desired depth pose to reach it with pitch
                 else {
@@ -340,7 +340,7 @@ public:
         fins_wrench.setValues(fins_values);
         fins_wrench.setDisabledAxis(fins_axis);
 
-        std::cout << "Fins controller result: \n" << fins_wrench << std::endl;
+        // std::cout << "Fins controller result: \n" << fins_wrench << std::endl;
         // ***********************************************************************************************************************************
 
 
@@ -358,7 +358,7 @@ public:
                 std::vector< bool > disable_axis = velocity_req.getDisabledAxis();
                 disable_axis.at(2) = true;
                 velocity_req.setDisabledAxis(disable_axis);
-                std::cout << "Disable Z axis because to close to surface\n";
+                // std::cout << "Disable Z axis because to close to surface\n";
             }
 
             // Compute PID between pose error and zero
@@ -380,7 +380,7 @@ public:
 
             // Add Pose controller response to body velocity requests
             velocity_req.setValues( pose_ctrl_tau );
-            std::cout << "Pose controller result: \n" << velocity_req << std::endl;
+            // std::cout << "Pose controller result: \n" << velocity_req << std::endl;
             _twist_merge.addRequest( velocity_req );
         }
 
@@ -455,7 +455,7 @@ public:
             }
 
             wrench_req.setValues( total );
-            std::cout << "Twist controller result: \n" << wrench_req << std::endl;
+            // std::cout << "Twist controller result: \n" << wrench_req << std::endl;
             _wrench_merge.addRequest( wrench_req );
         }
 

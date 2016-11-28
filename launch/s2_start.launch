@@ -1,7 +1,11 @@
 <launch>
+    <!-- Load Sparus2 configs (do not modify) -->
+    <include file="$(find cola2_s2)/launch/s2_configs.launch">
+        <arg name="isSimulation" value="false"/>
+    </include>
+
     <!--  ##############  Configurable arguments  ##############  -->
     <!-- SPARUS CORE PARAMS -->
-    <arg name="enableActuators" default="true"/>
     <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
     <arg name="enableRemoteJoystick" default="true"/>
@@ -20,7 +24,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
-	<arg name="enableProfiler" default="false"/>
+	  <arg name="enableProfiler" default="false"/>
 
     <!-- SPARUS OTHER PARAMS -->
     <arg name="enableLog" default="false" />
@@ -28,13 +32,10 @@
     <arg name="enableJoystick" default="true" />
     <arg name="enableRVizTF" value="true" />
 
-    <!-- Load Sparus2 configs (do not modify) -->
-    <include file="$(find cola2_s2)/launch/s2_configs.launch">
-        <arg name="isSimulation" value="false"/>
-    </include>
-
     <!--  #################  OVERRIDE CONFIGS  #################  -->
     <!-- Overidden configs here (when copying this file for your own project) -->
+    <param name="controller/enable_thrusters" value="True"/>
+
     <!-- <rosparam command="load" file="$(find mynode)/config/navigator.yaml/> -->
     <!-- <param name="/safe_depth_altitude/min_altitude" value="4.0"/> -->
 
@@ -97,7 +98,6 @@
 
     <!--  #################  LOAD S2 CORE  #################  -->
     <include file="$(find cola2_s2)/launch/s2_core.launch">
-        <arg name="enableActuators" value="$(arg enableActuators)"/>
         <arg name="enableImu" value="$(arg enableImu)"/>
         <arg name="enableSafety" value="$(arg enableSafety)"/>
     </include>

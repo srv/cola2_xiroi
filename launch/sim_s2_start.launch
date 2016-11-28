@@ -1,4 +1,9 @@
 <launch>
+    <!-- Load Sparus2 configs (do not modify) -->
+    <include file="$(find cola2_s2)/launch/s2_configs.launch">
+        <arg name="isSimulation" value="true"/>
+    </include>
+
     <!--  ##############  Configurable arguments  ##############  -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
@@ -10,15 +15,10 @@
     <arg name="enableGUI" default="true"/>
     <arg name="enableRviz" default="true" />
 
-    <!-- Load Sparus2 configs (do not modify) -->
-    <include file="$(find cola2_s2)/launch/s2_configs.launch">
-        <arg name="isSimulation" value="true"/>
-    </include>
-
     <!--  #################  OVERRIDE CONFIGS  #################  -->
     <!-- Overidden configs here (when copying this file for your own project) -->
     <!-- <rosparam command="load" file="$(find mynode)/config/navigator.yaml/> -->
-    <!-- <param name="/safe_depth_altitude/min_altitude" value="4.0"/> -->
+    <param name="controller/enable_thrusters" value="True"/>
 
     <!-- ################################################################################## -->
     <!-- Load S2 core -->
