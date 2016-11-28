@@ -98,7 +98,7 @@ controller/t_pitch_td: 0.0
 controller/t_pitch_i_limit: 1.0
 controller/t_pitch_fff: 0.0
 
-controller/t_yaw_kp: 1.5
+controller/t_yaw_kp: 2.5
 controller/t_yaw_ti: 8.0
 controller/t_yaw_td: 0.0
 controller/t_yaw_i_limit: 0.15
