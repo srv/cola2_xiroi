@@ -12,7 +12,7 @@ public:
 
     SPARUS2ROSController( const std::string name,
                        const std::string frame_id ):
-        IAUVROSController( name, frame_id ) 
+        IAUVROSController( name, frame_id )
     { }
 
     void
@@ -128,6 +128,16 @@ public:
 
         // Change Params in C++ Class
         _auv_controller->setControllerParams( d_p_params, f_params, p_params, t_params, poly_params, poly_percentatge );
+
+        std::cout << "config.enable_thrusters: " << config.enable_thrusters << std::endl;
+        if(config.enable_thrusters) {
+          std::cout << "Thruster enabled\n";
+          _auv_controller->setThrusterAllocator(true);
+        }
+        else {
+          std::cout << "Thruster disabled\n";
+          _auv_controller->setThrusterAllocator(false);
+        }
 
         std::cout << "Parameters changed!" << std::endl;
     }

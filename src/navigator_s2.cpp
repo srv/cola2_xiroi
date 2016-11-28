@@ -221,6 +221,12 @@ public:
         landmark(0) = req.landmark.pose.position.x;
         landmark(1) = req.landmark.pose.position.y;
         landmark(2) = req.landmark.pose.position.z;
+        Eigen::Vector3d rpy = getRPY(
+            Eigen::Quaterniond(req.landmark.pose.orientation.w,
+                               req.landmark.pose.orientation.x,
+                               req.landmark.pose.orientation.y,
+                               req.landmark.pose.orientation.z).toRotationMatrix());
+        landmark.tail(3) = rpy;
         for (unsigned int i = 0; i < 6; i++ ) {
             for (unsigned int j = 0; j < 6; j++) {
                 landmark_cov(i, j) = req.landmark.covariance.at(i*6+j);
@@ -948,6 +954,7 @@ private:
         _declination = deg2Rad( declination_in_degrees );
         cola2::rosutil::loadParam( "navigator/surface_to_depth_sensor_distance", _surface_to_depth_sensor_distance );
         cola2::rosutil::loadParam( "navigator/initialize_depth_sensor_offset", _initialize_depth_sensor_offset );
+        cola2::rosutil::loadParam( "navigator/depth_sensor_offset", _depth_sensor_offset );
         cola2::rosutil::loadParam( "navigator/robot_frame_id", _vehicle_frame_id );
         cola2::rosutil::loadParam( "navigator/world_frame_id", _world_frame_id );
         cola2::rosutil::loadParam( "navigator/dvl_bottom_covariance", _dvl_bottom_covariance);
