@@ -33,9 +33,11 @@ public:
         _gps_init( false ),
         _ekf_init( false ),
         _ned_init( false ),
+        _ned_error(false),
         _sound_velocity( 1500.0 ),
         _bottom_status( 0 ),
         _gps_samples( 0 ),
+        _wrong_gps_samples_before_init(0),
         _echosounder_range( -1.0 ),
         _use_usbl_data( false ),
         _gps_samples_to_init(5),
@@ -194,11 +196,11 @@ public:
         }
 
         // If all nav data is ok set navigator to Ok
-        if( is_nav_data_ok ) {
-            _diagnostic.setLevel( diagnostic_msgs::DiagnosticStatus::OK );
+        if(is_nav_data_ok && !_ned_error) {
+            _diagnostic.setLevel(diagnostic_msgs::DiagnosticStatus::OK);
         }
         else {
-            _diagnostic.setLevel( diagnostic_msgs::DiagnosticStatus::WARN );
+            _diagnostic.setLevel(diagnostic_msgs::DiagnosticStatus::WARN);
         }
 
         // If 10 times in warning change state to ERROR
@@ -242,6 +244,7 @@ public:
     resetNavigation(std_srvs::Empty::Request &req,
                     std_srvs::Empty::Response &res) {
         std::cout << "[Navigator] Reset navigation...\n";
+        getConfig();
         initFilter();
         return true;
     }
@@ -258,6 +261,7 @@ public:
     resetNavigationAction(cola2_msgs::Action::Request &req,
                           cola2_msgs::Action::Response &res) {
         std::cout << "[Navigator] Reset navigation through action...\n";
+        getConfig();
         initFilter();
         return true;
     }
@@ -287,7 +291,7 @@ public:
         _diagnostic.add( "ekf_init", "False" );
         _diagnostic.add( "imu_init", "False" );
 
-        getConfig();
+        // getConfig();
 
         // Init NED from config file if necessary
         if( !_initialize_ned_from_gps ) {
@@ -724,6 +728,26 @@ public:
                 }
             }
         }
+        else {
+            if (!_ekf_init && _initialize_filter_from_gps){
+                _wrong_gps_samples_before_init++;
+                ROS_WARN_STREAM("Wrong GPS data before NED initialized\n");
+                if (_wrong_gps_samples_before_init > 10) {
+                    // If after 100 samples the ned has not been initialized
+                    // change GPS configuration to
+                    _initialize_ned_from_gps = false;
+                    _initialize_filter_from_gps = false;
+                    _use_gps_data = false;
+                    _gps_init = true;
+                    initFilter();
+                    _ned_error = true;
+                    _diagnostic.add("ned_init", "ERROR");
+                    _diagnostic.setLevel(diagnostic_msgs::DiagnosticStatus::WARN);
+                    ROS_WARN_STREAM("Impossible to initialize filter with GPS!\n");
+                }
+            }
+        }
+        // std::cout << "_ekf_init: " << _ekf_init << ", _initialize_filter_from_gps: " << _initialize_filter_from_gps << "\n";
     }
 
     void
@@ -893,6 +917,7 @@ private:
     bool _gps_init;
     bool _ekf_init;
     bool _ned_init;
+    bool _ned_error;
 
     // Diagnostics data
     double _last_imu_data;
@@ -907,6 +932,8 @@ private:
     double _sound_velocity;
     unsigned int _bottom_status;
     unsigned int _gps_samples;
+    unsigned int _wrong_gps_samples_before_init;
+
     double _echosounder_range;
     double _mb_range;
 
