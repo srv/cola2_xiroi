@@ -1,0 +1,4 @@
+target_reacquisition/altitude_mode: True
+target_reacquisition/track_length: 6.0
+target_reacquisition/number_of_views: 8 # 4, 8, or 12
+target_reacquisition/track_speed: 0.15
