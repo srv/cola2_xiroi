@@ -19,7 +19,7 @@
     <arg name="SSS" default="false"/>
     <arg name="Micron" default="false"/>
     <arg name="Aris" default="false"/>
-    <arg name="EchoSounders" default="false"/>
+    <arg name="EchoSounders" default="true"/>
     <arg name="enableModem" default="true"/>
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
@@ -34,7 +34,7 @@
 
     <!--  #################  OVERRIDE CONFIGS  #################  -->
     <!-- Overidden configs here (when copying this file for your own project) -->
-    <param name="controller/enable_thrusters" value="True"/>
+    <param name="controller/enable_thrusters" value="False"/>
 
     <!-- <rosparam command="load" file="$(find mynode)/config/navigator.yaml/> -->
     <!-- <param name="/safe_depth_altitude/min_altitude" value="4.0"/> -->
