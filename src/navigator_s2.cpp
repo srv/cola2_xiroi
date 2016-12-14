@@ -735,7 +735,7 @@ public:
             if (!_ekf_init && _initialize_filter_from_gps){
                 _wrong_gps_samples_before_init++;
                 ROS_WARN_STREAM("Wrong GPS data before NED initialized\n");
-                if (_wrong_gps_samples_before_init > 10) {
+                if (_wrong_gps_samples_before_init > 60) {
                     // If after 100 samples the ned has not been initialized
                     // change GPS configuration to
                     _initialize_ned_from_gps = false;
