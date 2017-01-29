@@ -62,7 +62,7 @@ controller/p_yaw_fff: 0.0
 # MAX VELOCITY
 #3.5
 /controller/max_velocity_x: 0.5
-/controller/max_velocity_y: 0.0
+/controller/max_velocity_y: 0.5
 /controller/max_velocity_z: 0.30
 /controller/max_velocity_roll: 0.0
 /controller/max_velocity_pitch: 0.0
@@ -75,9 +75,9 @@ controller/t_surge_td: 0.0
 controller/t_surge_i_limit: 0.65
 controller/t_surge_fff: 0.0
 
-controller/t_sway_kp: 0.0
-controller/t_sway_ti: 0.0
-controller/t_sway_td: 0.0
+controller/t_sway_kp: 4.0
+controller/t_sway_ti: 7.0
+controller/t_sway_td: 0.5
 controller/t_sway_i_limit: 1.0
 controller/t_sway_fff: 0.0
 
@@ -132,7 +132,7 @@ controller/poly_yaw_C: 53.2837
 
 # SIGNIFICANCE OF THE POLYNOMIAL RESULT ( must be between 0 and 1 )
 controller/poly_surge_percentatge: 0.85
-controller/poly_sway_percentatge: 0.0
+controller/poly_sway_percentatge: 0.5
 controller/poly_heave_percentatge: 0.7
 controller/poly_roll_percentatge: 0.0
 controller/poly_pitch_percentatge: 0.0
@@ -140,7 +140,7 @@ controller/poly_yaw_percentatge: 0.5
 
 # MAX WRENCH
 /controller/max_wrench_X: 150.0
-/controller/max_wrench_Y: 0.0
+/controller/max_wrench_Y: 70.0
 /controller/max_wrench_Z: 23.3853
 /controller/max_wrench_Roll: 3.64
 /controller/max_wrench_Pitch: 17.15
