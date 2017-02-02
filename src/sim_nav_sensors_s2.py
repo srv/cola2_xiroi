@@ -50,33 +50,33 @@ class SimNavSensorsS2:
         self.savitzky_golay_coeffs = SAVITZKY_GOLAY_COEFFS
 
         # Create publishers
-        self.pub_bms = rospy.Publisher('/cola2_safety/emus_bms', 
+        self.pub_bms = rospy.Publisher('/cola2_safety/emus_bms',
                                        EmusBms,
                                        queue_size = 2)
-                                       
-        self.pub_imu = rospy.Publisher('/cola2_navigation/imu', 
+
+        self.pub_imu = rospy.Publisher('/cola2_navigation/imu',
                                        Imu,
                                        queue_size = 2)
-                                       
-        self.pub_pressure = rospy.Publisher('/cola2_navigation/pressure_sensor', 
+
+        self.pub_pressure = rospy.Publisher('/cola2_navigation/pressure_sensor',
                                             PressureSensor,
                                             queue_size = 2)
-                                            
+
         self.pub_gps = rospy.Publisher('/cola2_navigation/fastrax_it_500_gps',
                                        FastraxIt500Gps,
                                        queue_size = 2)
-                                       
+
         if self.dvl_type == "linkquest":
             self.pub_dvl = rospy.Publisher(
                                  '/cola2_navigation/linkquest_navquest600_dvl',
                                  LinkquestDvl,
                                  queue_size = 2)
-                                 
+
         elif self.dvl_type == "rdi":
             self.pub_dvl = rospy.Publisher('/cola2_navigation/teledyne_explorer_dvl',
                                  TeledyneExplorerDvl,
                                  queue_size = 2)
-                                 
+
         elif self.dvl_type == "none":
             rospy.loginfo("%s: not publishing dvl", self.name)
         else:
@@ -432,7 +432,7 @@ class SimNavSensorsS2:
                       'gps_tf_array': "sim_nav_sensors/gps/tf",
                       'imu_period': "sim_nav_sensors/imu/period",
                       'dvl_period': "sim_nav_sensors/dvl/period",
-                      'sea_bottom_depth': "sim_nav_sensors/sea_bottom_depth",
+                      'sea_bottom_depth': "sea_bottom_depth",
                       'gps_period': "sim_nav_sensors/gps/period",
                       'imu_orientation_covariance': "sim_nav_sensors/imu/orientation_covariance",
                       'dvl_velocity_covariance': "sim_nav_sensors/dvl/velocity_covariance",
