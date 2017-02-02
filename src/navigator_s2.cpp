@@ -57,7 +57,7 @@ public:
         _sub_mb = _n.subscribe("/multibeam_range",2,&S2RosNavigator::updateMb, this);
         _sub_detection = _n.subscribe( "/cola2_navigation/detection_update", 2, &S2RosNavigator::updateLandmark, this );
         _sub_range = _n.subscribe("/cola2_navigation/range_update", 2, &S2RosNavigator::updateRange, this);
-
+        _sub_world_fix = _n.subscribe("/cola2_navigation/world_fix_update", 2, &S2RosNavigator::updateWorldFixUpdate, this);
 
         if( USE_MODEL ) {
             _sub_model = _n.subscribe( "/cola2_control/merged_body_force_req", 2, &S2RosNavigator::updateBodyForceReq, this );
@@ -751,6 +751,37 @@ public:
     }
 
     void
+    updateWorldFixUpdate(const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped const> & msg)
+    {
+        _diagnostic.check_frequency();
+
+        // If everything is correctly initialized update filter with USBL data
+        if( _ekf_init && _ned_init ) {
+          // Compute position vector and covariance matrix
+          Eigen::Vector3d position(msg.getMessage()->pose.pose.position.x,
+                                   msg.getMessage()->pose.pose.position.y,
+                                   0.0 );
+
+          Eigen::Matrix3d covariance = Eigen::Matrix3d::Zero(3, 3);
+          covariance(0, 0) = msg.getMessage()->pose.covariance.at(0);
+          covariance(1, 1) = msg.getMessage()->pose.covariance.at(7);
+          covariance(2, 2) = 9999.0;
+
+          std::cout << " ----> WORLD FIX UPDATE <----\n";
+          std::cout << "position: " << position << "\n";
+          std::cout << "covariance: " << covariance << "\n";
+
+          _ekf_slam_auv->positionUpdate(_vehicle_frame_id,
+                                        msg.getMessage()->header.stamp.toSec(),
+                                        position,
+                                        covariance);
+
+          if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
+          publish(msg.getMessage()->header.stamp);
+        }
+    }
+
+    void
     updateUSBLEvologics( const ros::MessageEvent<geometry_msgs::PoseWithCovarianceStamped const> & msg )
     {
         if ( _use_usbl_data ) {
@@ -908,7 +939,7 @@ private:
     ros::Subscriber _sub_mb;
     ros::Subscriber _sub_detection;
     ros::Subscriber _sub_range;
-
+    ros::Subscriber _sub_world_fix;
 
     // Initialization flags
     bool _dvl_init;
