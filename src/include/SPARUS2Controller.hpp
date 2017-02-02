@@ -132,8 +132,8 @@ public:
         _twist_controller.setControllerParams( t_params );
         _twist_poly_controller.setControllerParams( poly_params );
 
-        _twist_factor = { 2.0, 0.0, 0.3, 0.0, 0.0, 0.6 };
-        _force_factor = { 154.0, 0, 30.0, 3.64, 17.15, 14.43 };
+        _twist_factor = { 2.0, 0.3, 0.3, 0.0, 0.0, 0.6 };
+        _force_factor = { 154.0, 30.0, 30.0, 3.64, 17.15, 14.43 };
         _old_twist = { 0, 0, 0, 0, 0, 0 };
         _poly_percentatge = poly_percentatge;
 

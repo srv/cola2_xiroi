@@ -535,6 +535,7 @@ public:
                                                msg.getMessage()->header.stamp.toSec(),
                                                velocity,
                                                covariance );
+                if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
                 publish( msg.getMessage()->header.stamp );
                 _dvl_init = true;
             }
@@ -578,6 +579,7 @@ public:
                                              msg.getMessage()->header.stamp.toSec(),
                                              position,
                                              covariance );
+              if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
               publish( msg.getMessage()->header.stamp );
               _pressure_init = true;
           }
@@ -723,6 +725,7 @@ public:
                                                    msg.getMessage()->header.stamp.toSec(),
                                                    position,
                                                    covariance );
+                    if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
                     publish( msg.getMessage()->header.stamp );
                     _gps_init = true;
                 }
@@ -834,6 +837,7 @@ public:
                                                    position,
                                                    covariance );
 
+                    if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
                     publish( msg.getMessage()->header.stamp + ros::Duration( position_increment[0] ) );
                 }
             }
@@ -878,6 +882,7 @@ public:
                                                      position,
                                                      orientation,
                                                      covariance );
+            if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
             publish( msg.getMessage()->header.stamp );
             ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
             ROS_DEBUG_COND(res == 1, "landmark '%s' not validated yet", msg.getMessage()->id.c_str());
@@ -912,6 +917,7 @@ public:
                         msg.getMessage()->range,
                         msg.getMessage()->sigma);
 
+            if (!_imu_init) std::cout << "Navigator warning: publishing without initialized IMU\n";
             publish(msg.getMessage()->header.stamp);
             ROS_DEBUG_COND(res == 0, "landmark '%s' validated", msg.getMessage()->id.c_str());
             ROS_DEBUG_COND(res == 1, "landmark '%s' not validated yet", msg.getMessage()->id.c_str());
