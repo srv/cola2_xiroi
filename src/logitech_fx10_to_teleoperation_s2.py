@@ -73,6 +73,8 @@ class LogitechFX10(JoystickBase):
         and sets the buttons that especify if position or velocity
         commands are used in the teleoperation."""
 
+        self.mutual_exclusion.acquire()
+
         # JOYSTICK  DEFINITION:
         LEFT_JOY_HORIZONTAL = 0     # LEFT+, RIGHT-
         LEFT_JOY_VERTICAL = 1       # UP+, DOWN-
@@ -187,6 +189,7 @@ class LogitechFX10(JoystickBase):
         if joy.buttons[BUTTON_LEFT] == 1.0 and joy.buttons[BUTTON_RIGHT] == 1.0:
             rospy.loginfo("%s: ENABLE THRUSTERS!", self.name)
             self.enable_thrusters()
+        self.mutual_exclusion.release()
 
 if __name__ == '__main__':
     """ Initialize the logitech_fx10 node. """
