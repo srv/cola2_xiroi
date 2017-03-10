@@ -1,27 +1,6 @@
 # Enbale thrusters
 controller/enable_thrusters: False
 
-# DEPTH TO PITCH PID CONTROLLER
-controller/d_p_kp: 0.15
-controller/d_p_ti: 12.0
-controller/d_p_td: 0.0
-controller/d_p_limit: 0.2
-controller/d_p_fff: 0.0
-
-# ROLL PID CONTROLLER
-controller/f_roll_kp: 0.4
-controller/f_roll_ti: 15.0
-controller/f_roll_td: 0.0
-controller/f_roll_i_limit: 0.25
-controller/f_roll_fff: 0.0
-
-# PITCH PID CONTROLLER
-controller/f_pitch_kp: 0.8
-controller/f_pitch_ti: 15.0
-controller/f_pitch_td: 8.0
-controller/f_pitch_i_limit: 0.1
-controller/f_pitch_fff: 0.0
-
 # POSE PID CONTROLLER
 controller/p_surge_kp: 0.0
 controller/p_surge_ti: 0.0
@@ -151,6 +130,28 @@ controller/poly_yaw_percentatge: 1.0
 /controller/thruster_distance_yaw: 0.16783
 
 /controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.16783, 0.16783]
+
+# FINS CONFIGURATIONS
+# DEPTH TO PITCH PID CONTROLLER
+controller/d_p_kp: 0.15
+controller/d_p_ti: 12.0
+controller/d_p_td: 0.0
+controller/d_p_limit: 0.2
+controller/d_p_fff: 0.0
+
+# ROLL PID CONTROLLER
+controller/f_roll_kp: 0.4
+controller/f_roll_ti: 15.0
+controller/f_roll_td: 0.0
+controller/f_roll_i_limit: 0.25
+controller/f_roll_fff: 0.0
+
+# PITCH PID CONTROLLER
+controller/f_pitch_kp: 0.8
+controller/f_pitch_ti: 15.0
+controller/f_pitch_td: 8.0
+controller/f_pitch_i_limit: 0.1
+controller/f_pitch_fff: 0.0
 
 # FIN ALLOCATOR
 /controller/max_fin_force: 26.15
