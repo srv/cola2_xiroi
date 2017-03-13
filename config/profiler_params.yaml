@@ -2,7 +2,7 @@
 name: "seaking_profiler"
 sonar_type: "seaking_profiler"
 
-# Digital output
+# Digital output (only for Girona500 AUV)
 # digitalOutput: 6
 
 # Dynamic parameters
