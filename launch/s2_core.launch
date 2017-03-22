@@ -2,6 +2,7 @@
     <!--  ################# Input arguments  #################  -->
     <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
+    <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
 
     <!--  #################  Robot description  #################  -->
     <node name="robot_state_publisher_sparus2" pkg="robot_state_publisher" type="state_publisher" >
@@ -9,7 +10,7 @@
     </node>
 
     <!--  #################  Load safety nodes  #################  -->
-    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen"/>
+    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen" args="$(arg autosave_params_path)"/>
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
     <node name="s2_mon_control_board" pkg="s2_mon_control_board" type="s2_mon_control_board.py" respawn="true" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" respawn="true" output="screen"/>
@@ -45,5 +46,5 @@
     <node name="bag_node" pkg="cola2_lib" type="bag_node.py" output="screen"/>
     <node name="mission_wait" pkg="cola2_lib" type="mission_wait.py" output="screen"/>
     <node name="test_thrusters" pkg="cola2_safety" type="test_thrusters.py" output="screen"/>
-    
+
 	</launch>

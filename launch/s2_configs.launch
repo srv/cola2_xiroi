@@ -2,6 +2,9 @@
 
     <!--  ################# Input arguments  #################  -->
     <arg name="isSimulation" default="true"/>
+    <arg name="useAutosaveParams" default="false"/>
+    <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
+
 
     <!--  ##############  COLA2_CORE_COMMON  ##############  -->
     <rosparam command="load" file="$(find cola2_s2)/config/pilot.yaml"/>
@@ -40,5 +43,8 @@
         <rosparam command="load" ns="echosounders_driver" file="$(find cola2_s2)/config/echosounders.yaml" />
         <rosparam command="load" ns="micron" file="$(find cola2_s2)/config/micron_params.yaml"/>
         <rosparam command="load" ns="profiler" file="$(find cola2_s2)/config/profiler_params.yaml"/>
+    </group>
+    <group if="$(arg useAutosaveParams)">
+        <rosparam command="load" file="$(arg autosave_params_path)/latest_params.yaml"/>
     </group>
 </launch>

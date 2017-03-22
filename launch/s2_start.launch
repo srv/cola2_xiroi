@@ -1,10 +1,9 @@
 <launch>
-    <!-- Load Sparus2 configs (do not modify) -->
-    <include file="$(find cola2_s2)/launch/s2_configs.launch">
-        <arg name="isSimulation" value="false"/>
-    </include>
-
     <!--  ##############  Configurable arguments  ##############  -->
+    <!-- SPARUS CONFIG PARAMS -->
+    <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
+    <arg name="useAutosaveParams" default="false"/>
+
     <!-- SPARUS CORE PARAMS -->
     <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
@@ -31,6 +30,13 @@
     <arg name="enableGUI" default="true" />
     <arg name="enableJoystick" default="true" />
     <arg name="enableRVizTF" value="true" />
+
+    <!-- Load Sparus2 configs (do not modify) -->
+    <include file="$(find cola2_s2)/launch/s2_configs.launch">
+        <arg name="isSimulation" value="false"/>
+        <arg name="useAutosaveParams" value="$(arg useAutosaveParams)"/>
+        <arg name="autosave_params_path" value="$(arg autosave_params_path)"/>
+    </include>
 
     <!--  #################  OVERRIDE CONFIGS  #################  -->
     <!-- Overidden configs here (when copying this file for your own project) -->
@@ -100,6 +106,7 @@
     <include file="$(find cola2_s2)/launch/s2_core.launch">
         <arg name="enableImu" value="$(arg enableImu)"/>
         <arg name="enableSafety" value="$(arg enableSafety)"/>
+        <arg name="autosave_params_path" value="$(arg autosave_params_path)"/>
     </include>
 
     <!--  #################  LOAD S2 PAYLOAD  #################  -->

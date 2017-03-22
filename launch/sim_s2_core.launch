@@ -4,6 +4,7 @@
     <arg name="enableJoystick" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <arg name="enableProfiler" default="false"/>
+    <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
 
     <!--  ##############  LOAD NODES  ##############  -->
     <!-- Robot description Sparus2 -->
@@ -12,7 +13,7 @@
     </node>
 
     <!-- Safety nodes -->
-    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen"/>
+    <node name="param_logger" pkg="cola2_safety" type="param_logger.py" output="screen" args="$(arg autosave_params_path)"/>
     <node name="up_time" pkg="cola2_safety" type="up_time.py" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
     <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
@@ -39,7 +40,7 @@
     <node name="bag_node" pkg="cola2_lib" type="bag_node.py" output="screen"/>
     <node name="mission_wait" pkg="cola2_lib" type="mission_wait.py" output="screen"/>
     <node name="test_thrusters" pkg="cola2_safety" type="test_thrusters.py" output="screen"/>
-    
+
     <group if="$(arg enableProfiler)">
       <node name="sim_profiler" pkg="cola2_sim" type="sim_profiler.py" output="screen">
           <param name="frame_id" value="sparus2"/>

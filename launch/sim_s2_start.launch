@@ -1,19 +1,23 @@
 <launch>
-    <!-- Load Sparus2 configs (do not modify) -->
-    <include file="$(find cola2_s2)/launch/s2_configs.launch">
-        <arg name="isSimulation" value="true"/>
-    </include>
-
     <!--  ##############  Configurable arguments  ##############  -->
+    <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
+    <arg name="useAutosaveParams" default="false"/>
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
-    <arg name="enableLog" default="false" />
-    <arg name="enableUWSim" default="false" />
+    <arg name="enableLog" default="false"/>
+    <arg name="enableUWSim" default="false"/>
     <arg name="enableProfiler" default="false"/> <!-- only if UWSim is enabled -->
-    <arg name="enableShadders" default="false" />
+    <arg name="enableShadders" default="false"/>
     <arg name="enableGUI" default="true"/>
     <arg name="enableRviz" default="true" />
+
+    <!-- Load Sparus2 configs (do not modify) -->
+    <include file="$(find cola2_s2)/launch/s2_configs.launch">
+        <arg name="isSimulation" value="true"/>
+        <arg name="useAutosaveParams" value="$(arg useAutosaveParams)"/>
+        <arg name="autosave_params_path" value="$(arg autosave_params_path)"/>
+    </include>
 
     <!--  #################  OVERRIDE CONFIGS  #################  -->
     <!-- Overidden configs here (when copying this file for your own project) -->
@@ -26,8 +30,9 @@
         <arg name="enableSafety" value="$(arg enableSafety)" />
         <arg name="enableJoystick" value="$(arg enableJoystick)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
-        <arg name="enableProfiler" default="$(arg enableProfiler)"/>
-		</include>
+        <arg name="enableProfiler" value="$(arg enableProfiler)"/>
+        <arg name="autosave_params_path" value="$(arg autosave_params_path)"/>
+    </include>
 
     <!-- Run UWSim -->
     <group if="$(arg enableUWSim)">
