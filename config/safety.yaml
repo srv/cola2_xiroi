@@ -18,7 +18,7 @@ safety/min_distance_to_wall: 5.0 #MORPH only
 safety/max_temperature_pc: 80.0 #G500 only
 safety/max_temperature_bat: 55.0 #G500 only
 MORPH/min_reference_commands: 30
-
+/captain/max_distance_to_waypoint: 750.0
 
 # Recovery actions
 recovery_actions/frame_id: "sparus2"
