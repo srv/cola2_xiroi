@@ -1,6 +1,6 @@
 <launch>
     <!--  ##############  Configurable arguments  ##############  -->
-    <arg name="joystickDevice" value="/dev/input/js0"/>
+    <arg name="joystickDevice" default="/dev/input/js0"/>
     <!-- JOYSTICK -->
     <node respawn="true" pkg="joy" type="joy_node" name="joystick">
         <param name="dev" value="$(arg joystickDevice)"/>
