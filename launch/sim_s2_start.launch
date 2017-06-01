@@ -4,6 +4,7 @@
     <arg name="useAutosaveParams" default="false"/>
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
+	<arg name="enableKeyboard" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <arg name="enableLog" default="false"/>
     <arg name="enableUWSim" default="false"/>
@@ -29,6 +30,7 @@
     <include file="$(find cola2_s2)/launch/sim_s2_core.launch">
         <arg name="enableSafety" value="$(arg enableSafety)" />
         <arg name="enableJoystick" value="$(arg enableJoystick)" />
+        <arg name="enableKeyboard" value="$(arg enableKeyboard)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
         <arg name="enableProfiler" value="$(arg enableProfiler)"/>
         <arg name="autosave_params_path" value="$(arg autosave_params_path)"/>

@@ -2,6 +2,7 @@
     <!--  ##############  Input arguments  ##############  -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
+    <arg name="enableKeyboard" default="false"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <arg name="enableProfiler" default="false"/>
     <arg name="autosave_params_path" default="$(find cola2_s2)/config/saved_configurations"/>
@@ -62,7 +63,7 @@
         </node>
         <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10"/>
     </group>
-    <group unless="$(arg enableJoystick)">
+    <group if="$(arg enableKeyboard)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
             <remap from="/keyboard" to="/joy"/>
         </node>
