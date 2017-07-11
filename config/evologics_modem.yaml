@@ -1,7 +1,22 @@
+# Print debug information
 evologics_modem/debug: False
+
+# Serial port address
 evologics_modem/serialtty: "/dev/ttyS10"
+
+# Modem identifier
 evologics_modem/ownid: 3
+
+# USBL identifier
 evologics_modem/outid: 1
+
+# Modem identifier in the message payload
 evologics_modem/mtype: "S"
+
 evologics_modem/doutput: -1
+
+# Modem source level (max 0, min 3)
+evologics_modem/sourcelevel: 3
+
+# Position of the modem with respect to the vehicle frame in meters
 evologics_modem/tf: [0.5, 0.0, -0.1]
