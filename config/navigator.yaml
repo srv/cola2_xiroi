@@ -1,9 +1,12 @@
 # Initialize EKF filter using GPS information
 navigator/initialize_filter_from_gps: true
+
 # Apply GPS updates in the EKF filter
 navigator/use_gps_data: true
+
 # if true use current gps position as ned origin, otherwise use predefined ned origin
 navigator/initialize_ned_from_gps: false
+
 # Define NED origin if initialize_ned_from_gps is set to false
 navigator/ned_latitude: 41.7773700755 #42.954 #38.5200248466315 # 41.768860505
 navigator/ned_longitude: 3.03875848166 #10.602 #-28.6320306729769 # 3.03170557637
@@ -16,11 +19,14 @@ navigator/declination_in_degrees: 0.5
 
 # If GPS is used to initialize the filter (vehicle on surface) initialize also depth sensor offset?
 navigator/initialize_depth_sensor_offset: true
+
 # When the vehicle is on surface, distance between water surface and depth sensor (used by initialize_depth_sensor_offset)
 navigator/surface_to_depth_sensor_distance: 0.05
-# Depth sensor offset value is not used if initialize depth sensor offset is set to true and there is GPS
-# Depth sensor offeset is directly added to measured depth
+
+# Depth sensor offset value is not used if initialize depth sensor offset is set to true 
+# and there is GPS. Depth sensor offeset is directly added to measured depth.
 navigator/depth_sensor_offset: -1.0
+
 # Depth sensor correction. This value is added to the depth in meters
 navigator/water_density: 1000  # Pool -> 1000 Sea -> 1030?
 

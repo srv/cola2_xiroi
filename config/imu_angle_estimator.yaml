@@ -1,10 +1,15 @@
-# imu_angle_estimator.py config file
+# Path where the configuration of the "imu_angle_estimator" node is available
+imu_angle_estimator/configuration_package: "cola2_s2" 
 
-imu_angle_estimator/configuration_package: "cola2_s2" # Path where the configuration of the "imu_angle_estimator" node is available
-imu_angle_estimator/calibration_file_path: "/home/cirs/" # Path where some visual calibration outputs are stored
+# Path where some visual calibration outputs are stored
+imu_angle_estimator/calibration_file_path: "/home/cirs/" 
 
-imu_angle_estimator/merging_filter_coefficient: 0.995  # From 0.0 (only tilt angles) to 1.0 (only gyro). Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
-imu_angle_estimator/max_gyro_bias_buffer_size: 18000  # Max size of the averaging filter. Must be an integer greater than zero
+# From 0.0 (only tilt angles) to 1.0 (only gyro)
+# Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
+imu_angle_estimator/merging_filter_coefficient: 0.995  
+
+# Max size of the averaging filter. Must be an integer greater than zero
+imu_angle_estimator/max_gyro_bias_buffer_size: 18000  
 
 # The output data is with respect to the "adis_imu" frame but orientated in the vehicle frame. This "trick" is necessary for calibration purposes.
 imu_angle_estimator/frame_id: "adis_imu"

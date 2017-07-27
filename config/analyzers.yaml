@@ -1,4 +1,8 @@
+# Determine the publish rate of the diagnostics aggregator
 pub_rate: 1.0
+
+# The following parameters are used to categorize the data from the diagnostics
+# in order to display the desired hierarchy in the robot_monitor tool
 base_path: ''
 analyzers:
   navigation:

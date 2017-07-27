@@ -1,2 +1,7 @@
+# Acceptance distance to validate a waypoint. If the robot is inside the region
+# defined by the tolerance, the captain continues with the following waypoint
+# in the mission
 /captain/tolerance: [1.5, 1.5, 1.0, 0.0, 0.0, 0.1]
+
+# Path from where missions are loaded
 /captain/mission_path: "/home/narcis/catkin_ws/src/cola2_s2/missions"

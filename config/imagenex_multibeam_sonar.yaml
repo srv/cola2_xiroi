@@ -11,7 +11,7 @@ imagenex_multibeam_sonar/digital_output: -1
 imagenex_multibeam_sonar/range: 10 #
 
 #Valid Gain: 1 - 20
-imagenex_multibeam_sonar/gain: 10 # 10 for morph pre-tests
+imagenex_multibeam_sonar/gain: 10 
 
 # Number of beams: 480, 240, 120
 imagenex_multibeam_sonar/nbeams: 240
