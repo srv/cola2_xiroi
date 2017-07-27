@@ -1,6 +1,13 @@
 #!/usr/bin/env python
-"""@@This node is used to simulate Sparus II actuators. It is only used in simulation.@@"""
+# Copyright (c) 2017 Iqua Robotics SL - All Rights Reserved
+#
+# This file is subject to the terms and conditions defined in file
+# 'LICENSE.txt', which is part of this source code package.
 
+
+
+"""
+@@>This node is used to simulate Sparus II actuators. It is only used in simulation.<@@"""
 """
 Modified 11/2015
 """

@@ -1,5 +1,13 @@
-#! /usr/bin/env python
-"""LogitechFX10 controler node."""
+#!/usr/bin/env python
+# Copyright (c) 2017 Iqua Robotics SL - All Rights Reserved
+#
+# This file is subject to the terms and conditions defined in file
+# 'LICENSE.txt', which is part of this source code package.
+
+
+"""
+@@>LogitechFX10 controler node.<@@
+"""
 
 import rospy
 from cola2_lib.JoystickBase import JoystickBase

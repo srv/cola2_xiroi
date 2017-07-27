@@ -4,7 +4,7 @@
     <arg name="useAutosaveParams" default="false"/>
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
-	<arg name="enableKeyboard" default="false"/>
+	<arg name="enableKeyboard" default="true"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <arg name="enableLog" default="false"/>
     <arg name="enableUWSim" default="false"/>
