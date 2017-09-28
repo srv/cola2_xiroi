@@ -6,6 +6,10 @@
  * 'LICENSE.txt', which is part of this source code package.
  */
 
+/*@@>Takes the data from all navigation sensors (real or simulated) and merges
+ them through a constant velocity model using an Extended Kalman Filter.<@@*/
+
+
 #include <string>
 #include "ros/ros.h"
 #include <cola2_lib/cola2_navigation/EkfRosBase.h>
