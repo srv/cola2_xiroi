@@ -27,6 +27,7 @@ sim_nav_sensors/imu/orientation_covariance: [0.0001, 0.0001, 0.0001]
 sim_nav_sensors/dvl/velocity_covariance: [0.0015, 0.0015, 0.0015]  # Not computed!
 sim_nav_sensors/gps/position_covariance: [0.5, 0.5]  # Not computed!
 
+# For Vessel-usbl-gps simulation
 sim_gps/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 sim_usbl/tf: [-3.0, -2.0, 0.0, 0.0 , 0.0, 0.0]
-
+sim_usbl/addr: 2
