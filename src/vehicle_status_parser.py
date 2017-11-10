@@ -4,17 +4,13 @@
 # This file is subject to the terms and conditions defined in file
 # 'LICENSE.txt', which is part of this source code package.
 
-
-
 import roslib
 import rospy
 
-from diagnostic_msgs.msg import DiagnosticArray
-from diagnostic_msgs.msg import DiagnosticStatus
-from cola2_msgs.msg import MissionStatus
 from cola2_lib.diagnostic_helper import DiagnosticHelper
-from cola2_msgs.msg import VehicleStatus
-from cola2_msgs.msg import TotalTime
+from std_msgs.msg import Bool
+from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
+from cola2_msgs.msg import VehicleStatus, CaptainStatus, TotalTime
 from auv_msgs.msg import NavSts
 
 class VehicleStatusParser:
@@ -29,40 +25,50 @@ class VehicleStatusParser:
         self.pub_vehicle_sts = rospy.Publisher("/cola2_safety/vehicle_status",
                                                VehicleStatus,
                                                queue_size = 1)
+
         # Subscriber
         rospy.Subscriber("/diagnostics_agg",
                          DiagnosticArray,
                          self.update_diagnostics,
                          queue_size = 1)
 
-        rospy.Subscriber("/cola2_control/mission_status",
-                         MissionStatus,
-                         self.updateMissionStatus,
-                         queue_size = 1)
+        rospy.Subscriber("/cola2_control/captain_status",
+                         CaptainStatus,
+                         self.update_captain_status,
+                         queue_size=1)
 
         rospy.Subscriber("/cola2_safety/total_time",
                          TotalTime,
-                         self.updateTimeout,
+                         self.update_timeout,
                          queue_size = 1)
 
         rospy.Subscriber("/cola2_navigation/nav_sts",
                          NavSts,
-                         self.updateNavSts,
+                         self.update_nav_sts,
                          queue_size = 1)
 
-    def updateTimeout(self, timeout):
+        rospy.Subscriber("/cola2_control/thrusters_enabled",
+                         Bool,
+                         self.update_thruster_status,
+                         queue_size = 1)
+
+    def update_timeout(self, timeout):
         """Update timeout in vehicle status."""
         self.status.up_time = timeout.total_time
 
-    def updateMissionStatus(self, mission_status):
-        """Update mission status information."""
-        self.status.current_waypoint = mission_status.current_wp
-        self.status.total_waypoints = mission_status.total_wp
-        self.status.waypoint_latitude = mission_status.wp_north
-        self.status.waypoint_longitude = mission_status.wp_east
-        self.status.waypoint_z = mission_status.wp_depth_altitude
+    def update_thruster_status(self, thruster_status):
+        """Update timeout in vehicle status."""
+        self.status.thrusters_enabled = thruster_status.data
 
-    def updateNavSts(self, nav):
+    def update_captain_status(self, captain_status):
+        """Update captain status information."""
+        self.status.active_controller = captain_status.active_controller
+        self.status.altitude_mode = captain_status.altitude_mode
+        self.status.mission_active = captain_status.mission_active
+        self.status.current_step = captain_status.current_step
+        self.status.total_steps = captain_status.total_steps
+
+    def update_nav_sts(self, nav):
         """Update navigation information."""
         self.status.latitude = nav.global_position.latitude
         self.status.longitude = nav.global_position.longitude
@@ -181,22 +187,6 @@ class VehicleStatusParser:
                     modem_age = 0.0
                 self.status.modem_data_age = modem_age
 
-            # Get Active controller
-            self.status.active_controller = VehicleStatus.CONTROLLER_NONE
-            if __getDiagnostic__(status, '/control/ captain'):
-                if __getDiagnostic__(status,
-                                     '/control/ captain',
-                                     'trajectory_enabled',
-                                     'False') == 'True':
-                    self.status.active_controller = VehicleStatus.CONTROLLER_MISSION
-
-                if __getDiagnostic__(status,
-                                     '/control/ captain',
-                                     'keep_position_enabled',
-                                     'False') == 'True':
-                    self.status.active_controller = VehicleStatus.CONTROLLER_KEEP_POSITION
-
-                # TODO: SECTION and GOTO missing, to be added firts in captain!
 
             # Water inside
             if __getDiagnostic__( status, '/safety/ s2_mon_control_board') or \
@@ -215,8 +205,10 @@ class VehicleStatusParser:
                     self.status.water_detected = False
 
         # Publish status message
-        self.status.header.stamp = rospy.Time()
+        self.status.header.stamp = rospy.Time.now()
+        self.status.header.frame_id = 'sparus2'
         self.pub_vehicle_sts.publish(self.status)
+
 
 def __getDiagnostic__(status, name, key='none', default=0.0):
     if status.name == name:
@@ -232,6 +224,7 @@ def __getValue__(values, key, default):
         if pair.key == key:
             return pair.value
     return default
+
 
 if __name__ == '__main__':
     try:
