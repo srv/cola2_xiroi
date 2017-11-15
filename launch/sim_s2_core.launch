@@ -21,7 +21,9 @@
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" />
-    <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
+    <node if="$(arg enableSafety)" name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor.py"/>
+    <node name="computer_logger" pkg="cola2_safety" type="computer_logger.py" output="screen"/>
+    <node name="vehicle_status_parser" pkg="cola2_s2" type="vehicle_status_parser.py" respawn="true" output="screen"/>
 
     <!-- Run dynamics -->
     <node name="dynamics" pkg="cola2_sim" type="dynamics.py"/>

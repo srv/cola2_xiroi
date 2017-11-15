@@ -20,7 +20,7 @@
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" respawn="true" output="screen"/>
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator"/>
-    <node if="$(arg enableSafety)" name="diagnostics_supervisor" pkg="cola2_safety" type="diagnostics_supervisor.py"/>
+    <node if="$(arg enableSafety)" name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor.py"/>
     <node name="check_sensors" pkg="cola2_safety" type="check_sensors.py" />
     <node name="computer_logger" pkg="cola2_safety" type="computer_logger.py" respawn="true" output="screen"/>
 
