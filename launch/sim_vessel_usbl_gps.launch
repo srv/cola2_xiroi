@@ -1,0 +1,6 @@
+<launch>
+    <rosparam command="load" file="$(find cola2_s2)/config/sim_nav_sensors.yaml"/>
+    <node name="sim_vessel" pkg="cola2_sim" type="sim_vessel.py" output="screen"/>
+    <node name="sim_gps" pkg="cola2_sim" type="sim_gps.py" output="screen"/>
+    <node name="sim_usbl" pkg="cola2_sim" type="sim_usbl.py" output="screen"/>
+</launch>

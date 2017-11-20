@@ -1,7 +1,7 @@
 # SPARUS2 SAFETY CONFIG
 
-# Timeout and minimum update times for the diagnostics_supervisor
-diagnostics_supervisor/timeout: 3600  # Seconds
+# Timeout and minimum update times for the safety supervisor
+safety/timeout: 3600  # Seconds
 safety/min_imu_update: 10.0
 safety/min_depth_update: 10.0
 safety/min_altitude_update: 60.0
@@ -19,10 +19,12 @@ safety/min_dvl_good_data: 200
 
 # Battery
 safety/min_battery_charge: 0.0
+safety/min_battery_voltage: 0.0
 safety/min_distance_to_wall: 5.0 #MORPH only
-safety/max_temperature_pc: 80.0 #G500 only
-safety/max_temperature_bat: 55.0 #G500 only
-MORPH/min_reference_commands: 30
+
+# Max Temperatures: 
+safety/max_temperatures_ids: ['batteries', 'pc', 'thrusters']
+safety/max_temperatures_values: [55.0, 80.0, 95.0]
 
 # Maximum allowed distance to a waypoint. Just for safety reasons
 /captain/max_distance_to_waypoint: 750.0

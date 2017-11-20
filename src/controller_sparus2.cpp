@@ -6,6 +6,8 @@
  * 'LICENSE.txt', which is part of this source code package.
  */
 
+/*@@>Low level controllers for Sparus II AUV.<@@*/
+
 #include "ros/ros.h"
 #include <dynamic_reconfigure/server.h>
 #include <cola2_lib/cola2_control/IAUVController.h>
