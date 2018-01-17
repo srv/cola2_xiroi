@@ -7,7 +7,6 @@
     <!-- SPARUS CORE PARAMS -->
     <arg name="enableImu" default="false"/>
     <arg name="enableSafety" default="true"/>
-    <arg name="enableRemoteJoystick" default="false"/>
 
     <!-- SPARUS PAYLOAD PARAMS -->
     <arg name="Camera" default="false"/>
@@ -23,7 +22,7 @@
     <arg name="enableRotativePayload" default="false"/>
     <arg name="enableBeacons" default="false"/>
     <arg name="enableAirmarEchosounder" default="false"/>
-	  <arg name="enableProfiler" default="false"/>
+    <arg name="enableProfiler" default="false"/>
 
     <!-- SPARUS OTHER PARAMS -->
     <arg name="enableLog" default="false" />
@@ -49,56 +48,7 @@
     <!--  #################  DEFINE JOYSTICK DEVICE  #################  -->
     <arg name="joystickDevice" value="/dev/input/js0"/>
     <!--arg name="joystickDevice" value="/dev/input/js1"/-->
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_A33B9336-joystick"/ -->
 
-    <!--  ################# SET REMOTE MACHINE  #################  -->
-
-    <!-- NARCIS' MACBOOK PRO JOYSTICK SETTINGS -->
-    <!--
-    <arg name="desktopUserName" value="narcis"/>
-    <arg name="desktopMachineAddr" value="narcis-vm" />
-    -->
-    <!-- BLACK MACBOOK -->
-    <!--
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="cirs-macbook" />
-    -->
-    <!-- JUANDAVID -->
-    <!--
-    <arg name="desktopUserName" value="juandhv"/>
-    <arg name="desktopMachineAddr" value="brain-Ubuntu" />
-    <arg name="desktopMachineName" value="brain-Ubuntu" />
-    -->
-    <!-- SUPERLAPTOP -->
-    <!--
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="cirs-G74Sx" />
-    -->
-
-    <!-- ASUS NEW -->
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="cirs-F555L" />
-
-    <!-- TOSHI -->
-    <!--
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="toshi" />
-    -->
-    <!-- A Palomer laptop -->
-    <!--
-    <arg name="desktopUserName" value="apalomer"/>
-    <arg name="desktopMachineAddr" value="apalomer-N56J"/>
-    -->
-    <!-- newasus -->
-    <!--
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="cirs-newasus"/>
-    -->
-    <!-- S2 address -->
-    <!--arg name="desktopMachineName" value="remote_machine" /-->
-    <arg name="ROSMaster" value="http://192.168.1.61:11311" />
 
     <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
 
@@ -128,17 +78,6 @@
    </include>
 
     <!--  #################  LOAD S2 OTHERS  #################  -->
-    <group if="$(arg enableJoystick)">
-        <group if="$(arg enableRemoteJoystick)">
-            <machine name="$(arg desktopMachineAddr)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)" env-loader="/home/$(arg desktopUserName)/catkin_ws/src/cola2_core/env.bash"/>
-            <!-- JOYSTICK -->
-            <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineAddr)">
-                <param name="dev" value="$(arg joystickDevice)"/>
-                <param name="deadzone" value="0.1"/>
-            </node>
-            <node respawn="false" pkg="cola2_s2" type="logitech_fx10_to_teleoperation_s2.py" name="fx10" machine="$(arg desktopMachineAddr)"/>
-        </group>
-    </group>
     <group unless="$(arg enableJoystick)">
         <node name="keyboard" pkg="cola2_control" type="keyboard" output="screen">
             <remap from="/keyboard" to="/joy"/>

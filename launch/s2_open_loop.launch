@@ -1,42 +1,5 @@
 <launch>
     <!-- DEVICES CONFIG -->
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_A1B0CF2A-joystick"/-->
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Rumble_Gamepad_F510_9C49A89B-joystick"/-->
-    <arg name="joystickDevice" value="/dev/input/js0"/>
-    <!--arg name="joystickDevice" value="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_9FE89273-joystick"/-->
-    <arg name="sparusUserName" value="$(env LOGNAME)"/>
-
-    <!--<arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="toshi"/>
-    <arg name="desktopMachineName" value="toshi"/>/-->
-
-     <!-- SUPERLAPTOP -->
-
-    <arg name="desktopUserName" value="cirs"/>
-    <arg name="desktopMachineAddr" value="cirs-F555L" />
-    <arg name="desktopMachineName" value="cirs-F555L" />
-
-
-    <!-- JUANDAVID -->
-<!--
-    <arg name="desktopUserName" value="juandhv"/>
-        <arg name="desktopMachineAddr" value="brain-Ubuntu" />
-        <arg name="desktopMachineName" value="brain-Ubuntu" />
-   -->
-    <!--arg name="desktopMachineAddr" value="192.168.1.67"/-->
-    <!--arg name="ROSMaster" value="http://192.168.1.155:11311"/-->
-
-    <!-- MACHINES -->
-    <!--machine name="sparus" address="localhost" user="$(arg sparusUserName)" default="true"/-->
-    <machine name="$(arg desktopMachineName)" address="$(arg desktopMachineAddr)" user="$(arg desktopUserName)"/>
-
-<!--_______________________________________________________________________________________________________________________-->
-
-
-
-    <node respawn="true" pkg="joy" type="joy_node" name="joystick" machine="$(arg desktopMachineName)">
-        <param name="dev" value="$(arg joystickDevice)"/>
-    </node>
 
     <rosparam command="load" file="$(find cola2_s2)/config/s2_serial_ports.yaml"/>
 

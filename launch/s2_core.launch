@@ -41,11 +41,10 @@
     <node name="teleoperation" pkg="cola2_control" type="teleoperation.py" respawn="true" output="screen"/>
     <node name="controller" pkg="cola2_s2" type="controller_sparus2" respawn="true"/>
     <node name="captain" pkg="cola2_control" type="captain" respawn="false" output="screen"/>
-	  <node name="pilot" pkg="cola2_control" type="pilot" respawn="false" output="screen"/>
+	<node name="pilot" pkg="cola2_control" type="pilot" respawn="false" output="screen"/>
 
     <!--  #################  Other nodes  #################  -->
     <node name="bag_node" pkg="cola2_lib" type="bag_node.py" output="screen"/>
-    <node name="mission_wait" pkg="cola2_lib" type="mission_wait.py" output="screen"/>
     <node name="test_thrusters" pkg="cola2_safety" type="test_thrusters.py" output="screen"/>
 
 	</launch>
