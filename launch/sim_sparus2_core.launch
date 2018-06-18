@@ -1,0 +1,36 @@
+<launch>
+    <arg name="robot_name"/>
+    <!-- Safety nodes -->
+    <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
+    <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
+    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
+    <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor.py" output="screen"/>
+    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
+    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
+    <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
+        <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>
+        <remap from="/diagnostics_agg" to="/$(arg robot_name)/diagnostics_agg"/>
+        <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
+    </node>
+    <node name="vehicle_status_parser" pkg="cola2_safety" type="vehicle_status_parser.py" respawn="true" output="screen"/>
+    <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/>
+    <node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
+    <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors.py" output="screen"/>
+
+    <!-- Simulation nodes -->
+    <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_auv_nav_sensors.py" output="screen"/>
+    <node name="dynamics" pkg="cola2_sim" type="dynamics.py" output="screen"/>
+
+    <!-- Navigation -->
+    <node name="navigator" pkg="cola2_nav" type="navigator" output="screen"/>
+
+    <!-- Control stack -->
+    <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
+    <node name="pilot" pkg="cola2_control" type="pilot" output="screen"/>
+    <node name="captain" pkg="cola2_control" type="captain" output="screen"/>
+    <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
+
+    <!-- Log -->
+    <node name="bag_node" pkg="cola2_log" type="bag_node.py"/>
+
+</launch>

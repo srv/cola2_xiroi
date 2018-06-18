@@ -22,7 +22,7 @@ safety/min_battery_charge: 0.0
 safety/min_battery_voltage: 0.0
 safety/min_distance_to_wall: 5.0 #MORPH only
 
-# Max Temperatures: 
+# Max Temperatures:
 safety/max_temperatures_ids: ['batteries', 'pc', 'thrusters']
 safety/max_temperatures_values: [55.0, 80.0, 95.0]
 

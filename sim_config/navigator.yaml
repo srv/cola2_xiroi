@@ -1,0 +1,41 @@
+navigator/enable_debug: false
+
+# Initialize EKF filter using GPS information
+navigator/initialize_filter_from_gps: false
+# Use the initial GPS as the origin of NED
+navigator/initialize_ned_from_gps: false
+# GPS samples to init position and NED
+navigator/gps_samples_to_init: 10
+# Apply GPS updates in the EKF filter
+navigator/use_gps_data: false
+# Apply USBL updates in the EKF filter
+navigator/use_usbl_data: false
+
+# NED origin when not init by GPS
+navigator/ned_latitude: 41.7777
+navigator/ned_longitude: 3.0333
+
+# Init depth sensor when GPS is first initialized
+navigator/initialize_depth_sensor_offset: false
+# Real distance between depth sensor and water surface
+navigator/surface_to_depth_sensor_distance: 0.05
+# Depth sensor offset value (can be overwritten by srvSetDepthSensorOffset)
+navigator/depth_sensor_offset: 0.0
+navigator/use_depth_data: true
+
+# Set spot current magnetic declination in degrees
+# http://www.magnetic-declination.com/
+navigator/declination_in_degrees: 0.5
+# Ignore DVL velocities bigger than
+navigator/dvl_max_v: 1.2
+navigator/use_dvl_data: true
+# Water density (used in depth sensor)
+navigator/water_density: 1030.0
+
+# Covariances for the EKF
+navigator/initial_state_covariance: [2.0, 2.0, 0.5, 0.02, 0.02, 0.02]
+navigator/prediction_model_covariance: [1.0, 1.0, 1.0]
+navigator/use_force_model: false
+navigator/force_model_covariance: [0.4, 0.4, 0.4]
+# force / scale = velocity
+navigator/force_model_scale: [200.0, 200.0, 275.0, 275.0, 440.0, 100.0] # pos/neg for each axis XYZ

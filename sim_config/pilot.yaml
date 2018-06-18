@@ -1,0 +1,19 @@
+# Parameters for the standard line-of-sight (LOS) controller
+pilot/los_cte/delta: 5.5                        # Lookahead distance
+pilot/los_cte/distance_to_max_velocity: 5.0     # Speed transition ramp distance
+pilot/los_cte/max_surge_velocity: 0.5           # Highest allowed vehicle speed
+pilot/los_cte/min_surge_velocity: 0.2           # Lowest allowed vehicle speed
+pilot/los_cte/min_velocity_ratio: 0.1           # Slope of the velocity increase or decrease
+
+# Parameters for the goto controller
+pilot/goto/max_angle_error: 0.3                 # Maximum yaw angle error
+pilot/goto/max_surge: 0.5                       # Maximum vehicle speed
+pilot/goto/surge_proportional_gain: 0.4         # It converts distance to waypoint to speed
+
+# Parameters for the anchor controller
+pilot/anchor/kp: 0.1                        # Proportional term
+pilot/anchor/radius: 1.0                    # Hysteresis area
+pilot/anchor/min_surge: -0.1                # Minimum allowed speed
+pilot/anchor/max_surge: 0.3                 # Maximum allowed speed
+pilot/anchor/safety_distance: 50.0          # Maximum distance from which this controller can be used
+pilot/anchor/max_angle_error: 0.5           # Maximum yaw angle error

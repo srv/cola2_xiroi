@@ -1,23 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(cola2_s2)
+project(cola2_sparus2)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  auv_msgs
-  cola2_lib
-  cola2_msgs
-  dynamic_reconfigure
-  geometry_msgs
-  std_srvs
-  nav_msgs
-  roscpp
-  rospy
-  sensor_msgs
-  tf
-  tf_conversions
-)
+find_package(catkin REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -94,9 +81,9 @@ find_package(catkin REQUIRED COMPONENTS
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-generate_dynamic_reconfigure_options(
-  cfg/controller_sparus2.cfg
-)
+#generate_dynamic_reconfigure_options(
+#  cfg/controller_sparus2.cfg
+#)
 
 
 
@@ -124,17 +111,17 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+#  ${catkin_INCLUDE_DIRS}
 )
 
-set(HEADER_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2ThrusterAllocator.hpp"
-    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2FinAllocator.hpp"
-    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2Controller.hpp")
+#set(HEADER_FILES
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2ThrusterAllocator.hpp"
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2FinAllocator.hpp"
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2Controller.hpp")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
+#set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
 
 ## Declare a C++ library
 # add_library(cola2_s2
@@ -158,13 +145,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(controller_sparus2 ${HEADER_FILES} src/controller_sparus2.cpp)
-target_link_libraries(controller_sparus2 ${catkin_LIBRARIES})
-add_dependencies(controller_sparus2 ${PROJECT_NAME}_gencfg cola2_msgs_gencpp)
-
-add_executable(navigator_s2 src/navigator_s2.cpp)
-target_link_libraries(navigator_s2 ${catkin_LIBRARIES})
-add_dependencies(navigator_s2 cola2_msgs_gencpp)
+#add_executable(controller_sparus2 ${HEADER_FILES} src/controller_sparus2.cpp)
+#target_link_libraries(controller_sparus2 ${catkin_LIBRARIES})
+#add_dependencies(controller_sparus2 ${PROJECT_NAME}_gencfg cola2_msgs_gencpp)
 
 #############
 ## Install ##

@@ -1,0 +1,27 @@
+<launch>
+    <!-- Input arguments -->
+    <arg name="robot_name" default="sparus2"/>
+    <arg name="is_simulation" default="true"/>
+
+    <!-- Load robot description -->
+    <include file="$(find sparus2_description)/launch/sparus2_description.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+    <!-- Common configs -->
+    <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_sparus2)/sim_config/analyzers.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_internal_sensors.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/navigator.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/pilot.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/captain.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/safety.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/vehicle_status_parser.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/logitech_fx10_to_teleoperation.yaml"/>
+
+    <!-- Simulation configs -->
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_controller.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/dynamics.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/fake_main_board.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_auv_nav_sensors.yaml"/>
+</launch>
