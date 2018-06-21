@@ -122,15 +122,15 @@ class MonControlBoard(object):
             # Check response
             if 'W=0' in water:
                 self.diagnostic.add("water_inside", "False")
-                self.diagnostic.setLevel(DiagnosticStatus.OK ,'No water')
+                self.diagnostic.set_level(DiagnosticStatus.OK ,'No water')
             elif 'W=1' in water:
                 for x in range(20):
                     rospy.logfatal('%s: WATER INSIDE! WATER INSIDE! WATER INSIDE! ', self.name)
                 self.diagnostic.add("water_inside", "True")
-                self.diagnostic.setLevel(DiagnosticStatus.ERROR ,'Water detected')
+                self.diagnostic.set_level(DiagnosticStatus.ERROR ,'Water detected')
             else:
                 self.diagnostic.add("water_inside", "Unknown")
-                self.diagnostic.setLevel(DiagnosticStatus.WARN ,'Unable to parse')
+                self.diagnostic.set_level(DiagnosticStatus.WARN ,'Unable to parse')
         else:
             rospy.logerr('%s: mon_control_board serial port not opened', self.name)
             self.open_serial_port()
