@@ -1,42 +1,42 @@
 # Determine the publish rate of the diagnostics aggregator
-pub_rate: 1.0
+pub_rate: 2.0
 
 # The following parameters are used to categorize the data from the diagnostics
 # in order to display the desired hierarchy in the robot_monitor tool
 base_path: ''
 analyzers:
+  safety:
+    type: GenericAnalyzer
+    path: safety
+    name: [
+      'emus_bms',
+      'batteries',
+      'pc_cylinder',
+      'virtual_cage',
+      'safe_depth_altitude',
+      'cola2_watchdog',
+      'safety_supervisor',
+      'evologics_modem',
+      'vehicle_status_parser',
+      'computer_logger',
+      'main_control_board']
+
   navigation:
     type: GenericAnalyzer
     path: navigation
     name: [
-        '/navigator',
-        '/fastrax_it_500_gps',
-        '/teledyne_explorer_dvl'
-    ]
+      'pressure',
+      'imu',
+      'gps',
+      'dvl',
+      'navigator'
+      ]
 
   control:
     type: GenericAnalyzer
     path: control
     name: [
-        '/teleoperation',
-        '/captain',
-        '/s2_actuators',
-        '/controller',
-        'joystick: Joystick Driver Status'
-    ]
-
-  safety:
-    type: GenericAnalyzer
-    path: safety
-    name: [
-        '/safe_depth_altitude',
-        '/virtual_cage',
-        '/up_time',
-        '/safety_supervisor',
-        '/battery',
-        '/check_sensors',
-        '/s2_mon_control_board',
-        '/evologics_modem',
-        '/computer_logger'
-    ]
-
+      'controller',
+      'teleoperation',
+      'captain',
+      'joystick: Joystick Driver Status']

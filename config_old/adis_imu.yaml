@@ -1,0 +1,7 @@
+# Parameters
+adis_imu/digital_output: -1
+# Maximum and minimum pressure for the pressure sensor. Read the datasheet
+adis_imu/max_pressure: 100.0
+adis_imu/min_pressure: 0.0
+# This parameter sets the internal decimation rate of the ADIS (19 -> 123 Hz)
+adis_imu/dec_rate: 19

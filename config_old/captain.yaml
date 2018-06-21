@@ -1,0 +1,2 @@
+# Path from where missions are loaded
+/captain/mission_path: "/home/tali/catkin_ws/src/cola2_s2/missions"

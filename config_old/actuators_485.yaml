@@ -1,0 +1,18 @@
+# Request information feedback from the drivers (currents, voltages, rpms...)
+thrusters/request_info: True
+
+# Maximum allowed setpoint change between iterations
+thrusters/max_step: 0.1
+
+# If true the max_step is also used when reducing speed
+thrusters/symmetric: True
+
+# Information for each thruster. Each phisical driver has an address. The sign
+# vector allows changing the direction of rotation. The limiter parameter
+# sets the maximum allowed setpoint to be sent to the thruster. The order is:
+# vertical, right (starboard), left (port)
+thrusters/addresses: [164, 10, 80]
+thrusters/signs: [1, -1, -1]
+thrusters/limiter: [0.6, 1.0, 1.0]
+
+fins/address: 116

@@ -1,0 +1,42 @@
+sound_speed: 1500
+
+teledyne_explorer_dvl/digital_output: -1
+
+teledyne_explorer_dvl/need_configuration: False
+teledyne_explorer_dvl/buf_length: 15
+teledyne_explorer_dvl/max_Velocity: 2
+teledyne_explorer_dvl/max_nRead: 300
+teledyne_explorer_dvl/min_nRead: 0
+teledyne_explorer_dvl/ini_nRead: 0
+teledyne_explorer_dvl/retrieve_parameters: "0"
+teledyne_explorer_dvl/serial_port_control: "711"
+teledyne_explorer_dvl/flow_control: "11010"
+teledyne_explorer_dvl/bottom_track_pings_per_ensemble: "001"
+
+# Sound speed is set on the launch file.
+
+# Set maximum bottom search depth to 1000 decimeters
+teledyne_explorer_dvl/maximum_tracking_depth: "01000"
+
+# If the ExplorerDVL is rotated +45 degrees starboard, set EA to EA+04500
+teledyne_explorer_dvl/heading_alignment: "00000"
+teledyne_explorer_dvl/depth_of_transducer: "00001"
+teledyne_explorer_dvl/salinity: "01"
+teledyne_explorer_dvl/coordinate_transformation: "01111"
+teledyne_explorer_dvl/sensor_source: "00000000"
+teledyne_explorer_dvl/temperature: "+1000"
+teledyne_explorer_dvl/time_per_ensemble: "00:00:00.00"
+teledyne_explorer_dvl/time_between_pings: "00:00.00"
+teledyne_explorer_dvl/water_mass_layer_mode: "1"
+#min layer size 0.1m near layer size 1m far layer boundary 7m
+teledyne_explorer_dvl/water_mass_layer_parameters: "0001,0010,0070"
+teledyne_explorer_dvl/turnkey_operation: "1"
+teledyne_explorer_dvl/environmental_data_output: "0000111"
+teledyne_explorer_dvl/heading_bias: "00000"
+teledyne_explorer_dvl/sensor_source_override_for_doppler_parameters: " 0 0 0 0 0 0 0 0 "
+teledyne_explorer_dvl/data_stream_select: "6"
+teledyne_explorer_dvl/device_timeout: 3000
+
+# Transformation wrt vehicle frame: [x, y, z, roll, pitch, yaw] (in meters and degrees!!!)
+teledyne_explorer_dvl/tf: [-0.4, 0.0, 0.1, 180.0, 0.0, 135.0]
+teledyne_explorer_dvl/frame_id: "/sparus2"

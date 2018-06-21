@@ -1,0 +1,74 @@
+# Path where the configuration of the "imu_angle_estimator" node is available
+imu_angle_estimator/configuration_package: "cola2_s2" 
+
+# Path where some visual calibration outputs are stored
+imu_angle_estimator/calibration_file_path: "/home/cirs/" 
+
+# From 0.0 (only tilt angles) to 1.0 (only gyro)
+# Recomended settings: Pool -> 0.95    Sea -> 0.995 to 0.998
+imu_angle_estimator/merging_filter_coefficient: 0.995  
+
+# Max size of the averaging filter. Must be an integer greater than zero
+imu_angle_estimator/max_gyro_bias_buffer_size: 18000  
+
+# The output data is with respect to the "adis_imu" frame but orientated in the vehicle frame. This "trick" is necessary for calibration purposes.
+imu_angle_estimator/frame_id: "adis_imu"
+imu_angle_estimator/tf: [0.36377, -0.02093, -0.08490, 90.0, 0.0, 90.0]  # Position of the imu with respect to the AUV. Angles in degrees
+
+# Imu calibration here
+# Alliance - NATO
+#imu_angle_estimator/soft_iron: [[1.04447897427, 1.8970667048e-19, -0.00309824736558], [1.8970667048e-19, 1.0, -1.32142928588e-20], [-0.00309824736558, -1.32142928588e-20, 1.00021581291]]
+#imu_angle_estimator/hard_iron: [[-0.0339891339972], [3.95076761901e-19], [-0.0064523062561]]
+
+# Alliance Payload Multibeam + camera
+# imu_angle_estimator/soft_iron: [[1.02634243733, -2.58263180921e-19, 0.00421789712449], [-2.58263180921e-19, 1.0, -4.13525716912e-20], [0.00421789712449, -4.13525716912e-20, 1.00067536105]]
+# imu_angle_estimator/hard_iron: [[-0.0632309331377], [2.73643882498e-19], [-0.00446909133933]]
+
+# 13/04/2016 St. Feliu harbour
+# imu_angle_estimator/soft_iron: [[1.03886857219, -3.07069553737e-19, 0.00501482638016], [-3.07069553737e-19, 1.0, -3.96181390721e-20], [0.00501482638016, -3.96181390721e-20, 1.00064701331]]
+# imu_angle_estimator/hard_iron: [[-0.0586175074009], [-3.54206336565e-20], [0.000578462846287]]
+
+# 13/06/2016 St. Feliu Harbour payload guppy + multibeam
+#imu_angle_estimator/soft_iron: [[1.0378235234, -2.47970904345e-19, 0.00404967219149], [-2.47970904345e-19, 1.0, -2.65496385691e-20], [0.00404967219149, -2.65496385691e-20, 1.0004335885]]
+#imu_angle_estimator/hard_iron: [[-0.0466180737678], [6.40853946768e-19], [-0.0104659391951]]
+
+
+# 05/07/2016 Cascais (Portugal)
+imu_angle_estimator/soft_iron: [[1.03818506071, -3.47050637079e-19, 0.00566776702182], [-3.47050637079e-19, 1.0, -5.15123485229e-20], [0.00566776702182, -5.15123485229e-20, 1.00084126049]]
+imu_angle_estimator/hard_iron: [[-0.0506125599126], [5.78768639032e-19], [-0.00945200917415]]
+
+
+# 2016-09-15 13:17:11:
+imu_angle_estimator/soft_iron: [[1.05841818832, -2.19424669418e-19, 0.00358347679625], [-2.19424669418e-19, 1.0, -1.34599040807e-20], [0.00358347679625, -1.34599040807e-20, 1.00021981692]]
+imu_angle_estimator/hard_iron: [[-0.0303739998423], [5.52420073481e-19], [-0.00902170444352]]
+
+
+# 2016-09-20 08:03:04:
+imu_angle_estimator/soft_iron: [[1.0328701626, -4.89091991612e-19, 0.00798747838075], [-4.89091991612e-19, 1.0, -1.18849783527e-19], [0.00798747838075, -1.18849783527e-19, 1.00194096426]]
+imu_angle_estimator/hard_iron: [[-0.0243568764809], [3.21860621709e-19], [-0.0052563828515]]
+
+
+# 2016-10-19 09:53:47:
+imu_angle_estimator/soft_iron: [[1.04573608576, -3.50229557032e-19, 0.00571968272445], [-3.50229557032e-19, 1.0, -4.37991558259e-20], [0.00571968272445, -4.37991558259e-20, 1.0007152945]]
+imu_angle_estimator/hard_iron: [[-0.0457155768409], [3.97558506146e-19], [-0.00649262312077]]
+
+
+# 2016-11-11 09:56:35:
+imu_angle_estimator/soft_iron: [[1.04717116849, -1.79249211975e-19, 0.00292736178463], [-1.79249211975e-19, 1.0, -1.11238985572e-20], [0.00292736178463, -1.11238985572e-20, 1.00018166705]]
+imu_angle_estimator/hard_iron: [[-0.04269411506], [-3.89947090696e-18], [0.0636831927324]]
+
+
+# 2016-11-28 14:08:05: CIRS POOL new ADIS sensor
+imu_angle_estimator/soft_iron: [[1.06197923706, -6.41988400488e-19, 0.0104844662303], [-6.41988400488e-19, 1.0, -1.08599363671e-19], [0.0104844662303, -1.08599363671e-19, 1.0017735622]]
+imu_angle_estimator/hard_iron: [[-0.0594704968821], [-3.93799283387e-18], [0.0643123035412]]
+
+
+# 2016-02-11 19:12:44:
+imu_angle_estimator/soft_iron: [[1.05518017724, 2.51503065979e-20, -0.000410735676856], [2.51503065979e-20, 1.0, -1.87207231288e-22], [-0.000410735676856, -1.87207231288e-22, 1.00000305733]]
+imu_angle_estimator/hard_iron: [[-0.0743915538234], [-3.86520633689e-18], [0.0631236098373]]
+
+
+# 2016-02-11 19:45:05: ERL calibration
+imu_angle_estimator/soft_iron: [[1.06100150789, 3.59883693086e-20, -0.000587734673109], [3.59883693086e-20, 1.0, -3.46739174187e-22], [-0.000587734673109, -3.46739174187e-22, 1.00000566268]]
+imu_angle_estimator/hard_iron: [[-0.0744899010178], [-3.76862244041e-18], [0.0615462751061]]
+

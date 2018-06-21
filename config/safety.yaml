@@ -27,7 +27,7 @@ safety/max_temperatures_ids: ['batteries', 'pc', 'thrusters']
 safety/max_temperatures_values: [55.0, 80.0, 95.0]
 
 # Maximum allowed distance to a waypoint. Just for safety reasons
-/captain/max_distance_to_waypoint: 750.0
+captain/max_distance_to_waypoint: 750.0
 
 # Recovery actions
 recovery_actions/frame_id: "sparus2"
@@ -40,9 +40,8 @@ safe_depth_altitude/max_depth: 12.0
 safe_depth_altitude/min_altitude: 0.8
 
 # Set zero velocity
-safety_set_zero_velocity/set_zero_velocity_depth: 1.0
-safety_set_zero_velocity/set_zero_velocity_axis: [[False, True, True, True, True, True], [True, True, False, True, True, True], [True, True, True, True, True, False]]
-
+set_zero_velocity/set_zero_velocity_axis: [[False, False, True, True, True, True], [True, True, False, True, True, True], [True, True, True, True, True, False]]
+set_zero_velocity/set_zero_velocity_depth: 1.2
 
 # Parameters for the set_pose node. Define as many 6DoF tuples as you want
 # indicating which DoFs must be set to desired_pose (False) and which not (True)

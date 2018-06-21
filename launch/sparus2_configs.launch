@@ -1,0 +1,29 @@
+<launch>
+    <!-- Input arguments -->
+    <arg name="robot_name" default="sparus2"/>
+    <arg name="is_simulation" default="false"/>
+
+    <!-- Load robot description -->
+    <include file="$(find sparus2_description)/launch/sparus2_description.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+    <!-- Common configs -->
+    <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_sparus2)/config/analyzers.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/navigator.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/pilot.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/captain.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/safety.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/vehicle_status_parser.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/logitech_fx10_to_teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/controller.yaml"/>
+
+    <!-- Other -->
+    <rosparam command="load" file="$(find cola2_sparus2)/config/adis_imu.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/imu_angle_estimator.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/nmea_gps.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/actuators_485.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/teledyne_explorer_dvl.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/s2_mon_control_board.yaml"/>
+</launch>

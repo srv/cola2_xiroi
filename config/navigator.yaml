@@ -1,57 +1,43 @@
+navigator/enable_debug: false
+
 # Initialize EKF filter using GPS information
-navigator/initialize_filter_from_gps: true
-
-# Apply GPS updates in the EKF filter
-navigator/use_gps_data: true
-
-# if true use current gps position as ned origin, otherwise use predefined ned origin
+navigator/initialize_filter_from_gps: false
+# Use the initial GPS as the origin of NED
 navigator/initialize_ned_from_gps: false
-
-# Define NED origin if initialize_ned_from_gps is set to false
-navigator/ned_latitude: 41.7773700755 #42.954 #38.5200248466315 # 41.768860505
-navigator/ned_longitude: 3.03875848166 #10.602 #-28.6320306729769 # 3.03170557637
-
-# Apply updates comming from USBL. Evologics modem and external USBL must be running
+# GPS samples to init position and NED
+navigator/gps_samples_to_init: 10
+# Apply GPS updates in the EKF filter
+navigator/use_gps_data: false
+# Apply USBL updates in the EKF filter
 navigator/use_usbl_data: false
 
-# Set spot current magnetic declination in degrees (http://www.magnetic-declination.com/)
-navigator/declination_in_degrees: 0.5
+# NED origin when not init by GPS
+navigator/ned_latitude: 41.7777
+navigator/ned_longitude: 3.0333
 
-# If GPS is used to initialize the filter (vehicle on surface) initialize also depth sensor offset?
-navigator/initialize_depth_sensor_offset: true
-
-# When the vehicle is on surface, distance between water surface and depth sensor (used by initialize_depth_sensor_offset)
+# Init depth sensor when GPS is first initialized
+navigator/initialize_depth_sensor_offset: false
+# Real distance between depth sensor and water surface
 navigator/surface_to_depth_sensor_distance: 0.05
+# Depth sensor offset value (can be overwritten by srvSetDepthSensorOffset)
+navigator/depth_sensor_offset: 0.0
+navigator/use_depth_data: true
 
-# Depth sensor offset value is not used if initialize depth sensor offset is set to true 
-# and there is GPS. Depth sensor offeset is directly added to measured depth.
-navigator/depth_sensor_offset: -1.0
+navigator/min_diagnostics_frequency: 25
 
-# Depth sensor correction. This value is added to the depth in meters
-navigator/water_density: 1000  # Pool -> 1000 Sea -> 1030?
+# Set spot current magnetic declination in degrees
+# http://www.magnetic-declination.com/
+navigator/declination_in_degrees: 0.5
+# Ignore DVL velocities bigger than
+navigator/dvl_max_v: 1.2
+navigator/use_dvl_data: true
+# Water density (used in depth sensor)
+navigator/water_density: 1030.0
 
-# Define world and vehicle TFs
-navigator/robot_frame_id: "/sparus2"
-navigator/world_frame_id: "/world"
-
-# Sensors/Model covariances
-navigator/dvl_bottom_covariance: [0.002, 0.002, 0.002]
-navigator/dvl_water_covariance: [0.02, 0.02, 0.02]
-navigator/gps_covariance: [0.5, 0.5]
-navigator/usbl_covariance: [0.25, 0.25]
-navigator/pressure_covariance: 0.1
-navigator/model_covariance: [0.02, 0.02, 0.02]
-
-# If DVL data > "navigatior/dvl_max_v" (m/s) discard it
-navigator/dvl_max_v: 1.5
-
-# ATTENTION: ALL THESE TFs SHOULD BE ALREADY BUBLISHED!!!
-# Define Extra TFs needed by the navigator
-bumblebee2/tf: [0.45, -0.06, -0.12, 80.0, 0.0, 90.0]
-g500/stereo_front/tf: [0.45, -0.06, -0.12, 80.0, 0.0, 90.0]
-usbl_head/tf: [-0.5, 0.0, 0.1, 0.0, 0.0, 0.0]
-fastrax_it_500_gps/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-pressure_sensor/tf: [0.389, 0.0, 0.0, 0.0, 0.0, 0.0]
-adis_imu/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-teledyne_explorer_dvl/tf: [0.0, 0.0, 0.0, 180.0, 0.0, 135.0]
-evologics/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+# Covariances for the EKF
+navigator/initial_state_covariance: [2.0, 2.0, 0.5, 0.02, 0.02, 0.02]
+navigator/prediction_model_covariance: [1.0, 1.0, 1.0]
+navigator/use_force_model: false
+navigator/force_model_covariance: [0.4, 0.4, 0.4]
+# force / scale = velocity
+navigator/force_model_scale: [200.0, 200.0, 275.0, 275.0, 440.0, 100.0] # pos/neg for each axis XYZ

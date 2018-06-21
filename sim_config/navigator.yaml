@@ -23,6 +23,8 @@ navigator/surface_to_depth_sensor_distance: 0.05
 navigator/depth_sensor_offset: 0.0
 navigator/use_depth_data: true
 
+navigator/min_diagnostics_frequency: 25
+
 # Set spot current magnetic declination in degrees
 # http://www.magnetic-declination.com/
 navigator/declination_in_degrees: 0.5

@@ -1,5 +1,6 @@
 <launch>
     <arg name="robot_name"/>
+
     <!-- Safety nodes -->
     <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
@@ -32,5 +33,4 @@
 
     <!-- Log -->
     <node name="bag_node" pkg="cola2_log" type="bag_node.py"/>
-
 </launch>
