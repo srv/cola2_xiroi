@@ -137,8 +137,8 @@ controller/thruster_distance_yaw: 0.16783
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
 controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.16783, 0.16783]
-controller/thruster_poly_positive: [0.0142857, 0.0]
-controller/thruster_poly_negative: [0.0142857, 0.0]
+controller/thruster_poly_positive: [0.0, 0.0142857]
+controller/thruster_poly_negative: [0.0, 0.0142857]
 
 # FIN ALLOCATOR
 controller/max_fin_force: 26.15

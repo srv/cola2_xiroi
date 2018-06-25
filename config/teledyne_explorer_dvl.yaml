@@ -16,7 +16,7 @@ teledyne_explorer_dvl/serial_port/timeout: 3000 # be aware that the answer of th
 # Please see the vendor manual for details of each parameter.
 teledyne_explorer_dvl/save_to_sensor_memory: false
 teledyne_explorer_dvl/retrieve_parameters: "0" # 0 User, 1 Factory
-teledyne_explorer_dvl/serial_port_control: "711"
+teledyne_explorer_dvl/serial_port_control: "811"
 teledyne_explorer_dvl/flow_control: "11010"
 teledyne_explorer_dvl/bottom_track_pings_per_ensemble: "1"
 teledyne_explorer_dvl/evaluation_amplitude_minimum: "024" # Range from 1 to 255
