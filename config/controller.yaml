@@ -2,6 +2,33 @@ controller/period: 0.1
 controller/n_dofs: 6
 controller/n_thrusters: 3
 
+# Thruster control matrix. This matrix specifies how each thruster contributes
+# to the force or torque generated in each axis of the robot
+controller/TCM: [0.0, 1.0, 1.0,
+                 0.0, 0.0, 0.0,
+                 1.0, 0.0, 0.0,
+                 0.0, 0.0, 0.0,
+                 0.0, 0.0, 0.0,
+                 0.0, -0.16783, 0.16783]
+
+# Thruster 1
+controller/thruster_1_poly_positive: [0.0, 0.01298701298]
+controller/thruster_1_poly_negative: [0.0, 0.01298701298]
+controller/thruster_1_max_force_positive: 77.0
+controller/thruster_1_max_force_negative: 43.0
+
+# Thruster 2
+controller/thruster_2_poly_positive: [0.0, 0.01298701298]
+controller/thruster_2_poly_negative: [0.0, 0.01298701298]
+controller/thruster_2_max_force_positive: 77.0
+controller/thruster_2_max_force_negative: 43.0
+
+# Thruster 3
+controller/thruster_3_poly_positive: [0.0, 0.01298701298]
+controller/thruster_3_poly_negative: [0.0, 0.01298701298]
+controller/thruster_3_max_force_positive: 77.0
+controller/thruster_3_max_force_negative: 43.0
+
 # Enbale thrusters
 controller/enable_thrusters: False
 
@@ -128,17 +155,6 @@ controller/max_wrench_Roll: 3.66
 controller/max_wrench_Pitch: 17.15
 controller/max_wrench_Yaw: 14.43
 
-# Thruster force parameters. If the propeller is changed these values must be
-# updated
-controller/max_force_thruster_forward: 77.0
-controller/max_force_thruster_backward: 43.0
-controller/thruster_distance_yaw: 0.16783
-
-# Thruster control matrix. This matrix specifies how each thruster contributes
-# to the force or torque generated in each axis of the robot
-controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.16783, 0.16783]
-controller/thruster_poly_positive: [0.0, 0.0142857]
-controller/thruster_poly_negative: [0.0, 0.0142857]
 
 # FIN ALLOCATOR
 controller/max_fin_force: 26.15
