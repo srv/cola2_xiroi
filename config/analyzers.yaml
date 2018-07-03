@@ -17,7 +17,8 @@ analyzers:
       'evologics_modem',
       'vehicle_status_parser',
       'computer_logger',
-      'battery_control_board']
+      'battery_control_board',
+      's2_mon_control_board']
 
   navigation:
     type: GenericAnalyzer

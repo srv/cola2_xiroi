@@ -1,5 +1,5 @@
 # Temperature names to monitorize according to the diagnostics defined further down
-vehicle_status_parser/temperature_name: ['batteries', 'main_housing', 'cpu']
+vehicle_status_parser/temperature_name: ['batteries', 'cpu', 'main_housing']
 
 # Pairs of [diagnostic name , diagnostic key] for checking diagnostics and fill corresponding vehicle status fields.
 vehicle_status_parser/thrusters_enabled: ['/control/controller', 'thruster_allocator_enabled']
@@ -17,5 +17,5 @@ vehicle_status_parser/imu_data_age: ['/navigation/navigator', 'last_imu_data']
 vehicle_status_parser/wifi_data_age: ['/control/teleoperation', 'last_ack']
 vehicle_status_parser/modem_data_age: ['/safety/evologics_modem', 'last_modem_data']
 vehicle_status_parser/temperature: [['/safety/emus_bms', 'max_cell_temperature'], ['/safety/computer_logger', 'cpu_temperature'], ['/safety/battery_control_board', 'battery_housing_temperature']]                    
-vehicle_status_parser/water: [['/safety/battery_control_board', 'water_inside_detected']]
+vehicle_status_parser/water: [['/safety/battery_control_board', 'water_inside_detected'], ['/safety/s2_mon_control_board', 'water_inside']]
 
