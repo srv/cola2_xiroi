@@ -44,11 +44,11 @@
         </group>
 
         <!-- Throttle messages -->
-        <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0 navigator/navigation_hz"/>
-        <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_world_waypoint_req 2.0 controller/merged_world_waypoint_req_hz"/>
-        <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_velocity_req 2.0 controller/merged_body_velocity_req_hz"/>
-        <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_force_req 2.0 controller/merged_body_force_req_hz"/>
-        <node name="thruster_setpoints_throttle" pkg="topic_tools" type="throttle" args="messages controller/thruster_setpoints 4.0 controller/thruster_setpoints_hz"/>
+        <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>
+        <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_world_waypoint_req 2.0"/>
+        <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_velocity_req 2.0"/>
+        <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_force_req 2.0"/>
+        <node name="thruster_setpoints_throttle" pkg="topic_tools" type="throttle" args="messages controller/thruster_setpoints 4.0"/>
 
         <!-- GUI mission interface -->
         <include if="$(arg enable_gui)" file="$(find rosbridge_server)/launch/rosbridge_tcp.launch">

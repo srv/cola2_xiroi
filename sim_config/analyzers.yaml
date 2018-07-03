@@ -19,7 +19,7 @@ analyzers:
       'evologics_modem',
       'vehicle_status_parser',
       'computer_logger',
-      'main_control_board']
+      'battery_control_board']
 
   navigation:
     type: GenericAnalyzer
