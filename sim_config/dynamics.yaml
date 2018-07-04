@@ -1,54 +1,68 @@
-# If this parameter is set, the input of the model is force
-dynamics/use_force_topic: true
+# Frames
+dynamics/world_frame_id: "world_ned"
+dynamics/frame_id: "sparus2/dynamics"
+
+# Period
+dynamics/period: 0.05
+
+# Topics
+dynamics/thrusters_topic: "/sparus2/controller/thruster_setpoints"
+dynamics/fins_topic: ""
+dynamics/force_topic: "/sparus2/controller/merged_body_force_req"
+dynamics/odom_topic: "/sparus2/dynamics/odometry"
+dynamics/pose_overwrite_topic: "/sparus2/dynamics/pose_overwrite"
+dynamics/current_topic: "/sparus2/dynamics/current"
 
 # Initial state in meters and rads [X, Y, Z, Roll, Pitch, Yaw]
 dynamics/initial_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-dynamics/initial_velocity: [0, 0, 0, 0, 0, 0]
+dynamics/initial_velocity: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-# DYNAMICS
-dynamics/period: 0.05
+# Vehicle properties
 dynamics/density: 1030.0
 dynamics/mass: 56
 dynamics/buoyancy: 57.5
-dynamics/gravity_center: [0.0, 0.0, 0.02]
-dynamics/g: 9.80665
+dynamics/buoyancy_center: [0.0, 0.0, -0.02]
 dynamics/radius: 0.115
 dynamics/tensor: [0.38545, 0.0, 0.0, 0.0, 11.28606, 0.0, 0.0, 0.0, 11.28606]
 dynamics/damping: [-9.9239, 0.0, 0.0, -1.0, 0.0, 0.0]
 dynamics/quadratic_damping: [-10.1728, -259.8366, -259.8366, -5.0, -53.2837, -53.2837]
-sea_bottom_depth: 40.0
 
 # Thrusters info (not used if use_force_topic is set to true)
 dynamics/number_of_thrusters: 3
-dynamics/thrusters_topic: "/cola2_control/sim_thrusters_data"
-dynamics/thrusters_tau: 0.1
-# Forward and backward thrusters coef
-dynamics/ctf: 0.00004861111
-dynamics/ctb: 0.00004861111
-dynamics/max_thrusters_rpm: 1200
-dynamics/dzv: 0.05
-dynamics/dv: 0.05
-dynamics/dh: 0.40
-dynamics/thrusters_matrix: [[0.0, 1.0, 1.0],[0.0, 0.0, 0.0],[1.0, 0.0, 0.0],[0.0, 0.0, 0.0],[0.0, 0.0, 0.0],[0.0, -0.16, 0.16]]
+dynamics/thrusters_tau: 0.1  # Physical property of the thruster
+dynamics/thrusters_max_step: 0.1
+dynamics/thrusters_limiter: [0.6, 1.0, 1.0]
+dynamics/thrusters_symmetric: true
+dynamics/thrusters_matrix: [0.0, 1.0, 1.0,
+                            0.0, 0.0, 0.0,
+                            1.0, 0.0, 0.0,
+                            0.0, 0.0, 0.0,
+                            0.0, 0.0, 0.0,
+                            0.0, -0.16783, 0.16783]
 
-# Fins info (not used if use_force_topic is set to true)
-dynamics/number_of_fins: 2
-dynamics/fins_topic: "/cola2_control/sim_fins_data"
+# Thruster 1
+dynamics/thruster_1_poly_positive: [0.0, 0.01298701298]
+dynamics/thruster_1_poly_negative: [0.0, 0.01298701298]
+dynamics/thruster_1_max_force_positive: 77.0
+dynamics/thruster_1_max_force_negative: 43.0
 
+# Thruster 2
+dynamics/thruster_2_poly_positive: [0.0, 0.01298701298]
+dynamics/thruster_2_poly_negative: [0.0, 0.01298701298]
+dynamics/thruster_2_max_force_positive: 77.0
+dynamics/thruster_2_max_force_negative: 43.0
+
+# Thruster 3
+dynamics/thruster_3_poly_positive: [0.0, 0.01298701298]
+dynamics/thruster_3_poly_negative: [0.0, 0.01298701298]
+dynamics/thruster_3_max_force_positive: 77.0
+dynamics/thruster_3_max_force_negative: 43.0
+
+# Fins info (not used if fins_topic is set to "")
 dynamics/a_fins: 0.0094
-# Parameters for NACA 0015 airfoil
-dynamics/k_cd_fins: 1.8
+dynamics/k_cd_fins: 1.8  # Parameters for NACA 0015 airfoil
 dynamics/k_cl_fins: 1.1
-# 20 degrees = pi / 9 = 0.3491
-dynamics/max_fins_angle: 0.3941
+dynamics/max_fins_angle: 0.3941  # 20 degrees = pi / 9 = 0.3491
 
-# Collisions from UWSim. Let it empty if not available
-dynamics/uwsim_contact_sensor: ""
-dynamics/contact_sensor_available: false
-
-# Water currents simulation
-dynamics/current_mean: [-0.3, 0.1, 0.0]
-dynamics/current_sigma: [0.001, 0.001, 0.001]
-dynamics/current_min: [-1.0, -1.0, -1.0]
-dynamics/current_max: [1.0, 1.0, 1.0]
-dynamics/current_enabled: False
+# If this parameter is set, the input of the model is force
+dynamics/use_force_topic: false
