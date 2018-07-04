@@ -10,8 +10,6 @@ analyzers:
     path: safety
     name: [
       'emus_bms',
-      'batteries',
-      'pc_cylinder',
       'virtual_cage',
       'safe_depth_altitude',
       'cola2_watchdog',
@@ -19,16 +17,16 @@ analyzers:
       'evologics_modem',
       'vehicle_status_parser',
       'computer_logger',
-      'main_control_board']
+      'battery_control_board',
+      's2_mon_control_board']
 
   navigation:
     type: GenericAnalyzer
     path: navigation
     name: [
-      'pressure',
-      'imu',
-      'gps',
-      'dvl',
+      'nmea_gps',
+      'teledyne_explorer_dvl',
+      'adis_imu',
       'navigator'
       ]
 

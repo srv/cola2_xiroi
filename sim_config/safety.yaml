@@ -1,29 +1,26 @@
-# SPARUS2 SAFETY CONFIG
-
 # Timeout and minimum update times for the safety supervisor
 safety/timeout: 3600  # Seconds
 safety/min_imu_update: 10.0
 safety/min_depth_update: 10.0
 safety/min_altitude_update: 60.0
 safety/min_gps_update: 30.0
-safety/min_dvl_update: 20.0
+safety/min_dvl_update: 10.0
 safety/min_nav_update: 2.0
-safety/min_wifi_update: 30.0
-safety/min_modem_update: 400
+safety/min_wifi_update: 60.0
+safety/min_modem_update: 300
 
 # USBL
 safety/usbl_safety_always_on: false
 
 # DVL
-safety/min_dvl_good_data: 200
+safety/min_dvl_good_data: 20
 
 # Battery
-safety/min_battery_charge: 0.0
-safety/min_battery_voltage: 0.0
-safety/min_distance_to_wall: 5.0 #MORPH only
+safety/min_battery_charge: 14.5
+safety/min_battery_voltage: 26.4
 
 # Max Temperatures:
-safety/max_temperatures_ids: ['batteries', 'pc', 'thrusters']
+# For sparus2: ['batteries', 'cpu', 'main_housing']
 safety/max_temperatures_values: [55.0, 80.0, 95.0]
 
 # Maximum allowed distance to a waypoint. Just for safety reasons
@@ -42,12 +39,6 @@ safe_depth_altitude/min_altitude: 0.8
 # Set zero velocity
 set_zero_velocity/set_zero_velocity_axis: [[False, False, True, True, True, True], [True, True, False, True, True, True], [True, True, True, True, True, False]]
 set_zero_velocity/set_zero_velocity_depth: 1.2
-
-# Parameters for the set_pose node. Define as many 6DoF tuples as you want
-# indicating which DoFs must be set to desired_pose (False) and which not (True)
-safety_set_pose/set_pose_axis: [[True, True, True, True, False, True],[True, True, True, False, True, True]]
-safety_set_pose/desired_pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-safety_set_pose/set_pose_depth: 2.0
 
 # Define virtual cage (the vehicle is not allowed to move outside of this area)
 virtual_cage/north_origin: -500.0

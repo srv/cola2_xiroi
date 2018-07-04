@@ -1,11 +1,11 @@
 # Temperature names to monitorize according to the diagnostics defined further down
-vehicle_status_parser/temperature_name: ['batteries_cylinder', 'cpu', 'pc_cylinder']
+vehicle_status_parser/temperature_name: ['batteries', 'cpu', 'main_housing']
 
 # Pairs of [diagnostic name , diagnostic key] for checking diagnostics and fill corresponding vehicle status fields.
 vehicle_status_parser/thrusters_enabled: ['/control/controller', 'thruster_allocator_enabled']
 vehicle_status_parser/vehicle_initialized: ['/navigation/navigator', 'ekf_init']
-vehicle_status_parser/battery_charge: ['/safety/batteries', 'charge']
-vehicle_status_parser/battery_voltage: ['/safety/batteries', 'voltage']
+vehicle_status_parser/battery_charge: ['/safety/emus_bms', 'charge']
+vehicle_status_parser/battery_voltage: ['/safety/emus_bms', 'voltage']
 vehicle_status_parser/imu_data_age: ['/navigation/navigator', 'last_imu_data']
 vehicle_status_parser/depth_data_age: ['/navigation/navigator', 'last_depth_data']
 vehicle_status_parser/altitude_data_age: ['/navigation/navigator', 'last_altitude_data']
@@ -16,9 +16,6 @@ vehicle_status_parser/dvl_valid_data_age: ['/navigation/navigator', 'last_good_d
 vehicle_status_parser/imu_data_age: ['/navigation/navigator', 'last_imu_data']
 vehicle_status_parser/wifi_data_age: ['/control/teleoperation', 'last_ack']
 vehicle_status_parser/modem_data_age: ['/safety/evologics_modem', 'last_modem_data']
-vehicle_status_parser/temperature: [['/safety/batteries_cyclinder', 'temperature'], ['/safety/computer_logger', 'cpu_temperature'], ['/safety/pc_cyclinder', 'temperature']]                    
-vehicle_status_parser/water_pc_internal: ['/safety/main_control_board', 'water_inside_detected']
-vehicle_status_parser/water_pc_external: ['/safety/main_control_board', 'water_external_detected']
-vehicle_status_parser/water_bat_internal: ['/safety/battery_control_board', 'water_inside_detected']
-vehicle_status_parser/water_bat_external: ['/safety/battery_control_board', 'water_external_detected']
+vehicle_status_parser/temperature: [['/safety/emus_bms', 'max_cell_temperature'], ['/safety/computer_logger', 'cpu_temperature'], ['/safety/battery_control_board', 'battery_housing_temperature']]                    
+vehicle_status_parser/water: [['/safety/battery_control_board', 'water_inside_detected'], ['/safety/s2_mon_control_board', 'water_inside']]
 
