@@ -1,29 +1,25 @@
-# NED Origin
-dynamics/ned_origin_latitude: 41.77737
-dynamics/ned_origin_longitude: 3.03376
-
 # Sensor publication periods
-sim_auv_nav_sensors/gps_period: 1.0
-sim_auv_nav_sensors/depth_period: 0.2
-sim_auv_nav_sensors/dvl_period: 0.2
-sim_auv_nav_sensors/imu_period: 0.05
-# sim_auv_nav_sensors/uwsim_period: 0.1
+gps_period: 1.0
+depth_period: 0.2
+dvl_period: 0.2
+imu_period: 0.05
+usbl_period: 5.0
 
 # Other
-sim_auv_nav_sensors/sea_bottom_depth: 15.0
-sim_auv_nav_sensors/sound_speed: 1500
+sea_bottom_depth: 15.0
+sound_speed: 1500
+usbl_depth_start: 2.0
 
 # Sensors covariances (simulated error)
-sim_auv_nav_sensors/gps_position_covariance: [0.25, 0.25]
-sim_auv_nav_sensors/depth_pressure_covariance: 0.01
-sim_auv_nav_sensors/dvl_velocity_covariance: [0.0015, 0.0015, 0.0015]
-sim_auv_nav_sensors/imu_orientation_covariance: [0.0001, 0.0001, 0.0001]
+gps_position_covariance: [0.25, 0.25]
+depth_pressure_covariance: 0.01
+dvl_velocity_covariance: [0.0015, 0.0015, 0.0015]
+imu_orientation_covariance: [0.0001, 0.0001, 0.0001]
+usbl_position_covariance: 1.0
 
 # Sensors covariances (message covariance)
-sim_auv_nav_sensors/output_gps_position_covariance: [0.5, 0.5]
-sim_auv_nav_sensors/output_depth_pressure_covariance: 0.1
-sim_auv_nav_sensors/output_dvl_velocity_covariance: [0.02, 0.02, 0.02]
-sim_auv_nav_sensors/output_imu_orientation_covariance: [0.1, 0.1, 0.1]
-
-# For Vessel-usbl-gps simulation
-sim_usbl/addr: 3
+output_gps_position_covariance: [0.5, 0.5]
+output_depth_pressure_covariance: 0.1
+output_dvl_velocity_covariance: [0.02, 0.02, 0.02]
+output_imu_orientation_covariance: [0.1, 0.1, 0.1]
+output_usbl_position_covariance: 10.0

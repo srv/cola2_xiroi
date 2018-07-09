@@ -20,8 +20,7 @@
 
     <!-- Simulation nodes -->
     <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_auv_nav_sensors.py" output="screen"/>
-    <!--node name="dynamics" pkg="cola2_sim" type="dynamics.py" output="screen"/-->
-    <node name="dynamics" pkg="cola2_sim" type="dynamics_cpp" output="screen"/>
+    <node name="dynamics" pkg="cola2_sim" type="dynamics_cpp"/>
 
     <!-- Navigation -->
     <node name="navigator" pkg="cola2_nav" type="navigator" output="screen"/>
