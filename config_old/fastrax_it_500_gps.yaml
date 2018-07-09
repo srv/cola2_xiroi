@@ -1,4 +1,0 @@
-# Transformation with respect to the vehicle frame: [x, y, z, roll, pitch, yaw]
-# in meters and degrees
-fastrax_it_500/tf: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-fastrax_it_500/frame_id: "sparus2"
