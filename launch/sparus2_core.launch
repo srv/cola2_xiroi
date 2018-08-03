@@ -46,5 +46,5 @@
     </node>
 
     <!-- Log -->
-    <node name="bag_node" pkg="cola2_log" type="bag_node.py"/>
+    <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
 </launch>
