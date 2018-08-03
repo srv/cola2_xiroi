@@ -13,7 +13,6 @@
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_internal_sensors.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/navigator.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/pilot.yaml"/>
-    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/captain.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/teleoperation.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/safety.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/vehicle_status_parser.yaml"/>

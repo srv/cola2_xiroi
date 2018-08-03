@@ -28,7 +28,9 @@
     <!-- Control stack -->
     <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
     <node name="pilot" pkg="cola2_control" type="pilot" output="screen"/>
-    <node name="captain" pkg="cola2_control" type="captain" output="screen"/>
+    <node name="captain" pkg="cola2_control" type="captain" output="screen">
+        <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
+    </node>
     <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
 
     <!-- Log -->
