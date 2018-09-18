@@ -21,6 +21,7 @@
     <!-- Other -->
     <rosparam command="load" file="$(find cola2_sparus2)/config/adis_imu.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/imu_angle_estimator.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/calibrations/imu_last_calibration.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/nmea_gps.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/actuators_485.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/teledyne_explorer_dvl.yaml"/>
