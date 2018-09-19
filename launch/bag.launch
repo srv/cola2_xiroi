@@ -3,15 +3,6 @@
     <arg name="robot_name"/>
     <!--group ns="$(arg robot_name)"-->
         <node name="record_auv_bag" output="screen" pkg="rosbag" type="record" args="
-            -a -x '/$(arg robot_name)/camera/(.*)'
-            --split --size 2048 -o $(env HOME)/bags/$(arg robot_name)" />
-
-        <node name="record_auv_image" output="screen" pkg="rosbag" type="record" args="
-            /$(arg robot_name)/navigator/odometry
-            /$(arg robot_name)/navigator/navigation
-            /$(arg robot_name)/camera/camera_info
-            /$(arg robot_name)/camera/image_raw
-            /$(arg robot_name)/camera/image_color
-            --split --size 2048 -o $(env HOME)/bags/$(arg robot_name)_image" />
+            -a --split --size 2048 -o $(env HOME)/bags/$(arg robot_name)" />
     <!--/group-->   
 </launch>

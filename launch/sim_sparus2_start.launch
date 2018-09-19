@@ -45,6 +45,7 @@
 
         <!-- Throttle messages -->
         <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>
+        <node name="odometry_throttle" pkg="topic_tools" type="throttle" args="messages navigator/odometry 4.0"/>
         <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_world_waypoint_req 2.0"/>
         <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_velocity_req 2.0"/>
         <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_force_req 2.0"/>

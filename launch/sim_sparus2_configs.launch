@@ -17,6 +17,7 @@
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/safety.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/vehicle_status_parser.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/logitech_fx10_to_teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/default_param_handler.yaml"/>
 
     <!-- Simulation configs -->
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_controller.yaml"/>

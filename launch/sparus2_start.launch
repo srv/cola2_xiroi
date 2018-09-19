@@ -1,6 +1,7 @@
 <launch>
     <!-- Configurable arguments -->
     <arg name="robot_name" default="sparus2"/>
+    <arg name="enable_imu" default="true"/>
     <arg name="enable_keyboard" default="false"/>
     <arg name="enable_joystick" default="false"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
@@ -28,23 +29,14 @@
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
-        <!-- Keyboard -->
-        <group if="$(arg enable_keyboard)">
-            <node pkg="cola2_control" type="keyboard" name="keyboard"/>
-            <node pkg="cola2_control" type="keyboard_to_teleoperation_node.py" name="keyboard_to_teleoperation"/>
-        </group>
-
-        <!-- Joystick -->
-        <group if="$(arg enable_joystick)">
-            <node respawn="true" pkg="joy" type="joy_node" name="joystick">
-                <param name="dev" value="$(arg joystick_device)"/>
-                <param name="deadzone" value="0.05"/>
-            </node>
-            <node respawn="false" pkg="cola2_control" type="logitech_fx10_to_teleoperation_node.py" name="fx10_to_teleoperation"/>
-        </group>
+        <!-- Basic log record -->
+        <include file="$(find cola2_sparus2)/launch/sparus2_basic_bag.launch">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+        </include>
 
         <!-- Throttle messages -->
         <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>
+        <node name="odometry_throttle" pkg="topic_tools" type="throttle" args="messages navigator/odometry 4.0"/>
         <node name="merged_wwr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_world_waypoint_req 2.0"/>
         <node name="merged_bvr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_velocity_req 2.0"/>
         <node name="merged_bfr_throttle" pkg="topic_tools" type="throttle" args="messages controller/merged_body_force_req 2.0"/>

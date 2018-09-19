@@ -1,10 +1,13 @@
 <launch>
     <arg name="robot_name"/>
+    <arg name="enable_imu"/>
 
     <!-- Safety nodes -->
     <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
     <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor.py" output="screen"/>
+    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
+    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
     <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
         <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>
@@ -40,7 +43,7 @@
        <remap from="/$(arg robot_name)/nmea_gps/nav_sat_fix" to="/$(arg robot_name)/navigator/gps"/>
     </node>
     <node name="emus_bms" pkg="emus_bms" type="emus_bms_node" output="screen"/>
-    <node name="actuators_485" pkg="s2_actuators" type="s2_actuators" respawn="false" output="screen"/>
+    <node name="actuators_485" pkg="s2_actuators" type="s2_actuators"/>
     <node name="s2_mon_control_board" pkg="cola2_sparus2" type="s2_mon_control_board.py" respawn="true" output="screen"/>
     <node name="teledyne_explorer_dvl" pkg="teledyne_explorer_dvl" type="teledyne_explorer_dvl_node">
         <remap from="/$(arg robot_name)/teledyne_explorer_dvl/dvl" to="/$(arg robot_name)/navigator/dvl"/>
@@ -49,4 +52,7 @@
 
     <!-- Log -->
     <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
+    <node respawn="true" pkg="cola2_log" type="default_param_handler.py" name="default_param_handler" output="screen">
+        <param name="config_folder" value="config"/>
+    </node>
 </launch>
