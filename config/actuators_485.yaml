@@ -12,7 +12,7 @@ actuators_485/thrusters/symmetric: True
 # sets the maximum allowed setpoint to be sent to the thruster. The order is:
 # vertical, right (starboard), left (port)
 actuators_485/thrusters/addresses: [164, 10, 80]
-actuators_485/thrusters/signs: [1, -1, -1]
+actuators_485/thrusters/signs: [1, -1, 1]
 actuators_485/thrusters/limiter: [0.6, 1.0, 1.0]
 
 # Serial port
