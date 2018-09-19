@@ -4,6 +4,7 @@
 *~
 *.pyc
 CMakeLists.txt.user*
+imu*.png
 
 # Folders
 bin/
