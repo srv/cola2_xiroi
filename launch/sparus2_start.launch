@@ -6,6 +6,8 @@
     <arg name="enable_joystick" default="false"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
     <arg name="enable_gui" default="true"/>
+    <arg name="enable_multibeam" default="true"/>
+    <arg name="enable_camera" default="true"/>
     <arg name="enable_rviz" default="false"/>
 
     <!-- Static transform -->
@@ -28,6 +30,14 @@
         <include file="$(find cola2_sparus2)/launch/sparus2_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
+
+        <!-- Load payload -->
+        <include file="$(find cola2_sparus2)/launch/sparus2_payload.launch">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="enable_multibeam" value="$(arg enable_multibeam)"/>
+            <arg name="enable_camera" value="$(arg enable_camera)"/>
+        </include>
+
 
         <!-- Basic log record -->
         <include file="$(find cola2_sparus2)/launch/sparus2_basic_bag.launch">

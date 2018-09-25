@@ -1,0 +1,47 @@
+<launch>
+	<group ns="camera">
+		<node name="image_proc" pkg="image_proc" type="image_proc"/>
+	</group>
+
+	<node name="camera" pkg="avt_vimba_camera" type="mono_camera_node" output="screen">
+		<param name="guid" value="DEV_000F3102EBD0"/>
+		<param name="ip" value=""/>
+		<param name="camera_info_url" value="file://$(find cola2_sparus2)/calibrations/left_prosilica_pool_calib_ros.yml"/>
+		<param name="frame_id" value="left_optical"/>
+		<param name="trig_timestamp_topic" value=""/>
+
+		<param name="frame_id" value="left_optical"/>
+		<param name="trig_timestamp_topic" value=""/>
+		<param name="trigger_source" value="FixedRate"/>
+		<!--param name="sync_out_source" value="Acquiring"/-->
+		<param name="sync_out_source" value="Exposing"/>
+		<param name="sync_out_polarity" value="Normal"/>
+		<param name="acquisition_mode" value="Continuous"/>
+		<param name="acquisition_rate" value="10"/>
+		<param name="pixel_format" value="BayerRG8"/>
+
+		<param name="exposure_auto" value="Continuous"/> <!-- Off / Once / Continuous -->
+		<param name="exposure_auto_alg" value="Mean"/>
+		<param name="exposure_auto_max" value="90000"/>
+		<param name="exposure_auto_min" value="8"/>
+		<param name="exposure_auto_outliers" value="0"/>
+		<param name="exposure_auto_rate" value="100"/>
+		<param name="exposure_auto_target" value="50"/>
+		<param name="exposure_mode" value="Timed"/>
+		<param name="exposure_time_abs" value="24156"/>
+
+		<param name="gain_auto" value="Continuous"/>
+		<param name="gain" value="2"/>
+		<param name="whitebalance_auto" value="Off"/>
+		<param name="balance_ratio_selector" value="Red"/>
+		<param name="balance_ratio_abs" value="1.33"/>
+
+		<param name="x_offset" value="0"/>
+		<param name="y_offset" value="0"/>
+		<param name="width" value="1360"/>
+		<param name="height" value="1024"/>
+		<param name="stream_bytes_per_second" value="45000000"/>
+
+	</node>
+
+</launch>
