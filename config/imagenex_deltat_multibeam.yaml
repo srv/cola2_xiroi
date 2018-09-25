@@ -1,0 +1,44 @@
+# Path to store multibeam output files (relative to user home)
+imagenex_deltat_multibeam/store_path: "logs/multibeam"
+
+# Valid Ranges: 5, 10, 20, 30, 40, 50, 60, 80, 100
+# If range <= 0, range is set automatically according to (DVL) altitude
+imagenex_deltat_multibeam/range: 10
+imagenex_deltat_multibeam/altitude_topic: "navigator/altitude"
+
+#Valid Gain: 1 - 20
+imagenex_deltat_multibeam/gain: 4
+
+#Sector size: 0 = 30deg, 1 = 60deg, 2 = 90deg, 3 = 120deg
+imagenex_deltat_multibeam/sector_size: 3
+
+#Beamwidth: 0 = Wide, 1 = Normal, 2 = Narrow, 3 = Narrow Mixed
+imagenex_deltat_multibeam/beamwidth: 2
+
+# Number of beams: 480, 240, 120
+imagenex_deltat_multibeam/nbeams: 480
+
+# Number of beams to average: 3, 5, 7 or 9
+imagenex_deltat_multibeam/averaging: 7
+
+# Enable recording of 837 file
+imagenex_deltat_multibeam/record_837: true
+
+# Profile point filter: 0=First return, 1=Maximum Return 2=Bottom Following
+imagenex_deltat_multibeam/profile_point_filter: 2
+
+# If automatic_sound_speed is "true", it will be updated according to the topic specified below i.e,(from a CTD sensor), without namespace.
+imagenex_deltat_multibeam/automatic_sound_speed: false
+imagenex_deltat_multibeam/sound_velocity_topic: "sound_speed"
+
+# Default value for sound speed
+imagenex_deltat_multibeam/sound_speed: 1500
+
+# Enable output of .83P or .83B files
+# 0: .83P, 1: .83B
+imagenex_deltat_multibeam/output_83: 0
+
+# Connexion
+imagenex_deltat_multibeam/device_addr: "192.168.0.2"
+imagenex_deltat_multibeam/device_port: 4040
+
