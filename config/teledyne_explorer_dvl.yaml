@@ -34,7 +34,8 @@ teledyne_explorer_dvl/water_mass_layer_mode: "1"
 teledyne_explorer_dvl/water_mass_layer_parameters: "0001,0010,0070" # min size (dm),near(dm),far(dm) -> min layer size 0.1m near layer size 1m far layer boundary 7m
 teledyne_explorer_dvl/environmental_data_output: "0000010"
 teledyne_explorer_dvl/heading_bias: "+00000"
-teledyne_explorer_dvl/sensor_source_override_for_doppler_parameters: "0 0 0 0 0 0 0 0"
+teledyne_explorer_dvl/sensor_source_override_for_doppler_parameters: "0 0 0 0 0 0\
+  \ 0 0"
 teledyne_explorer_dvl/data_stream_select: "6"
 
 # DVL Uncertainty

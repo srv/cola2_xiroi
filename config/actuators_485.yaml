@@ -1,11 +1,11 @@
 # Request information feedback from the drivers (currents, voltages, rpms...)
-actuators_485/thrusters/request_info: True
+actuators_485/thrusters/request_info: true
 
 # Maximum allowed setpoint change between iterations
 actuators_485/thrusters/max_step: 0.1
 
 # If true the max_step is also used when reducing speed
-actuators_485/thrusters/symmetric: True
+actuators_485/thrusters/symmetric: true
 
 # Information for each thruster. Each phisical driver has an address. The sign
 # vector allows changing the direction of rotation. The limiter parameter
