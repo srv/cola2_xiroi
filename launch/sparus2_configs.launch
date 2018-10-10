@@ -26,4 +26,10 @@
     <rosparam command="load" file="$(find cola2_sparus2)/config/actuators_485.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/teledyne_explorer_dvl.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/config/s2_mon_control_board.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/default_param_handler.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/config/evologics_modem.yaml"/>
+
+   <!--Payload -->
+   <rosparam command="load" file="$(find cola2_sparus2)/config/imagenex_deltat_multibeam.yaml"/>
+
 </launch>

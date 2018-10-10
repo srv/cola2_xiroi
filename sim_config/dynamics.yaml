@@ -32,22 +32,22 @@ thrusters_matrix: [0.0, 1.0, 1.0,
                    0.0, -0.16783, 0.16783]
 
 # Thruster 1
-thruster_1_poly_positive: [0.0, 0.01298701298]
-thruster_1_poly_negative: [0.0, 0.01298701298]
-thruster_1_max_force_positive: 77.0
-thruster_1_max_force_negative: 43.0
+thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -0.00000467, 0.0000000325]
+thruster_1_poly_negative: [0.0220, 0.176, -0.0261, 0.00199, -0.00007026, 0.000000926]
+thruster_1_max_force_positive: 55.0
+thruster_1_max_force_negative: 28.5
 
 # Thruster 2
-thruster_2_poly_positive: [0.0, 0.01298701298]
-thruster_2_poly_negative: [0.0, 0.01298701298]
-thruster_2_max_force_positive: 77.0
-thruster_2_max_force_negative: 43.0
+thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 0.0000848, -0.00000118, 0.00000000612]
+thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.000920, -0.0000281, 0.000000322]
+thruster_2_max_force_positive: 71.5
+thruster_2_max_force_negative: 30.0
 
 # Thruster 3
-thruster_3_poly_positive: [0.0, 0.01298701298]
-thruster_3_poly_negative: [0.0, 0.01298701298]
-thruster_3_max_force_positive: 77.0
-thruster_3_max_force_negative: 43.0
+thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 0.0000848, -0.00000118, 0.00000000612]
+thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.000920, -0.0000281, 0.000000322]
+thruster_3_max_force_positive: 71.5
+thruster_3_max_force_negative: 30.0
 
 # Fins info (not used if fins_topic is set to "")
 fins_topic: ""

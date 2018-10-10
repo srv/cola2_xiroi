@@ -13,5 +13,5 @@
             /$(arg robot_name)/camera/image_raw
             /$(arg robot_name)/camera/image_color
             --split --size 2048 -o $(env HOME)/bags/$(arg robot_name)_image" />
-    <!--/group-->   
+    <!--/group-->
 </launch>

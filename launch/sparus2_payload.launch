@@ -1,0 +1,14 @@
+<launch>
+    <!--  ################  Input arguments  ################  -->
+    <arg name="robot_name" default="/" />
+    <arg name="enable_multibeam" default="false" />
+    <arg name="enable_camera" default="false" />
+
+    <!-- ################ Multibeam #############  -->
+    <node if="$(arg enable_multibeam)" name="imagenex_deltat_multibeam" pkg="imagenex_deltat_multibeam" type="multibeam_node.py" output="screen"/>
+
+    <!-- ################ Camera #############  -->
+    <include if="$(arg enable_camera)" file="$(find cola2_sparus2)/launch/mono_prosilica.launch"/> 
+
+</launch>
+
