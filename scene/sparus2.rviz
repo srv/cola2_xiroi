@@ -198,12 +198,12 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /girona500/navigator/odometry
+      Topic: /sparus2/navigator/odometry
       Unreliable: false
       Value: false
     - Class: rviz/MarkerArray
       Enabled: false
-      Marker Topic: /girona500/navigator/markers/landmarks
+      Marker Topic: /sparus2/navigator/markers/landmarks
       Name: navigator_landmarks
       Namespaces:
         {}
@@ -240,7 +240,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /girona500/dynamics/odometry
+      Topic: /sparus2/dynamics/odometry
       Unreliable: false
       Value: false
     - Alpha: 0.5
@@ -250,7 +250,7 @@ Visualization Manager:
       Enabled: false
       Name: altitude
       Queue Size: 100
-      Topic: /girona500/navigator/altitude
+      Topic: /sparus2/navigator/altitude
       Unreliable: false
       Value: false
     - Alpha: 1
@@ -273,7 +273,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /girona500/captain/trajectory_path
+      Topic: /sparus2/captain/trajectory_path
       Unreliable: false
       Value: false
     - Alpha: 1
@@ -283,12 +283,12 @@ Visualization Manager:
       History Length: 1
       Name: pilot_goal
       Radius: 0.200000003
-      Topic: /girona500/pilot/goal
+      Topic: /sparus2/pilot/goal
       Unreliable: false
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /girona500/pilot/waypoint_marker
+      Marker Topic: /sparus2/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
         {}
@@ -296,7 +296,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /girona500/virtual_cage/markers/cage
+      Marker Topic: /sparus2/virtual_cage/markers/cage
       Name: virtual_cage
       Namespaces:
         {}
@@ -316,7 +316,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 8.86403084
+      Distance: 9.51411724
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -331,10 +331,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.929796219
+      Pitch: 0.694796383
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.72939551
+      Yaw: 1.60939682
     Saved: ~
 Window Geometry:
   Displays:
