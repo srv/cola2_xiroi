@@ -36,11 +36,11 @@ controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
 controller/max_velocity_x: 0.5
-controller/max_velocity_y: 0.3
-controller/max_velocity_z: 0.30
+controller/max_velocity_y: 0.0
+controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
 controller/max_velocity_pitch: 0.0
-controller/max_velocity_yaw: 0.30
+controller/max_velocity_yaw: 0.3
 
 
 # POSE PID CONTROLLER
@@ -125,8 +125,8 @@ controller/t_yaw_fff: 0.0
 
 # Parameters for a feed-forward polynomial model for each DOF (A+B*x+C*x^2)
 controller/poly_surge_A: 0.0
-controller/poly_surge_B: 0.0 #9.9239
-controller/poly_surge_C: 25.0 #10.1728
+controller/poly_surge_B: 0.0
+controller/poly_surge_C: 25.0
 
 controller/poly_sway_A: 0.0
 controller/poly_sway_B: 0.0

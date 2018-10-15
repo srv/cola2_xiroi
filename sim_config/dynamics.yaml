@@ -11,12 +11,12 @@ initial_velocity: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 # Vehicle properties
 density: 1030.0
 mass: 56
-buoyancy: 57.5
+buoyancy: 56.3
 buoyancy_center: [0.0, 0.0, -0.02]
 radius: 0.115
-tensor: [0.38545, 0.0, 0.0, 0.0, 11.28606, 0.0, 0.0, 0.0, 11.28606]
-damping: [-9.9239, 0.0, 0.0, -1.0, 0.0, 0.0]
-quadratic_damping: [-10.1728, -259.8366, -259.8366, -5.0, -53.2837, -53.2837]
+tensor: [0.4, 0.0, 0.0, 0.0, 18.0, 0.0, 0.0, 0.0, 18.0]
+damping: [0.0, -4.0, -4.0, -1.0, 0.0, 0.0]
+quadratic_damping: [-25.0, -250.0, -250.0, -5.0, -10.8, -10.8]
 
 # Thrusters info (not used if use_force_topic is set to true)
 number_of_thrusters: 3

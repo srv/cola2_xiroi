@@ -20,7 +20,7 @@
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/default_param_handler.yaml"/>
 
     <!-- Simulation configs -->
-    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/sim_controller.yaml"/>
+    <rosparam command="load" file="$(find cola2_sparus2)/sim_config/controller.yaml"/>
     <rosparam command="load" ns="dynamics" file="$(find cola2_sparus2)/sim_config/dynamics.yaml"/>
     <rosparam command="load" file="$(find cola2_sparus2)/sim_config/fake_main_board.yaml"/>
     <rosparam command="load" ns="sim_auv_nav_sensors" file="$(find cola2_sparus2)/sim_config/sim_auv_nav_sensors.yaml"/>
