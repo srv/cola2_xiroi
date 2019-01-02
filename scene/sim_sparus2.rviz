@@ -60,7 +60,7 @@ Visualization Manager:
       Length: 1
       Name: robot_axes
       Radius: 0.100000001
-      Reference Frame: sparus2/base_link
+      Reference Frame: xiroi/base_link
       Value: true
     - Alpha: 1
       Class: rviz/RobotModel
@@ -72,97 +72,97 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        sparus2/base_link:
+        xiroi/base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        sparus2/dvl:
+        xiroi/dvl:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/dvl_altitude:
+        xiroi/dvl_altitude:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/echosounder11:
+        xiroi/echosounder11:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/echosounder12:
+        xiroi/echosounder12:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/echosounder13:
+        xiroi/echosounder13:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/echosounder14:
+        xiroi/echosounder14:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/echosounder15:
+        xiroi/echosounder15:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/gps:
+        xiroi/gps:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/guppy:
+        xiroi/guppy:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/imu:
+        xiroi/imu:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/imu_filter:
+        xiroi/imu_filter:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/micron:
+        xiroi/micron:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/modem:
+        xiroi/modem:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/multibeam:
+        xiroi/multibeam:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/pressure:
+        xiroi/pressure:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/profiler:
+        xiroi/profiler:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/sidescan_port:
+        xiroi/sidescan_port:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/sidescan_starbord:
+        xiroi/sidescan_starbord:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/thruster_0:
+        xiroi/thruster_0:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/thruster_1:
+        xiroi/thruster_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        sparus2/thruster_2:
+        xiroi/thruster_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
       Name: robot_model
-      Robot Description: sparus2/robot_description
+      Robot Description: xiroi/robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -198,12 +198,12 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /sparus2/navigator/odometry
+      Topic: /xiroi/navigator/odometry
       Unreliable: false
       Value: false
     - Class: rviz/MarkerArray
       Enabled: false
-      Marker Topic: /sparus2/navigator/markers/landmarks
+      Marker Topic: /xiroi/navigator/markers/landmarks
       Name: navigator_landmarks
       Namespaces:
         {}
@@ -240,7 +240,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /sparus2/dynamics/odometry
+      Topic: /xiroi/dynamics/odometry
       Unreliable: false
       Value: false
     - Alpha: 0.5
@@ -250,7 +250,7 @@ Visualization Manager:
       Enabled: false
       Name: altitude
       Queue Size: 100
-      Topic: /sparus2/navigator/altitude
+      Topic: /xiroi/navigator/altitude
       Unreliable: false
       Value: false
     - Alpha: 1
@@ -273,7 +273,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /sparus2/captain/trajectory_path
+      Topic: /xiroi/captain/trajectory_path
       Unreliable: false
       Value: false
     - Alpha: 1
@@ -283,12 +283,12 @@ Visualization Manager:
       History Length: 1
       Name: pilot_goal
       Radius: 0.200000003
-      Topic: /sparus2/pilot/goal
+      Topic: /xiroi/pilot/goal
       Unreliable: false
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /sparus2/pilot/waypoint_marker
+      Marker Topic: /xiroi/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
         {}
@@ -296,7 +296,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /sparus2/virtual_cage/markers/cage
+      Marker Topic: /xiroi/virtual_cage/markers/cage
       Name: virtual_cage
       Namespaces:
         {}

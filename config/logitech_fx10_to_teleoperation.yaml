@@ -1,2 +1,2 @@
-fx10_to_teleoperation/start_service: '/sparus2/captain/enable_keep_position_non_holonomic'
-fx10_to_teleoperation/stop_service: '/sparus2/captain/disable_keep_position'
+fx10_to_teleoperation/start_service: '/xiroi/captain/enable_keep_position_non_holonomic'
+fx10_to_teleoperation/stop_service: '/xiroi/captain/disable_keep_position'

@@ -1,6 +1,6 @@
 <launch>
     <!-- Configurable arguments -->
-    <arg name="robot_name" default="sparus2"/>
+    <arg name="robot_name" default="xiroi"/>
     <arg name="enable_imu" default="true"/>
     <arg name="enable_keyboard" default="false"/>
     <arg name="enable_joystick" default="false"/>
@@ -16,7 +16,7 @@
     <!-- Namespace with robot name -->
     <group ns="$(arg robot_name)">
         <!-- Load configs (do not modify) -->
-        <include file="$(find cola2_sparus2)/launch/sparus2_configs.launch">
+        <include file="$(find cola2_xiroi)/launch/xiroi_configs.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
@@ -27,12 +27,12 @@
         <!-- ################################################################################## -->
 
         <!-- Load core -->
-        <include file="$(find cola2_sparus2)/launch/sparus2_core.launch">
+        <include file="$(find cola2_xiroi)/launch/xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
         <!-- Load payload -->
-        <include file="$(find cola2_sparus2)/launch/sparus2_payload.launch">
+        <include file="$(find cola2_xiroi)/launch/xiroi_payload.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="enable_multibeam" value="$(arg enable_multibeam)"/>
             <arg name="enable_camera" value="$(arg enable_camera)"/>
@@ -40,7 +40,7 @@
 
 
         <!-- Basic log record -->
-        <include file="$(find cola2_sparus2)/launch/sparus2_basic_bag.launch">
+        <include file="$(find cola2_xiroi)/launch/xiroi_basic_bag.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
@@ -59,5 +59,5 @@
     </group>
 
     <!-- RViz -->
-    <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_sparus2)/scene/sparus2.rviz"/>
+    <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/xiroi.rviz"/>
 </launch>

@@ -6,25 +6,25 @@
  * 'LICENSE.txt', which is part of this source code package.
  */
 
-#ifndef __SPARUS2_CONTROLLER__
-#define __SPARUS2_CONTROLLER__
+#ifndef __xiroi_CONTROLLER__
+#define __xiroi_CONTROLLER__
 
 #include <cola2_lib/cola2_control/Merge.h>
 #include <cola2_lib/cola2_control/NDofController.h>
 #include <cola2_lib/cola2_control/Pid.h>
 #include <cola2_lib/cola2_control/Poly.h>
 #include <cola2_lib/cola2_control/IAUVController.h>
-#include "SPARUS2ThrusterAllocator.hpp"
-#include "SPARUS2FinAllocator.hpp"
+#include "xiroiThrusterAllocator.hpp"
+#include "xiroiFinAllocator.hpp"
 #include <algorithm>
 #include <Eigen/Dense>
 
 
-class SPARUS2Controller: public IAUVController {
+class xiroiController: public IAUVController {
 
 public:
 
-    SPARUS2Controller( double period,
+    xiroiController( double period,
                        unsigned int n_dof,
                        unsigned int n_thrusters,
                        unsigned int n_fins = 0 ):
@@ -567,8 +567,8 @@ public:
 
 
     // Must be public to be visible from AUVROSBaseController
-    ThrusterAllocatorSPARUS2 _thruster_allocator;
-    FinAllocatorSPARUS2 _fin_allocator;
+    ThrusterAllocatorxiroi _thruster_allocator;
+    FinAllocatorxiroi _fin_allocator;
 
     unsigned int
     getNumberofThrusters() const
@@ -611,4 +611,4 @@ private:
     std::vector< double > _poly_percentatge;
 };
 
-#endif //__SPARUS2_CONTROLLER__
+#endif //__xiroi_CONTROLLER__

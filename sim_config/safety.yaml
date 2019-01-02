@@ -20,14 +20,14 @@ safety/min_battery_charge: 14.5
 safety/min_battery_voltage: 26.4
 
 # Max Temperatures:
-# For sparus2: ['batteries', 'cpu', 'main_housing']
+# For xiroi: ['batteries', 'cpu', 'main_housing']
 safety/max_temperatures_values: [55.0, 80.0, 95.0]
 
 # Maximum allowed distance to a waypoint. Just for safety reasons
 captain/max_distance_to_waypoint: 750.0
 
 # Recovery actions
-recovery_actions/frame_id: "sparus2"
+recovery_actions/frame_id: "xiroi"
 # Be careful here! TH 0 1 2 vertical is 0 (-) values are for surface
 recovery_actions/emergency_surface_setpoints: [-0.30, 0.0, 0.0]
 recovery_actions/controlled_surface_depth: 0.0

@@ -13,20 +13,20 @@
 #include <cola2_lib/cola2_control/IAUVController.h>
 #include <cola2_lib/cola2_control/IAUVROSController.h>
 #include "cola2_lib/cola2_rosutils/RosUtil.h"
-#include "include/SPARUS2Controller.hpp"
-#include <cola2_s2/controller_sparus2Config.h>
+#include "include/xiroiController.hpp"
+#include <cola2_s2/controller_xiroiConfig.h>
 
-class SPARUS2ROSController: public IAUVROSController
+class xiroiROSController: public IAUVROSController
 {
 public:
 
-    SPARUS2ROSController( const std::string name,
+    xiroiROSController( const std::string name,
                        const std::string frame_id ):
         IAUVROSController( name, frame_id )
     { }
 
     void
-    init( SPARUS2Controller * auv_controller_ptr, double period )
+    init( xiroiController * auv_controller_ptr, double period )
     {
         initBase( auv_controller_ptr, period );
 
@@ -34,13 +34,13 @@ public:
         _auv_controller = auv_controller_ptr;
 
         // Init dynamic reconfigure
-        _f = boost::bind( &SPARUS2ROSController::setParams, this, _1, _2 );
+        _f = boost::bind( &xiroiROSController::setParams, this, _1, _2 );
         _param_server.setCallback( _f );
     }
 
 
     void
-    setParams( cola2_s2::controller_sparus2Config &config,
+    setParams( cola2_s2::controller_xiroiConfig &config,
                uint32_t level )
     {
         std::vector< double > tcm;
@@ -155,11 +155,11 @@ public:
 
 private:
     // AUV controller ptr.
-    SPARUS2Controller *_auv_controller;
+    xiroiController *_auv_controller;
 
     // Dynamic reconfigure parameters
-    dynamic_reconfigure::Server< cola2_s2::controller_sparus2Config > _param_server;
-    dynamic_reconfigure::Server< cola2_s2::controller_sparus2Config >::CallbackType _f;
+    dynamic_reconfigure::Server< cola2_s2::controller_xiroiConfig > _param_server;
+    dynamic_reconfigure::Server< cola2_s2::controller_xiroiConfig >::CallbackType _f;
 };
 
 
@@ -173,15 +173,15 @@ main( int argc, char **argv )
     // Define period --> 0.1 = 10Hz
     double period = 0.1;
 
-    // Init SPARUS2 controller
-    SPARUS2Controller *auv_ctrl_ptr;
-    auv_ctrl_ptr = new SPARUS2Controller( period, 6, 3, 2 );  // period, number of DOF's, number of thrusters, number of fins,
+    // Init xiroi controller
+    xiroiController *auv_ctrl_ptr;
+    auv_ctrl_ptr = new xiroiController( period, 6, 3, 2 );  // period, number of DOF's, number of thrusters, number of fins,
 
     // Init ROS node
-    SPARUS2ROSController sparus2_ros_controller( ros::this_node::getName(), "/sparus2" );
+    xiroiROSController xiroi_ros_controller( ros::this_node::getName(), "/xiroi" );
 
     // Initialize controller pointer into ROS node
-    sparus2_ros_controller.init( auv_ctrl_ptr, period );
+    xiroi_ros_controller.init( auv_ctrl_ptr, period );
 
     // Spin until architecture stops
     ros::spin();

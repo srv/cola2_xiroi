@@ -1,6 +1,6 @@
 <launch>
     <!-- Configurable arguments -->
-    <arg name="robot_name" default="sparus2"/>
+    <arg name="robot_name" default="xiroi"/>
     <arg name="enable_keyboard" default="true"/>
     <arg name="enable_joystick" default="false"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
@@ -13,7 +13,7 @@
     <!-- Namespace with robot name -->
     <group ns="$(arg robot_name)">
         <!-- Load configs (do not modify) -->
-        <include file="$(find cola2_sparus2)/launch/sim_sparus2_configs.launch">
+        <include file="$(find cola2_xiroi)/launch/sim_xiroi_configs.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
@@ -24,7 +24,7 @@
         <!-- ################################################################################## -->
 
         <!-- Load core -->
-        <include file="$(find cola2_sparus2)/launch/sim_sparus2_core.launch">
+        <include file="$(find cola2_xiroi)/launch/sim_xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
 
@@ -74,5 +74,5 @@
     </group>
 
     <!-- RViz -->
-    <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_sparus2)/scene/sim_sparus2.rviz"/>
+    <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/sim_xiroi.rviz"/>
 </launch>

@@ -6,7 +6,7 @@
 	<node name="camera" pkg="avt_vimba_camera" type="mono_camera_node" output="screen">
 		<param name="guid" value="DEV_000F3102EBD0"/>
 		<param name="ip" value=""/>
-		<param name="camera_info_url" value="file://$(find cola2_sparus2)/calibrations/left_prosilica_pool_calib_ros.yml"/>
+		<param name="camera_info_url" value="file://$(find cola2_xiroi)/calibrations/left_prosilica_pool_calib_ros.yml"/>
 		<param name="frame_id" value="left_optical"/>
 		<param name="trig_timestamp_topic" value=""/>
 

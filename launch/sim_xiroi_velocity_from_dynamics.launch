@@ -1,7 +1,7 @@
 <launch>
-    <arg name="robot_name" default="sparus2"/>
+    <arg name="robot_name" default="xiroi"/>
     <group ns="$(arg robot_name)">
-        <rosparam command="load" ns="dynamics_for_velocity_sim" file="$(find cola2_sparus2)/sim_config/dynamics.yaml"/>
+        <rosparam command="load" ns="dynamics_for_velocity_sim" file="$(find cola2_xiroi)/sim_config/dynamics.yaml"/>
         <node name="dynamics_for_velocity_sim" pkg="cola2_sim" type="dynamics_cpp">
             <remap from="/$(arg robot_name)/dynamics_for_velocity_sim/pose_overwrite" to="/$(arg robot_name)/navigator/odometry"/>
         </node>

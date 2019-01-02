@@ -1,0 +1,27 @@
+<launch>
+    <!-- PARAMS -->
+    <arg name="robot_name" default="xiroi"/>
+    <arg name="enableJoystick" default="false" />
+    <arg name="enableRviz" default="true" />
+    
+    <!-- CONFIG -->
+    <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/> -->
+    <arg name="joystickDevice" default="/dev/input/js0"/>
+
+    <!-- TELEOPERATION -->
+    <include ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/modules/teleoperation.launch">
+        <arg name="enableJoystick" value="$(arg enableJoystick)"/>
+        <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+    </include>
+
+    <!-- RViz -->
+    <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scenes/rviz_xi.rviz"/>
+
+    <!-- MULTIMASTER -->
+    <!-- <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" >
+        <param name="_mcast_group" value="224.0.0.1"/>
+    </node>
+    <rosparam command="load" file="$(find xiroi)/config/master_sync/sync_groundstation.yaml"/>
+    <rosparam command="load" file="$(find xiroi)/config/master_sync/sync_groundstation_topics.yaml"/>
+    <node name="master_sync" pkg="master_sync_fkie" type="master_sync" output="screen"/> -->
+</launch>

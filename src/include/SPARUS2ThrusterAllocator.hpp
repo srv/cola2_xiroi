@@ -6,8 +6,8 @@
  * 'LICENSE.txt', which is part of this source code package.
  */
 
-#ifndef __SPARUS2THRUSTERALLOCATOR_CLASS__
-#define __SPARUS2THRUSTERALLOCATOR_CLASS__
+#ifndef __xiroiTHRUSTERALLOCATOR_CLASS__
+#define __xiroiTHRUSTERALLOCATOR_CLASS__
 #include <algorithm>
 #include <map>
 
@@ -22,9 +22,9 @@
 
 bool simulation = true;
 
-class ThrusterAllocatorSPARUS2 {
+class ThrusterAllocatorxiroi {
 public:
-    ThrusterAllocatorSPARUS2( unsigned int n_thrusters ):
+    ThrusterAllocatorxiroi( unsigned int n_thrusters ):
         _n_thrusters( n_thrusters ),
         _th_voltages( n_thrusters ),                                                                                                            // ****
         _th_currents( n_thrusters ),                                                                                                            // ****
@@ -51,10 +51,10 @@ public:
         _tcm_inv = ( tcm.transpose() * tcm ).inverse() * tcm.transpose();
 
         // Subscribers
-        _th_info = _n.subscribe( "/cola2_control/thrusters_info", 2, &ThrusterAllocatorSPARUS2::updateThInfo, this );                            //****
+        _th_info = _n.subscribe( "/cola2_control/thrusters_info", 2, &ThrusterAllocatorxiroi::updateThInfo, this );                            //****
     }
 
-    ~ThrusterAllocatorSPARUS2()
+    ~ThrusterAllocatorxiroi()
     {}
 
     void
@@ -63,7 +63,7 @@ public:
                const double thruster_distance_yaw,
                const std::vector< double > tcm_values )
     {
-        std::cout << "ThrusterAllocatorSPARUS2 set params\n";
+        std::cout << "ThrusterAllocatorxiroi set params\n";
 
         _max_force_thruster_forward = max_force_thruster_forward;
         _max_force_thruster_backward = max_force_thruster_backward;
@@ -83,7 +83,7 @@ public:
         _tcm_inv = ( tcm.transpose() * tcm ).inverse() * tcm.transpose();
         //std::cout << "TCM inv:\n" << _tcm_inv << "\n";
 
-        std::cout << "ThrusterAllocatorSPARUS2 initialized!\n";
+        std::cout << "ThrusterAllocatorxiroi initialized!\n";
         _is_init = true;
     }
 
@@ -497,5 +497,5 @@ private:
     }
 };
 
-#endif // __SPARUS2THRUSTERALLOCATOR_CLASS__
+#endif // __xiroiTHRUSTERALLOCATOR_CLASS__
 

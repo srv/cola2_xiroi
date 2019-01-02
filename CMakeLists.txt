@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(cola2_sparus2)
+project(cola2_xiroi)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -82,7 +82,7 @@ find_package(catkin REQUIRED)
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 #generate_dynamic_reconfigure_options(
-#  cfg/controller_sparus2.cfg
+#  cfg/controller_xiroi.cfg
 #)
 
 
@@ -115,9 +115,9 @@ include_directories(
 )
 
 #set(HEADER_FILES
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2ThrusterAllocator.hpp"
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2FinAllocator.hpp"
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/SPARUS2Controller.hpp")
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiThrusterAllocator.hpp"
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiFinAllocator.hpp"
+#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiController.hpp")
 
 #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
 #set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
@@ -145,9 +145,9 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-#add_executable(controller_sparus2 ${HEADER_FILES} src/controller_sparus2.cpp)
-#target_link_libraries(controller_sparus2 ${catkin_LIBRARIES})
-#add_dependencies(controller_sparus2 ${PROJECT_NAME}_gencfg cola2_msgs_gencpp)
+#add_executable(controller_xiroi ${HEADER_FILES} src/controller_xiroi.cpp)
+#target_link_libraries(controller_xiroi ${catkin_LIBRARIES})
+#add_dependencies(controller_xiroi ${PROJECT_NAME}_gencfg cola2_msgs_gencpp)
 
 #############
 ## Install ##

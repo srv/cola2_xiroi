@@ -6,8 +6,8 @@
  * 'LICENSE.txt', which is part of this source code package.
  */
 
-#ifndef __SPARUS2FINALLOCATOR_CLASS__
-#define __SPARUS2FINALLOCATOR_CLASS__
+#ifndef __xiroiFINALLOCATOR_CLASS__
+#define __xiroiFINALLOCATOR_CLASS__
 #include <algorithm>
 #include <map>
 
@@ -20,9 +20,9 @@
 #include <complex>
 
 
-class FinAllocatorSPARUS2 {
+class FinAllocatorxiroi {
 public:
-    FinAllocatorSPARUS2( unsigned int n_fins ):
+    FinAllocatorxiroi( unsigned int n_fins ):
                          _n_fins( n_fins ),
                          _old_ret( n_fins ),
                          _is_init( false )
@@ -45,7 +45,7 @@ public:
 		}
     }
 
-    ~FinAllocatorSPARUS2()
+    ~FinAllocatorxiroi()
     {}
 
     void
@@ -58,7 +58,7 @@ public:
                const std::vector< double > fcm_values )
 
     {
-        std::cout << "FinsAllocatorSPARUS2 set params\n";
+        std::cout << "FinsAllocatorxiroi set params\n";
 
         _max_fin_force = max_fin_force;
         _fin_distance_surge = fin_distance_surge;
@@ -81,7 +81,7 @@ public:
         _fcm_inv = ( fcm.transpose() * fcm ).inverse() * fcm.transpose();
         std::cout << "FCM inv:\n" << _fcm_inv << "\n";
 
-        std::cout << "FinsAllocatorSPARUS2 initialized!\n";
+        std::cout << "FinsAllocatorxiroi initialized!\n";
         _is_init = true;
     }
 
@@ -323,4 +323,4 @@ private:
     }
 };
 
-#endif // __SPARUS2FINALLOCATOR_CLASS__
+#endif // __xiroiFINALLOCATOR_CLASS__
