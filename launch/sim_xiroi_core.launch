@@ -43,7 +43,7 @@
         <remap from="odometry" to="ekf_map/odometry"/>
         <remap from="imu" to="sensors/imu"/>
         <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
-        <remap from="nav_status/nav_sts" to="/cola2_navigation/nav_sts"/>
+        <remap from="nav_sts" to="navigator/navigation"/>
     </node>
 
     <!--  #################  Control stack  #################  -->
