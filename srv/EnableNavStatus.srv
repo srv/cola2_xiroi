@@ -1,0 +1,6 @@
+# Enable the nav_status
+bool enable
+
+---
+
+string success

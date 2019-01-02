@@ -1,0 +1,9 @@
+frames:
+  map: "map"
+  odom: "odom"
+  base_link: "xiroi"
+  sensors:
+    imu: "imu"
+    gps: "gps"
+    origin_suffix: "origin"
+  robot: "xiroi"

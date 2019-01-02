@@ -1,0 +1,28 @@
+# Sensor Aggregator configuration
+# WARNING: Enables are often overwritten by launch files!
+
+sensors:
+  gps:
+    required_at_startup: True
+    max_init_time: 15.0
+    min_frequency: 0.0
+    min_init_samples: 40.0
+    enable: True
+  imu:
+    required_at_startup: True
+    max_init_time: 15.0
+    min_frequency: 5.0
+    min_init_samples: 40.0
+    enable: True
+
+
+
+
+# GPS Limits (meters)
+sensors/gps_min_depth: 0.3
+sensors/usbl_min_depth: 0.5
+sensors/gps_only_for_init: false
+sensors/gps_init_filter_size: 4
+sensors/gps_max_ned_dist: 1000
+
+sensors/max_num_errors: 100

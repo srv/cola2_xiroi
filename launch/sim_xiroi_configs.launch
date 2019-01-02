@@ -2,6 +2,7 @@
     <!-- Input arguments -->
     <arg name="robot_name" default="xiroi"/>
     <arg name="is_simulation" default="true"/>
+    <arg name="place" default="cala_blava.yaml"/>
 
     <!-- Load robot description -->
     <include file="$(find xiroi_description)/launch/xiroi_description.launch">
@@ -9,19 +10,22 @@
     </include>
 
     <!-- Common configs -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/places/$(arg place)"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
     <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_xiroi)/sim_config/analyzers.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/sim_internal_sensors.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/navigator.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/pilot.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/sensor_aggregator.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/robot_localization.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/logitech_fx10_to_teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/pilot.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/controller.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/safety.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/vehicle_status_parser.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/logitech_fx10_to_teleoperation.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/default_param_handler.yaml"/>
 
     <!-- Simulation configs -->
-    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/controller.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/sim_internal_sensors.yaml"/>
     <rosparam command="load" ns="dynamics" file="$(find cola2_xiroi)/sim_config/dynamics.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/fake_main_board.yaml"/>
-    <rosparam command="load" ns="sim_auv_nav_sensors" file="$(find cola2_xiroi)/sim_config/sim_auv_nav_sensors.yaml"/>
+    <rosparam command="load" ns="sim_nav_sensors" file="$(find cola2_xiroi)/sim_config/sim_nav_sensors.yaml"/>
 </launch>

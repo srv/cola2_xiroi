@@ -1,6 +1,7 @@
 <launch>
     <!-- Configurable arguments -->
     <arg name="robot_name" default="xiroi"/>
+    <arg name="place" default="cala_blava.yaml"/>
     <arg name="enable_keyboard" default="true"/>
     <arg name="enable_joystick" default="false"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
@@ -15,6 +16,7 @@
         <!-- Load configs (do not modify) -->
         <include file="$(find cola2_xiroi)/launch/sim_xiroi_configs.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="place" value="$(arg place)"/>
         </include>
 
         <!-- ################################################################################## -->

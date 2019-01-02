@@ -7,8 +7,21 @@ project(cola2_xiroi)
 find_package(catkin REQUIRED)
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(catkin REQUIRED COMPONENTS
+  cola2_lib
+  ned_tools
+  cola2_msgs
+  dynamic_reconfigure
+  geometry_msgs
+  std_srvs
+  nav_msgs
+  roscpp
+  rospy
+  sensor_msgs
+  tf
+  tf_conversions
+  message_generation
+)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -40,18 +53,18 @@ find_package(catkin REQUIRED)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   Current.msg
+   MinimalDiagnostic.msg
+ )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  SetNedOrigin.srv
+  EnableNavStatus.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -61,10 +74,11 @@ find_package(catkin REQUIRED)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+ generate_messages(
+   DEPENDENCIES
+     std_msgs
 #   auv_msgs#   cola2_msgs#   nav_msgs#   sensor_msgs
-# )
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -111,13 +125,12 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-#  ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
 )
 
-#set(HEADER_FILES
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiThrusterAllocator.hpp"
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiFinAllocator.hpp"
-#    "${CMAKE_CURRENT_LIST_DIR}/src/include/xiroiController.hpp")
+set(HEADER_FILES
+    "${CMAKE_CURRENT_LIST_DIR}/src/include/sensor_aggregator.hpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/include/sensor.hpp")
 
 #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
 #set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
@@ -145,9 +158,13 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-#add_executable(controller_xiroi ${HEADER_FILES} src/controller_xiroi.cpp)
-#target_link_libraries(controller_xiroi ${catkin_LIBRARIES})
-#add_dependencies(controller_xiroi ${PROJECT_NAME}_gencfg cola2_msgs_gencpp)
+add_executable(sensor_aggregator src/sensor_aggregator.cpp)
+target_link_libraries(sensor_aggregator ${catkin_LIBRARIES})
+add_dependencies(sensor_aggregator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(nav_status src/nav_status.cpp)
+target_link_libraries(nav_status ${catkin_LIBRARIES})
+add_dependencies(nav_status ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 #############
 ## Install ##

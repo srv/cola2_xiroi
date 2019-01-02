@@ -11,7 +11,7 @@
     <!-- TELEOPERATION -->
     <include ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/modules/teleoperation.launch">
         <arg name="enableJoystick" value="$(arg enableJoystick)"/>
-        <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+        <arg name="joyssim_auv_nav_sensorstickDevice" value="$(arg joystickDevice)"/>
     </include>
 
     <!-- RViz -->

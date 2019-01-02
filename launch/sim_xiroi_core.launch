@@ -1,7 +1,7 @@
 <launch>
     <arg name="robot_name"/>
 
-    <!-- Safety nodes -->
+    <!--  #################  Safety nodes  #################  -->
     <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
@@ -18,9 +18,17 @@
     <node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
     <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors.py" output="screen"/>
 
+
+    <!--  #################  Run Navigation Stack  #################  -->
     <!-- Simulation nodes -->
-    <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_auv_nav_sensors.py" output="screen"/>
+    <node name="sim_auv_nav_sensors" pkg="cola2_xiroi" type="sim_nav_sensors.py" output="screen"/>
     <node name="dynamics" pkg="cola2_sim" type="dynamics_cpp"/>
+
+    <!--TFs-->
+    <node pkg="tf" type="static_transform_publisher" name="tf_world_to_map" args="0.0 0.0 0.0 0.0 0.0 3.14159 /world /map 100" />
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0 /map /odom 100" />
+    <node pkg="tf" type="static_transform_publisher" name="xiroi_to_gps" args="-0.2 0.0 -0.3 0.0 0.0 0.0 /xiroi /gps 100" />
+    <node pkg="tf" type="static_transform_publisher" name="xiroi_to_imu" args="-0.20 -0.24 -0.1 1.57 0.0 0.0 /xiroi /imu 100" />
 
     <!-- Localization -->
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
@@ -36,7 +44,8 @@
         <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
         <remap from="nav_status/nav_sts" to="/cola2_navigation/nav_sts"/>
     </node>
-    <!-- Control stack -->
+
+    <!--  #################  Control stack  #################  -->
     <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
     <node name="pilot" pkg="cola2_control" type="pilot" output="screen"/>
     <node name="captain" pkg="cola2_control" type="captain" output="screen">
@@ -44,7 +53,7 @@
     </node>
     <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
 
-    <!-- Log -->
+    <!--  #################  Log  #################  -->
     <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
     <node respawn="true" pkg="cola2_log" type="default_param_handler.py" name="default_param_handler" output="screen">
         <param name="config_folder" value="sim_config"/>
