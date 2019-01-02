@@ -68,15 +68,15 @@ NavStatus::NavStatus(ros::NodeHandle nh): is_init_(false), enable_(false), imu_c
     altitude_stamp_ = -1.0;
 
     // Publishers
-    nav_pub_ = nhp.advertise<cola2_msgs::NavSts>("nav_sts", 1);
+    nav_pub_ = nh.advertise<cola2_msgs::NavSts>("nav_sts", 1);
 
     // Services
-    set_ned_origin_    = nhp.advertiseService("set_ned_origin", &NavStatus::setNedOrigin, this);
-    enable_nav_status_ = nhp.advertiseService("enable", &NavStatus::enable, this);
+    set_ned_origin_    = nh_.advertiseService("set_ned_origin", &NavStatus::setNedOrigin, this);
+    enable_nav_status_ = nh_.advertiseService("enable", &NavStatus::enable, this);
 
     // Setup callbacks
-    odom_sub_ = nh.subscribe("odometry", 1, &NavStatus::odomCb, this);
-    imu_sub_ = nh.subscribe("imu", 1, &NavStatus::imuCb, this);
+    odom_sub_ = nh_.subscribe("odometry", 1, &NavStatus::odomCb, this);
+    imu_sub_ = nh_.subscribe("imu", 1, &NavStatus::imuCb, this);
 
     // Get the places directory
     if (nhp.hasParam("places_dir"))

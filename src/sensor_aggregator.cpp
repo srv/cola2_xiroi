@@ -10,7 +10,7 @@ SensorAggregator::SensorAggregator()
 
   // Read parameters
   // Get sensor covariances
-  nh_.param("/sensors/gps_covariance", gps_covariance_, 0.0);
+  nh_.param("sensors/gps_covariance", gps_covariance_, 0.0);
 
 
   // Get sensor parameters
@@ -22,11 +22,11 @@ SensorAggregator::SensorAggregator()
   nh_.param("frames/base_link", robot_frame_id_, std::string(""));
 
   // Get set pose topic names
-  nh_.param("sensors/set_pose", set_pose_, std::string("/ekf_map/set_pose"));
+  nh_.param("sensors/set_pose", set_pose_, std::string("ekf_map/set_pose"));
 
   // Instantiate set of sensors
-  imu_   = new Sensor<ImuMsg,   ImuMsg>  ("imu",   "/sensors/imu_raw",      "/sensors/imu"      );
-  gps_   = new Sensor<GpsMsg,   PoseMsg> ("gps",   "/sensors/gps_raw",      "/sensors/gps"      );
+  imu_   = new Sensor<ImuMsg,   ImuMsg>  ("imu",   "sensors/imu_raw",      "sensors/imu"      );
+  gps_   = new Sensor<GpsMsg,   PoseMsg> ("gps",   "sensors/gps_raw",      "sensors/gps"      );
 
   // Set up the set_pose publishers to set the poses of the ekf filters
   pose_pub_ = nh_.advertise<geometry_msgs::PoseWithCovarianceStamped>(set_pose_, 1);

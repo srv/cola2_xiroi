@@ -31,16 +31,17 @@
     <node pkg="tf" type="static_transform_publisher" name="xiroi_to_imu" args="-0.20 -0.24 -0.1 1.57 0.0 0.0 /xiroi /imu 100" />
 
     <!-- Localization -->
-    <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
+    <node pkg="cola2_xiroi" type="sensor_aggregator" name="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
-      <remap from="odometry/filtered" to="/ekf_map/odometry"/>
-      <remap from="odometry/path" to="/ekf_map/path"/>
+      <remap from="odometry/filtered" to="ekf_map/odometry"/>
+      <remap from="odometry/path" to="ekf_map/path"/>
+      <remap from="set_pose" to="ekf_map/set_pose"/>
     </node>
 
     <!-- Nav status -->
     <node name="nav_status" pkg="cola2_xiroi" type="nav_status" respawn="true" output="screen">
-        <remap from="odometry" to="/ekf_map/odometry"/>
-        <remap from="imu" to="/sensors/imu"/>
+        <remap from="odometry" to="ekf_map/odometry"/>
+        <remap from="imu" to="sensors/imu"/>
         <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
         <remap from="nav_status/nav_sts" to="/cola2_navigation/nav_sts"/>
     </node>

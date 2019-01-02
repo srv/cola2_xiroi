@@ -15,7 +15,7 @@ ekf_map:
   base_link_frame: xiroi
   world_frame: odom
   
-  pose0: /sensors/gps
+  pose0: sensors/gps
   pose0_differential: false
   pose0_relative: false
   pose0_nodelay: true
@@ -26,7 +26,7 @@ ekf_map:
                  false, false, false,
                  false, false, false]
 
-  imu0: /sensors/imu
+  imu0: sensors/imu
   imu0_config: [false, false, false,
                 true,  true,  false,
                 false, false, false,
