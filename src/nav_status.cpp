@@ -71,8 +71,8 @@ NavStatus::NavStatus(ros::NodeHandle nh): is_init_(false), enable_(false), imu_c
     nav_pub_ = nh.advertise<cola2_msgs::NavSts>("nav_sts", 1);
 
     // Services
-    set_ned_origin_    = nh_.advertiseService("set_ned_origin", &NavStatus::setNedOrigin, this);
-    enable_nav_status_ = nh_.advertiseService("enable", &NavStatus::enable, this);
+    set_ned_origin_    = nhp.advertiseService("set_ned_origin", &NavStatus::setNedOrigin, this);
+    enable_nav_status_ = nhp.advertiseService("enable", &NavStatus::enable, this);
 
     // Setup callbacks
     odom_sub_ = nh_.subscribe("odometry", 1, &NavStatus::odomCb, this);
@@ -120,7 +120,6 @@ void NavStatus::odomCb(const nav_msgs::OdometryConstPtr& odom)
         return;
     }
     ned_ = new Ned(ned_latitude, ned_longitude, 0.0);
-
     // Build the nav status message
     cola2_msgs::NavSts nav;
     nav.header.stamp = odom->header.stamp;
@@ -183,8 +182,8 @@ void NavStatus::odomCb(const nav_msgs::OdometryConstPtr& odom)
 
 bool NavStatus::getNedOrigin(double& ned_latitude, double& ned_longitude)
 {
-    const string param_ned_latitude = "/navigator/ned_latitude";
-    const string param_ned_longitude = "/navigator/ned_longitude";
+    const string param_ned_latitude = "navigator/ned_latitude";
+    const string param_ned_longitude = "navigator/ned_longitude";
 
     if (nh_.hasParam(param_ned_latitude) && nh_.hasParam(param_ned_longitude))
     {

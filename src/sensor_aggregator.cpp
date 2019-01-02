@@ -51,8 +51,8 @@ void SensorAggregator::updateGps(const GpsMsg& msg) {
   // Get the NED origin to convert lat/lon to x/y
   double ned_latitude, ned_longitude;
   bool s1, s2;
-  s1 = nh_.getParamCached("/navigator/ned_latitude", ned_latitude);
-  s2 = nh_.getParamCached("/navigator/ned_longitude", ned_longitude);
+  s1 = nh_.getParamCached("navigator/ned_latitude", ned_latitude);
+  s2 = nh_.getParamCached("navigator/ned_longitude", ned_longitude);
 
   if (s1 && s2) {
     // Set up current NED origin, in case it changes
@@ -215,10 +215,10 @@ void SensorAggregator::setPose(double north, double east, double depth, double n
   pose_pub_.publish(pose_msg);
 
   // Enable the publication of nav_status
-  enable_nav_status_ = nh_.serviceClient<cola2_xiroi::EnableNavStatus>("/nav_status/enable");
+  enable_nav_status_ = nh_.serviceClient<cola2_xiroi::EnableNavStatus>("nav_status/enable");
   while (!enable_nav_status_.waitForExistence())
   {
-    ROS_INFO_STREAM_ONCE(node_name_ << ": Waiting for /nav_status/enable service to be available.");
+    ROS_INFO_STREAM_ONCE(node_name_ << ": Waiting for nav_status/enable service to be available.");
   }
   cola2_xiroi::EnableNavStatus srv;
   srv.request.enable = true;
