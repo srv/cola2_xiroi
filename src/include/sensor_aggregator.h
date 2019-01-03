@@ -79,6 +79,8 @@ class SensorAggregator {
   std::string robot_frame_id_;
   std::string odom_frame_id_;
   std::string map_frame_id_;
+  std::string imu_frame_id_;
+  std::string gps_frame_id_;
   std::string origin_suffix_;
 
   // TF for set pose
