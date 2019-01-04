@@ -5,9 +5,9 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /tf1/Frames1
-        - /robot_model1/Status1
+        - /robot_axes1
       Splitter Ratio: 0.609664977
-    Tree Height: 576
+    Tree Height: 587
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -35,137 +35,118 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        gps:
+          Value: true
+        imu:
+          Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
+        world:
+          Value: true
+        world_ned:
+          Value: true
+        xiroi:
+          Value: true
+        xiroi/base_link:
+          Value: true
+        xiroi/dvl:
+          Value: true
+        xiroi/dvl_altitude:
+          Value: true
+        xiroi/dynamics:
+          Value: true
+        xiroi/echosounder11:
+          Value: true
+        xiroi/echosounder12:
+          Value: true
+        xiroi/echosounder13:
+          Value: true
+        xiroi/echosounder14:
+          Value: true
+        xiroi/echosounder15:
+          Value: true
+        xiroi/gps:
+          Value: true
+        xiroi/guppy:
+          Value: true
+        xiroi/imu:
+          Value: true
+        xiroi/imu_filter:
+          Value: true
+        xiroi/micron:
+          Value: true
+        xiroi/modem:
+          Value: true
+        xiroi/multibeam:
+          Value: true
+        xiroi/pressure:
+          Value: true
+        xiroi/profiler:
+          Value: true
+        xiroi/sidescan_port:
+          Value: true
+        xiroi/sidescan_starbord:
+          Value: true
+        xiroi/thruster_0:
+          Value: true
+        xiroi/thruster_1:
+          Value: true
+        xiroi/thruster_2:
+          Value: true
       Marker Scale: 1
       Name: tf
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        world:
+          map:
+            odom:
+              xiroi:
+                gps:
+                  {}
+                imu:
+                  {}
+          world_ned:
+            xiroi/dynamics:
+              {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Class: rviz/Axes
       Enabled: true
       Length: 1
       Name: world_origin
       Radius: 0.100000001
-      Reference Frame: world
+      Reference Frame: world_ned
       Value: true
     - Class: rviz/Axes
       Enabled: true
       Length: 1
       Name: robot_axes
       Radius: 0.100000001
-      Reference Frame: xiroi/base_link
+      Reference Frame: xiroi
       Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        xiroi/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        xiroi/dvl:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/dvl_altitude:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/echosounder11:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/echosounder12:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/echosounder13:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/echosounder14:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/echosounder15:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/gps:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/guppy:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/imu:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/imu_filter:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/micron:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/modem:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/multibeam:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/pressure:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/profiler:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/sidescan_port:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/sidescan_starbord:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/thruster_0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/thruster_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        xiroi/thruster_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Name: robot_model
       Robot Description: xiroi/robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Angle Tolerance: 0.100000001
       Class: rviz/Odometry
@@ -198,7 +179,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.0500000007
         Value: Arrow
-      Topic: /xiroi/navigator/odometry
+      Topic: /xiroi/ekf_map/odometry
       Unreliable: false
       Value: false
     - Class: rviz/MarkerArray
@@ -279,29 +260,29 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/PointStamped
       Color: 204; 41; 204
-      Enabled: false
+      Enabled: true
       History Length: 1
       Name: pilot_goal
       Radius: 0.200000003
       Topic: /xiroi/pilot/goal
       Unreliable: false
-      Value: false
+      Value: true
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /xiroi/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
-        {}
+        /xiroi/pilot: true
       Queue Size: 100
-      Value: false
+      Value: true
     - Class: rviz/Marker
-      Enabled: false
+      Enabled: true
       Marker Topic: /xiroi/virtual_cage/markers/cage
       Name: virtual_cage
       Namespaces:
-        {}
+        virtual_cage: true
       Queue Size: 100
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 165; 165; 165
@@ -316,25 +297,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.51411724
+      Distance: 8.36689568
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.397021592
-        Y: 0.392770857
-        Z: 0.494253367
+        X: 5.75895596
+        Y: -11.7574263
+        Z: -0.171386719
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.694796383
+      Pitch: 0.574797273
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.60939682
+      Yaw: 5.47816992
     Saved: ~
 Window Geometry:
   Displays:
@@ -342,9 +323,9 @@ Window Geometry:
   Height: 1026
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000020000000000000276000003d3fc0200000003fb000000100044006900730070006c006100790073010000001400000281000000d700fffffffb0000000a00560069006500770073010000029b0000014c000000ad00fffffffb0000000c00430061006d0065007200610000000041000000160000000000000000000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f000000000000000000000500000003d300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000020000000000000276000003e4fc0200000003fb000000100044006900730070006c00610079007301000000000000028c000000d700fffffffb0000000a00560069006500770073010000029200000152000000ad00fffffffb0000000c00430061006d0065007200610000000041000000160000000000000000000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f0000000000000000000004cf000003e400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1916
-  X: 0
-  Y: 0
+  Width: 1867
+  X: 53
+  Y: 24

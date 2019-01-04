@@ -2,8 +2,7 @@
     <!-- Configurable arguments -->
     <arg name="robot_name" default="xiroi"/>
     <arg name="place" default="cala_blava.yaml"/>
-    <arg name="enable_keyboard" default="true"/>
-    <arg name="enable_joystick" default="false"/>
+    <arg name="enable_joystick" default="true"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
     <arg name="enable_gui" default="true"/>
     <arg name="enable_rviz" default="true"/>
@@ -31,7 +30,7 @@
         </include>
 
         <!-- Keyboard -->
-        <group if="$(arg enable_keyboard)">
+        <group unless="$(arg enable_joystick)">
             <node pkg="cola2_control" type="keyboard" name="keyboard"/>
             <node pkg="cola2_control" type="keyboard_to_teleoperation_node.py" name="keyboard_to_teleoperation"/>
         </group>
@@ -42,7 +41,7 @@
                 <param name="dev" value="$(arg joystick_device)"/>
                 <param name="deadzone" value="0.05"/>
             </node>
-            <node respawn="false" pkg="cola2_control" type="logitech_fx10_to_teleoperation_node.py" name="fx10_to_teleoperation"/>
+            <node respawn="false" pkg="cola2_control" type="logitech_fx10_to_teleoperation_node.py" name="fx10_to_teleoperation"  output="screen"/>
         </group>
 
         <!-- Throttle messages -->
