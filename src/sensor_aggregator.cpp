@@ -19,7 +19,8 @@ SensorAggregator::SensorAggregator()
 
   // Frames
   nh_.param("frames/map", map_frame_id_, std::string(""));
-  nh_.param("frames/base_link", robot_frame_id_, std::string(""));
+  nh_.param("frames/base_link", base_frame_id_, std::string(""));
+  nh_.param("frames/robot", robot_frame_id_, std::string(""));
 
   // Get set pose topic names
   nh_.param("sensors/set_pose", set_pose_, std::string("ekf_map/set_pose"));
@@ -137,8 +138,8 @@ bool SensorAggregator::checkGpsRequiredVariables(double gps_stamp)
   if (!tf_catched_) {
     // Catch static tfs
     try {
-      tf_listener_.lookupTransform(robot_frame_id_,
-                                   gps_->getName(),
+      tf_listener_.lookupTransform(base_frame_id_,
+                                   robot_frame_id_ + "/" + gps_->getName(),
                                    ros::Time(0),
                                    gps_tf_);
     } catch (tf::TransformException ex) {

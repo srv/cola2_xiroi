@@ -11,8 +11,8 @@
 
     <!-- Common configs -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/places/$(arg place)"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
-    <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_xiroi)/sim_config/analyzers.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/frames.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/analyzers.yaml" ns="diagnostic_aggregator" />
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/sensor_aggregator.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/robot_localization.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/sim_config/teleoperation.yaml"/>

@@ -76,6 +76,7 @@ class SensorAggregator {
   mutex mutex_imu_;
 
   // Frames
+  std::string base_frame_id_;
   std::string robot_frame_id_;
   std::string odom_frame_id_;
   std::string map_frame_id_;

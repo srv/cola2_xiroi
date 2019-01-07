@@ -5,8 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /tf1/Frames1
-        - /robot_axes1
-      Splitter Ratio: 0.609664977
+        - /TF1
+      Splitter Ratio: 0.39808917
     Tree Height: 587
   - Class: rviz/Views
     Expanded:
@@ -39,61 +39,19 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        gps:
-          Value: true
-        imu:
-          Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
         world:
           Value: true
         world_ned:
           Value: true
-        xiroi:
-          Value: true
         xiroi/base_link:
-          Value: true
-        xiroi/dvl:
-          Value: true
-        xiroi/dvl_altitude:
           Value: true
         xiroi/dynamics:
           Value: true
-        xiroi/echosounder11:
-          Value: true
-        xiroi/echosounder12:
-          Value: true
-        xiroi/echosounder13:
-          Value: true
-        xiroi/echosounder14:
-          Value: true
-        xiroi/echosounder15:
-          Value: true
         xiroi/gps:
-          Value: true
-        xiroi/guppy:
           Value: true
         xiroi/imu:
           Value: true
-        xiroi/imu_filter:
-          Value: true
-        xiroi/micron:
-          Value: true
-        xiroi/modem:
-          Value: true
-        xiroi/multibeam:
-          Value: true
-        xiroi/pressure:
-          Value: true
-        xiroi/profiler:
-          Value: true
-        xiroi/sidescan_port:
-          Value: true
-        xiroi/sidescan_starbord:
-          Value: true
-        xiroi/thruster_0:
+        xiroi/odom:
           Value: true
         xiroi/thruster_1:
           Value: true
@@ -106,16 +64,19 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
-          map:
-            odom:
-              xiroi:
-                gps:
-                  {}
-                imu:
-                  {}
           world_ned:
             xiroi/dynamics:
               {}
+            xiroi/odom:
+              xiroi/base_link:
+                xiroi/gps:
+                  {}
+                xiroi/imu:
+                  {}
+                xiroi/thruster_1:
+                  {}
+                xiroi/thruster_2:
+                  {}
       Update Interval: 0
       Value: true
     - Class: rviz/Axes
@@ -130,7 +91,7 @@ Visualization Manager:
       Length: 1
       Name: robot_axes
       Radius: 0.100000001
-      Reference Frame: xiroi
+      Reference Frame: xiroi/base_link
       Value: true
     - Alpha: 1
       Class: rviz/RobotModel
@@ -272,7 +233,7 @@ Visualization Manager:
       Marker Topic: /xiroi/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
-        /xiroi/pilot: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -282,6 +243,51 @@ Visualization Manager:
       Namespaces:
         virtual_cage: true
       Queue Size: 100
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        world:
+          Value: true
+        world_ned:
+          Value: true
+        xiroi/base_link:
+          Value: true
+        xiroi/dynamics:
+          Value: true
+        xiroi/gps:
+          Value: true
+        xiroi/imu:
+          Value: true
+        xiroi/odom:
+          Value: true
+        xiroi/thruster_1:
+          Value: true
+        xiroi/thruster_2:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          world_ned:
+            xiroi/dynamics:
+              {}
+            xiroi/odom:
+              xiroi/base_link:
+                xiroi/gps:
+                  {}
+                xiroi/imu:
+                  {}
+                xiroi/thruster_1:
+                  {}
+                xiroi/thruster_2:
+                  {}
+      Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
