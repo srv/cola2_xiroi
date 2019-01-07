@@ -2,10 +2,10 @@
     <!-- Configurable arguments -->
     <arg name="robot_name" default="xiroi"/>
     <arg name="place" default="cala_blava.yaml"/>
-    <arg name="enable_joystick" default="true"/>
+    <arg name="enable_joystick" default="false"/>
     <arg name="joystick_device" default="/dev/input/js0"/>
     <arg name="enable_gui" default="true"/>
-    <arg name="enable_rviz" default="true"/>
+    <arg name="enable_rviz" default="false"/>
 
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
@@ -28,21 +28,6 @@
         <include file="$(find cola2_xiroi)/launch/sim_xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
         </include>
-
-        <!-- Keyboard -->
-        <group unless="$(arg enable_joystick)">
-            <node pkg="cola2_control" type="keyboard" name="keyboard"/>
-            <node pkg="cola2_control" type="keyboard_to_teleoperation_node.py" name="keyboard_to_teleoperation"/>
-        </group>
-
-        <!-- Joystick -->
-        <group if="$(arg enable_joystick)">
-            <node respawn="true" pkg="joy" type="joy_node" name="joystick">
-                <param name="dev" value="$(arg joystick_device)"/>
-                <param name="deadzone" value="0.05"/>
-            </node>
-            <node respawn="false" pkg="cola2_control" type="logitech_fx10_to_teleoperation_node.py" name="fx10_to_teleoperation"  output="screen"/>
-        </group>
 
         <!-- Throttle messages -->
         <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>
