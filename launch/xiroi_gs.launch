@@ -15,7 +15,7 @@
     </include>
 
     <!-- RViz -->
-    <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scenes/rviz_xi.rviz"/>
+    <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/sim_xiroi.rviz"/>
 
     <!-- MULTIMASTER -->
     <!-- <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" >
