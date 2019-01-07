@@ -1,0 +1,17 @@
+<launch>
+    <!-- IMU FILTER MADGWICK NODE -->
+    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen">
+        <param name="stateless" value="true"/>
+        <param name="fixed_frame" value="odom"/>
+        <param name="publish_tf" value="false"/>
+        <param name="constant_dt" value="0.0"/>
+        <param name="publish_debug_topics" value="false"/>
+        <param name="use_mag" value="true"/>
+        <param name="use_magnetic_field_msg" value="true"/>
+        <param name="world_frame" value="enu"/>
+
+        <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>     <!-- subscriber -->
+        <remap from="imu/mag" to="sensors/imu_mag"/>          <!-- subscriber -->
+        <remap from="imu/data" to="sensors/imu"/>        <!-- publisher -->
+    </node>
+</launch>
