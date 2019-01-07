@@ -1,7 +1,7 @@
 <launch>
     <!-- PARAMS -->
     <arg name="robot_name" default="xiroi"/>
-    <arg name="enableJoystick" default="false" />
+    <arg name="enableJoystick" default="true" />
     <arg name="enableRviz" default="true" />
     
     <!-- CONFIG -->
@@ -9,9 +9,9 @@
     <arg name="joystickDevice" default="/dev/input/js0"/>
 
     <!-- TELEOPERATION -->
-    <include ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/modules/teleoperation.launch">
+    <include ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/xiroi_teleoperation.launch">
         <arg name="enableJoystick" value="$(arg enableJoystick)"/>
-        <arg name="joyssim_auv_nav_sensorstickDevice" value="$(arg joystickDevice)"/>
+        <!-- <arg name="joyssim_auv_nav_sensorstickDevice" value="$(arg joystickDevice)"/> -->
     </include>
 
     <!-- RViz -->
