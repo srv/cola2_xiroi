@@ -1,0 +1,58 @@
+<launch>
+    <arg name="robot_name"/>
+    <arg name="enable_imu"/>
+
+    <!-- Safety nodes -->
+    <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
+    <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
+    <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor.py" output="screen"/>
+    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
+    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
+    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
+    <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
+        <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>
+        <remap from="/diagnostics_agg" to="/$(arg robot_name)/diagnostics_agg"/>
+        <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
+    </node>
+    <node name="vehicle_status_parser" pkg="cola2_safety" type="vehicle_status_parser.py" respawn="true" output="screen"/>
+    <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/>
+    <node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
+    <node name="evologics_modem" pkg="evologics_modem" type="evologics_modem_ros.py" respawn="false" output="screen">
+        <remap from="/$(arg robot_name)/evologics_modem/usbl_update" to="/$(arg robot_name)/navigator/usbl"/>
+    </node>
+
+    <!-- Navigation -->
+    <node name="navigator" pkg="cola2_nav" type="navigator" output="screen"/>
+
+    <!-- Control stack -->
+    <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
+    <node name="pilot" pkg="cola2_control" type="pilot" output="screen"/>
+    <node name="captain" pkg="cola2_control" type="captain" output="screen">
+        <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
+    </node>
+    <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
+
+    <!-- Other -->
+    <node name="adis_imu" pkg="adis_imu" type="adis_imu" respawn="true" output="screen">
+        <remap from="/$(arg robot_name)/adis_imu/fluid_pressure" to="/$(arg robot_name)/navigator/pressure"/>
+    </node>
+    <node name="imu_angle_estimator" pkg="adis_imu" type="imu_angle_estimator.py" respawn="true" output="screen">
+       <remap from="/$(arg robot_name)/imu_angle_estimator/imu" to="/$(arg robot_name)/navigator/imu"/>
+    </node>
+    <node name="nmea_gps" pkg="nmea_gps" type="nmea_gps_node" output="screen">
+       <remap from="/$(arg robot_name)/nmea_gps/nav_sat_fix" to="/$(arg robot_name)/navigator/gps"/>
+    </node>
+    <node name="emus_bms" pkg="emus_bms" type="emus_bms_node" output="screen"/>
+    <node name="actuators_485" pkg="s2_actuators" type="s2_actuators"/>
+    <node name="s2_mon_control_board" pkg="cola2_xiroi" type="s2_mon_control_board.py" respawn="true" output="screen"/>
+    <node name="teledyne_explorer_dvl" pkg="teledyne_explorer_dvl" type="teledyne_explorer_dvl_node">
+        <remap from="/$(arg robot_name)/teledyne_explorer_dvl/dvl" to="/$(arg robot_name)/navigator/dvl"/>
+        <remap from="/$(arg robot_name)/teledyne_explorer_dvl/altitude" to="/$(arg robot_name)/navigator/altitude"/>
+    </node>
+
+    <!-- Log -->
+    <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
+    <node respawn="true" pkg="cola2_log" type="default_param_handler.py" name="default_param_handler" output="screen">
+        <param name="config_folder" value="config"/>
+    </node>
+</launch>

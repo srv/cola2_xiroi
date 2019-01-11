@@ -34,5 +34,5 @@
     <remap from="imu/mag_filtered" to="sensors/imu_mag_filtered"/>
     <remap from="imu/mag_filtered_calibrated" to="sensors/imu_mag"/>
   </node>
-
+  
 </launch>

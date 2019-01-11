@@ -1,10 +1,10 @@
 <launch>
-  <arg name="simGPS" default="false"/>
+  <arg name="simGPS" default="true"/>
 
   <!-- GPS driver simulated or emlid -->
   <group if="$(arg simGPS)">
-    <node  name="nav_sat_pub_gs" pkg="xiroi" type="nav_sat_pub" respawn="true">
-      <param name="frame_id" value="xiroi/gps"/>
+    <node  name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
+      <param name="frame_id" value="world_ned"/>
       <param name="topic_name" value="sensors/gps_raw"/>
       <param name="use_ned_origin" value="true"/>
     </node>

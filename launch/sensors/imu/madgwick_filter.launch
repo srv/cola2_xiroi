@@ -12,6 +12,6 @@
 
         <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>     <!-- subscriber -->
         <remap from="imu/mag" to="sensors/imu_mag"/>          <!-- subscriber -->
-        <remap from="imu/data" to="sensors/imu"/>        <!-- publisher -->
+        <remap from="imu/data" to="sensors/imu_raw"/>        <!-- publisher -->
     </node>
 </launch>

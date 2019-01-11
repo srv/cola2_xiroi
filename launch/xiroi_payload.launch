@@ -1,14 +1,31 @@
 <launch>
     <!--  ################  Input arguments  ################  -->
-    <arg name="robot_name" default="/" />
-    <arg name="enable_multibeam" default="false" />
-    <arg name="enable_camera" default="false" />
+    <arg name="robot_name" default="xiroi"/>
+    <arg name="enableUSBL" default="false"/>
+    <arg name="enableBumblebee" default="false"/>
+    <arg name="enableCH3" default="false"/>
 
-    <!-- ################ Multibeam #############  -->
-    <node if="$(arg enable_multibeam)" name="imagenex_deltat_multibeam" pkg="imagenex_deltat_multibeam" type="multibeam_node.py" output="screen"/>
 
-    <!-- ################ Camera #############  -->
-    <include if="$(arg enable_camera)" file="$(find cola2_xiroi)/launch/mono_prosilica.launch"/> 
+    <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
+    <!-- USBL -->
+    <group if="$(arg enableUSBL)">
+        <rosparam command="load" file="$(find cola2_xiroi)/config/evologics_usbl.yaml"/>
+        <!-- <param name="/evologics/config_srv_dir" value="$(find xiroi)/config/evologics_services.yaml"/> -->
+        <include file="$(find cola2_xiroi)/launch/modules/sensors/evologics_usbl.launch"/>
+        <node pkg="tf" type="static_transform_publisher" name="xiroi_to_usbl$(arg suffix)" args="0.5 0.0 0.7 0.0 0.0 0.0 /xiroi /usbl 100" />
+    </group>
+
+    <!-- Stereo Bumblebee -->
+    <group if="$(arg enableBumblebee)">
+        <include file="$(find cola2_xiroi)/launch/modules/cameras/stereo.launch"/>
+        <node pkg="tf" type="static_transform_publisher" name="stereo_to_left$(arg suffix)" args="-0.06 0.0 0.0 0.0 0.0 0.0 /stereo_down /stereo_down/left_optical 100" />
+        <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick$(arg suffix)" args="0.4 0.0 0.8 0.0 0.0 0.0 /xiroi /stereo_stick 100" />
+        <node pkg="tf" type="static_transform_publisher" name="stereo_stick_to_stereo_base$(arg suffix)" args="0.0 0.0 0.0 1.57 0.0 1.57 /stereo_stick /stereo_down/base 100" />
+        <node pkg="tf" type="static_transform_publisher" name="stereo_base_to_stereo$(arg suffix)" args="0.0 0.0 0.0 0.0 0.0 -1.57 /stereo_down/base /stereo_down 100" />
+    </group>
+
+    <!-- Stereo CH3 -->
+    <group if="$(arg enableCH3)">
+    </group>
 
 </launch>
-

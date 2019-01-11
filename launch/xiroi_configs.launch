@@ -1,35 +1,39 @@
 <launch>
-    <!-- Input arguments -->
-    <arg name="robot_name" default="xiroi"/>
-    <arg name="is_simulation" default="false"/>
 
-    <!-- Load robot description -->
+    <!--  ################# Input arguments  #################  -->
+    <arg name="robot_name" default="$(arg robot_name)"/>
+    <arg name="place" default="cala_blava.yaml"/>
+    
+        <!-- Load robot description -->
     <include file="$(find xiroi_description)/launch/xiroi_description.launch">
         <arg name="robot_name" value="$(arg robot_name)"/>
     </include>
 
-    <!-- Common configs -->
-    <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_xiroi)/config/analyzers.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/navigator.yaml"/>
+
+    <!--  TODO: find a better way to load this parameter file-->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/check_sensors.yaml"/>
+
+    <!--  ##############  COLA2_CORE_COMMON  ##############  -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/places/$(arg place)"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/pilot.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>
+	<rosparam command="load" file="$(find cola2_xiroi)/config/captain.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/safety.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/vehicle_status_parser.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/logitech_fx10_to_teleoperation.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/controller.yaml"/>
-
-    <!-- Other -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/adis_imu.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/calibrations/imu_last_calibration.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/nmea_gps.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/actuators_485.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/teledyne_explorer_dvl.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/s2_mon_control_board.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
+    <rosparam command="load" ns="diagnostic_aggregator" file="$(find cola2_xiroi)/config/analyzers.yaml" />
     <rosparam command="load" file="$(find cola2_xiroi)/config/default_param_handler.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/evologics_modem.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/controller.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/sim_config/vehicle_status_parser.yaml"/>
+    
 
-   <!--Payload -->
-   <rosparam command="load" file="$(find cola2_xiroi)/config/imagenex_deltat_multibeam.yaml"/>
+
+    <!--  ################# OTHER  #################  -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/> -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_all_topics.yaml"/> -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/emlid_gps.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/arduino.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/m4atx.yaml"/>
 
 </launch>
