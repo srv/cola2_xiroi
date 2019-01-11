@@ -1,0 +1,5 @@
+check_sensors/bb2: False
+check_sensors/ch3: False
+check_sensors/atx: False
+check_sensors/imu: False
+check_sensors/gps: False

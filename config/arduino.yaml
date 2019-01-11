@@ -1,0 +1,13 @@
+
+port: /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0
+baud: 57600
+timeout: 0.5
+rate: 50
+base_frame: base_link
+#Thrusters pins
+left_thruster_pin: 1
+right_thruster_pin: 0
+#Thrusters controller
+rising_rate: 0.1
+falling_rate: 1
+setpoint_limit: 0.8

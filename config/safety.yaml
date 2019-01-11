@@ -1,5 +1,5 @@
 # Timeout and minimum update times for the safety supervisor
-safety/timeout: 3600
+safety/timeout: 3600  # Seconds
 safety/min_imu_update: 10.0
 safety/min_depth_update: 10.0
 safety/min_altitude_update: 60.0
@@ -16,7 +16,7 @@ safety/usbl_safety_always_on: false
 safety/min_dvl_good_data: 20
 
 # Battery
-safety/min_battery_charge: 10.0
+safety/min_battery_charge: 14.5
 safety/min_battery_voltage: 26.4
 
 # Max Temperatures:
@@ -33,12 +33,11 @@ recovery_actions/emergency_surface_setpoints: [-0.30, 0.0, 0.0]
 recovery_actions/controlled_surface_depth: 0.0
 
 # Safe max depth & min altitude
-safe_depth_altitude/max_depth: 10.0
-safe_depth_altitude/min_altitude: 1.5
+safe_depth_altitude/max_depth: 12.0
+safe_depth_altitude/min_altitude: 0.8
 
 # Set zero velocity
-set_zero_velocity/set_zero_velocity_axis: [[false, false, true, true, true, true],
-  [true, true, false, true, true, true], [true, true, true, true, true, false]]
+set_zero_velocity/set_zero_velocity_axis: [[False, False, True, True, True, True], [True, True, False, True, True, True], [True, True, True, True, True, False]]
 set_zero_velocity/set_zero_velocity_depth: 1.2
 
 # Define virtual cage (the vehicle is not allowed to move outside of this area)
