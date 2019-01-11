@@ -163,8 +163,11 @@ target_link_libraries(sensor_aggregator ${catkin_LIBRARIES})
 add_dependencies(sensor_aggregator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(nav_status src/nav_status.cpp)
+add_executable(nav_sat_pub src/nav_sat_pub.cpp)
 target_link_libraries(nav_status ${catkin_LIBRARIES})
+target_link_libraries(nav_sat_pub ${catkin_LIBRARIES})
 add_dependencies(nav_status ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(nav_sat_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 #############
 ## Install ##
