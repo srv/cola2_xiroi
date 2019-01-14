@@ -58,6 +58,9 @@
         <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
     </node>
     <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
+    <node respawn="true" pkg="xiroi" type="bluerobotics_T200_arduino.py" output="screen" name="arduino">
+        <rosparam command="load" file="$(find xiroi)/config/arduino.yaml"/>
+    </node>
 
     <!-- Log -->
     <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>

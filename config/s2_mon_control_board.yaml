@@ -1,3 +1,0 @@
-# Serial port
-s2_mon_control_board/serial_port/path: "/dev/ttyS9"
-s2_mon_control_board/serial_port/baud_rate: 19200
