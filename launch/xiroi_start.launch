@@ -7,6 +7,7 @@
     <arg name="enable_rviz" default="false"/>
     <arg name="enable_gui" default="true"/>
     <arg name="robot_name" default="xiroi"/>
+    <arg name="simGPS" default="false"/>
 
 
     <!-- CORE PARAMS -->
@@ -37,6 +38,7 @@
         <!-- Load core -->
         <include file="$(find cola2_xiroi)/launch/xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="simGPS" value="$(arg simGPS)"/>
         </include>
 
         <!-- Load payload -->
