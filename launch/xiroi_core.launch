@@ -2,7 +2,7 @@
     <arg name="robot_name" default="xiroi"/>
     <arg name="simGPS" default="true"/>
     <arg name="enableSafety" default="true"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
 
     <!--  #################  Load safety nodes  #################  -->
     <node name="cola2_watchdog" pkg="cola2_safety" type="cola2_watchdog.py" output="screen"/>
@@ -58,7 +58,7 @@
         <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
     </node>
     <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
-    <node respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="screen" name="arduino">
+    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="screen" name="arduino">
         <rosparam command="load" file="$(find cola2_xiroi)/config/arduino.yaml"/>
     </node>
 

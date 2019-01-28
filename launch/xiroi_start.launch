@@ -7,12 +7,12 @@
     <arg name="enable_rviz" default="false"/>
     <arg name="enable_gui" default="true"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
 
     <!-- CORE PARAMS -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
 
     <!-- PAYLOAD PARAMS -->
     <arg name="enableBumblebee" default="false"/>
