@@ -6,6 +6,9 @@
     <arg name="joystick_device" default="/dev/input/js0"/>
     <arg name="enable_gui" default="true"/>
     <arg name="enable_rviz" default="false"/>
+    <arg name="openLoopTeleoperation" default="false"/>
+    <arg name="enableThrusters" default="false"/>
+
 
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
@@ -27,6 +30,8 @@
         <!-- Load core -->
         <include file="$(find cola2_xiroi)/launch/sim_xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
+            <arg name="enableThrusters" value="$(arg enableThrusters)"/>
         </include>
 
         <!-- Throttle messages -->
