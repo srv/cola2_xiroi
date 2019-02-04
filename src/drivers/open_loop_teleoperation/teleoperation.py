@@ -42,8 +42,6 @@ class Controller:
         # Message
         self.msg = Setpoints()
         self.msg.header.frame_id = 'xiroi'
-        # self.msg.requester = 'teleoperation'
-        # self.msg.priority = 70
         self.msg.setpoints = np.array([0.0, 0.0])
 
     def ack_ack_callback(self, ack_msg):
@@ -66,10 +64,10 @@ class Controller:
         self.msg.setpoints = aux.clip(min=-1.0, max=1.0)
 
         # Publish message
-        if(self.msg.setpoints[0]!=0.0 and self.msg.setpoints[0]!=0.0):
-            self.msg.header.stamp = rospy.Time.now()
-            self.pub_thrusters_setpoints.publish(self.msg)
-            self.msg.header.seq = self.msg.header.seq + 1
+        # if(self.msg.setpoints[0]!=0.0 and self.msg.setpoints[0]!=0.0):
+        self.msg.header.stamp = rospy.Time.now()
+        self.pub_thrusters_setpoints.publish(self.msg)
+        self.msg.header.seq = self.msg.header.seq + 1
 
 
     def check_map_ack(self, event):
