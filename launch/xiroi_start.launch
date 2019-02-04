@@ -5,9 +5,12 @@
 
     <!-- CONFIG PARAMS -->
     <arg name="enable_rviz" default="false"/>
-    <arg name="enable_gui" default="true"/>
+    <arg name="enable_gui" default="false"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
+    <arg name="enableSensors" default="false"/>
+    <arg name="openLoopTeleoperation" default="true"/>
+    <arg name="enableThrusters" default="false"/>
 
 
     <!-- CORE PARAMS -->
@@ -39,6 +42,10 @@
         <include file="$(find cola2_xiroi)/launch/xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
+            <arg name="enableSensors" value="$(arg enableSensors)"/>
+            <arg name="enableSafety" value="$(arg enableSafety)"/>
+            <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
+            <arg name="enableThrusters" value="$(arg enableThrusters)"/>
         </include>
 
         <!-- Load payload -->
