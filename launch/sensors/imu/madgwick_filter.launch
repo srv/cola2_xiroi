@@ -1,7 +1,7 @@
 <launch>
     <!-- IMU FILTER MADGWICK NODE -->
     <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen">
-        <param name="stateless" value="true"/>
+        <param name="stateless" value="true"/> <!--If set to true, don't publish a filtered orientation. Instead, publish the stateless estimate of the orientation based on the latest accelerometer (and optionally magnetometer) readings alone. Useful for debugging.-->
         <param name="fixed_frame" value="odom"/>
         <param name="publish_tf" value="false"/>
         <param name="constant_dt" value="0.0"/>
@@ -9,8 +9,12 @@
         <param name="use_mag" value="true"/>
         <param name="use_magnetic_field_msg" value="true"/>
         <param name="world_frame" value="enu"/>
+        <param name="mag_bias_x"   value="-0.12" type="double" /> <!-- Magnetometer bias (hard iron correction), x component. Range: -10.0 to 10.0 -->
+        <param name="mag_bias_y"   value="0.0" type="double" /> <!-- Magnetometer bias (hard iron correction), y component. Range: -10.0 to 10.0 -->
+        <param name="zeta"   value="0.0" type="double" /> <!-- Gyro drift gain (approx. rad/s). Range: -1.0 to 1.0 -->
 
-        <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>     <!-- subscriber -->
+
+        <remap from="imu/data_raw" to="xiroi/sensors/imu_raw_driver"/>     <!-- subscriber -->
         <remap from="imu/mag" to="sensors/imu_mag"/>          <!-- subscriber -->
         <remap from="imu/data" to="sensors/imu_raw"/>        <!-- publisher -->
     </node>
