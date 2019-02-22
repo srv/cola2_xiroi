@@ -9,6 +9,7 @@
         <param name="use_mag" value="true"/>
         <param name="use_magnetic_field_msg" value="true"/>
         <param name="world_frame" value="enu"/>
+        <!-- <node pkg="tf" type="static_transform_publisher" name="xiroi_to_imu" args="0.0 0.0 0.0 0.0 0.0 0.0 /world_ned /xiroi/odom 100" /> -->
 
         <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>     <!-- subscriber -->
         <remap from="imu/mag" to="sensors/imu_mag"/>          <!-- subscriber -->

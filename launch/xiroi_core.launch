@@ -23,7 +23,8 @@
 
     <!--  #################  Run Navigation Stack  #################  -->
     <!--Sensors-->
-    <include file="$(find cola2_xiroi)/launch/sensors/imu/memsense_imu.launch"/>
+    <!-- <include file="$(find cola2_xiroi)/launch/sensors/imu/memsense_imu.launch"/> -->
+    <include file="$(find cola2_xiroi)/launch/sensors/imu_razor/razor-pub.launch"/>
     <include file="$(find cola2_xiroi)/launch/sensors/emlid_gps.launch">
         <arg name="simGPS" value="$(arg simGPS)"/>
     </include>
@@ -35,7 +36,7 @@
     <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0 /world_ned /xiroi/odom 100" />
     
     <!-- Localization -->
-    <include file="$(find cola2_xiroi)/launch/sensors/imu/madgwick_filter.launch"/>
+    <!-- <include file="$(find cola2_xiroi)/launch/sensors/imu/madgwick_filter.launch"/> -->
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
       <remap from="odometry/filtered" to="ekf_map/odometry"/>
@@ -43,7 +44,7 @@
       <remap from="set_pose" to="ekf_map/set_pose"/>
     </node>
 
-        <!-- Nav status -->
+    <!-- Nav status -->
     <node name="nav_status" pkg="cola2_xiroi" type="nav_status" respawn="true" output="screen">
         <remap from="odometry" to="ekf_map/odometry"/>
         <remap from="imu" to="sensors/imu"/>
@@ -57,8 +58,11 @@
     <node name="captain" pkg="cola2_control" type="captain" output="screen">
         <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
     </node>
+
     <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
-    <node respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="screen" name="arduino">
+
+    <!--THRUSTERS T-200-->
+    <node  if="$(arg enableThrusters)" name="arduino" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="screen" respawn="true" >
         <rosparam command="load" file="$(find cola2_xiroi)/config/arduino.yaml"/>
     </node>
 

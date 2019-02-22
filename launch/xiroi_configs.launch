@@ -2,7 +2,7 @@
 
     <!--  ################# Input arguments  #################  -->
     <arg name="robot_name" default="$(arg robot_name)"/>
-    <arg name="place" default="cala_blava.yaml"/>
+    <arg name="place" default="uib_pool.yaml"/>
     
         <!-- Load robot description -->
     <include file="$(find xiroi_description)/launch/xiroi_description.launch">
@@ -33,7 +33,8 @@
     <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/> -->
     <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_all_topics.yaml"/> -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/emlid_gps.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/arduino.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/razor.yaml"/>
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/arduino.yaml"/> -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/m4atx.yaml"/>
 
 </launch>
