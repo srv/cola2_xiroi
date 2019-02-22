@@ -57,6 +57,9 @@ class ArduinoROS():
 
         # Callback for thrusters
         rospy.Subscriber("/cola2_control/thrusters_data", Setpoints, self.thruster_callback)
+        #Open loop teleoperation thrusters data
+        rospy.Subscriber("/xiroi/setpoints_req", Setpoints, self.thruster_callback)
+
         self.setpoints_corrected = rospy.Publisher("setpoints_corrected", Setpoints, queue_size=1)
         self.thruster_current = rospy.Publisher("thruster_current",Current, queue_size=1)
 

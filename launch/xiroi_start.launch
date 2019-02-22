@@ -7,10 +7,14 @@
     <arg name="enable_rviz" default="false"/>
     <arg name="enable_gui" default="false"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="simGPS" default="true"/>
-    
+    <arg name="simGPS" default="false"/>
+    <arg name="enableSensors" default="false"/>
+    <arg name="openLoopTeleoperation" default="true"/>
+    <arg name="enableThrusters" default="false"/>
+
+
     <!-- CORE PARAMS -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableThrusters" default="false"/>
 
     <!-- PAYLOAD PARAMS -->
@@ -38,6 +42,12 @@
         <include file="$(find cola2_xiroi)/launch/xiroi_core.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
+<<<<<<< HEAD
+=======
+            <arg name="enableSensors" value="$(arg enableSensors)"/>
+            <arg name="enableSafety" value="$(arg enableSafety)"/>
+            <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
+>>>>>>> 4039d93ca08d373c796967949e8b89da1b3f7cd3
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>
         </include>
 
