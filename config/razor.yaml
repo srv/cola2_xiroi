@@ -1,5 +1,5 @@
 ## USB port
-port: /dev/ttyACM0
+port: /dev/serial/by-id/usb-SparkFun_SFE_9DOF-D21_672B10C651504B5259202020FF0C1213-if00
 
 
 ##### Calibration ####
