@@ -31,13 +31,13 @@
 
     <group if="$(arg enableSensors)">
         <!-- <include file="$(find cola2_xiroi)/launch/sensors/imu/memsense_imu.launch"/> -->
-        <include file="$(find cola2_xiroi)/launch/sensors/imu_razor/razor-pub.launch"/>
+        <include file="$(find cola2_xiroi)/launch/sensors/imu_razor/razor-pub.launch">
+                <remap from="/xiroi/imu" to="/xiroi/sensors/imu_raw"/>
+        </include>
         <include file="$(find cola2_xiroi)/launch/sensors/emlid_gps.launch">
             <arg name="simGPS" value="$(arg simGPS)"/>
         </include>
-        <node pkg="m4atx_battery_monitor" type="m4atx_battery_monitor" name="m4atx" output="screen">
-            <remap from="battery_status_m4atx" to="sensors/battery"/>
-        </node>
+        <include file="$(find cola2_xiroi)/launch/sensors/m4atx.launch"/>
     </group>
 
 
