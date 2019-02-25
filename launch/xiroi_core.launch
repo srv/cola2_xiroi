@@ -32,7 +32,7 @@
     <group if="$(arg enableSensors)">
         <!-- <include file="$(find cola2_xiroi)/launch/sensors/imu/memsense_imu.launch"/> -->
         <include file="$(find cola2_xiroi)/launch/sensors/imu_razor/razor-pub.launch">
-                <remap from="/xiroi/imu" to="/xiroi/sensors/imu_raw"/>
+                <remap from="/imu" to="/xiroi/sensors/imu_raw"/>
         </include>
         <include file="$(find cola2_xiroi)/launch/sensors/emlid_gps.launch">
             <arg name="simGPS" value="$(arg simGPS)"/>
