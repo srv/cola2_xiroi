@@ -2,6 +2,6 @@
   <arg name="razor_config_file" default="$(find cola2_xiroi)/config/razor.yaml"/>
   <node pkg="razor_imu_9dof" type="imu_node.py" name="imu_node" output="screen">
     <rosparam file="$(arg razor_config_file)" command="load"/>
-    <!-- <remap from="/xiroi/imu" to="/xiroi/sensors/imu_raw"/> -->
+    <remap from="/xiroi/imu" to="/xiroi/sensors/imu_raw"/>
   </node>
 </launch>

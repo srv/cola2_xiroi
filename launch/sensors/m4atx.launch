@@ -1,7 +1,7 @@
 <launch>
   <node pkg="m4atx_battery_monitor" type="m4atx_battery_monitor" name="m4atx" output="screen">
     <rosparam command="load" file="$(find cola2_xiroi)/config/m4atx.yaml"/>
-    <remap from="battery_status_m4atx" to="xiroi/sensors/battery"/>
+    <remap from="battery_status_m4atx" to="/xiroi/sensors/battery"/>
   </node>
 </launch>
 
