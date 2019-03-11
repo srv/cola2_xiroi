@@ -7,11 +7,11 @@
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/> -->
     
+    <rosparam command="load" file="$(find cola2_xiroi)/config/joystick_logitech.yaml"/>
 
     <!-- TELEOPERATION -->
-    <include unless="$(arg openLoopTeleoperation)" ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/xiroi_teleoperation.launch">
+    <include unless="$(arg openLoopTeleoperation)" ns="$(arg robot_name)" file="$(find cola2_xiroi)/launch/modules/teleoperation.launch">
         <arg name="enableJoystick" value="$(arg enableJoystick)"/>
-        <!-- <arg name="joyssim_auv_nav_sensorstickDevice" value="$(arg joystickDevice)"/> -->
     </include>
 
     <!-- OPEN LOOP TELEOPERATION -->
@@ -22,7 +22,7 @@
         </node>
         <node respawn="false" pkg="cola2_xiroi" type="logitech_joy.py" name="open_loop_teleoperation"  output="screen"/>
     </group>
-    <!-- <arg name="joyssim_auv_nav_sensorstickDevice" value="$(arg joystickDevice)"/> -->
+
 
     <!-- RViz -->
     <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/sim_xiroi.rviz"/>

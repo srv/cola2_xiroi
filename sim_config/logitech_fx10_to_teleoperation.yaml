@@ -1,2 +1,0 @@
-fx10_to_teleoperation/start_service: '/xiroi/captain/enable_keep_position_non_holonomic'
-fx10_to_teleoperation/stop_service: '/xiroi/captain/disable_keep_position'

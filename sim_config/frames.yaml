@@ -1,9 +1,0 @@
-frames:
-  map: "world_ned"
-  odom: "xiroi/odom"
-  base_link: "xiroi/base_link"
-  sensors:
-    imu: "xiroi/imu"
-    gps: "xiroi/gps"
-    origin_suffix: "origin"
-  robot: "xiroi"

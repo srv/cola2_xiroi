@@ -1,0 +1,40 @@
+<launch>
+    <!-- Params -->
+    <arg name="place"/>
+    <arg name="robot_name"/>
+
+    <!-- Flags -->
+    <arg name="sim"/>
+    <arg name="simGPS"/>
+
+    <arg name="enableSafety"/>
+    <arg name="enableThrusters"/>
+    <arg name="openLoopTeleoperation"/>
+
+
+    <!--  #################  Load safety nodes  #################  -->
+    <include if="$(arg enableSafety)" file="$(find cola2_xiroi)/launch/modules/safety.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="sim"         value="$(arg sim)"/>
+    </include>
+
+    <!--  #################  Run Navigation Stack  #################  -->
+    <include file="$(find cola2_xiroi)/launch/modules/navigation.launch">
+        <arg name="sim"         value="$(arg sim)"/>
+        <arg name="simGPS"      value="$(arg simGPS)"/>
+    </include>
+   
+    <!--  #################  Run Control Stack  #################-->
+    <include file="$(find cola2_xiroi)/launch/modules/control.launch">
+        <arg name="robot_name"  value="$(arg robot_name)"/>
+        <arg name="enableThrusters"      value="$(arg enableThrusters)"/>
+        <arg name="openLoopTeleoperation"      value="$(arg openLoopTeleoperation)"/>
+    </include>
+    
+    <!--  #################  Load other nodes  #################  -->
+    <!-- Log -->
+    <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
+    <node respawn="true" pkg="cola2_log" type="default_param_handler.py" name="default_param_handler" output="screen">
+        <param name="config_folder" value="config"/>
+    </node>
+</launch>

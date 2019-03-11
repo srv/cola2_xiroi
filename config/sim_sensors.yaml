@@ -1,0 +1,21 @@
+# Sim internal sensors
+sim_internal_sensors/initial_battery_level: 98
+sim_internal_sensors/battery_consumption_per_second: 0.004
+
+# Sim nav sensors
+sim_nav_sensors:
+  # Sensors publication periods
+  imu/period: 0.1
+  gps/period: 0.1
+
+  # Sensors noise (standard deviation) - For generation
+  imu/orientation_covariance_gen: [0.0001, 0.0001, 0.0001]    # [0.0001, 0.0001, 0.0001]
+  gps/position_covariance_gen: [0.0001, 0.0001, 0.0001]     # [0.04, 0.04, 0.04]
+
+  # Sensors drift (mean noise)
+  imu/drift: [0.0001, 0.0001, 0.0001] #[0.005, 0.005, 0.06]
+  gps/drift: [0.0001, 0.0001, 0.0001]
+
+  # Sensors belief (variances) - For messages
+  imu/orientation_covariance: [0.1, 0.1, 0.1]     #[0.1, 0.1, 0.1]
+  gps/position_covariance: [0.5, 0.5, 0.5]   #[0.5, 0.5, 0.5]

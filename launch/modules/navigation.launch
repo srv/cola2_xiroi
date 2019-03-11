@@ -1,0 +1,40 @@
+<launch>
+    <arg name="sim"/>
+    <arg name="simGPS"/>
+
+    <!--Frames-->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
+    <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0 /world_ned /xiroi/odom 100" />
+
+    <!--Sensors-->
+    <group unless="$(arg sim)">
+        <!-- IMU -->
+        <include file="$(find cola2_xiroi)/launch/modules/imu_razor.launch"/>
+        <!-- GPS -->
+        <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
+            <param name="frame_id" value="world_ned"/>
+            <param name="topic_name" value="sensors/gps_raw"/>
+            <param name="use_ned_origin" value="true"/>
+        </node>
+    </group>
+
+    
+    <!-- Localization -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
+    <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
+      <remap from="odometry/filtered" to="ekf_map/odometry"/>
+      <remap from="odometry/path" to="ekf_map/path"/>
+      <remap from="set_pose" to="ekf_map/set_pose"/>
+    </node>
+
+    <!-- Nav status -->
+    <node name="nav_status" pkg="cola2_xiroi" type="nav_status" respawn="true" output="screen">
+        <remap from="odometry" to="ekf_map/odometry"/>
+        <remap from="imu" to="sensors/imu"/>
+        <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
+        <remap from="nav_sts" to="navigator/navigation"/>
+    </node>
+
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+  <rosparam command="load" file="$(find cola2_xiroi)/config/gps_emlid.yaml" />
+  <node name="emlid_driver" pkg="emlid_reach_tcp" type="emlid_driver.py" output="screen">
+    <remap from="emlid_gps" to="sensors/gps_raw" />
+    <remap from="/diagnostics" to="sensors/gps_diagnostics" />
+  </node>
+</launch>

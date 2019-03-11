@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /tf1/Frames1
         - /TF1
       Splitter Ratio: 0.39808917
@@ -45,8 +46,6 @@ Visualization Manager:
           Value: true
         xiroi/base_link:
           Value: true
-        xiroi/dynamics:
-          Value: true
         xiroi/gps:
           Value: true
         xiroi/imu:
@@ -65,8 +64,6 @@ Visualization Manager:
       Tree:
         world:
           world_ned:
-            xiroi/dynamics:
-              {}
             xiroi/odom:
               xiroi/base_link:
                 xiroi/gps:
@@ -241,7 +238,7 @@ Visualization Manager:
       Marker Topic: /xiroi/virtual_cage/markers/cage
       Name: virtual_cage
       Namespaces:
-        virtual_cage: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/TF
@@ -254,8 +251,6 @@ Visualization Manager:
         world_ned:
           Value: true
         xiroi/base_link:
-          Value: true
-        xiroi/dynamics:
           Value: true
         xiroi/gps:
           Value: true
@@ -275,8 +270,6 @@ Visualization Manager:
       Tree:
         world:
           world_ned:
-            xiroi/dynamics:
-              {}
             xiroi/odom:
               xiroi/base_link:
                 xiroi/gps:
@@ -302,26 +295,21 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 8.36689568
+      Angle: 0
+      Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: 5.75895596
-        Y: -11.7574263
-        Z: -0.171386719
-      Focal Shape Fixed Size: true
-      Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.574797273
+      Scale: 111.62738
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 5.47816992
+      Value: TopDownOrtho (rviz)
+      X: 0.718997836
+      Y: 0.252403677
     Saved: ~
 Window Geometry:
   Displays:

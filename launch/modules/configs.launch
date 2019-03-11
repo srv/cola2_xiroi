@@ -1,0 +1,26 @@
+<launch>
+    <!-- Params -->
+    <arg name="robot_name"/>
+    <arg name="place"/>
+
+    <!-- Place -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/places/$(arg place)"/>
+
+    <!-- Robot description -->
+    <include file="$(find xiroi_description)/launch/xiroi_description.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+
+    <!-- Multimaster -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/> -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_all_topics.yaml"/> -->
+
+    <!--  Other params  -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/vehicle_status_parser.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/default_param_handler.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/analyzers.yaml" ns="diagnostic_aggregator" />
+
+    <!--  Review  -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/check_sensors.yaml"/>
+</launch>

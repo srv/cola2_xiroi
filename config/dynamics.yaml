@@ -1,0 +1,53 @@
+# WARNING!!!
+# The thrusters allocation matrix "b" is defined in the code. It can not be changed using parameters.
+
+use_force_topic: true
+#
+number_of_thrusters: 3
+thrusters_tau: 0.1
+number_of_fins: 0
+a_fins: 0
+k_cd_fins: 0
+k_cl_fins: 0
+max_fins_angle: 0
+#
+period: 0.01
+mass: 35.0
+buoyancy: 90.0
+gravity_center: [0.0, 0.0, 0.05]
+g: 9.81
+radius: 0.4 # 0.286
+#
+max_thrusters_rpm: 1200
+ctf: 0.00006835
+ctb: 0.00006835
+dzv: 0.05
+dv: 0.35
+dh: 0.4
+density: 1000.0
+#
+thrusters_matrix: [0.0, 1.0, 1.0,
+                   0.0, 0.0, 0.0,
+                   0.0, 0.0, 0.0,
+                   0.0, 0.0, 0.0,
+                   0.0, 0.0, 0.0,
+                   0.0, -0.4, 0.4] # 0.0, -0.16783, 0.16783]
+#
+tensor: [8.0, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 8.0]
+damping: [.0, -65.0, .0, -130.0, -130.0, -130.0]
+quadratic_damping: [-148.0, -148.0, -148.0, -180.0, -180.0, -180.0]
+#
+#
+## Meters and Rads [X, Y, Z, Roll, Pitch, Yaw]
+initial_pose: [0.0, 0.0, 0.4, 0.0, 0.0, 0.0]
+initial_velocity: [0, 0, 0, 0, 0, 0]
+#
+## Collisions from UWSim.
+contact_sensor_available: False
+#
+## WATER CURRENTs SIMULATION
+current_mean: [0.05, 0.0, 0]
+current_sigma: [0.01, 0.01, 0.01]
+current_min: [-0.1, -0.0, -0.0]
+current_max: [0.1, 0.0, 0.0]
+current_enabled: False
