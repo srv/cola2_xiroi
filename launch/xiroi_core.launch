@@ -37,29 +37,14 @@
         <include file="$(find cola2_xiroi)/launch/sensors/emlid_gps.launch">
             <arg name="simGPS" value="$(arg simGPS)"/>
         </include>
-        <include file="$(find cola2_xiroi)/launch/sensors/m4atx.launch"/>
+        <!-- <include file="$(find cola2_xiroi)/launch/sensors/m4atx.launch"/> -->
     </group>
 
 
     <!--TFs-->
     <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0 /world_ned /xiroi/odom 100" />
     
-    <!-- Localization -->
-    <!-- <include file="$(find cola2_xiroi)/launch/sensors/imu/madgwick_filter.launch"/> -->
-    <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
-      <remap from="odometry/filtered" to="ekf_map/odometry"/>
-      <remap from="odometry/path" to="ekf_map/path"/>
-      <remap from="set_pose" to="ekf_map/set_pose"/>
-    </node>
 
-    <!-- Nav status -->
-    <node name="nav_status" pkg="cola2_xiroi" type="nav_status" respawn="true" output="screen">
-        <remap from="odometry" to="ekf_map/odometry"/>
-        <remap from="imu" to="sensors/imu"/>
-        <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
-        <remap from="nav_sts" to="navigator/navigation"/>
-    </node>
 
     <!--  #################  Run Control Stack  #################-->
     <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>

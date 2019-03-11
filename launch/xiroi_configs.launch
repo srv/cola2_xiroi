@@ -2,7 +2,7 @@
 
     <!--  ################# Input arguments  #################  -->
     <arg name="robot_name" default="$(arg robot_name)"/>
-    <arg name="place" default="uib_pool.yaml"/>
+    <arg name="place" default="uib_outdoors.yaml"/>
     
         <!-- Load robot description -->
     <include file="$(find xiroi_description)/launch/xiroi_description.launch">

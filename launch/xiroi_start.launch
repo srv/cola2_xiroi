@@ -7,7 +7,7 @@
     <arg name="enable_rviz" default="false"/>
     <arg name="enable_gui" default="false"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
     <arg name="enableSensors" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
