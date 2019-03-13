@@ -3,21 +3,22 @@
     <arg name="robot_name"/>
     <arg name="enableThrusters"/>
     <arg name="openLoopTeleoperation"/>
+    <arg name="output" default="log"/>
 
     <!-- Teleoperation -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>
-    <node unless="$(arg openLoopTeleoperation)" name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="screen"/>
-    <node if="$(arg openLoopTeleoperation)" name="open_loop_teleoperation" pkg="cola2_xiroi" type="teleoperation.py" output="screen"/>
+    <node unless="$(arg openLoopTeleoperation)" name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="$(arg output)"/>
+    <node if="$(arg openLoopTeleoperation)" name="open_loop_teleoperation" pkg="cola2_xiroi" type="teleoperation.py" output="$(arg output)"/>
 
     <!-- Mission control -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/captain.yaml"/>
-    <node name="captain" pkg="cola2_control" type="captain" output="screen">
+    <node name="captain" pkg="cola2_control" type="captain" output="$(arg output)">
         <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
     </node>
 
     <!-- Planner -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/pilot.yaml"/>
-    <node name="pilot" pkg="cola2_control" type="pilot" output="screen"/>
+    <node name="pilot" pkg="cola2_control" type="pilot" output="$(arg output)"/>
 
     <!-- Low level control -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/controller.yaml"/>
@@ -25,5 +26,5 @@
 
     <!-- Thrusters -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/thrusters.yaml"/>
-    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="screen" name="thrusters"/>
+    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="$(arg output)" name="thrusters"/>
 </launch>
