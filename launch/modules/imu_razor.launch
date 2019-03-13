@@ -1,6 +1,6 @@
 <launch>
   <arg name="razor_config_file" default="$(find cola2_xiroi)/config/imu_razor.yaml"/>
-  <node pkg="razor_imu_9dof" type="imu_node_ext.py" name="imu_node" output="screen">
+  <node pkg="razor_imu_9dof" type="imu_node_extend.py" name="imu_node" output="screen">
     <rosparam file="$(arg razor_config_file)" command="load"/>
     <remap from="imu_raw" to="/xiroi/sensors/imu_raw_driver"/>
     <remap from="mag_raw" to="/xiroi/sensors/mag_raw_driver"/>
