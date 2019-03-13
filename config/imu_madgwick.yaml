@@ -1,0 +1,9 @@
+imu_madgwick:
+  stateless: true
+  fixed_frame: odom
+  publish_tf: false
+  constant_dt: 0.0
+  publish_debug_topics: false
+  use_mag: true
+  use_magnetic_field_msg: true
+  world_frame: enu
