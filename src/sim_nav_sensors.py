@@ -16,7 +16,7 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from cola2_msgs.msg import Setpoints
 from sensor_msgs.msg import Joy, NavSatFix, Imu, NavSatStatus
 from geometry_msgs.msg import Vector3Stamped, PoseStamped
-from ned_tools import NED utils, utils_ros
+from ned_tools import NED, utils, utils_ros
 from cola2_msgs.msg import NavSts
 from math import *
 import numpy as np
