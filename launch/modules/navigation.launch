@@ -20,14 +20,14 @@
 
     
     <!-- Localization -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/> -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
-    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-        <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>     <!-- subscriber -->
-        <remap from="imu/mag" to="sensors/mag_raw_driver"/>          <!-- subscriber -->
-        <remap from="imu/data" to="sensors/imu_raw"/>        <!-- publisher -->
-    </node>
+    <!-- <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
+        <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>    
+        <remap from="imu/mag" to="sensors/mag_raw_driver"/>         
+        <remap from="imu/data" to="sensors/imu_raw"/>      
+    </node> -->
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
       <remap from="odometry/filtered" to="ekf_map/odometry"/>
