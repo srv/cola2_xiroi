@@ -44,30 +44,22 @@ class ArduinoROS():
         self.right_thruster_pin = rospy.get_param("~right_thruster_pin", 1)
         self.current_sensor_pin = rospy.get_param("~current_sensor_pin", 0)
         self.current_sensor_power_pin = rospy.get_param("~current_sensor_power_pin", 3)
+        self.activate_ramp = rospy.get_param("~activate_ramp", True)
+        self.rising_rate = rospy.get_param("~rising_rate", 0.3)
+        self.falling_rate = rospy.get_param("~falling_rate", 1.0)
+        self.setpoint_limit = rospy.get_param("~setpoint_limit", 0.6)
         self.first_time=True;
-
-        #Slew rate parameters
-        self.rising_rate = 0.3 #0.3
-        self.falling_rate = 1.0 #1
-        self.setpoint_limit = 0.6 #1
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
         r = rospy.Rate(self.rate)
 
         # Callback for thrusters
-        rospy.Subscriber("/cola2_control/thrusters_data", Setpoints, self.thruster_callback)
-        #Open loop teleoperation thrusters data
-        rospy.Subscriber("/xiroi/setpoints_req", Setpoints, self.thruster_callback)
+        rospy.Subscriber("/setpoints", Setpoints, self.thruster_callback)
 
+        # Publishers
         self.setpoints_corrected = rospy.Publisher("setpoints_corrected", Setpoints, queue_size=1)
         self.thruster_current = rospy.Publisher("thruster_current",Current, queue_size=1)
-
-        #Services
-        self.thrusters_enabled = False
-        # Create services
-        self.e_srv = rospy.Service('control/enable_thrusters', Empty, self.enable_thrusters_srv)
-        self.d_srv = rospy.Service('control/disable_thrusters', Empty, self.disable_thrusters_srv)
      
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
@@ -78,6 +70,7 @@ class ArduinoROS():
         self.controller.pin_mode(self.current_sensor_power_pin, 1)
         self.controller.digital_write(self.current_sensor_power_pin,1)
 
+        # TODO: Timer
         while not rospy.is_shutdown():
             current = self.controller.analog_read(self.current_sensor_pin)
             # publish
@@ -86,21 +79,6 @@ class ArduinoROS():
             msg.current = ((current/1024.0*5.0) - 2.41)/0.066
             self.thruster_current.publish(msg)
             r.sleep()
-
-    def disable_thrusters_srv(self,req):
-        """ Disable thruster service """
-        self.controller.servo_write(self.left_thruster_pin,1500)
-        self.controller.servo_write(self.right_thruster_pin,1500)
-        self.thrusters_enabled = False
-        rospy.loginfo("THRUSTERS DISABLED")
-        return EmptyResponse()
-    
-
-    def enable_thrusters_srv(self,req):
-        """ Enable thruster service """
-        self.thrusters_enabled = True
-        rospy.loginfo("THRUSTERS ENABLED")
-        return EmptyResponse()
 
 
     def limitSetpoint(self, msg, time, old_msg, old_time):
@@ -136,46 +114,48 @@ class ArduinoROS():
         # if time_dif<delay_threshold:
 
         #extract the second and thirth data from the setpoints message 
-        msg0=msg.setpoints[0]*0;
-        msg1=msg.setpoints[1];
-        msg2=msg.setpoints[2];
+        msg0=msg.setpoints[1];
+        msg1=msg.setpoints[2];
         
         # time=msg.header.stamp.to_sec()
         time=rospy.Time.now().to_sec()
 
         if(self.first_time):
-            self.controller.servo_write(self.left_thruster_pin,1500+msg0*400)
-            self.controller.servo_write(self.right_thruster_pin,1500+msg1*400)
+            self.controller.servo_write(self.left_thruster_pin,self.setpoint_conversion(msg0))
+            self.controller.servo_write(self.right_thruster_pin,self.setpoint_conversion(msg1))
             self.old_time = time
             self.old_msg0 = msg0
             self.old_msg1 = msg1
             self.first_time = False
             return
 
-        msg0 = self.limitSetpoint(msg0, time, self.old_msg0, self.old_time)
-        msg1 = self.limitSetpoint(msg1, time, self.old_msg1, self.old_time)
 
-        if msg0 > self.setpoint_limit:
-            msg0 = self.setpoint_limit
-        elif msg0 < -self.setpoint_limit:
-            msg0 = -self.setpoint_limit
+        if self.activate_ramp:
+            msg0 = self.limitSetpoint(msg0, time, self.old_msg0, self.old_time)
+            msg1 = self.limitSetpoint(msg1, time, self.old_msg1, self.old_time)
 
-        if msg1 > self.setpoint_limit:
-            msg1 = self.setpoint_limit
-        elif msg1 < -self.setpoint_limit:
-            msg1 = -self.setpoint_limit
+            if msg0 > self.setpoint_limit:
+                msg0 = self.setpoint_limit
+            elif msg0 < -self.setpoint_limit:
+                msg0 = -self.setpoint_limit
 
-        if self.thrusters_enabled:
-            print str(1500+msg0*400) + ' ' + str(1500+msg1*400)
-            self.controller.servo_write(self.left_thruster_pin,1500+msg0*400)
-            self.controller.servo_write(self.right_thruster_pin,1500+msg1*400)
+            if msg1 > self.setpoint_limit:
+                msg1 = self.setpoint_limit
+            elif msg1 < -self.setpoint_limit:
+                msg1 = -self.setpoint_limit
 
-        self.old_time = time
-        self.old_msg0 = msg0
-        self.old_msg1 = msg1
+            self.old_time = time
+            self.old_msg0 = msg0
+            self.old_msg1 = msg1
 
-        msg.setpoints = [msg0, msg1]
-        self.setpoints_corrected.publish(msg)
+
+        # Setpoint to thrusters
+        self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
+        self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
+
+        corrected = Setpoints()
+        corrected.setpoints = [0, msg0, msg1]
+        self.setpoints_corrected.publish(corrected)
 
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")
@@ -196,6 +176,9 @@ class ArduinoROS():
         finally:
             rospy.loginfo("Serial port closed.")
             os._exit(0)
+
+    def setpoint_conversion(self, setpoint):
+        return 1500+setpoint*400
 
 if __name__ == '__main__':
 

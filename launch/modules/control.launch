@@ -26,5 +26,7 @@
 
     <!-- Thrusters -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/thrusters.yaml"/>
-    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="$(arg output)" name="thrusters"/>
+    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="$(arg output)" name="thrusters">
+        <remap from="setpoints" to="controller/thrusters_data"/> 
+    </node>
 </launch>

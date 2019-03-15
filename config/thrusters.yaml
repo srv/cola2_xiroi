@@ -6,7 +6,8 @@ base_frame: base_link
 #Thrusters pins
 left_thruster_pin: 1
 right_thruster_pin: 0
-#Thrusters controller
-rising_rate: 0.1
+#Setpoints ramp
+activate_ramp: True
+rising_rate: 0.3
 falling_rate: 1
-setpoint_limit: 0.8
+setpoint_limit: 0.7
