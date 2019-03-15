@@ -16,6 +16,8 @@
             <param name="topic_name" value="sensors/gps_raw"/>
             <param name="use_ned_origin" value="true"/>
         </node>
+        <include unless="$(arg simGPS)" file="$(find cola2_xiroi)/launch/modules/gps_emlid.launch">
+        </include>
     </group>
 
     
@@ -28,6 +30,11 @@
         <remap from="imu/mag" to="sensors/mag_raw_driver"/>         
         <remap from="imu/data" to="sensors/imu_raw"/>      
     </node> -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>
+        <node name="imu_angle_estimator" pkg="cola2_xiroi" type="imu_angle_estimator.py" output="screen">
+            <remap from="mag" to="sensors/mag_raw_driver" />
+            <remap from="imu" to="sensors/imu_raw_driver" />
+    </node>
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
       <remap from="odometry/filtered" to="ekf_map/odometry"/>
