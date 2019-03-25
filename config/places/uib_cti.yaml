@@ -1,0 +1,9 @@
+navigator/ned_latitude: 39.636833748
+navigator/ned_longitude: 2.644178723
+
+sensors/imu/soft_iron: [[0.0496001, -0.00122999, 0.0551226], [-0.00122999, 0.0460675, -0.00928906], [0.0551226, -0.00928906, 0.996711]]
+sensors/imu/hard_iron: [[274.886], [424.475], [202.082]]
+
+# imu_madgwick/mag_bias_x: 274.886
+# imu_madgwick/mag_bias_y: 424.475
+# imu_madgwick/mag_bias_z: 202.082

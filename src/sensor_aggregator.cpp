@@ -44,8 +44,41 @@ void SensorAggregator::updateImu(const ImuMsg& msg) {
     mutex::scoped_lock lock(mutex_imu_);
     imu_msg_ = msg;
   }
+  // Transform from NED to ENU to work with the Robot Localization Filter
+  // double ax, ay, az, wx, wy, wz;
+  // ax = msg.linear_acceleration.x;
+  // ay = msg.linear_acceleration.y;
+  // az = msg.linear_acceleration.z;
+  // wx = msg.angular_velocity.x;
+  // wy = msg.angular_velocity.y;
+  // wz = msg.angular_velocity.z;
+  // tf::Quaternion q(msg.orientation.x,
+  //                  msg.orientation.y,
+  //                  msg.orientation.z,
+  //                  msg.orientation.w);
+  // // Quaternion to Euler
+  // tf::Matrix3x3 m(q);
+  // double roll, pitch, yaw;
+  // m.getRPY(roll, pitch, yaw);
+  // // Euler to Quaternion
+  // tf::Quaternion q2;
+  // q2.setEuler(-yaw, roll, pitch);
+
+  // ImuMsg imu_msg;
+  // imu_msg.header.stamp = msg.header.stamp;
+  // imu_msg.header.frame_id = msg.header.frame_id;
+  // imu_msg.linear_acceleration.x = ay;
+  // imu_msg.linear_acceleration.y = ax;
+  // imu_msg.linear_acceleration.z = - az;
+  // imu_msg.angular_velocity.x = wy;
+  // imu_msg.angular_velocity.y = wx;
+  // imu_msg.angular_velocity.z = - wz;
+  // imu_msg.orientation.x = q2[0];
+  // imu_msg.orientation.y = q2[1];
+  // imu_msg.orientation.z = q2[2];
+  // imu_msg.orientation.w = q2[3];
+
   imu_->publish(msg);
-  
 }
 
 void SensorAggregator::updateGps(const GpsMsg& msg) {
