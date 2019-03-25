@@ -26,6 +26,7 @@ class Mag_Calibration:
         # Publisher
         self.pub = rospy.Publisher('mag', MagneticField, queue_size = 2)
 
+        # ADD services 
 
 
     def magCb(self, msg):
@@ -39,6 +40,15 @@ class Mag_Calibration:
         msg.magnetic_field.z = mag_calib[2]
         msg.magnetic_field_covariance = [0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01]
         self.pub.publish(msg)
+
+    def startCalibration(self): # SERVICE Store MAG measurements
+        return
+
+    def computeCalibration(self): # SERVICE Compute calibration
+        return
+
+    def removeData(self): # SERVICE Remove MAG data
+        return
 
 
 if __name__ == '__main__':
