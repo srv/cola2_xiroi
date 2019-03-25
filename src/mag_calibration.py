@@ -19,7 +19,6 @@ class Mag_Calibration:
         # Get calibration params
         self.soft_iron = rospy.get_param("sensors/imu/soft_iron")
         self.hard_iron = rospy.get_param("sensors/imu/hard_iron")
-        self.mag_covariance = rospy.get_param("sensors/imu/covariance", [0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01])
 
         # Subscriber
         rospy.Subscriber('mag_driver', MagneticField, self.magCb, queue_size=1)
@@ -38,7 +37,7 @@ class Mag_Calibration:
         msg.magnetic_field.x = mag_calib[0]
         msg.magnetic_field.y = mag_calib[1]
         msg.magnetic_field.z = mag_calib[2]
-        msg.magnetic_field_covariance = self.mag_covariance
+        msg.magnetic_field_covariance = [0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01]
         self.pub.publish(msg)
 
 

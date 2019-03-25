@@ -15,7 +15,7 @@
     <arg name="enableIqua" default="false"/>
     <!-- Bagfile -->
     <arg name="dataset"    	default="imu_razor_test"/>
-    <arg name="rate"    	default="2"/>
+    <arg name="rate"    	default="1"/>
 
 
     <!-- Play bagfile -->

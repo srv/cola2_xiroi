@@ -3,7 +3,7 @@ imu_madgwick:
   stateless: false
   constant_dt: 0.0
   publish_debug_topics: false
-  world_frame: ned
+  world_frame: enu
   use_mag: true
   use_magnetic_field_msg: true
   fixed_frame: odom
