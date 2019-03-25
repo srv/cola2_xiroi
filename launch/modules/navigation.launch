@@ -18,6 +18,8 @@
             <param name="topic_name" value="sensors/gps_raw"/>
             <param name="use_ned_origin" value="true"/>
         </node>
+        <include unless="$(arg simGPS)" file="$(find cola2_xiroi)/launch/modules/gps_emlid.launch">
+        </include>
     </group>
 
     
