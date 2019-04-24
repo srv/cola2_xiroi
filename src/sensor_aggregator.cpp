@@ -64,24 +64,24 @@ void SensorAggregator::updateImu(const ImuMsg& msg) {
 
   // Euler to Quaternion
   tf::Quaternion q2;
-  q2.setEuler(-yaw, -pitch, roll);
+  q2.setEuler(yaw, pitch, roll);
 
   ImuMsg imu_msg;
   imu_msg.header.stamp = msg.header.stamp;
   imu_msg.header.frame_id = msg.header.frame_id;
 
-  imu_msg.linear_acceleration.x = ay;
-  imu_msg.linear_acceleration.y = ax;
+  imu_msg.linear_acceleration.x = ax;
+  imu_msg.linear_acceleration.y = ay;
   imu_msg.linear_acceleration.z = az;
 
-  imu_msg.angular_velocity.x = wy;
-  imu_msg.angular_velocity.y = wx;
+  imu_msg.angular_velocity.x = wx;
+  imu_msg.angular_velocity.y = wy;
   imu_msg.angular_velocity.z = wz;
 
-  imu_msg.orientation.x = q2[1];
-  imu_msg.orientation.y = q2[2];
-  imu_msg.orientation.z = q2[3];
-  imu_msg.orientation.w = q2[0];
+  imu_msg.orientation.x = q2[0];
+  imu_msg.orientation.y = q2[1];
+  imu_msg.orientation.z = q2[2];
+  imu_msg.orientation.w = q2[3];
 
   imu_->publish(imu_msg);
 }

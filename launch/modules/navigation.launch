@@ -42,11 +42,11 @@
         <!-- <node pkg="imu_complementary_filter" type="complementary_filter_node" name="imu_complementary_filter" output="screen">
             <param name="do_bias_estimation" value="true"/>
             <param name="do_adaptive_gain" value="true"/>
-            <param name="use_mag" value="false"/>
+            <param name="use_mag" value="true"/>
             <param name="gain_acc" value="0.01"/>
             <param name="gain_mag" value="0.01"/>
-            <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>    
-            <remap from="imu/mag" to="sensors/mag_raw_driver"/>         
+            <remap from="imu/data_raw" to="sensors/imu_cal_driver"/>    
+            <remap from="imu/mag" to="sensors/mag_cal_driver"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>
         </node> -->
         
@@ -61,7 +61,7 @@
     </group>
     <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
-    <!-- <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/> -->
+    <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
       <remap from="odometry/filtered" to="ekf_map/odometry"/>
       <remap from="odometry/path" to="ekf_map/path"/>
