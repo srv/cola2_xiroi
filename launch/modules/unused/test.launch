@@ -1,14 +1,15 @@
 <launch>
   <!-- PARAMS -->
   <arg name="imu_node" default="false"/>
-  <arg name="imu_node_extend" default="true" />
-  <arg name="emlid_gps" default="false" />
+  <arg name="enableGPS" default="true" />
+
 
   <!-- CONFIGS -->
   <arg name="razor_config_file" default="$(find cola2_xiroi)/config/imu_razor.yaml"/>
-  <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
+  <rosparam command="load" file="$(find cola2_xiroi)/config/gps_emlid.yaml" />
 
-  <group if="$(arg imu_node_extend)">
+  <!-- IMU -->
+  <group unless="$(arg imu_node)">
     <node pkg="razor_imu_9dof" type="imu_node_extend.py" name="imu_node" output="screen">
       <rosparam file="$(arg razor_config_file)" command="load"/>
       <remap from="imu_raw" to="/xiroi/sensors/imu_raw_driver"/>
@@ -16,18 +17,17 @@
       <remap from="imu_cal" to="/xiroi/sensors/imu_cal_driver"/>
       <remap from="mag_cal" to="/xiroi/sensors/mag_cal_driver"/>
     </node> 
-    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-        <remap from="imu/data_raw" to="/xiroi/sensors/imu_raw_driver"/>    
-        <remap from="imu/mag" to="/xiroi/sensors/mag_raw_driver"/>         
-        <remap from="imu/data" to="sensors/imu_raw"/>      
-    </node>
   </group>
-
   <group if="$(arg imu_node)">
     <node pkg="razor_imu_9dof" type="imu_node.py" name="imu_node" output="screen">
       <rosparam file="$(arg razor_config_file)" command="load"/>
+      <remap from="imu" to="/xiroi/sensors/imu_raw"/>
     </node>
   </group>
 
-  <include if="$(arg emlid_gps)" file="$(find cola2_xiroi)/launch/modules/gps_emlid.launch"/>
+  <!-- GPS -->
+  <node if="$(arg enableGPS)" name="emlid_driver" pkg="emlid_reach_tcp" type="emlid_driver.py" output="screen">
+    <remap from="emlid_gps" to="/xiroi/sensors/gps_raw" />
+    <remap from="/diagnostics" to="/xiroi/sensors/gps_diagnostics" />
+  </node>
 </launch>
