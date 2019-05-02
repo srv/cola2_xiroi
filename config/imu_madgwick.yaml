@@ -1,6 +1,6 @@
 imu_madgwick:
   gain: 0.1
-  stateless: true
+  stateless: false
   constant_dt: 0.0
   publish_debug_topics: false
   world_frame: enu

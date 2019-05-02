@@ -26,31 +26,17 @@
 
     
     <!-- Localization -->
-    <!-- <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
+    <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
       <remap from="mag_driver" to="sensors/mag_raw_driver"/>
       <remap from="mag" to="sensors/mag"/>  
-    </node> -->
+    </node>
     <group if="$(arg enableMadgwick)">
         <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
         <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-            <remap from="imu/data_raw" to="sensors/imu_cal_driver"/>    
-            <remap from="imu/mag" to="sensors/mag_cal_driver"/>         
+            <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>    
+            <remap from="imu/mag" to="sensors/mag"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>
-
-        <!-- IMU COMPLEMENTARY FILTER -->
-        <!-- <node pkg="imu_complementary_filter" type="complementary_filter_node" name="imu_complementary_filter" output="screen">
-            <param name="do_bias_estimation" value="true"/>
-            <param name="do_adaptive_gain" value="true"/>
-            <param name="use_mag" value="true"/>
-            <param name="gain_acc" value="0.01"/>
-            <param name="gain_mag" value="0.01"/>
-            <remap from="imu/data_raw" to="sensors/imu_cal_driver"/>    
-            <remap from="imu/mag" to="sensors/mag_cal_driver"/>         
-            <remap from="imu/data" to="sensors/imu_raw"/>
-        </node> -->
-        
-       
     </group>
     <group unless="$(arg enableMadgwick)">
         <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>

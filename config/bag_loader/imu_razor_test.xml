@@ -5,8 +5,8 @@
 
 	<!-- Mission -->
 	<arg name="path"   	 default= "/media/eric-uib/HardDisk/xiroi/bag/" />
-	<arg name="mission"  default= "/2019_03_15_imu_razor_outdoors/antena" />
-	<arg name="file0"    default= "/trip.bag" />
+	<arg name="mission"  default= "/tests_imu_tripode/" />
+	<arg name="file0"    default= "/gps_traj_5.bag" />
 
 
 	<arg name="bags"   	default= "$(arg path)$(arg mission)$(arg file0)" />
