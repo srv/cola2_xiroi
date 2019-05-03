@@ -1,10 +1,10 @@
 navigator/ned_latitude: 39.636833748
 navigator/ned_longitude: 2.644178723
 
-sensors/imu/soft_iron: [[1.04998, -0.0170736, 0.00425773], [-0.0170736, 1.11258, 0.00586885], [0.00425773, 0.00586885, 1.00087]]
-sensors/imu/hard_iron: [[-189.612], [300.47], [-87.3188]]
-# sensors/imu/soft_iron: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-# sensors/imu/hard_iron: [[0], [0], [0]]
+#sensors/imu/soft_iron: [[1.04998, -0.0170736, 0.00425773], [-0.0170736, 1.11258, 0.00586885], [0.00425773, 0.00586885, 1.00087]]
+#sensors/imu/hard_iron: [[-189.612], [300.47], [-87.3188]]
+sensors/imu/soft_iron: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+sensors/imu/hard_iron: [[0], [0], [0]]
 
 # imu_madgwick/mag_bias_x: -189.612
 # imu_madgwick/mag_bias_y: 300.47

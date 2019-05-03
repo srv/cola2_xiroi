@@ -36,9 +36,12 @@ class Mag_Calibration:
         #mag_calib =  self.soft_iron * (mag_input - self.hard_iron)  
         mag_calib =  mag_input + self.hard_iron
 
-        msg.magnetic_field.x = -mag_calib[1]
+        # NWU to ENU
+        msg.magnetic_field.x = - mag_calib[1]
         msg.magnetic_field.y = mag_calib[0]
         msg.magnetic_field.z = mag_calib[2]
+
+
         msg.magnetic_field_covariance = [0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01]
         self.pub.publish(msg)
 
