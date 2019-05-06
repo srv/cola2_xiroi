@@ -23,17 +23,19 @@
         <include unless="$(arg simGPS)" file="$(find cola2_xiroi)/launch/modules/gps_emlid.launch">
         </include>
     </group>
-
     
     <!-- Localization -->
     <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
       <remap from="mag_driver" to="sensors/mag_raw_driver"/>
       <remap from="mag" to="sensors/mag"/>  
+      <remap from="imu_driver" to="/xiroi/sensors/imu_raw_driver"/>
+      <remap from="imu" to="/xiroi/sensors/imu_cal"/>  
     </node>
+
     <group if="$(arg enableMadgwick)">
         <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
         <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-            <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>    
+            <remap from="imu/data_raw" to="sensors/imu_cal"/>    
             <remap from="imu/mag" to="sensors/mag"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>

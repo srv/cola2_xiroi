@@ -1,7 +1,7 @@
 <launch>
   <!-- PARAMS -->
   <arg name="imu_node" default="false"/>
-  <arg name="enableGPS" default="true" />
+  <arg name="enableGPS" default="false" />
 
 
   <!-- CONFIGS -->
@@ -24,6 +24,14 @@
       <remap from="imu" to="/xiroi/sensors/imu_raw"/>
     </node>
   </group>
+
+  <!-- MAG CALIBRATION -->
+  <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
+      <remap from="mag_driver" to="/xiroi/sensors/mag_raw_driver"/>
+      <remap from="mag" to="/xiroi/sensors/mag"/>  
+      <remap from="imu_driver" to="/xiroi/sensors/imu_raw_driver"/>
+      <remap from="imu" to="/xiroi/sensors/imu"/>  
+    </node>
 
   <!-- GPS -->
   <node if="$(arg enableGPS)" name="emlid_driver" pkg="emlid_reach_tcp" type="emlid_driver.py" output="screen">
