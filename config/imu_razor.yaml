@@ -1,5 +1,4 @@
 ## USB port
-#port: /dev/serial/by-id/usb-SparkFun_SFE_9DOF-D21_A4C791D251504B5259202020FF0B1B41-if00
 port: /dev/serial/by-id/usb-SparkFun_SFE_9DOF-D21_672B10C651504B5259202020FF0C1213-if00
 #port: /dev/ttyACM0
 frame_id: xiroi/imu
@@ -7,32 +6,32 @@ frame_id: xiroi/imu
 
 ##### Calibration ####
 ### accelerometer
-#accel_x_min: -260.74
-#accel_x_max: 260.13
-#accel_y_min: -256.84
-#accel_y_max: 288.33
-#accel_z_min: -329.96
-#accel_z_max: 423.10
+accel_x_min: -1257.69
+accel_x_max: 2935.18
+accel_y_min: -1675.17
+accel_y_max: 2362.17
+accel_z_min: -2043.58
+accel_z_max: 3245.24
+
+### gyroscope
+gyro_average_offset_x: -0.02
+gyro_average_offset_y: -0.01
+gyro_average_offset_z: -0.02
 
 ### magnetometer
 # standard calibration
-magn_x_min: -45.01
-magn_x_max: 603.15
-magn_y_min: 93.02
-magn_y_max: 913.73
-magn_z_min: -505.63
-magn_z_max: 180.05
+magn_x_min: -201.05
+magn_x_max: 507.13
+magn_y_min: -442.61
+magn_y_max: 522.13
+magn_z_min: -265.57
+magn_z_max: 384.10
 
 # extended calibration
 calibration_magn_use_extended: true
-#magn_ellipsoid_center: [[189.612], [-300.47], [87.3188]]
-#magn_ellipsoid_transform: [[0.952653, 0.0146411, -0.00413849], [0.0146411, 0.899062, -0.00533419], [-0.00413849, -0.00533419, 0.999185]]
-magn_ellipsoid_center: [[197.684], [-8.67689], [-84.1429]]
-magn_ellipsoid_transform: [[0.920206, 0.00337019, -0.00383013], [0.00337019, 0.882028, 0.000987613], [-0.00383013, 0.000987613, 0.99981]]
+magn_ellipsoid_center: [[148.175], [159.069], [63.9902]]
+magn_ellipsoid_transform: [[0.914400, 0.000659972, 0.000617191], [0.000659972, 0.884094, -0.00244269], [0.000617191, -0.00244269, 0.999944]]
 # AHRS to robot calibration
-imu_yaw_calibration: -1.5708
+imu_yaw_calibration: 0.0 #1.57079632679
 
-### gyroscope
-#gyro_average_offset_x: -0.01
-#gyro_average_offset_y: -0.02
-#gyro_average_offset_z: 0.01
+
