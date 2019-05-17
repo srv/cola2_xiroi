@@ -2,7 +2,7 @@
 
 # ----------- ODOMETRY: CONTINUOUS DATA -----------
 ekf_map:
-  frequency: 25
+  frequency: 50
   sensor_timeout: 0.1
   two_d_mode: true
   transform_time_offset: 0.0
@@ -14,7 +14,7 @@ ekf_map:
   odom_frame: xiroi/odom
   base_link_frame: xiroi/base_link
   world_frame: xiroi/odom
-  
+   
   pose0: sensors/gps  
   pose0_differential: false
   pose0_relative: false
@@ -31,16 +31,14 @@ ekf_map:
                 true,  true,  true,
                 false, false, false,
                 true,  true,  true,
-                true,  true,  true]
-  imu0_nodelay: true
+                true,  true,  false]
+              
+  imu0_nodelay: false 
   imu0_differential: false
   imu0_relative: false
   imu0_queue_size: 10
-  imu0_pose_rejection_threshold: 0.8             
-  imu0_twist_rejection_threshold: 0.8
   imu0_linear_acceleration_rejection_threshold: 0.8  
-  imu0_remove_gravitational_acceleration: false
-
+  imu0_remove_gravitational_acceleration: true 
   use_control: false
 
   process_noise_covariance: [1e-3,  0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
