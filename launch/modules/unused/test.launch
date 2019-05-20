@@ -1,11 +1,12 @@
 <launch>
   <!-- PARAMS -->
-  <arg name="imu_node" default="false"/>
+  <arg name="imu_node" default="true"/>
   <arg name="enableGPS" default="false" />
 
 
   <!-- CONFIGS -->
-  <arg name="razor_config_file" default="$(find cola2_xiroi)/config/imu_razor.yaml"/>
+  <!-- <arg name="razor_config_file" default="$(find cola2_xiroi)/config/imu_razor.yaml"/> -->
+  <arg name="razor_config_file" default="$(find razor_imu_9dof)/config/razor.yaml"/>
   <rosparam command="load" file="$(find cola2_xiroi)/config/gps_emlid.yaml" />
 
   <!-- IMU -->
@@ -26,12 +27,12 @@
   </group>
 
   <!-- MAG CALIBRATION -->
-  <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
+  <!-- <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
       <remap from="mag_driver" to="/xiroi/sensors/mag_raw_driver"/>
       <remap from="mag" to="/xiroi/sensors/mag"/>  
       <remap from="imu_driver" to="/xiroi/sensors/imu_raw_driver"/>
       <remap from="imu" to="/xiroi/sensors/imu"/>  
-    </node>
+    </node> -->
 
   <!-- GPS -->
   <node if="$(arg enableGPS)" name="emlid_driver" pkg="emlid_reach_tcp" type="emlid_driver.py" output="screen">
