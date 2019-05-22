@@ -1,6 +1,8 @@
 <launch>
     <arg name="sim"/>
     <arg name="simGPS"/>
+    <arg name="enableMadgwick"/>
+
 
     <!--Frames-->
     <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
@@ -10,6 +12,8 @@
     <group unless="$(arg sim)">
         <!-- IMU -->
         <include file="$(find cola2_xiroi)/launch/modules/imu_razor.launch"/>
+        <!-- <include file="$(find cola2_xiroi)/launch/modules/imu_memsense.launch"/> -->
+
         <!-- GPS -->
         <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
             <param name="frame_id" value="world_ned"/>
@@ -22,19 +26,20 @@
 
     
     <!-- Localization -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
+    <group if="$(arg enableMadgwick)">
+        <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
+                <remap from="mag_driver" to="sensors/mag_raw_driver"/>
+                <remap from="mag" to="sensors/mag"/>  
+        </node>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
+        <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
+            <remap from="imu/data_raw" to="sensors/imu_cal_driver"/>    
+            <remap from="imu/mag" to="sensors/mag_cal_driver"/>         
+            <remap from="imu/data" to="sensors/imu_raw"/>      
+        </node>
+    </group>
     <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
-    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-        <remap from="imu/data_raw" to="sensors/imu_raw_driver"/>    
-        <remap from="imu/mag" to="sensors/mag_raw_driver"/>         
-        <remap from="imu/data" to="sensors/imu_raw"/>      
-    </node>
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>
-        <node name="imu_angle_estimator" pkg="cola2_xiroi" type="imu_angle_estimator.py" output="screen">
-            <remap from="mag" to="sensors/mag_raw_driver" />
-            <remap from="imu" to="sensors/imu_raw_driver" /> 
-    </node>-->
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_map" output="screen" clear_params="true">
       <remap from="odometry/filtered" to="ekf_map/odometry"/>

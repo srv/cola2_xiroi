@@ -1,11 +1,12 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="uib_outdoors.yaml"/>
+    <arg name="place" default="uib_cti.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
     <arg name="simGPS" default="true"/>
+    <arg name="enableMadgwick" default="true"/>
     <!-- Core -->
     <arg name="enableSafety" default="false"/>
     <arg name="enableThrusters" default="false"/>
@@ -31,6 +32,7 @@
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="sim" value="$(arg sim)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
+            <arg name="enableMadgwick" value="$(arg enableMadgwick)"/>
             <arg name="enableSafety" value="$(arg enableSafety)"/>
             <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>

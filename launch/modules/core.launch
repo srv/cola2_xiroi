@@ -6,6 +6,7 @@
     <!-- Flags -->
     <arg name="sim"/>
     <arg name="simGPS"/>
+    <arg name="enableMadgwick"/>
 
     <arg name="enableSafety"/>
     <arg name="enableThrusters"/>
@@ -20,8 +21,9 @@
 
     <!--  #################  Run Navigation Stack  #################  -->
     <include file="$(find cola2_xiroi)/launch/modules/navigation.launch">
-        <arg name="sim"         value="$(arg sim)"/>
-        <arg name="simGPS"      value="$(arg simGPS)"/>
+        <arg name="sim"             value="$(arg sim)"/>
+        <arg name="simGPS"          value="$(arg simGPS)"/>
+        <arg name="enableMadgwick"  value="$(arg enableMadgwick)"/>
     </include>
    
     <!--  #################  Run Control Stack  #################-->

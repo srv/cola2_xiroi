@@ -1,9 +1,10 @@
 imu_madgwick:
+  gain: 0.1
   stateless: true
-  fixed_frame: odom
-  publish_tf: false
   constant_dt: 0.0
   publish_debug_topics: false
+  world_frame: enu
   use_mag: true
   use_magnetic_field_msg: true
-  world_frame: enu
+  fixed_frame: odom
+  publish_tf: false

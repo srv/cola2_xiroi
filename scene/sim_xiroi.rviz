@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /tf1/Frames1
-        - /navigator_odometry1
         - /simulated_odometry1
       Splitter Ratio: 0.39808917
     Tree Height: 587
@@ -47,8 +46,6 @@ Visualization Manager:
           Value: true
         xiroi/base_link:
           Value: true
-        xiroi/dynamics:
-          Value: true
         xiroi/gps:
           Value: true
         xiroi/imu:
@@ -67,8 +64,6 @@ Visualization Manager:
       Tree:
         world:
           world_ned:
-            xiroi/dynamics:
-              {}
             xiroi/odom:
               xiroi/base_link:
                 xiroi/gps:
@@ -128,7 +123,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 100
       Name: navigator_odometry
       Position Tolerance: 0.100000001
@@ -144,7 +139,7 @@ Visualization Manager:
         Value: Arrow
       Topic: /xiroi/ekf_map/odometry
       Unreliable: false
-      Value: false
+      Value: true
     - Class: rviz/MarkerArray
       Enabled: false
       Marker Topic: /xiroi/navigator/markers/landmarks
@@ -269,11 +264,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 56.5594025
+      Scale: 206.80986
       Target Frame: xiroi/base_link
       Value: TopDownOrtho (rviz)
-      X: 1.74397898
-      Y: 1.2112664
+      X: 1.29016352
+      Y: -0.387400299
     Saved: ~
 Window Geometry:
   Displays:

@@ -4,7 +4,7 @@
     <rosparam file="$(arg razor_config_file)" command="load"/>
     <remap from="imu_raw" to="/xiroi/sensors/imu_raw_driver"/>
     <remap from="mag_raw" to="/xiroi/sensors/mag_raw_driver"/>
-    <remap from="imu_cal" to="/xiroi/sensors/imu_cal_driver"/>
-    <remap from="mag_cal" to="/xiroi/sensors/mag_cal_driver"/>
+    <remap from="imu_cal" to="/xiroi/sensors/imu_cal_driver"/> <!-- Madgwick -->
+    <remap from="mag_cal" to="/xiroi/sensors/mag_cal_driver"/> <!-- Madgwick -->
   </node>
 </launch>
