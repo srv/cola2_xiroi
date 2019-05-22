@@ -6,7 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /tf1/Frames1
+        - /navigator_odometry1
         - /Imu1
+        - /Imu1/Axes properties1
       Splitter Ratio: 0.691666663
     Tree Height: 587
   - Class: rviz/Views
@@ -14,6 +16,8 @@ Panels:
       - /Current View1
     Name: Views
     Splitter Ratio: 0.5
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -122,7 +126,7 @@ Visualization Manager:
           Color: 204; 51; 204
           Scale: 1
           Value: true
-        Value: true
+        Value: false
       Enabled: true
       Keep: 10000
       Name: navigator_odometry
@@ -210,23 +214,23 @@ Visualization Manager:
     - Acceleration properties:
         Acc. vector alpha: 1
         Acc. vector color: 255; 0; 0
-        Acc. vector scale: 1
-        Derotate acceleration: true
-        Enable acceleration: false
+        Acc. vector scale: 0.200000003
+        Derotate acceleration: false
+        Enable acceleration: true
       Axes properties:
-        Axes scale: 5
+        Axes scale: 2
         Enable axes: true
       Box properties:
         Box alpha: 1
         Box color: 255; 0; 0
-        Enable box: true
+        Enable box: false
         x_scale: 1
         y_scale: 1
         z_scale: 1
       Class: rviz_imu_plugin/Imu
       Enabled: true
       Name: Imu
-      Topic: /xiroi/sensors/imu_raw
+      Topic: /xiroi/sensors/imu
       Unreliable: false
       Value: true
       fixed_frame_orientation: true
@@ -243,7 +247,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.285000205
+      Angle: -0.555000186
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -253,11 +257,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 41.4571877
+      Scale: 151.268814
       Target Frame: xiroi/base_link
       Value: TopDownOrtho (rviz)
-      X: 6.29141283
-      Y: -1.6688633
+      X: 1.92704165
+      Y: -0.283970356
     Saved: ~
 Window Geometry:
   Displays:

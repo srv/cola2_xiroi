@@ -23,7 +23,6 @@
         <include unless="$(arg simGPS)" file="$(find cola2_xiroi)/launch/modules/gps_emlid.launch">
         </include>
     </group>
-
     
     <!-- Localization -->
     <group if="$(arg enableMadgwick)">
@@ -33,8 +32,8 @@
         </node>
         <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
         <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-            <remap from="imu/data_raw" to="sensors/imu_cal_driver"/>    
-            <remap from="imu/mag" to="sensors/mag_cal_driver"/>         
+            <remap from="imu/data_raw" to="sensors/imu_cal"/>    
+            <remap from="imu/mag" to="sensors/mag"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>
     </group>
