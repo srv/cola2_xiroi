@@ -55,7 +55,7 @@ class ArduinoROS():
         r = rospy.Rate(self.rate)
 
         # Callback for thrusters
-        rospy.Subscriber("/setpoints", Setpoints, self.thruster_callback)
+        rospy.Subscriber("setpoints", Setpoints, self.thruster_callback)
 
         # Publishers
         self.setpoints_corrected = rospy.Publisher("setpoints_corrected", Setpoints, queue_size=1)
@@ -150,10 +150,12 @@ class ArduinoROS():
 
 
         # Setpoint to thrusters
+        print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
-
         corrected = Setpoints()
+        corrected.header.stamp = msg.header.stamp
+        corrected.header.seq = msg.header.seq
         corrected.setpoints = [0, msg0, msg1]
         self.setpoints_corrected.publish(corrected)
 

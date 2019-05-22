@@ -4,10 +4,10 @@ timeout: 0.5
 rate: 50
 base_frame: base_link
 #Thrusters pins
-left_thruster_pin: 1
-right_thruster_pin: 0
+left_thruster_pin: 0
+right_thruster_pin: 1
 #Setpoints ramp
 activate_ramp: True
-rising_rate: 0.3
+rising_rate: 0.4
 falling_rate: 1
 setpoint_limit: 0.7

@@ -3,30 +3,37 @@
     <arg name="robot_name"/>
     <arg name="enableThrusters"/>
     <arg name="openLoopTeleoperation"/>
-    <arg name="output" default="log"/>
+    <arg name="output" default="screen"/>
 
-    <!-- Teleoperation -->
+    <!-- Openloop -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>
-    <node unless="$(arg openLoopTeleoperation)" name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="$(arg output)"/>
-    <node if="$(arg openLoopTeleoperation)" name="open_loop_teleoperation" pkg="cola2_xiroi" type="teleoperation.py" output="$(arg output)"/>
-
-    <!-- Mission control -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/captain.yaml"/>
-    <node name="captain" pkg="cola2_control" type="captain" output="$(arg output)">
-        <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
+    <node if="$(arg openLoopTeleoperation)" name="teleoperation" pkg="cola2_xiroi" type="teleoperation.py" output="$(arg output)">
+        <remap from="setpoints" to="controller/thruster_setpoints"/> 
     </node>
 
-    <!-- Planner -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/pilot.yaml"/>
-    <node name="pilot" pkg="cola2_control" type="pilot" output="$(arg output)"/>
+    <!-- Pose Control -->
+    <group unless="$(arg openLoopTeleoperation)">
+        <!-- Teleoperation -->
+        <node name="teleoperation" pkg="cola2_control" type="teleoperation_node.py" output="$(arg output)"/>
 
-    <!-- Low level control -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/controller.yaml"/>
-    <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
+        <!-- Mission control -->
+        <rosparam command="load" file="$(find cola2_xiroi)/config/captain.yaml"/>
+        <node name="captain" pkg="cola2_control" type="captain" output="$(arg output)">
+            <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
+        </node>
+
+        <!-- Planner -->
+        <rosparam command="load" file="$(find cola2_xiroi)/config/pilot.yaml"/>
+        <node name="pilot" pkg="cola2_control" type="pilot" output="$(arg output)"/>
+
+        <!-- Low level control -->
+        <rosparam command="load" file="$(find cola2_xiroi)/config/controller.yaml"/>
+        <node name="controller" pkg="cola2_control" type="controller_only_thrusters"/>
+    </group>
 
     <!-- Thrusters -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/thrusters.yaml"/>
-    <node if="$(arg enableThrusters)" respawn="true" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py" output="$(arg output)" name="thrusters">
-        <remap from="setpoints" to="controller/thrusters_data"/> 
+    <node if="$(arg enableThrusters)" name="thruster_driver" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py"  respawn="true" output="$(arg output)" >
+        <remap from="setpoints" to="controller/thruster_setpoints"/> 
     </node>
 </launch>

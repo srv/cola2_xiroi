@@ -17,7 +17,7 @@ class Controller:
 
         # Publisher
         self.pub_thrusters_setpoints = rospy.Publisher(
-            '/xiroi/setpoints_req',
+            'setpoints',
             Setpoints,
             queue_size = 1)
 
@@ -58,9 +58,9 @@ class Controller:
         # rospy.loginfo( data.axes)
         forward = data.axes[6]
         clockwise_yaw = data.axes[11]
-        aux = np.array([0.0, 0.0])
-        aux[0] = forward + clockwise_yaw
-        aux[1] = forward - clockwise_yaw
+        aux = np.array([0.0, 0.0, 0.0])
+        aux[1] = forward + clockwise_yaw
+        aux[2] = forward - clockwise_yaw
         self.msg.setpoints = aux.clip(min=-1.0, max=1.0)
 
         # Publish message
@@ -80,7 +80,7 @@ class Controller:
             else:
                 rospy.loginfo("%s: we have lost map_ack!")
                 #set setpoints to 0
-                self.msg.setpoints = [0.0,0.0]
+                self.msg.setpoints = [0.0,0.0,0.0]
                 self.pub_thrusters_setpoints.publish(self.msg)
                 print "map_ack lost"
         else:

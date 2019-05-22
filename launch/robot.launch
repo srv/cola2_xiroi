@@ -5,7 +5,7 @@
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
     <!-- Core -->
     <arg name="enableSafety" default="false"/>
     <arg name="enableThrusters" default="false"/>
