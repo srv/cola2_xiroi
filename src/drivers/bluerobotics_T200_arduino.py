@@ -114,8 +114,8 @@ class ArduinoROS():
         # if time_dif<delay_threshold:
 
         #extract the second and thirth data from the setpoints message 
-        msg0=msg.setpoints[1];
-        msg1=msg.setpoints[2];
+        msg0=msg.setpoints[2];
+        msg1=msg.setpoints[1];
         
         # time=msg.header.stamp.to_sec()
         time=rospy.Time.now().to_sec()
