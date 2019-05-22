@@ -150,7 +150,7 @@ class ArduinoROS():
 
 
         # Setpoint to thrusters
-        print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
+        # print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
         corrected = Setpoints()
