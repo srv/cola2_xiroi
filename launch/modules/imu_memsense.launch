@@ -11,21 +11,26 @@
         <param name="imu_type"     value="nIMU_3temp" type="string" />
 
         <param name="accels_range" value="19.620000000000001" type="double" />
-        <param name="accel_bias_x" value="0.02" type="double" />
-        <param name="accel_bias_y" value="0.0" type="double" />
-        <param name="accel_bias_z" value="0.0" type="double" />
-        <param name="accels_var"   value="0.0" type="double" />
-
         <param name="gyros_range"  value="2.617993877991494" type="double" />
-        <param name="gyro_bias_x"  value=" 0.009295" type="double" />
-        <param name="gyro_bias_y"  value=" 0.017145" type="double" />
-        <param name="gyro_bias_z"  value="-0.002915" type="double" />
-        <param name="gyros_var"    value="0.0" type="double" />
-
         <param name="mags_range"   value="1.8999999999999999" type="double" />
-        <param name="mag_bias_x"   value="0.0" type="double" />
-        <param name="mag_bias_y"   value="0.0" type="double" />
-        <param name="mag_bias_z"   value="0.0" type="double" />
+
+
+        <param name="accel_bias_x" value="1.31392" type="double" />
+        <param name="accel_bias_y" value="0.933712" type="double" />
+        <param name="accel_bias_z" value="0.758749" type="double" />
+
+        <param name="gyro_bias_x"  value="0.0192" type="double" />
+        <param name="gyro_bias_y"  value="-0.0013" type="double" />
+        <param name="gyro_bias_z"  value="-0.0082" type="double" />
+
+        <param name="mag_bias_x"   value="0.0124142" type="double" />
+        <param name="mag_bias_y"   value="-0.0204217" type="double" />
+        <param name="mag_bias_z"   value="-0.0107939" type="double" />
+        <!-- float magn_ellipsoid_center[3] = {-0.0124142, 0.0204217, 0.0107939}; -->
+        <!-- float magn_ellipsoid_transform[3][3] = {{0.895491, 0.0545981, -0.0210078}, {0.0545981, 0.893628, 0.0387674}, {-0.0210078, 0.0387674, 0.985855}}; -->
+
+        <param name="accels_var"   value="0.0" type="double" />
+        <param name="gyros_var"    value="0.0" type="double" />
         <param name="mags_var"     value="0.0" type="double" />
 
                 
