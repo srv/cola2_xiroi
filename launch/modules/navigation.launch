@@ -11,8 +11,7 @@
     <!--Sensors-->
     <group unless="$(arg sim)">
         <!-- IMU -->
-        <include file="$(find cola2_xiroi)/launch/modules/imu_razor.launch"/>
-        <!-- <include file="$(find cola2_xiroi)/launch/modules/imu_memsense.launch"/> -->
+        <include file="$(find cola2_xiroi)/launch/modules/imu_memsense.launch"/>
 
         <!-- GPS -->
         <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
