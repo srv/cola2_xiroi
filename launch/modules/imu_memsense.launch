@@ -15,33 +15,33 @@
         <param name="mags_range"   value="1.8999999999999999" type="double" />
 
 
-        <param name="accel_bias_x" value="1.31392" type="double" />
-        <param name="accel_bias_y" value="0.933712" type="double" />
-        <param name="accel_bias_z" value="0.758749" type="double" />
+        <param name="accel_bias_x" value="-1.54475" type="double" />
+        <param name="accel_bias_y" value="-1.21532" type="double" />
+        <param name="accel_bias_z" value="-1.02359" type="double" />
 
         <param name="gyro_bias_x"  value="0.0192" type="double" />
-        <param name="gyro_bias_y"  value="-0.0013" type="double" />
-        <param name="gyro_bias_z"  value="-0.0082" type="double" />
+        <param name="gyro_bias_y"  value="-0.0016" type="double" />
+        <param name="gyro_bias_z"  value="-0.0065" type="double" />
 
-        <param name="mag_bias_x"   value="-0.0124142" type="double" />
-        <param name="mag_bias_y"   value="0.0204217" type="double" />
-        <param name="mag_bias_z"   value="0.0107939" type="double" />
-        <param name="mag_trans_xx" value="0.895491" type="double" />
-        <param name="mag_trans_xy" value="0.0545981" type="double" />
-        <param name="mag_trans_xz" value="-0.0210078" type="double" />
-        <param name="mag_trans_yx" value="0.0545981," type="double" />
-        <param name="mag_trans_yy" value="0.893628," type="double" />
-        <param name="mag_trans_yz" value="0.0387674" type="double" />
-        <param name="mag_trans_zx" value="-0.0210078" type="double" />
-        <param name="mag_trans_zy" value="0.0387674" type="double" />
-        <param name="mag_trans_zz" value="0.985855" type="double" />
+        <param name="mag_bias_x"   value="-0.0130931" type="double" />
+        <param name="mag_bias_y"   value="0.0119886" type="double" />
+        <param name="mag_bias_z"   value="0.0396038" type="double" />
+        <param name="mag_trans_xx" value="0.938791" type="double" />
+        <param name="mag_trans_xy" value="0.0536806" type="double" />
+        <param name="mag_trans_xz" value="-0.0228044" type="double" />
+        <param name="mag_trans_yx" value="0.0536806" type="double" />
+        <param name="mag_trans_yy" value="0.94832" type="double" />
+        <param name="mag_trans_yz" value="0.0346809" type="double" />
+        <param name="mag_trans_zx" value="-0.0228044" type="double" />
+        <param name="mag_trans_zy" value="0.0346809" type="double" />
+        <param name="mag_trans_zz" value="0.944665" type="double" />
 
         <param name="accels_var"   value="0.0" type="double" />
         <param name="gyros_var"    value="0.0" type="double" />
         <param name="mags_var"     value="0.0" type="double" />
 
                 
-        <remap from="imu/data" to="sensors/ "/>
+        <remap from="imu/data" to="sensors/imu_raw_driver"/>
         <remap from="imu/data_calibrated" to="sensors/imu_raw_calibrated"/>
         <remap from="imu/data_filtered" to="sensors/imu_raw_filtered"/>
         <remap from="imu/data_filtered_calibrated" to="sensors/imu_raw_filtered_calibrated"/>
