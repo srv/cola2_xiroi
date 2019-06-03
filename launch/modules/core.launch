@@ -36,7 +36,7 @@
     <!--  #################  Load other nodes  #################  -->
     <!-- Log -->
     <node name="bag_node" pkg="cola2_log" type="bag_node.py" output="screen"/>
-    <node respawn="true" pkg="cola2_log" type="default_param_handler.py" name="default_param_handler" output="screen">
+    <node name="default_param_handler"  pkg="cola2_log" type="default_param_handler.py" respawn="true" output="log">
         <param name="config_folder" value="config"/>
     </node>
 </launch>

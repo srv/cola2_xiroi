@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="uib_cti.yaml"/>
+    <arg name="place" default="safareig_campus.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -8,8 +8,8 @@
     <arg name="simGPS" default="false"/>
     <arg name="enableMadgwick" default="true"/>
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <!-- Payload -->
     <arg name="enableBumblebee" default="false"/>

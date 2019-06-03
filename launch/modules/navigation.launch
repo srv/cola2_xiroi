@@ -25,14 +25,14 @@
     
     <!-- Localization -->
     <group if="$(arg enableMadgwick)">
-        <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
+        <!-- <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
                 <remap from="mag_driver" to="sensors/mag_raw_driver"/>
                 <remap from="mag" to="sensors/mag"/>  
-        </node>
+        </node> -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
         <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-            <remap from="imu/data_raw" to="sensors/imu_cal"/>    
-            <remap from="imu/mag" to="sensors/mag"/>         
+            <remap from="imu/data_raw" to="sensors/imu_raw_calibrated"/>    
+            <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>
     </group>
