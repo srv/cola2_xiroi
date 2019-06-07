@@ -6,7 +6,7 @@
     <!-- Flags -->
     <arg name="sim" default="false"/>
     <arg name="simGPS" default="false"/>
-    <arg name="enableMadgwick" default="true"/>
+    <arg name="enableMadgwick" default="false"/>
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableThrusters" default="true"/>
