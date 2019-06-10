@@ -29,6 +29,8 @@ class SimActuatorsXi :
         """ Constructor """
         self.name = name
         self.last_trusters_update = rospy.Time().now()
+        # Params
+        self.num_thrusters = rospy.get_param("num_thrusters",default=2)
 
         # Create publishers
         self.pub_thrusters = rospy.Publisher(
@@ -55,7 +57,6 @@ class SimActuatorsXi :
         self.last_trusters_update = rospy.Time().now()
         msg = Setpoints()
         msg.header = thrusters.header
-
         # Linear approach with max rpm of 1200
         msg.setpoints = 1200 * np.array(thrusters.setpoints).clip(min=-1,
                                                                   max=1)
@@ -67,7 +68,7 @@ class SimActuatorsXi :
             not receiving data """
         if (rospy.Time().now() - self.last_trusters_update).to_sec() > 2.0:
             msg = Setpoints()
-            msg.setpoints = np.zeros(3)  # Number of thrusters here
+            msg.setpoints = np.zeros(self.num_thrusters)  # Number of thrusters here
             self.pub_thrusters.publish(msg)
 
 

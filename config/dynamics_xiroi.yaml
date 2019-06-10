@@ -3,7 +3,7 @@
 
 dynamics/use_force_topic: true
 #
-dynamics/number_of_thrusters: 5
+dynamics/number_of_thrusters: 2
 dynamics/thrusters_tau: 0.1
 dynamics/number_of_fins: 0
 dynamics/a_fins: 0

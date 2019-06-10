@@ -388,7 +388,9 @@ class Dynamics:
         current = self.compute_currents()
 
         # Runge-Kutta, 4th order
+
         k1_pos, k1_vel = self.step(self.p, self.v, self.old_u, self.old_f, current)
+
         k2_pos, k2_vel = self.step(self.p + self.period * 0.5 * k1_pos, self.v + self.period *
                                    0.5 * k1_vel, 0.5 * (self.old_u + self.u), 0.5 * (self.old_f + self.f), current)
         k3_pos, k3_vel = self.step(self.p + self.period * 0.5 * k2_pos, self.v + self.period *
@@ -400,10 +402,12 @@ class Dynamics:
                                                2.0 * k2_pos +
                                                2.0 * k3_pos +
                                                k4_pos)
+                                               
         self.v = self.v + self.period / 6.0 * (k1_vel +
                                                2.0 * k2_vel +
                                                2.0 * k3_vel +
                                                k4_vel)
+
 
         self.p[3] = wrap_angle(self.p[3])
         self.p[4] = wrap_angle(self.p[4])
@@ -445,10 +449,6 @@ class Dynamics:
         odom.pose.pose.position.x = self.p[0]
         odom.pose.pose.position.y = self.p[1]
         odom.pose.pose.position.z = self.p[2]
-
-	rospy.loginfo("self.p[3]: %i", self.p[3])
-	rospy.loginfo("self.p[4]: %i", self.p[4])
-	rospy.loginfo("self.p[5]: %i", self.p[5])
 
         orientation = tf.transformations.quaternion_from_euler(self.p[3], self.p[4], self.p[5], 'sxyz')
         odom.pose.pose.orientation.x = orientation[0]

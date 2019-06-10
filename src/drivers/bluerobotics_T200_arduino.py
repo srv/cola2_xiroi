@@ -48,7 +48,7 @@ class ArduinoROS():
         self.rising_rate = rospy.get_param("~rising_rate", 0.3)
         self.falling_rate = rospy.get_param("~falling_rate", 1.0)
         self.setpoint_limit = rospy.get_param("~setpoint_limit", 0.6)
-        self.first_time=True;
+        self.first_time=True
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))

@@ -6,11 +6,11 @@
 
     <!-- Flags -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableJoystick" default="false"/>
+    <arg name="enableJoystick" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
     <arg name="enableIqua" default="false"/>
-    <arg name="enableRviz" default="false"/>
+    <arg name="enableRviz" default="true"/>
 
 
     <!-- ROBOT -->
@@ -43,7 +43,7 @@
         <node name="sim_nav_sensors" pkg="cola2_xiroi" type="sim_nav_sensors.py" output="screen"/>
         <!-- Dynamics -->
         <rosparam command="load" ns="dynamics" file="$(find cola2_xiroi)/config/dynamics.yaml"/>
-        <node name="dynamics" pkg="cola2_sim" type="dynamics.py" output="screen">
+        <node name="dynamics" pkg="cola2_xiroi" type="dynamics.py" output="screen">
             <remap from="/$(arg robot_name)/controller/thruster_setpoints" to="/$(arg robot_name)/controller/thruster_rpm"/>
         </node>
         <!-- Internal -->

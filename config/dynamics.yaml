@@ -3,7 +3,7 @@
 
 use_force_topic: true
 #
-number_of_thrusters: 3
+number_of_thrusters: 2
 thrusters_tau: 0.1
 number_of_fins: 0
 a_fins: 0
@@ -26,16 +26,16 @@ dv: 0.35
 dh: 0.4
 density: 1000.0
 #
-thrusters_matrix: [0.0, 1.0, 1.0,
-                   0.0, 0.0, 0.0,
-                   0.0, 0.0, 0.0,
-                   0.0, 0.0, 0.0,
-                   0.0, 0.0, 0.0,
-                   0.0, -0.4, 0.4] # 0.0, -0.16783, 0.16783]
+thrusters_matrix: [1.0, 1.0,
+                   0.0, 0.0,
+                   0.0, 0.0,
+                   0.0, 0.0,
+                   0.0, 0.0,
+                   -0.4, 0.4]
 #
 tensor: [8.0, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 8.0]
-damping: [.0, -65.0, .0, -130.0, -130.0, -130.0]
-quadratic_damping: [-148.0, -148.0, -148.0, -180.0, -180.0, -180.0]
+damping: [.0, -15.0, .0, -200.0, -30.0, -30.0]
+quadratic_damping: [-38.0, -38.0, -38.0, -200.0, -50.0, -50.0]
 #
 #
 ## Meters and Rads [X, Y, Z, Roll, Pitch, Yaw]
