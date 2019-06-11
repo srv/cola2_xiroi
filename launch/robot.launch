@@ -5,11 +5,11 @@
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
-    <arg name="enableMadgwick" default="false"/>
+    <arg name="simGPS" default="true"/>
+
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <!-- Payload -->
     <arg name="enableBumblebee" default="false"/>
@@ -32,7 +32,6 @@
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="sim" value="$(arg sim)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
-            <arg name="enableMadgwick" value="$(arg enableMadgwick)"/>
             <arg name="enableSafety" value="$(arg enableSafety)"/>
             <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>
