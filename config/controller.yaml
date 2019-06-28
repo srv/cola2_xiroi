@@ -4,24 +4,35 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [-1.0, -1.0,
-                 0.0, 0.0,
-                 0.0, 0.0,
-                 0.0, 0.0,
-                 0.0, 0.0,
-                 -0.2587, 0.2587]
+controller/TCM: [0.0, 1.0, 1.0,
+                 0.0, 0.0, 0.0,
+                 0.0, 0.0, 0.0,
+                 0.0, 0.0, 0.0,
+                 0.0, 0.0, 0.0,
+                 0.0, -0.91, 0.91]
 
-# Thruster 1
-controller/thruster_1_poly_positive: [0.0, 1.0]
-controller/thruster_1_poly_negative: [0.0, 1.0]
-controller/thruster_1_max_force_positive: 77.0
-controller/thruster_1_max_force_negative: 43.0
+# Thruster 1 Right
+controller/thruster_1_poly_positive: [0.08840795, 0.02673127, -0.001059348, 0.00002167531, -7.318635e-8, 0.0 ]
+controller/thruster_1_poly_negative: [-0.08851049, -0.02377903, 0.0007218377, -0.00002925786, 4.229009e-7, 0.0]
+controller/thruster_1_max_force_positive: 32
+controller/thruster_1_max_force_negative: 30
 
-# Thruster 2
-controller/thruster_2_poly_positive: [0.0, 1.0]
-controller/thruster_2_poly_negative: [0.0, 1.0]
-controller/thruster_2_max_force_positive: 77.0
-controller/thruster_2_max_force_negative: 43.0
+# dret +
+# y = 0.08840795 + 0.02673127*x - 0.001059348*x^2 + 0.00002167531*x^3 - 7.318635e-8*x^4
+# esquerra +
+# y = -0.01374556 + 0.03255326*x - 0.001517637*x^2 + 0.00004865344*x^3 - 6.042736e-7*x^4 + 1.788113e-9*x^5
+# dret-
+# y = -0.08851049 - 0.02377903*x + 0.0007218377*x^2 - 0.00002925786*x^3 + 4.229009e-7*x^4
+# esquerra-
+# y = -0.08966519 - 0.03581142*x + 0.002352283*x^2 - 0.0001068795*x^3 + 0.00000168304*x^4 - 1.452702e-9*x^5
+# https://mycurvefit.com/
+
+
+# Thruster 2 Left
+controller/thruster_2_poly_positive: [-0.01374556, 0.03255326, -0.001517637, 0.00004865344, -6.042736e-7, 1.788113e-9]
+controller/thruster_2_poly_negative: [-0.08966519, -0.03581142, 0.002352283, -0.0001068795, 0.00000168304, -1.452702e-9]
+controller/thruster_2_max_force_positive: 32
+controller/thruster_2_max_force_negative: 30
 
 # Enable thrusters
 controller/enable_thrusters: False
