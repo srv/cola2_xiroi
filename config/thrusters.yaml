@@ -10,4 +10,8 @@ right_thruster_pin: 1
 activate_ramp: True
 rising_rate: 0.2
 falling_rate: 0.9
-setpoint_limit: 0.7
+setpoint_limit: 1.0
+
+#Thruster characteristics
+zero_pwm: 1500
+max_pwm: 1700 # 1900 MAX for 16v

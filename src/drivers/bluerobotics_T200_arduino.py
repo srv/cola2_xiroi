@@ -47,7 +47,9 @@ class ArduinoROS():
         self.activate_ramp = rospy.get_param("~activate_ramp", True)
         self.rising_rate = rospy.get_param("~rising_rate", 0.3)
         self.falling_rate = rospy.get_param("~falling_rate", 1.0)
-        self.setpoint_limit = rospy.get_param("~setpoint_limit", 0.6)
+        self.setpoint_limit = rospy.get_param("~setpoint_limit", 1.0)
+        self.zero_pwm = rospy.get_param("~zero_pwm", 1500)
+        self.max_pwm = rospy.get_param("~max_pwm", 1700)
         self.first_time=True
 
         # Overall loop rate: should be faster than fastest sensor rate
@@ -105,7 +107,6 @@ class ArduinoROS():
     #     #1900 => max thrust positive
     #     #1500 => 0A
     #     #1100 => max thrust negative
-
         actual_time=rospy.Time.now()
         message_time=msg.header.stamp
         delay_threshold=rospy.Duration(0,650000)
@@ -114,8 +115,8 @@ class ArduinoROS():
         # if time_dif<delay_threshold:
 
         #extract the second and thirth data from the setpoints message 
-        msg0=msg.setpoints[2];
-        msg1=msg.setpoints[1];
+        msg0=msg.setpoints[1];
+        msg1=msg.setpoints[0];
         
         # time=msg.header.stamp.to_sec()
         time=rospy.Time.now().to_sec()
@@ -157,6 +158,7 @@ class ArduinoROS():
         corrected.header.stamp = msg.header.stamp
         corrected.header.seq = msg.header.seq
         corrected.setpoints = [0, msg0, msg1]
+        print self.setpoint_conversion(msg0)
         self.setpoints_corrected.publish(corrected)
 
     def shutdown(self):
@@ -180,7 +182,8 @@ class ArduinoROS():
             os._exit(0)
 
     def setpoint_conversion(self, setpoint):
-        return 1500+setpoint*400
+        return self.zero_pwm + setpoint*(self.max_pwm-self.zero_pwm)
+        
 
 if __name__ == '__main__':
 
