@@ -3,7 +3,7 @@
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
-    <arg name="enableIqua" default="false"/>
+    <arg name="enableIqua" default="true"/>
 
     <!-- Throttle messages -->
     <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>

@@ -9,7 +9,7 @@
 
     <!-- Core -->
     <arg name="enableSafety" default="false"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="true"/>
     <!-- Payload -->
     <arg name="enableBumblebee" default="false"/>
