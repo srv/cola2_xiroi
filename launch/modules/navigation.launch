@@ -11,6 +11,12 @@
     <group unless="$(arg sim)">
         <!-- IMU -->
         <include file="$(find cola2_xiroi)/launch/modules/imu_memsense.launch"/>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
+        <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
+            <remap from="imu/data_raw" to="sensors/imu_raw_calibrated"/>    
+            <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>         
+            <remap from="imu/data" to="sensors/imu_raw"/>      
+        </node>
 
         <!-- GPS -->
         <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
@@ -23,16 +29,6 @@
     </group>
     
     <!-- Localization -->
-    <!-- <node name="mag_calibration" pkg="cola2_xiroi" type="mag_calibration.py" respawn="true">
-            <remap from="mag_driver" to="sensors/mag_raw_driver"/>
-            <remap from="mag" to="sensors/mag"/>  
-    </node> -->
-    <rosparam command="load" file="$(find cola2_xiroi)/config/imu_madgwick.yaml"/>
-    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_madgwick" output="screen">
-        <remap from="imu/data_raw" to="sensors/imu_raw_calibrated"/>    
-        <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>         
-        <remap from="imu/data" to="sensors/imu_raw"/>      
-    </node>
     <rosparam command="load" file="$(find cola2_xiroi)/config/sensor_aggregator.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/robot_localization.yaml"/>
     <node name="sensor_aggregator" pkg="cola2_xiroi" type="sensor_aggregator" output="screen" respawn="true"/>
