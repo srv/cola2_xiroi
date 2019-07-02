@@ -1,0 +1,72 @@
+guid: 00b09d0100b9421b
+iso_speed: 400  # IEEE1394a
+reset_on_open: true
+
+bayer_method: ''
+bayer_pattern: grbg
+binning_x: 0
+binning_y: 0
+x_offset: 0
+y_offset: 0
+roi_height: 0
+roi_width: 0
+
+stereo_method: Interlaced
+video_mode: format7_mode3
+format7_color_coding: raw16
+
+# format7_packet_size: 2048
+
+# STEREO FRAMERATE SETUP 
+# 
+# To set the framerate set these pairs:
+#
+# 1.875fps (2658)
+#   7.5fps (1544)
+#    10fps (1232)
+#    15fps (800)
+#    20fps (480)
+#
+# Note that frame_rate is overwritten by frame_rate_feature
+#
+auto_frame_rate_feature: 3 # Manual (3)
+#frame_rate: 20.0
+frame_rate: 10
+frame_rate_feature: 1232
+
+# Is better to increase gain than shutter speed, because gain produces salt&pepper
+# noise, while shutter speed produce motion blur, which is harder to deal with.
+auto_gain: 1 # Manual (3) 
+gain: 426 # approx. 15dB
+
+auto_shutter: 1 # Manual (3)
+shutter: 264 # approx. 12.5 ms
+
+auto_brightness: 1 # Manual (3)
+brightness: 0.0
+
+auto_exposure: 3 # Manual (3)
+exposure: 280
+
+#auto_gamma: 1
+#gamma: 2.2000000000000002
+
+auto_saturation: 3 # Manual (3)
+saturation: 1000
+
+auto_sharpness: 3 # Manual (3)
+sharpness: 1000
+
+auto_white_balance: 1
+white_balance_BU: 0.0
+white_balance_RV: 0.0
+auto_hue: 1
+hue: 0.0
+auto_zoom: 1
+zoom: 0.0
+auto_focus: 1
+focus: 0.0
+auto_pan: 1
+pan: 0.0
+auto_iris: 1
+iris: 8.0
