@@ -1,0 +1,41 @@
+<launch>
+  <arg name="base_topic" default="stereo_bb2" />
+  <arg name="camera" default="BB2_08S2C_25_1" />
+  <arg name="calibration" default="boxed_water" />
+  <arg name="camera_params" default="$(find xiroi)/config/cameras/config/stereo_down_params.yaml" />
+  <arg name="processing" default="false"/>
+  <arg name="decimate" default="false"/>
+  <arg name="decimation" default="2"/>
+  <arg name="throttle" default="false"/>
+
+  <!-- Driver -->
+  <node pkg="camera1394stereo" type="camera1394stereo_node" name="stereo_down_node" output="screen" >
+      <rosparam file="$(arg camera_params)" />
+      <param name="frame_id" value="$(arg base_topic)/left_optical" />
+      <param name="camera_info_url_left" value="file://$(find xiroi)/config/cameras/$(arg camera)/calibration_$(arg calibration)_left.yaml" />
+      <param name="camera_info_url_right" value="file://$(find xiroi)/config/cameras/$(arg camera)/calibration_$(arg calibration)_right.yaml" />
+      <remap from="stereo_camera" to="$(arg base_topic)" />
+  </node>
+  
+  <!-- Decimate -->
+  <include if="$(arg decimate)" file="$(find xiroi)/launch/modules/stereo_crop_decimate.launch" >
+      <arg name="stereo" value="stereo_down" />
+      <arg name="decimation" value="$(arg decimation)" />
+  </include>
+
+
+  <!-- Stereo Processing -->
+  <group  if="$(arg processing)">
+    <node unless="$(arg decimate)" ns="stereo_down"  name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc">
+      <rosparam file="$(find xiroi)/config/cameras/$(arg camera)/disparity_params.yaml"/>
+    </node>
+    <node if="$(arg decimate)" ns="stereo_down/scaled_x$(arg decimation)" name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc">
+      <rosparam file="$(find xiroi)/config/cameras/$(arg camera)/disparity_params_x$(arg decimation).yaml"/>
+    </node>
+  </group>
+
+  <!-- Throttle -->
+  <node if="$(arg throttle)" name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages $(arg base_topic)/image_color_raw 1.0">
+  </node>
+</launch>
+
