@@ -60,8 +60,8 @@ class ArduinoROS():
         rospy.Subscriber("setpoints", Setpoints, self.thruster_callback)
 
         # Publishers
-        self.setpoints_corrected = rospy.Publisher("setpoints_corrected", Setpoints, queue_size=1)
-        self.thruster_current = rospy.Publisher("thruster_current",Current, queue_size=1)
+        self.setpoints_corrected = rospy.Publisher("controller/setpoints_corrected", Setpoints, queue_size=1)
+        self.thruster_current = rospy.Publisher("controller/thruster_current",Current, queue_size=1)
      
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
