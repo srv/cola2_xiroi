@@ -2,7 +2,7 @@
   <arg name="base_topic" default="stereo_bb2" />
   <arg name="camera" default="BB2_08S2C_25_1" />
   <arg name="calibration" default="boxed_water" />
-  <arg name="camera_params" default="$(find xiroi)/config/cameras/bb2/stereo_down_params.yaml" />
+  <arg name="camera_params" default="$(find cola2_xiroi)/config/cameras/bb2/stereo_down_params.yaml" />
   <arg name="processing" default="false"/>
   <arg name="decimate" default="false"/>
   <arg name="decimation" default="2"/>
