@@ -1,5 +1,5 @@
 <launch>
-  <arg name="type" default="narrow" /> <!--  wide, narrow -->
+  <arg name="type" default="narrow" /> 
   <arg name="base_topic" default="stereo_$(arg type)" />
   <arg name="camera" default="bb2_$(arg type)" />   
   <arg name="calibration" default="boxed_water" />

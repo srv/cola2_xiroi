@@ -12,7 +12,8 @@
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="true"/>
     <!-- Payload -->
-    <arg name="enableBumblebee" default="false"/>
+    <arg name="enableBB2narrow" default="true"/>
+    <arg name="enableBB2wide" default="true"/>
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
@@ -40,7 +41,8 @@
         <!-- Load payload -->
         <include file="$(find cola2_xiroi)/launch/modules/payload.launch">
             <arg name="robot_name" value="$(arg robot_name)"/>
-            <arg name="enableBumblebee" value="$(arg enableBumblebee)"/>
+            <arg name="enableBB2narrow" value="$(arg enableBB2narrow)"/>
+            <arg name="enableBB2wide" value="$(arg enableBB2wide)"/>
             <arg name="enableUSBL" value="$(arg enableUSBL)"/>
             <arg name="enableCH3" value="$(arg enableCH3)"/>
         </include>
