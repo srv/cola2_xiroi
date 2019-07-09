@@ -4,7 +4,7 @@
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
-    <arg name="sim" default="false"/>
+    <arg name="sim" default="true"/>
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
@@ -52,6 +52,10 @@
             <arg name="enableIqua" value="$(arg enableIqua)"/>
         </include>
     </group>
+
+    <!-- Topic Logger -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_robot.yaml"/>
+    <node name="topic_logger_robot" pkg="utils" type="topic_logger.py" respawn="true" output="screen"/> -->
     
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
