@@ -1,0 +1,13 @@
+topic_logger/topics: [/sensors/modem_delayed,
+                      /sensors/gps_buoy_emlid_raw,
+                      /sensors/gps_buoy_emlid_diagnostics,
+                      /sensors/gps_buoy_emlid_filtered,
+                      /sensors/gps_buoy_emlid_ned,
+                      /sensors/usbllong,
+                      /sensors/usblangles,
+                      /navigation/nav_sts_acoustic,
+                      /control/thrusters_data_acoustic,
+                      /safety/emus_bms_acoustic,
+                      /safety/computer_logger_acoustic,
+                      /diagnostics/evologics_channel,
+                      /diagnostics/evologics_sync]
