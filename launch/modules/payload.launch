@@ -17,32 +17,21 @@
     </group>
 
     <!-- Stereo Bumblebee -->
-    <group if="$(arg enableBB2narrow)">
-        <include file="$(find cola2_xiroi)/launch/modules/cameras/stereo_bb2.launch">
-            <arg name="type"        value="narrow"/> 
-            <arg name="processing"  value="true"/>
-            <arg name="decimate"    value="false"/>
-            <arg name="decimation"  value="2"/>
-            <arg name="throttle"    value="false"/>
-        </include>
-        <node pkg="tf" type="static_transform_publisher" name="stereo_to_left_narrow$(arg suffix)" args="-0.06 0.0 0.0 0.0 0.0 0.0 /stereo_narrow /stereo_narrow/left_optical 100" />
-        <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick_narrow$(arg suffix)" args="0.4 0.0 0.8 0.0 0.0 0.0 /xiroi /stereo_stick 100" />
-        <node pkg="tf" type="static_transform_publisher" name="stereo_stick_to_stereo_base_narrow$(arg suffix)" args="0.0 0.0 0.0 1.57 0.0 1.57 /stereo_stick /stereo_narrow/base 100" />
-        <node pkg="tf" type="static_transform_publisher" name="stereo_base_to_stereo_narrow$(arg suffix)" args="0.0 0.0 0.0 0.0 0.0 -1.57 /stereo_narrow/base /stereo_narrow 100" />
-    </group>
-    <group if="$(arg enableBB2wide)">
-        <include file="$(find cola2_xiroi)/launch/modules/cameras/stereo_bb2.launch">
-            <arg name="type"        value="wide"/> 
-            <arg name="processing"  value="true"/>
-            <arg name="decimate"    value="false"/>
-            <arg name="decimation"  value="2"/>
-            <arg name="throttle"    value="false"/>
-        </include>
-        <node pkg="tf" type="static_transform_publisher" name="stereo_to_left_wide$(arg suffix)" args="-0.06 0.0 0.0 0.0 0.0 0.0 /stereo_wide /stereo_wide/left_optical 100" />
-        <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick_wide$(arg suffix)" args="0.4 0.0 0.8 0.0 0.0 0.0 /xiroi /stereo_stick 100" />
-        <node pkg="tf" type="static_transform_publisher" name="stereo_stick_to_stereo_base_wide$(arg suffix)" args="0.0 0.0 0.0 1.57 0.0 1.57 /stereo_stick /stereo_wide/base 100" />
-        <node pkg="tf" type="static_transform_publisher" name="stereo_base_to_stereo_wide$(arg suffix)" args="0.0 0.0 0.0 0.0 0.0 -1.57 /stereo_wide/base /stereo_wide 100" />
-    </group>
+    <include if="$(arg enableBB2narrow)" file="$(find cola2_xiroi)/launch/modules/stereo_bb2.launch">
+        <arg name="type"        value="narrow"/> 
+        <arg name="processing"  value="true"/>
+        <arg name="decimate"    value="false"/>
+        <arg name="decimation"  value="2"/>
+        <arg name="throttle"    value="false"/>
+    </include>
+
+    <include if="$(arg enableBB2wide)" file="$(find cola2_xiroi)/launch/modules/stereo_bb2.launch">
+        <arg name="type"        value="wide"/> 
+        <arg name="processing"  value="true"/>
+        <arg name="decimate"    value="false"/>
+        <arg name="decimation"  value="2"/>
+        <arg name="throttle"    value="false"/>
+    </include>
 
     <!-- Stereo CH3 -->
     <group if="$(arg enableCH3)">
