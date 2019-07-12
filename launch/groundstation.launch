@@ -3,7 +3,7 @@
     <arg name="robot_name" default="xiroi"/>
     <arg name="enableJoystick" default="true" />
     <arg name="enableRviz" default="false" />
-    <arg name="openLoopTeleoperation" default="false" />
+    <arg name="openLoopTeleoperation" default="false" />   <!-- Joy in X for vel, and D for openloop -->
     <arg name="joystickDevice" default="/dev/input/js0"/>
     <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/> -->
     
@@ -25,7 +25,7 @@
         </group>
         <!-- Openloop -->
         <group if="$(arg openLoopTeleoperation)">
-            <node respawn="false" pkg="cola2_xiroi" type="logitech_joy.py" name="open_loop_teleoperation"  output="screen"/>
+            <node pkg="cola2_xiroi" type="logitech_joy.py" name="open_loop_teleoperation"  output="screen" respawn="false" />
         </group>
     </group>
 
