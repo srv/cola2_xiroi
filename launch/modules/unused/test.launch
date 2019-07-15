@@ -1,6 +1,5 @@
 <launch>
   <!-- PARAMS -->
-
  <rosparam command="load" file="$(find cola2_xiroi)/config/thrusters.yaml"/>
     <node name="thruster_driver" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py"  respawn="true" output="screen" >
     </node>

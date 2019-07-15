@@ -35,6 +35,13 @@
     </node>
   </group>
 
+
+  <!-- Transforms -->
+  <node pkg="tf" type="static_transform_publisher" name="stereo_to_left_$(arg type)" args="-0.06 0.0 0.0 0.0 0.0 0.0 /$(arg base_topic) /$(arg base_topic)/left_optical 100" />
+  <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick_$(arg type)" args="0.4 0.0 0.8 0.0 0.0 0.0 /xiroi /$(arg base_topic)_stick 100" />
+  <node pkg="tf" type="static_transform_publisher" name="stereo_stick_to_stereo_base_$(arg type)" args="0.0 0.0 0.0 1.57 0.0 1.57 /$(arg base_topic)_stick /$(arg base_topic)/base 100" />
+  <node pkg="tf" type="static_transform_publisher" name="stereo_base_to_stereo_$(arg type)" args="0.0 0.0 0.0 0.0 0.0 -1.57 /$(arg base_topic)/base /$(arg base_topic) 100" />
+
   <!-- Throttle -->
   <node if="$(arg throttle)" name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages $(arg base_topic)/image_color_raw 1.0">
   </node>

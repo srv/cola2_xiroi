@@ -39,17 +39,17 @@ class ArduinoROS():
         self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0")
         self.baud = int(rospy.get_param("~baud",57600))
         self.timeout = rospy.get_param("~timeout",0.5)
-        self.base_frame = rospy.get_param("~base_frame", 'base_link')
-        self.left_thruster_pin = rospy.get_param("~left_thruster_pin", 0)
-        self.right_thruster_pin = rospy.get_param("~right_thruster_pin", 1)
-        self.current_sensor_pin = rospy.get_param("~current_sensor_pin", 0)
-        self.current_sensor_power_pin = rospy.get_param("~current_sensor_power_pin", 3)
-        self.activate_ramp = rospy.get_param("~activate_ramp", True)
-        self.rising_rate = rospy.get_param("~rising_rate", 0.3)
-        self.falling_rate = rospy.get_param("~falling_rate", 1.0)
-        self.setpoint_limit = rospy.get_param("~setpoint_limit", 1.0)
-        self.zero_pwm = rospy.get_param("~zero_pwm", 1500)
-        self.max_pwm = rospy.get_param("~max_pwm", 1700)
+        self.base_frame = rospy.get_param("base_frame", 'base_link')
+        self.left_thruster_pin = rospy.get_param("left_thruster_pin", 0)
+        self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
+        self.current_sensor_pin = rospy.get_param("current_sensor_pin", 0)
+        self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
+        self.activate_ramp = rospy.get_param("activate_ramp", True)
+        self.rising_rate = rospy.get_param("rising_rate", 0.3)
+        self.falling_rate = rospy.get_param("falling_rate", 1.0)
+        self.setpoint_limit = rospy.get_param("setpoint_limit", 0.5)
+        self.zero_pwm = rospy.get_param("zero_pwm", 1500)
+        self.max_pwm = rospy.get_param("max_pwm", 1700)
         self.first_time=True
 
         # Overall loop rate: should be faster than fastest sensor rate
@@ -115,8 +115,9 @@ class ArduinoROS():
         # if time_dif<delay_threshold:
 
         #extract the second and thirth data from the setpoints message 
-        msg0=msg.setpoints[1];
-        msg1=msg.setpoints[0];
+        msg0=msg.setpoints[0]
+        msg1=msg.setpoints[1]
+
         
         # time=msg.header.stamp.to_sec()
         time=rospy.Time.now().to_sec()
@@ -154,11 +155,11 @@ class ArduinoROS():
         # print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
+        print(msg0, msg1 , self.setpoint_conversion(msg0), self.setpoint_conversion(msg1))
         corrected = Setpoints()
         corrected.header.stamp = msg.header.stamp
         corrected.header.seq = msg.header.seq
-        corrected.setpoints = [0, msg0, msg1]
-        print self.setpoint_conversion(msg0)
+        corrected.setpoints = [msg0, msg1]
         self.setpoints_corrected.publish(corrected)
 
     def shutdown(self):

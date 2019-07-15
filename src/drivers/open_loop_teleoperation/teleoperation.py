@@ -17,22 +17,22 @@ class Controller:
 
         # Publisher
         self.pub_thrusters_setpoints = rospy.Publisher(
-            'setpoints',
+            'controller/thruster_setpoints',
             Setpoints,
             queue_size = 1)
 
         self.pub_check_joystick = rospy.Publisher(
-            '/xiroi/control/ack',
+            'teleoperation/ack',
             String,
             queue_size=2)
 
         # Subscriber
-        rospy.Subscriber("/xiroi/control/ack_joy",
+        rospy.Subscriber("teleoperation/ack_joy",
                          Joy,
                          self.joystick_data_callback,
                          queue_size=1)
 
-        rospy.Subscriber("/xiroi/control/ack_ack",
+        rospy.Subscriber("teleoperation/ack_ack",
                          String,
                          self.ack_ack_callback,
                          queue_size=1)
@@ -58,9 +58,9 @@ class Controller:
         # rospy.loginfo( data.axes)
         forward = data.axes[6]
         clockwise_yaw = data.axes[11]
-        aux = np.array([0.0, 0.0, 0.0])
-        aux[1] = forward + clockwise_yaw
-        aux[2] = forward - clockwise_yaw
+        aux = np.array([0.0, 0.0])
+        aux[0] = forward + clockwise_yaw
+        aux[1] = forward - clockwise_yaw
         self.msg.setpoints = aux.clip(min=-1.0, max=1.0)
 
         # Publish message

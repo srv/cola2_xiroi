@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="safareig_campus.yaml"/>
+    <arg name="place" default="rcd_mallorca.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -8,12 +8,12 @@
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableSafety" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="true"/>
     <!-- Payload -->
-    <arg name="enableBB2narrow" default="true"/>
-    <arg name="enableBB2wide" default="true"/>
+    <arg name="enableBB2narrow" default="false"/>
+    <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
@@ -52,7 +52,14 @@
             <arg name="enableIqua" value="$(arg enableIqua)"/>
         </include>
     </group>
-    
+
+    <!-- Topic Logger -->
+    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_robot.yaml"/>
+    <node name="topic_logger_robot" pkg="utils" type="topic_logger.py" respawn="true" output="screen"/> -->
+    <!-- <include file="$(find cola2_xiroi)launch/modules/unused/bag.launch">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+    </include> -->
+     
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
 </launch>
