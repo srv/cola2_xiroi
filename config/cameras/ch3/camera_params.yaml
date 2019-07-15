@@ -1,0 +1,37 @@
+left_serial_number: '16401228'
+right_serial_number: '16401229'
+
+binning_vertical: 1
+decimation_vertical: 1
+pixel_format: 'BayerRG8'
+video_mode: 'Mode1'
+
+# For left camera
+line_selector: 'Line2'
+line_mode: 'Output'
+line_source: 'ExposureActive'
+# For right camera
+trigger_source: 'Line3'
+trigger_selector: 'FrameStart'
+trigger_activation: 'RisingEdge'
+
+acquisition_frame_rate_auto: 'Off'
+acquisition_frame_rate_enabled: true
+acquisition_frame_rate: 15
+exposure_auto: 'Continuous'
+exposure_time: 8000.0 # us
+auto_exposure_exposure_time_upper_limit: 20000.0  # us
+gain_auto: 'Continuous'
+gain: 5.0
+auto_gain_lower_limit: 0.0
+auto_gain_upper_limit: 30.0
+balance_white_auto: 'Continuous'
+balance_ratio_red: 1.0
+balance_ratio_blue: 1.0
+black_level: 5.0
+gamma_enabled: false
+hue_enabled: false
+saturation_enabled: false
+gamma: 1.0
+hue: 0.0
+saturation: 100.0
