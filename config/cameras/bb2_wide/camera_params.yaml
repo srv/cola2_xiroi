@@ -30,9 +30,8 @@ format7_color_coding: raw16
 # Note that frame_rate is overwritten by frame_rate_feature
 #
 auto_frame_rate_feature: 3 # Manual (3)
-#frame_rate: 20.0
-frame_rate: 1.875
-frame_rate_feature: 2658
+frame_rate: 7.5
+frame_rate_feature: 1544
 
 # Is better to increase gain than shutter speed, because gain produces salt&pepper
 # noise, while shutter speed produce motion blur, which is harder to deal with.
