@@ -54,11 +54,11 @@
     </group>
 
     <!-- Topic Logger -->
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_robot.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_robot.yaml"/>
     <node name="topic_logger_robot" pkg="utils" type="topic_logger.py" respawn="true" output="screen"/> -->
-    <!-- <include file="$(find cola2_xiroi)launch/modules/unused/bag.launch">
+    <include file="$(find cola2_xiroi)launch/modules/unused/bag.launch">
         <arg name="robot_name" value="$(arg robot_name)"/>
-    </include> -->
+    </include>
      
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>

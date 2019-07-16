@@ -56,8 +56,7 @@
         </node>
     </group>
 
-        <!-- Topic Logger -->
-        <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic _logger_simulation.yaml"/>
-        <node name="topic_logger_simulation" pkg="utils" type="topic_logger.py" respawn="true" output="screen"/>
-  
+    <!-- Topic Logger -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_simulation.yaml"/>
+    <node name="topic_logger_simulation" pkg="utils" type="topic_logger.py" respawn="true" output="screen"/>
 </launch>
