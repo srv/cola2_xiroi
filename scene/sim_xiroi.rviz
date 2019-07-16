@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /tf1/Frames1
-        - /simulated_odometry1
       Splitter Ratio: 0.39808917
     Tree Height: 587
   - Class: rviz/Views
@@ -14,6 +13,8 @@ Panels:
       - /Current View1
     Name: Views
     Splitter Ratio: 0.5
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -46,6 +47,8 @@ Visualization Manager:
           Value: true
         xiroi/base_link:
           Value: true
+        xiroi/dynamics:
+          Value: true
         xiroi/gps:
           Value: true
         xiroi/imu:
@@ -64,6 +67,8 @@ Visualization Manager:
       Tree:
         world:
           world_ned:
+            xiroi/dynamics:
+              {}
             xiroi/odom:
               xiroi/base_link:
                 xiroi/gps:
@@ -196,7 +201,7 @@ Visualization Manager:
       Buffer Length: 1
       Class: rviz/Path
       Color: 25; 255; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
       Length: 0.300000012
@@ -214,7 +219,7 @@ Visualization Manager:
       Shaft Length: 0.100000001
       Topic: /xiroi/captain/trajectory_path
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/PointStamped
       Color: 204; 41; 204
@@ -238,7 +243,7 @@ Visualization Manager:
       Marker Topic: /xiroi/virtual_cage/markers/cage
       Name: virtual_cage
       Namespaces:
-        {}
+        virtual_cage: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -264,11 +269,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 206.80986
+      Scale: 14.11586
       Target Frame: xiroi/base_link
       Value: TopDownOrtho (rviz)
-      X: 1.29016352
-      Y: -0.387400299
+      X: 34.4849739
+      Y: 0.20729278
     Saved: ~
 Window Geometry:
   Displays:

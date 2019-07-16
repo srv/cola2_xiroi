@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="safareig_campus.yaml"/>
+    <arg name="place" default="colonia.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
 
@@ -9,7 +9,7 @@
     <arg name="enableJoystick" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
-    <arg name="enableIqua" default="false"/>
+    <arg name="enableIqua" default="true"/>
     <arg name="enableRviz" default="true"/>
 
 
