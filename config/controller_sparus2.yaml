@@ -8,26 +8,20 @@ controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
   0.0, 0.0, 0.0, -0.16783, 0.16783]
 
 # Thruster 1
-controller/thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06,
-  3.25e-08]
-controller/thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05,
-  9.26e-07]
+controller/thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06, 3.25e-08]
+controller/thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05, 9.26e-07]
 controller/thruster_1_max_force_positive: 55.0
 controller/thruster_1_max_force_negative: 28.5
 
 # Thruster 2
-controller/thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06,
-  6.12e-09]
-controller/thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05,
-  3.22e-07]
+controller/thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+controller/thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
 controller/thruster_2_max_force_positive: 71.5
 controller/thruster_2_max_force_negative: 30.0
 
 # Thruster 3
-controller/thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06,
-  6.12e-09]
-controller/thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05,
-  3.22e-07]
+controller/thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+controller/thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
 controller/thruster_3_max_force_positive: 71.5
 controller/thruster_3_max_force_negative: 30.0
 
@@ -157,39 +151,6 @@ controller/max_wrench_Roll: 3.66
 controller/max_wrench_Pitch: 17.15
 controller/max_wrench_Yaw: 14.43
 
-
-# FIN ALLOCATOR
-controller/max_fin_force: 26.15
-controller/fin_distance_surge: 0.65
-controller/fin_distance_yaw: 0.14
-controller/max_fin_angle: 40.0
-controller/min_fin_angle: -40.0
-
-controller/force_to_fins_ratio: 13.0
-
-controller/FCM: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.14, 0.14, 0.65, 0.65, 0.0, 0.0]
-controller/fin_poly: [0.0, 1.0, 0.0, 0.0, 1.0, 0.0]
-
-# DEPTH TO PITCH PID CONTROLLER
-controller/d_p_kp: 0.15
-controller/d_p_ti: 12.0
-controller/d_p_td: 0.0
-controller/d_p_limit: 0.2
-controller/d_p_fff: 0.0
-
-# ROLL PID CONTROLLER
-controller/f_roll_kp: 0.4
-controller/f_roll_ti: 15.0
-controller/f_roll_td: 0.0
-controller/f_roll_i_limit: 0.25
-controller/f_roll_fff: 0.0
-
-# PITCH PID CONTROLLER
-controller/f_pitch_kp: 0.8
-controller/f_pitch_ti: 15.0
-controller/f_pitch_td: 8.0
-controller/f_pitch_i_limit: 0.1
-controller/f_pitch_fff: 0.0
 
 # The following values (must be between 0 and 1) adjust the percentage of
 # polynomial model that is used. A value of 1 means than the model is fully

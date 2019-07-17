@@ -1,35 +1,39 @@
 controller/period: 0.1
 controller/n_dofs: 6
-controller/n_thrusters: 3
+controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-  0.0, 0.0, 0.0, -0.16783, 0.16783]
+controller/TCM: [1.0, 1.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 -0.16783, 0.16783]
 
 # Thruster 1
-controller/thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06,
-  3.25e-08]
-controller/thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05,
-  9.26e-07]
-controller/thruster_1_max_force_positive: 55.0
-controller/thruster_1_max_force_negative: 28.5
+# controller/thruster_1_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+# controller/thruster_1_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
+# controller/thruster_1_max_force_positive: 71.5
+# controller/thruster_1_max_force_negative: 30.0
+
+# Thruster 1 XIROI
+controller/thruster_1_poly_positive: [-0.2951757, 3.164907, 520.7359, -1450.728, 1656.711, -619.7253] 
+controller/thruster_1_poly_negative: [0.2217195, -7.122738, -301.2795, 688.8891, -495.4422, -59.12519] 
+controller/thruster_1_max_force_positive: 54.0
+controller/thruster_1_max_force_negative: 32.0
 
 # Thruster 2
-controller/thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06,
-  6.12e-09]
-controller/thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05,
-  3.22e-07]
+controller/thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+controller/thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
 controller/thruster_2_max_force_positive: 71.5
 controller/thruster_2_max_force_negative: 30.0
 
-# Thruster 3
-controller/thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06,
-  6.12e-09]
-controller/thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05,
-  3.22e-07]
-controller/thruster_3_max_force_positive: 71.5
-controller/thruster_3_max_force_negative: 30.0
+# Thruster 2 XIROI
+controller/thruster_2_poly_positive: [-0.1696154, -8.678939, 597.4516, -2326.529, 4625.874, -3517.949]
+controller/thruster_2_poly_negative: [0.03409441, 25.8764, -724.7403, 3422.062, -7603.566, 6181.538]
+controller/thruster_2_max_force_positive: 33.3
+controller/thruster_2_max_force_negative: 22.5
 
 # Enbale thrusters
 controller/enable_thrusters: false
