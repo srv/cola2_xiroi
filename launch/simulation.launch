@@ -1,16 +1,16 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="safareig_campus.yaml"/>
+    <arg name="place" default="colonia.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
 
     <!-- Flags -->
-    <arg name="enableSafety" default="false"/>
-    <arg name="enableJoystick" default="false"/>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableJoystick" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
-    <arg name="enableIqua" default="false"/>
-    <arg name="enableRviz" default="false"/>
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableRviz" default="true"/>
 
 
     <!-- ROBOT -->
@@ -51,8 +51,12 @@
         <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors.py" output="screen"/>
         <!-- Thrusters -->
         <node name="sim_actuators" pkg="cola2_xiroi" type="sim_actuators.py" output="screen">
-            <remap from="/cola2_control/thrusters_data" to="/$(arg robot_name)/controller/thruster_setpoints"/>
-            <remap from="/cola2_control/sim_thrusters_data" to="/$(arg robot_name)/controller/thruster_rpm"/>
+            <remap from="/control/thrusters_data" to="controller/thruster_setpoints"/>
+            <remap from="/control/sim_thrusters_data" to="controller/thruster_rpm"/>
         </node>
     </group>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0501dbb522083983d2fba898c8b6f43cf62d1b0a
 </launch>

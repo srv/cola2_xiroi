@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="rcd_mallorca.yaml"/>
+    <arg name="place" default="colonia.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
