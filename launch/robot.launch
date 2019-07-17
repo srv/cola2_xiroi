@@ -51,13 +51,16 @@
         <include file="$(find cola2_xiroi)/launch/modules/interfaces.launch">
             <arg name="enableIqua" value="$(arg enableIqua)"/>
         </include>
+
+        <!-- Topic Logger -->
+        <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger.yaml"/>
+        <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
+            <param name="dir" value="/media/eric-uib/HardDisk"/>
+            <param name="robot" value="$(arg robot_name)"/>
+        </node>
     </group>
 
-    <!-- Topic Logger -->
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_robot.yaml"/>
-    <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen"/> --> -->
 
-     
     <!-- Static transform -->
     <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
 </launch>

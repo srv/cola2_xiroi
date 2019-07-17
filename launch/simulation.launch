@@ -9,7 +9,7 @@
     <arg name="enableJoystick" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
-    <arg name="enableIqua" default="true"/>
+    <arg name="enableIqua" default="false"/>
     <arg name="enableRviz" default="true"/>
 
 
@@ -55,8 +55,4 @@
             <remap from="/control/sim_thrusters_data" to="controller/thruster_rpm"/>
         </node>
     </group>
-<<<<<<< HEAD
-=======
-
->>>>>>> 0501dbb522083983d2fba898c8b6f43cf62d1b0a
 </launch>

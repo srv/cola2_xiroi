@@ -27,13 +27,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-PKG = 'utils' # this package name
-NAME = 'topic_logger'
-
-import roslib; roslib.load_manifest(PKG)
+import roslib; roslib.load_manifest('cola2_xiroi')
 import rospy
 from std_srvs.srv import Empty
-from utils.srv import RecordRequest, RecordRequestResponse
+from cola2_xiroi.srv import RecordRequest, RecordRequestResponse
 import string
 import os
 import shutil
@@ -42,13 +39,16 @@ import signal
 import time
 import subprocess
 
-dir_save_bagfiles = '/home/' + os.getlogin() + '/bagfiles'
-dirs_save_missions = ['/home/' + os.getlogin() + '/missions',
+
+dir = rospy.get_param("topic_logger/dir", default='/home/' + os.getlogin())
+dir_save_bagfiles = dir + '/bagfiles'
+dirs_save_missions = [dir + '/missions',
                       '/var/www/html/robot_missions/missions',
                       '/var/www/html/robotmissions/missions']
 
 # Load Topic list
-topics = rospy.get_param("/topic_logger/topics")
+topics = rospy.get_param("topic_logger/topics")
+robot = rospy.get_param("topic_logger/robot")
 
 image_topics = []
 if rospy.has_param('/topic_logger/image_topics'):
@@ -178,7 +178,7 @@ class TopicLogger:
       retcode = list_cmd.wait()
       assert retcode == 0, "List command returned %d" % retcode
       for str in list_output.split("\n"):
-        if (str.startswith('/record')):
+        if (str.startswith('/' + robot + '/record')):
           os.system("rosnode kill " + str)
       self._recording = False
     else:
@@ -186,7 +186,7 @@ class TopicLogger:
     return []
 
   def __init__(self):
-    rospy.init_node(NAME)
+    rospy.init_node('topic_logger')
 
     self.start_srv = rospy.Service(rospy.get_name() + '/start_recording', RecordRequest, self.start_recording)
     self.stop_srv  = rospy.Service(rospy.get_name() + '/stop_recording', Empty, self.stop_recording)

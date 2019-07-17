@@ -64,6 +64,7 @@ add_service_files(
   FILES
   SetNedOrigin.srv
   EnableNavStatus.srv
+  RecordRequest.srv
 )
 
 ## Generate actions in the 'action' folder
