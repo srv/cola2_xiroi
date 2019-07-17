@@ -1,4 +1,4 @@
-topic_logger/topics: [/diagnostics
+topic_logger/topics: ["/diagnostics
                       /sensors/min_diagnostics
                       /tf
                       /tf_static
@@ -50,9 +50,9 @@ topic_logger/topics: [/diagnostics
                       sensors/imu
                       sensors/imu_raw
                       teleoperation/ack
-                      vehicle_status
+                      vehicle_status"]
 
-topic_logger/image_topics: [/stereo_down/left/image_raw,
+topic_logger/image_topics: ["/stereo_down/left/image_raw,
                             /stereo_down/right/image_raw,
                             /stereo_down/left/camera_info,
                             /stereo_down/right/camera_info,
@@ -62,4 +62,4 @@ topic_logger/image_topics: [/stereo_down/left/image_raw,
                             /stereo_forward/right/image_raw,
                             /stereo_down/scaled_x2/left/segmented,
                             /stereo_down/scaled_x2/left/class_1,
-                            /stereo_down/scaled_x2/left/class_2]
+                            /stereo_down/scaled_x2/left/class_2"]

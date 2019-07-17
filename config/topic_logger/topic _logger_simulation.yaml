@@ -1,4 +1,4 @@
-topic_logger/topics: [/diagnostics
+topic_logger/topics: ["/diagnostics
                       /rosout
                       /rosout_agg
                       /sensors/min_diagnostics
@@ -55,4 +55,4 @@ topic_logger/topics: [/diagnostics
                       /xiroi/sensors/gps_raw
                       /xiroi/sensors/imu
                       /xiroi/sensors/imu_raw
-                      /xiroi/teleoperation/ack]
+                      /xiroi/teleoperation/ack"]
