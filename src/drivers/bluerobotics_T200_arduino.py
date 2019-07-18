@@ -155,7 +155,6 @@ class ArduinoROS():
         # print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
-        print(msg0, msg1 , self.setpoint_conversion(msg0), self.setpoint_conversion(msg1))
         corrected = Setpoints()
         corrected.header.stamp = msg.header.stamp
         corrected.header.seq = msg.header.seq

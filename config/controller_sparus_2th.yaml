@@ -9,7 +9,7 @@ controller/TCM: [1.0, 1.0,
                  0.0, 0.0, 
                  0.0, 0.0, 
                  0.0, 0.0, 
-                 -0.16783, 0.16783]
+                 -0.45, 0.45]
 
 # Thruster 1
 controller/thruster_1_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
@@ -27,12 +27,12 @@ controller/thruster_2_max_force_negative: 30.0
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 0.5
+controller/max_velocity_x: 1.0
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
 controller/max_velocity_pitch: 0.0
-controller/max_velocity_yaw: 0.3
+controller/max_velocity_yaw: 0.45
 
 
 # POSE PID CONTROLLER

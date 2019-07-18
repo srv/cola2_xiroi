@@ -1,0 +1,16 @@
+# WORKING BOUNDS
+latitude: 39.326024501
+longitude: 2.986211181
+
+latitude: 39.326106057
+longitude: 2.986079735
+
+latitude: 39.326194667
+longitude: 2.986217537
+
+latitude: 39.325919743
+longitude: 2.986490035
+
+latitude: 39.32600079
+longitude: 2.986551115
+

@@ -5,14 +5,14 @@
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
-    <arg name="enableThrusters" default="false"/>
-    <arg name="openLoopTeleoperation" default="true"/>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableThrusters" default="true"/>
+    <arg name="openLoopTeleoperation" default="false"/>
     <!-- Payload -->
-    <arg name="enableBB2narrow" default="false"/>
+    <arg name="enableBB2narrow" default="true"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
@@ -55,9 +55,11 @@
         <!-- Topic Logger -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger.yaml"/>
         <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
-            <param name="dir" value="/media/eric-uib/HardDisk"/>
+            <param name="dir" value="/data"/>
             <param name="robot" value="$(arg robot_name)"/>
         </node>
+
+        <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/>
     </group>
 
 

@@ -27,7 +27,7 @@
         <node name="pilot" pkg="cola2_control" type="pilot" output="$(arg output)"/>
 
         <!-- Low level control -->
-        <rosparam command="load" file="$(find cola2_xiroi)/config/controller_sparus.yaml"/>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/controller_sparus_2th.yaml"/>
         <node name="controller" pkg="cola2_control" type="controller_only_thrusters"  output="log"/>
     </group>
 
