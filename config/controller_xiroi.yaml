@@ -12,14 +12,14 @@ controller/TCM: [1.0, 1.0,
                  -0.45, 0.45]
 
 # Thruster 1 XIROI
-controller/thruster_1_poly_positive: [-0.2951757, 3.164907, 520.7359, -1450.728, 1656.711, -619.7253] 
-controller/thruster_1_poly_negative: [0.2217195, -7.122738, -301.2795, 688.8891, -495.4422, -59.12519] 
+controller/thruster_1_poly_positive: [0.02275621, 0.0237506, -0.001432423, 0.00007044071, -0.000001406402, 9.661632e-09] 
+controller/thruster_1_poly_negative: [0.02406203, 0.0262397, -0.00107198, 0.00005489615, -0.000001089504, 5.075149e-09] 
 controller/thruster_1_max_force_positive: 54.0
 controller/thruster_1_max_force_negative: 32.0
 
 # Thruster 2 XIROI
-controller/thruster_2_poly_positive: [-0.1696154, -8.678939, 597.4516, -2326.529, 4625.874, -3517.949]
-controller/thruster_2_poly_negative: [0.03409441, 25.8764, -724.7403, 3422.062, -7603.566, 6181.538]
+controller/thruster_2_poly_positive: [0.02492308, 0.02168452, -0.0001893677, -0.00002558581, 0.000001312218, -1.724296e-08]
+controller/thruster_2_poly_negative: [0.02566101, 0.04389938, -0.005009778, 0.0005109039, -0.00002516484, 4.597729e-07]
 controller/thruster_2_max_force_positive: 33.3
 controller/thruster_2_max_force_negative: 22.5
 
