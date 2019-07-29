@@ -19,8 +19,8 @@
     </node>
     <node name="vehicle_status_parser" pkg="cola2_safety" type="vehicle_status_parser.py" respawn="true" output="screen"/>
     <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/>
-    <node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
-
-    <include unless="$(arg sim)" file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"/>
+    <!--<node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
+-->
+    <!-- <include unless="$(arg sim)" file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"/> -->
 
 </launch>
