@@ -1,0 +1,73 @@
+<launch>
+	<!-- Params -->
+	<arg name="rate"   	default= "0.1" />
+	<arg name="init_time"  	default= "40" />
+	<arg name="enableRobotArchitecture"  	default= "true" />
+
+	<!-- Mission -->
+	<arg name="path"   	 default= "/media/eric/HardDisk/bagfiles/xiroi/papallona" />
+	<arg name="mission"  default= "/test_2" />
+	<arg name="file0"    default= "/2018-09-26-14-26-24_0.bag" />
+	<arg name="file1"    default= "/2018-09-26-14-30-58_1.bag" />
+	<arg name="file2"    default= "/2018-09-26-14-35-15_2.bag" />
+
+
+	<arg name="bags"   	default= "$(arg path)$(arg mission)$(arg file0) 
+								  $(arg path)$(arg mission)$(arg file1)
+								  $(arg path)$(arg mission)$(arg file2)" /><!--	 -->
+
+
+	<!-- Topics -->
+	<arg name="topics"   default="/xiroi/sensors/battery       
+                                  /xiroi/sensors/gps           
+                                  /xiroi/sensors/imu_mag       
+                                  /xiroi/sensors/imu_raw_driver
+                                  /xiroi/setpoints             
+                                  /xiroi/setpoints_corrected   
+                                  /xiroi/setpoints_req         
+                                  /xiroi/thruster_current  
+								  /xiroi/odometry/filtered_map
+								  /tf
+								  /tf_static
+                                  /stereo_down/left/camera_info 
+                                  /stereo_down/left/image_raw  
+                                  /stereo_down/right/camera_info
+                                  /stereo_down/right/image_raw  
+								  " />
+
+	<!-- Bagfile play -->
+	<param name="use_sim_time" value="true"/>
+	<group unless="$(arg enableRobotArchitecture)" >
+		<node name="rosbag" pkg="rosbag" type="play" args="--clock $(arg bags) -r $(arg rate) --start $(arg init_time) --topics $(arg topics)">
+			<remap from="/xiroi/odometry/filtered_map" to="/xiroi/ekf_map/odometry"/>
+			<remap from="/stereo_down/left/camera_info" to="/xiroi/stereo_down/left/camera_info"/> 
+			<remap from="/stereo_down/left/image_raw"  to="/xiroi/stereo_down/left/image_raw"/> 
+			<remap from="/stereo_down/right/camera_info" to="/xiroi/stereo_down/right/camera_info"/> 
+			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
+			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
+		</node>
+		<!-- Change old transform names-->
+		<node name="tfxiroi2baselink" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 xiroi xiroi/baselink 100"/>
+	</group>
+	<group if="$(arg enableRobotArchitecture)" >
+		<node name="rosbag" pkg="rosbag" type="play" args="--clock $(arg bags) -r $(arg rate) --start $(arg init_time) --topics $(arg topics)">
+			<remap from="/tf" to="/tf_old"/>
+			<remap from="/tf_static" to="/tf_static_old"/>
+			<remap from="/xiroi/odometry/filtered_map" to="/xiroi/ekf_map/odometry_old"/>
+			<remap from="/stereo_down/left/camera_info" to="/xiroi/stereo_down/left/camera_info"/> 
+			<remap from="/stereo_down/left/image_raw"  to="/xiroi/stereo_down/left/image_raw"/> 
+			<remap from="/stereo_down/right/camera_info" to="/xiroi/stereo_down/right/camera_info"/> 
+			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
+			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
+		</node>
+	</group>
+
+	<!-- Change old transform names-->
+	<node name="tfworldned2map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 world_ned map 100"/>
+	<node name="tfmap2odom" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100"/>
+
+
+
+	<!-- Load params -->
+	<rosparam command="load" file="$(find cola2_xiroi)/config/places/papallones.yaml"/>
+</launch>
