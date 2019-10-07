@@ -44,7 +44,6 @@
 			<remap from="/stereo_down/left/image_raw"  to="/xiroi/stereo_down/left/image_raw"/> 
 			<remap from="/stereo_down/right/camera_info" to="/xiroi/stereo_down/right/camera_info"/> 
 			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
-			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
 		</node>
 		<!-- Change old transform names-->
 		<node name="tfxiroi2baselink" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 xiroi xiroi/baselink 100"/>
@@ -57,7 +56,6 @@
 			<remap from="/stereo_down/left/camera_info" to="/xiroi/stereo_down/left/camera_info"/> 
 			<remap from="/stereo_down/left/image_raw"  to="/xiroi/stereo_down/left/image_raw"/> 
 			<remap from="/stereo_down/right/camera_info" to="/xiroi/stereo_down/right/camera_info"/> 
-			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
 			<remap from="/stereo_down/right/image_raw" to="/xiroi/stereo_down/right/image_raw"/> 
 		</node>
 	</group>
