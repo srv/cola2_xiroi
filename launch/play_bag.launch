@@ -1,22 +1,22 @@
 <launch>
     <!-- Bagfile -->
+    <arg name="dataset" default="papallones2"/>
+    <arg name="rate"    default="0.5"/>
+    <!-- General Settings -->
     <arg name="place" default="papallones.yaml"/>
-    <!-- Bagfile -->
     <arg name="enableRobotArchitecture" default="true"/>
-    <arg name="robot_name" default="xiroi"/>
+    <arg name="robot_name"              default="xiroi"/>
+    
     <!-- Core -->
     <arg name="enableSafety" default="false"/>
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
-    <arg name="enableBB2wide" default="false"/>
-    <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
+    <arg name="enableBB2wide"   default="false"/>
+    <arg name="enableCH3"       default="false"/>
+    <arg name="enableUSBL"      default="false"/>
     <!-- Interfaces -->
     <arg name="enableRviz" default="true"/>
     <arg name="enableIqua" default="false"/>
-    <!-- Bagfile -->
-    <arg name="dataset"    	default="papallona2"/>
-    <arg name="rate"    	default="0.5"/>
 
     <!-- Play bagfile -->
     <include file="$(find cola2_xiroi)/config/bag_loader/$(arg dataset).xml">

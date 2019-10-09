@@ -11,6 +11,8 @@
         <arg name="robot_name" value="$(arg robot_name)"/>
     </include>
 
+    <!-- Param logger -->
+    <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/> 
 
     <!-- Multimaster -->
     <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/> -->
