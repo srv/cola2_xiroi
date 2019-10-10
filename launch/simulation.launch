@@ -9,8 +9,8 @@
     <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
-    <arg name="enableIqua" default="false"/>
-    <arg name="enableRviz" default="true"/>
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableRviz" default="false"/>
 
 
     <!-- ROBOT -->
