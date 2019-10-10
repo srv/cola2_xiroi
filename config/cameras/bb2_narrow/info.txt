@@ -1,0 +1,2 @@
+camera model BB2_08S2C_25_1
+ SN 10191874 -> GUID 00b09d01009b8402 (narrow)
