@@ -57,6 +57,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    Current.msg
    MinimalDiagnostic.msg
+   PowerReading.msg
  )
 
 ## Generate services in the 'srv' folder
