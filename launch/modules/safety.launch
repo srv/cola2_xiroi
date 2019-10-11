@@ -22,7 +22,7 @@
 
     <!-- Power control -->
     <include file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"/>
-    <node name="strobe_light" pkg="cola2_xiroi" type="lights_arduino.py" respawn="true" output="screen"/>
+    <!-- <node name="strobe_light" pkg="cola2_xiroi" type="lights_arduino.py" respawn="true" output="screen"/> -->
     
 
 </launch>

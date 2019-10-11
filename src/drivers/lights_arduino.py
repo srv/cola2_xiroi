@@ -58,7 +58,8 @@ class ArduinoROS():
 
     # Service callback functions
     def blinking_leds(self, data):
-        self.controller.digital_write(2, 0)
+        self.controller.digital_write(9, 1)
+        self.controller.digital_write(10, 0)
         print data.input_soc
 
         self.full_charge = 12.65        # 100%
@@ -68,21 +69,21 @@ class ArduinoROS():
 
         if (100>=data.input_soc>=75):
             for i in range(4):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
         if (75>data.input_soc>=50):
             for i in range(3):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
         if (50>data.input_soc>=25):
             for i in range(2):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")
