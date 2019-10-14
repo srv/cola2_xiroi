@@ -23,7 +23,7 @@ from ros_arduino_python.arduino_driver import Arduino
 import os, time
 import thread
 from serial.serialutil import SerialException
-from xiroi.msg import BatteryInfo
+from cola2_xiroi.msg import PowerReading
 
 class ArduinoROS():
     def __init__(self):
@@ -45,7 +45,7 @@ class ArduinoROS():
         r = rospy.Rate(self.rate)
 
         # Callback for BatteryInfo
-        rospy.Subscriber("/state_of_charge", BatteryInfo, self.blinking_leds)
+        rospy.Subscriber("/xiroi/sensors/battery", PowerReading, self.blinking_leds)
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
         # Make the connection
@@ -58,30 +58,32 @@ class ArduinoROS():
 
     # Service callback functions
     def blinking_leds(self, data):
-        self.controller.digital_write(2, 0)
+        self.controller.digital_write(9, 1)
+        self.controller.digital_write(10, 0)
+        print data.input_soc
 
         self.full_charge = 12.65        # 100%
         self.mediumUP_charge = 12.45    # 75%
         self.mediumDOWN_charge = 12.24  # 50%
         self.low_charge = 12.06         # 25%
 
-        if (data.state_of_charge==100):
+        if (100>=data.input_soc>=75):
             for i in range(4):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
-        if (data.state_of_charge==75):
+        if (75>data.input_soc>=50):
             for i in range(3):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
-        if (data.state_of_charge==25):
+        if (50>data.input_soc>=25):
             for i in range(2):
-                self.controller.digital_write(2, 1)
+                self.controller.digital_write(10, 1)
                 time.sleep(1.0)
-                self.controller.digital_write(2, 0)
+                self.controller.digital_write(10, 0)
 
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")

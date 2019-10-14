@@ -18,9 +18,11 @@
         <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
     </node>
     <node name="vehicle_status_parser" pkg="cola2_safety" type="vehicle_status_parser.py" respawn="true" output="screen"/>
-    <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/>
-    <!--<node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
--->
-    <!-- <include unless="$(arg sim)" file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"/> -->
+    <node name="computer_logger" pkg="cola2_log" type="computer_logger.py" respawn="true" output="screen"/>
+
+    <!-- Power control -->
+    <include file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"/>
+    <!-- <node name="strobe_light" pkg="cola2_xiroi" type="lights_arduino.py" respawn="true" output="screen"/> -->
+    
 
 </launch>

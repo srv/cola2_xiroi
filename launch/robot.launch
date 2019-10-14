@@ -8,7 +8,11 @@
     <arg name="simGPS" default="false"/>
 
     <!-- Core -->
+<<<<<<< HEAD
     <arg name="enableSafety" default="true"/>
+=======
+    <arg name="enableSafety" default="false"/>
+>>>>>>> ebeb7bae6b3d5f44e3dcac62360ebcada7bd6f1d
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <!-- Payload -->
@@ -55,7 +59,7 @@
         <!-- Topic Logger -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger.yaml"/>
         <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
-            <param name="dir" value="/home/turbot/bagfiles"/>
+            <param name="dir" value="/data/media/xiroi"/>
             <param name="robot" value="$(arg robot_name)"/>
         </node>
 

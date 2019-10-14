@@ -20,7 +20,7 @@ from ros_arduino_python.arduino_driver import Arduino
 import os, time
 import thread
 from serial.serialutil import SerialException
-from xiroi.msg import BatteryInfo
+from cola2_xiroi.msg import PowerReading
 
 class ArduinoROS():
     def __init__(self):
@@ -42,7 +42,7 @@ class ArduinoROS():
         r = rospy.Rate(self.rate)
 
         # Callback for BatteryInfo
-        rospy.Subscriber("/sensors/battery", PowerReading, self.blinking_leds)
+        rospy.Subscriber("sensors/battery", PowerReading, self.blinking_leds)
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
         # Make the connection

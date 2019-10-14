@@ -1,4 +1,4 @@
-guid: 00b09d0100b9421b
+guid: 00b09d01009b8402 #00b09d0100b9421b
 iso_speed: 400  # IEEE1394a
 reset_on_open: true
 

@@ -7,7 +7,6 @@
     <arg name="enableCH3" default="false"/>
 
 
-    <!-- ################## AVOID TO TOUCH ANYTHING BELOW THIS LINE ##################### -->
     <!-- USBL -->
     <group if="$(arg enableUSBL)">
         <rosparam command="load" file="$(find cola2_xiroi)/config/evologics_usbl.yaml"/>
@@ -16,7 +15,7 @@
         <node pkg="tf" type="static_transform_publisher" name="xiroi_to_usbl$(arg suffix)" args="0.5 0.0 0.7 0.0 0.0 0.0 /xiroi /usbl 100" />
     </group>
 
-    <!-- Stereo Bumblebee -->
+    <!-- Stereo Bumblebee Narrow-->
     <include if="$(arg enableBB2narrow)" file="$(find cola2_xiroi)/launch/modules/stereo_bb2.launch">
         <arg name="type"        value="narrow"/> 
         <arg name="processing"  value="true"/>
@@ -24,7 +23,7 @@
         <arg name="decimation"  value="2"/>
         <arg name="throttle"    value="false"/>
     </include>
-
+    <!-- Stereo Bumblebee Wide-->
     <include if="$(arg enableBB2wide)" file="$(find cola2_xiroi)/launch/modules/stereo_bb2.launch">
         <arg name="type"        value="wide"/> 
         <arg name="processing"  value="true"/>
