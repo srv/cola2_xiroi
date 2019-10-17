@@ -1,8 +1,8 @@
 <launch>
-  <arg name="type" default="narrow" /> 
+  <arg name="type" default="wide" /> 
   <arg name="base_topic" default="stereo_$(arg type)" />
   <arg name="camera" default="bb2_$(arg type)" />   
-  <arg name="calibration" default="boxed_water" />
+  <arg name="calibration" default="boxed_pool" />
   <arg name="camera_params" default="$(find cola2_xiroi)/config/cameras/$(arg camera)/camera_params.yaml" />
   <arg name="processing" default="true"/>
   <arg name="decimate" default="false"/>

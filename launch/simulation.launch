@@ -5,13 +5,12 @@
     <arg name="joystickDevice" default="/dev/input/js0"/>
 
     <!-- Flags -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
     <arg name="enableIqua" default="false"/>
     <arg name="enableRviz" default="false"/>
-
 
     <!-- ROBOT -->
     <include file="$(find cola2_xiroi)/launch/robot.launch">
