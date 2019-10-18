@@ -8,9 +8,10 @@
     <arg name="simGPS" default="false"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="true"/>
+
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>

@@ -8,7 +8,6 @@
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
-
     <arg name="enableIqua" default="false"/>
     <arg name="enableRviz" default="false"/>
 
