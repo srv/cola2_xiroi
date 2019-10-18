@@ -36,4 +36,7 @@
     <node if="$(arg enableThrusters)" name="thruster_driver" pkg="cola2_xiroi" type="bluerobotics_T200_arduino.py"  respawn="true" output="$(arg output)" >
         <remap from="setpoints" to="controller/thruster_setpoints"/> 
     </node>
+    
+    <!-- Power Control -->
+    <include file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"> </include>
 </launch>
