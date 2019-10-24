@@ -1,12 +1,12 @@
 <launch>
   <arg name="enableEvologicsDriver"   default="true"/>
-  <arg name="simulateGps"             default="false"/>
+  <!-- <arg name="simulateGps"             default="true"/> -->
 
 
   <!-- Evologics driver -->
   <group if="$(arg enableEvologicsDriver)">
-    <rosparam command="load" file="$(find xiroi)/config/evologics_usbl.yaml"/>
-    <param name="/evologics/config_srv_dir" value="$(find xiroi)/config/evologics_services.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_usbl.yaml"/>
+    <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
     <node name="evologics_ros_sync_gs" pkg="evologics_ros_sync" type="evologics_ros_gs.py" output="screen"/>
   </group>
 
