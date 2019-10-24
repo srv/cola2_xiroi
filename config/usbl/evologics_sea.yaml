@@ -1,0 +1,20 @@
+evologics:
+    driver:
+        physical_interface_timeout: 0.1
+        response_timeout: 4.0
+        modem_pos_timeout: 0.2
+    acoustic:
+        source_level: 1 # [0 (max) ->  3 (min)]  
+        gain: 0         # 0-1
+        cluster_size: 4 #10
+        packet_time: 600 # range: 50-1000 default :750  
+        retry_count: 3 #10
+        retry_timeout: 1000 #4000
+    usbl:
+        address: '192.168.1.245:9200'
+        id: 1
+        loop_period: 0.02 # Look for new acoustic messages
+    modem:
+        address: '/dev/ttyS11'
+        id: 2
+        loop_period: 0.5 # Get new nav_sts for the pbm

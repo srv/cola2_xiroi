@@ -1,0 +1,9 @@
+sensors:
+  usbl:
+    sync_time_th: 0.3
+    sync_prop_th: 0.5
+    sync_disp_th: 0.7
+    covariance: 2.0
+    rssi_max: -10 # def -20
+    rssi_min: -95 # def -85
+    integrity_min: 85 # def 100

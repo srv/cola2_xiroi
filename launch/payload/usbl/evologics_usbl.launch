@@ -7,7 +7,7 @@
   <group if="$(arg enableEvologicsDriver)">
     <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_usbl.yaml"/>
     <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
-    <node name="evologics_ros_sync_gs" pkg="evologics_ros_sync" type="evologics_ros_gs.py" output="screen"/>
+    <node name="evologics_ros_sync_gs" pkg="evologics_ros_sync" type="evologics_ros_usbl.py" output="screen"/>
   </group>
 
   <!-- USBL POSITION -->

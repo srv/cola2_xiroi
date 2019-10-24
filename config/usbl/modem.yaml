@@ -1,0 +1,16 @@
+modem:
+    modem_config:
+        connection_type: 'SERIAL'  # 'SERIAL' or 'TCP/IP'
+        read_rate: 10  # Hz
+        status_rate: 2  # Hz
+        source_level: 1
+        serial_config:
+            port: '/dev/ttyS11'
+            baudrate: 19200
+            parity: 'N'
+            stopbits: 1
+            timeout: 0.1
+        tcp_config:
+            ip: '192.168.1.245'  # Device IP (192.168.1.245 is the USBL)
+            port: 9200           # Port number
+            type: 'lr'           # 'lr': lister-respawn, 'ls': listen-single, 'c': client
