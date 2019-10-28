@@ -3,7 +3,7 @@
     <arg name="robot_name"/>
     <arg name="enableThrusters"/>
     <arg name="openLoopTeleoperation"/>
-    <arg name="output" default="screen"/>
+    <arg name="output" default="log"/>
 
     <!-- Openloop -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>

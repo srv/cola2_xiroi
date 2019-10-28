@@ -56,7 +56,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    Current.msg
-   EMUSBMS.msg
+   EmusBms.msg
    ComputerData.msg
    MinimalDiagnostic.msg
    PowerReading.msg

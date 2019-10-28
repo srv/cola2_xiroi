@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="colonia.yaml"/>
+    <arg name="place" default="uib_cti.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -8,7 +8,7 @@
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="true"/>
+    <arg name="enableSafety" default="false"/>
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
@@ -16,7 +16,7 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
+    <arg name="enableUSBL" default="true"/>
     <!-- Interfaces -->
     <arg name="enableIqua" default="false"/>
 
@@ -60,7 +60,7 @@
             <param name="robot" value="$(arg robot_name)"/>
         </node> -->
 
-        <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/>
+        <!-- <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/> -->
     </group>
 
 
