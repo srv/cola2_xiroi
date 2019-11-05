@@ -32,15 +32,6 @@
     <!-- RViz -->
     <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/sim_xiroi.rviz"/>
 
-
-    <!-- MULTIMASTER -->
-    <!-- <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" >
-        <param name="_mcast_group" value="224.0.0.1"/>
-    </node>
-    <rosparam command="load" file="$(find xiroi)/config/master_sync/sync_groundstation.yaml"/>
-    <rosparam command="load" file="$(find xiroi)/config/master_sync/sync_groundstation_topics.yaml"/>
-    <node name="master_sync" pkg="master_sync_fkie" type="master_sync" output="screen"/> -->
-
     <!-- ROSBRIDGE -->
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
     <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server"/>

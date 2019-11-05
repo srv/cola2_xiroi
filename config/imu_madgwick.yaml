@@ -6,7 +6,7 @@ imu_madgwick:
   world_frame: enu
   use_mag: true
   use_magnetic_field_msg: true
-  fixed_frame: odom
+  fixed_frame: xiroi/odom
   publish_tf: false
   zeta : 0.0                #Gyro drift gain (approx. rad/s). Range: -1.0 to 1.0
   mag_bias_x : 0.0          #Magnetometer bias (hard iron correction), x component. Range: -10.0 to 10.0

@@ -14,10 +14,6 @@
     <!-- Param logger -->
     <node name="param_logger" pkg="cola2_log" type="param_logger.py" output="screen"/> 
 
-    <!-- Multimaster -->
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/> -->
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_all_topics.yaml"/> -->
-
     <!--  Other params  -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/vehicle_status_parser.yaml"/>
     <rosparam command="load" file="$(find cola2_xiroi)/config/default_param_handler.yaml"/>
