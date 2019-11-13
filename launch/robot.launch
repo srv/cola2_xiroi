@@ -1,15 +1,15 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="uib_cti.yaml"/>
+    <arg name="place" default="safareig_campus.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="false"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
     <!-- Payload -->
@@ -54,16 +54,15 @@
         </include>
 
         <!-- Topic Logger -->
-        <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger.yaml"/>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
         <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
             <param name="dir" value="/data/media/xiroi"/>
-            <param name="robot" value="$(arg robot_name)"/>
-        </node> -->
+        </node>
 
         <!-- <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/> -->
     </group>
 
 
     <!-- Static transform -->
-    <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
+    <!-- <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/> -->
 </launch>

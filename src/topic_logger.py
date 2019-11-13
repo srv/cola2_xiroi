@@ -25,57 +25,40 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Modified by Emilio Garcia-Fidalgo (emilio.garcia@uib.es) in 2019 
+to be used in the Mussol Aerial Platform as a logging node
 """
 
-import roslib; roslib.load_manifest('cola2_xiroi')
+PKG = 'cola2_xiroi' # this package name
+NAME = 'topic_logger'
+
+import roslib; roslib.load_manifest(PKG)
 import rospy
 from std_srvs.srv import Empty
 from cola2_xiroi.srv import RecordRequest, RecordRequestResponse
 import string
 import os
-import shutil
 import sys
-import signal
 import time
+import datetime
 import subprocess
-
 
 dir = rospy.get_param("topic_logger/dir", default='/home/' + os.getlogin())
 dir_save_bagfiles = dir + '/bagfiles'
-dirs_save_missions = [dir + '/missions',
-                      '/var/www/html/robot_missions/missions',
-                      '/var/www/html/robotmissions/missions']
 
 # Load Topic list
 topics = rospy.get_param("topic_logger/topics")
-robot = rospy.get_param("topic_logger/robot")
 
 image_topics = []
-if rospy.has_param('/topic_logger/image_topics'):
-  image_topics = rospy.get_param("/topic_logger/image_topics")
+if rospy.has_param('topic_logger/image_topics'):
+  image_topics = rospy.get_param("topic_logger/image_topics")
 
-def touch(path):
-  with open(path, 'a'):
-    os.utime(path, None)
-
-def search_file(filename, search_path):
-  """Given a search path, find file
-  """
-  file_found = False
-  paths = string.split(search_path, os.pathsep)
-  for path in paths:
-    for root, dirs, files in os.walk(path):
-      for name in files:
-        if name == filename:
-          if os.path.exists(os.path.join(root, name)):
-            file_found = True
-            return os.path.abspath(os.path.join(root, name))
-            break
-  else:
-    return None
+pc_topics = []
+if rospy.has_param('/topic_logger/pc_topics'):
+  pc_topics = rospy.get_param("/topic_logger/pc_topics")
 
 class TopicLogger:
-  _recording = False;
+  _recording = False
 
   ##
   ## @brief      Record topics in a bagfile and return the subprocess
@@ -84,16 +67,17 @@ class TopicLogger:
   ## @param      topics   The topics
   ## @param      process  The process
   ##
-  def record(self, topics, folder, platform, date, split = True, size = 1000):
+  def record(self, topics, folder, platform, split = False, size = 10000):
     args = ''
     if len(sys.argv) > 1:
-      args = ' -o ' + folder + "/" + platform + date
+      # args = ' -o ' + folder + "/" + platform + date
+      args = ' -o ' + folder + "/" + platform
     # Normal topics
     for t in topics:
       args = args + " " + t
-    command = "rosbag record"
+    command = "rosbag record --lz4"
     if split:
-      command = command + " --split --size=" + str(size)
+      command = command + " --split --size " + str(size)
     command = command + args
     return subprocess.Popen(command, shell=True, cwd=folder)
 
@@ -103,37 +87,30 @@ class TopicLogger:
     if (not self._recording):
       rospy.loginfo('Recording start requested')
 
-      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles, req.date)
+      now = datetime.datetime.now()
+      fullday   = now.strftime("%Y%m%d")
+      fullhour  = now.strftime("%H_%M_%S")
 
-      if 'gs' in rospy.get_name():
-        dir_save_curr_bagfile = os.path.join(dir_save_curr_bagfile, 'gs')
+      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles, fullday, fullhour, req.platform)
 
       if not os.path.exists(dir_save_curr_bagfile):
         os.makedirs(dir_save_curr_bagfile)
 
-      # Copy the mission file ONLY in the ground station
-      platform = 'auv'
-      if 'gs' in rospy.get_name():
-        platform = 'gs'
-        mission = req.mission
-        if not('.yaml' in mission):
-          mission = mission + '.yaml'
-        if not self.copy_mission(mission, dir_save_curr_bagfile):
-          return RecordRequestResponse(False)
-
       self._recording = True
-      self.p = self.record(topics, dir_save_curr_bagfile, platform, req.date, size = 10000)
+      self.p = self.record(topics, dir_save_curr_bagfile, req.platform, split=False, size=10000)
       rospy.loginfo('Recording process started with PID: {0}'.format(self.p.pid))
 
       # Image topics
       if image_topics:
-        dir_save_img_bagfile = os.path.join(dir_save_curr_bagfile, 'img')
-        if not os.path.exists(dir_save_img_bagfile):
-          os.makedirs(dir_save_img_bagfile)
-        self.p_img = self.record(image_topics, dir_save_img_bagfile, 'images', req.date)
+        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images', split=False, size=10000)
         rospy.loginfo('Recording process started with PID: {0}'.format(self.p_img.pid))
 
-      param_filename = req.date + "_params.yaml"
+      # Point Cloud topics
+      if pc_topics:
+        self.p_pc = self.record(pc_topics, dir_save_curr_bagfile, 'pc', split=False, size=10000)
+        rospy.loginfo('Recording process started with PID: {0}'.format(self.p_pc.pid))
+
+      param_filename = "params.yaml"
       rospy.loginfo('Saving parameters in {0}'.format(dir_save_curr_bagfile + '/' + param_filename))
       process = subprocess.Popen('rosparam dump ' + param_filename, shell=True, cwd=dir_save_curr_bagfile)
       time.sleep(10)
@@ -142,32 +119,6 @@ class TopicLogger:
       rospy.logwarn('Already recording...')
       return RecordRequestResponse(False)
     return RecordRequestResponse(True)
-
-  def copy_mission(self, mission_name, dst_folder):
-    """
-    @brief      Copy the mission file in the destination folder
-
-    @param      mission_name  The mission name
-    @param      dst_folder    The destination folder
-
-    @return     True if the mission file has been found and copied
-    """
-    if 'rov' in mission_name:
-      touch(os.path.join(dst_folder, mission_name))
-      return True
-    elif 'auv' in mission_name:
-      for dir_save_missions in dirs_save_missions:
-        mission_file = search_file(mission_name, dir_save_missions)
-        if mission_file is not None:
-          rospy.loginfo('Mission found at: {0}'.format(mission_file))
-          shutil.copy(mission_file, dst_folder)
-          return True
-      else:
-        rospy.logerr('Mission {0} not found. Exiting...'.format(mission_name))
-        return False
-    else:
-      rospy.logerr('Mission name has to be either ROV or AUV! Exiting...')
-      return False
 
   #stop to record the topics
   def stop_recording(self, req):
@@ -178,7 +129,7 @@ class TopicLogger:
       retcode = list_cmd.wait()
       assert retcode == 0, "List command returned %d" % retcode
       for str in list_output.split("\n"):
-        if (str.startswith('/' + robot + '/record')):
+        if (str.startswith('/record')):
           os.system("rosnode kill " + str)
       self._recording = False
     else:
@@ -186,7 +137,7 @@ class TopicLogger:
     return []
 
   def __init__(self):
-    rospy.init_node('topic_logger')
+    rospy.init_node(NAME)
 
     self.start_srv = rospy.Service(rospy.get_name() + '/start_recording', RecordRequest, self.start_recording)
     self.stop_srv  = rospy.Service(rospy.get_name() + '/stop_recording', Empty, self.stop_recording)
