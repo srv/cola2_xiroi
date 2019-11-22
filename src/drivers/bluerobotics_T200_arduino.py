@@ -45,9 +45,9 @@ class ArduinoROS():
         self.current_sensor_pin = rospy.get_param("current_sensor_pin", 0)
         self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
-        self.rising_rate = rospy.get_param("rising_rate", 0.3)
+        self.rising_rate = rospy.get_param("rising_rate", 0.5)
         self.falling_rate = rospy.get_param("falling_rate", 1.0)
-        self.setpoint_limit = rospy.get_param("setpoint_limit", 0.5)
+        self.setpoint_limit = rospy.get_param("setpoint_limit", 0.9)
         self.zero_pwm = rospy.get_param("zero_pwm", 1500)
         self.max_pwm = rospy.get_param("max_pwm", 1700)
         self.first_time=True
@@ -69,7 +69,7 @@ class ArduinoROS():
         self.controller.connect()
         rospy.loginfo("Connected to Arduino on port " + self.port + " at " + str(self.baud) + " baud")
 
-        self.controller.pin_mode(self.current_sensor_power_pin, 1)
+        self.controller.digital_pin_mode(self.current_sensor_power_pin, 1)
         self.controller.digital_write(self.current_sensor_power_pin,1)
 
         # TODO: Timer

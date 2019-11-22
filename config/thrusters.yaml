@@ -8,8 +8,8 @@ left_thruster_pin: 1
 right_thruster_pin: 0
 #Setpoints ramp
 activate_ramp: True
-rising_rate: 0.4
-falling_rate: 0.9
+rising_rate: 0.65
+falling_rate: 0.95
 setpoint_limit: 1.0
 
 #Thruster characteristics

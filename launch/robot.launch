@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="safareig_campus.yaml"/>
+    <arg name="place" default="illetes.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -8,7 +8,7 @@
     <arg name="simGPS" default="false"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
 
@@ -16,10 +16,10 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="true"/>
+    <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
-    <arg name="enableIqua" default="false"/>
-
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableMultimaster" default="false"/>
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
@@ -51,6 +51,7 @@
         <!-- Load interfaces -->
         <include file="$(find cola2_xiroi)/launch/modules/interfaces.launch">
             <arg name="enableIqua" value="$(arg enableIqua)"/>
+            <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
 
         <!-- Topic Logger -->
