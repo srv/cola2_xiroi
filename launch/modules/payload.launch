@@ -23,6 +23,7 @@
         <arg name="decimation"  value="2"/>
         <arg name="throttle"    value="false"/>
     </include>
+
     <!-- Stereo Bumblebee Wide-->
     <include if="$(arg enableBB2wide)" file="$(find cola2_xiroi)/launch/modules/stereo_bb2.launch">
         <arg name="type"        value="wide"/> 
@@ -33,7 +34,10 @@
     </include>
 
     <!-- Stereo CH3 -->
-    <group if="$(arg enableCH3)">
-    </group>
+    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/modules/mono_ch3.launch">
+    </include>
+
+    <!-- Lights -->
+     <!-- <node name="vehicle_lights" pkg="cola2_xiroi" type="lights_arduino.py" output="screen"/> -->
 
 </launch>
