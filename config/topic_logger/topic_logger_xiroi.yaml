@@ -92,4 +92,6 @@ topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw
                             /xiroi/stereo_narrow/left/camera_info 
                             /xiroi/stereo_narrow/right/camera_info
                             /xiroi/ch3/camera_info
-                            /xiroi/ch3/image_raw"]
+                            /xiroi/ch3/image_raw
+                            /chameleon3/camera_info  
+                            /chameleon3/image_raw "]
