@@ -61,7 +61,7 @@ class ArduinoROS():
 
         # Publishers
         self.setpoints_corrected = rospy.Publisher("controller/setpoints_corrected", Setpoints, queue_size=1)
-        self.thruster_current = rospy.Publisher("controller/thruster_current",Current, queue_size=1)
+        self.thruster_current_right = rospy.Publisher("controller/thruster_current_right",Current, queue_size=1)
      
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
@@ -79,7 +79,8 @@ class ArduinoROS():
             msg = Current()
             msg.header.stamp = rospy.Time.now()
             msg.current = ((current/1024.0*5.0) - 2.41)/0.066
-            self.thruster_current.publish(msg)
+            msg.thruster = 'right'
+            self.thruster_current_right.publish(msg)
             r.sleep()
 
 
