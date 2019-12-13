@@ -42,7 +42,8 @@ class ArduinoROS():
         self.base_frame = rospy.get_param("base_frame", 'base_link')
         self.left_thruster_pin = rospy.get_param("left_thruster_pin", 0)
         self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
-        self.current_sensor_pin = rospy.get_param("current_sensor_pin", 0)
+        self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
+        self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
         self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
         self.rising_rate = rospy.get_param("rising_rate", 0.5)
@@ -62,6 +63,7 @@ class ArduinoROS():
         # Publishers
         self.setpoints_corrected = rospy.Publisher("controller/setpoints_corrected", Setpoints, queue_size=1)
         self.thruster_current_right = rospy.Publisher("controller/thruster_current_right",Current, queue_size=1)
+        self.thruster_current_left = rospy.Publisher("controller/thruster_current_left",Current, queue_size=1)
      
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
@@ -69,19 +71,43 @@ class ArduinoROS():
         self.controller.connect()
         rospy.loginfo("Connected to Arduino on port " + self.port + " at " + str(self.baud) + " baud")
 
-        self.controller.digital_pin_mode(self.current_sensor_power_pin, 1)
-        self.controller.digital_write(self.current_sensor_power_pin,1)
+        # self.controller.digital_pin_mode(self.current_sensor_power_pin, 1)
+        # self.controller.digital_write(self.current_sensor_power_pin,1)
 
         # TODO: Timer
         while not rospy.is_shutdown():
-            current = self.controller.analog_read(self.current_sensor_pin)
-            # publish
+            #RIGHT THRUSTER CURRENT SENSOR
+            current_right = self.controller.analog_read(self.current_sensor_pin_right)
+            # print("  ")
+            # print "----------------"
+            # print (current_right)
+            # print "---------------"
+            # print("  ")
             msg = Current()
             msg.header.stamp = rospy.Time.now()
-            msg.current = ((current/1024.0*5.0) - 2.41)/0.066
+            msg.current = ((current_right/1026.0*4.98) - 2.49)/0.066
             msg.thruster = 'right'
             self.thruster_current_right.publish(msg)
             r.sleep()
+            #RIGHT THRUSTER CURRENT SENSOR
+            current_left = self.controller.analog_read(self.current_sensor_pin_left)
+            # print("  ")
+            # print "----------------"
+            # print (current_left)
+            # print "---------------"
+            # print("  ")
+            msg = Current()
+            msg.header.stamp = rospy.Time.now()
+            msg.current = ((current_left/672.0*3.326) - 1.663)/0.066
+            msg.thruster = 'left'
+            self.thruster_current_left.publish(msg)
+            r.sleep()
+            # Analog read produces a value of 0-1023, equating to 0v to 5.02v.
+            # With a sensitivity of 66 mV per A the optimized -30 to 30 range
+            #5.02V Vcc RIGHT THRUSTER CURRENT SENSOR, 3.326V Vcc RIGHT THRUSTER CURRENT SENSOR
+            #0.066mV/A sensor current sensibility
+            #2.5V --> 0A, 
+      
 
 
     def limitSetpoint(self, msg, time, old_msg, old_time):
