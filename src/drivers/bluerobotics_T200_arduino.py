@@ -26,6 +26,7 @@ from serial.serialutil import SerialException
 from cola2_xiroi.msg import Current
 from cola2_msgs.msg import Setpoints
 from std_srvs.srv import Empty, EmptyResponse
+from m4atx_battery_monitor.msg import PowerReading
 
 class ArduinoROS():
     def __init__(self):
@@ -45,6 +46,9 @@ class ArduinoROS():
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
         self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
+        self.position_lights_pin = rospy.get_param("~position_ligts_pin", 11)
+        self.strobe_light_pin = rospy.get_param("~strobe_light_pin", 10)
+        self.enable_lights_pin = rospy.get_param("enable_lights_pin",9)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
         self.rising_rate = rospy.get_param("rising_rate", 0.5)
         self.falling_rate = rospy.get_param("falling_rate", 1.0)
@@ -52,6 +56,16 @@ class ArduinoROS():
         self.zero_pwm = rospy.get_param("zero_pwm", 1500)
         self.max_pwm = rospy.get_param("max_pwm", 1700)
         self.first_time=True
+
+        # Callback for BatteryInfo
+        rospy.Subscriber("sensors/battery", PowerReading, self.battery_info)
+        self.soc = 0
+
+        #Services
+        self.e_pl_srv = rospy.Service('enable_position_lights', Empty, self.enable_lights_srv)
+        self.d_pl_srv = rospy.Service('disable_position_lights', Empty, self.disable_lights_srv)
+        self.e_sl = rospy.Service('enable_strobe_light', Empty, self.enable_strobe_light_srv)
+     	self.d_sl = rospy.Service('disable_strobe_light', Empty, self.disable_strobe_light_srv)
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
@@ -71,8 +85,13 @@ class ArduinoROS():
         self.controller.connect()
         rospy.loginfo("Connected to Arduino on port " + self.port + " at " + str(self.baud) + " baud")
 
-        # self.controller.digital_pin_mode(self.current_sensor_power_pin, 1)
-        # self.controller.digital_write(self.current_sensor_power_pin,1)
+        self.controller.digital_pin_mode(self.position_lights_pin, 1)
+        self.controller.digital_pin_mode(self.strobe_light_pin, 1)
+        self.controller.digital_pin_mode(self.enable_lights_pin,1)
+
+        self.controller.digital_write(self.position_lights_pin,0)
+        self.controller.digital_write(self.strobe_light_pin,0)
+        self.controller.digital_write(self.enable_lights_pin,1)
 
         # TODO: Timer
         while not rospy.is_shutdown():
@@ -187,6 +206,7 @@ class ArduinoROS():
         corrected.header.seq = msg.header.seq
         corrected.setpoints = [msg0, msg1]
         self.setpoints_corrected.publish(corrected)
+    
 
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")
@@ -210,6 +230,64 @@ class ArduinoROS():
 
     def setpoint_conversion(self, setpoint):
         return self.zero_pwm + setpoint*(self.max_pwm-self.zero_pwm)
+
+    
+    
+    def enable_lights_srv(self, req):
+        self.controller.digital_write(self.position_lights_pin,1)
+        return EmptyResponse()
+	
+    def disable_lights_srv(self, req):
+        self.controller.digital_write(self.position_lights_pin,0)
+        return EmptyResponse()
+
+    def enable_strobe_light_srv(self, req):
+	  self.controller.digital_write(self.strobe_light_pin,1)
+	  return EmptyResponse()
+
+    def disable_strobe_light_srv(self, req):
+	  self.controller.digital_write(self.strobe_light_pin,0)
+	  return EmptyResponse()
+	
+    # Service callback functions   
+    def battery_info(self, data):
+        self.soc = data.input_soc
+        self.current = data.current
+        self.strobe_led()
+    
+    def strobe_led(self):
+       # print(self.soc)
+        if 150.0 >= self.soc and self.soc >= 75.0:
+            time.sleep(2.5)
+            for i in range(4):
+                self.controller.digital_write(self.strobe_light_pin, 1)
+                time.sleep(0.2)
+                self.controller.digital_write(self.strobe_light_pin, 0)
+                time.sleep(0.2)
+
+        elif 75.0 > self.soc and self.soc >= 50.0:
+            time.sleep(2.9)
+            for i in range(3):
+                self.controller.digital_write(self.strobe_light_pin, 1)
+	        time.sleep(0.2)
+                self.controller.digital_write(self.strobe_light_pin, 0)
+                time.sleep(0.2)
+                
+        elif 50.0 > self.soc and self.soc >= 25.0:
+            time.sleep(3.3)
+            for i in range(2):
+                self.controller.digital_write(self.strobe_light_pin, 1)
+	        time.sleep(0.2)
+                self.controller.digital_write(self.strobe_light_pin, 0)
+	        time.sleep(0.2)
+
+        elif 25.0 > self.soc and self.soc >= 0.0:
+            time.sleep(3.7)
+            for i in range(1):
+                self.controller.digital_write(self.strobe_light_pin, 1)
+	        time.sleep(0.2)
+                self.controller.digital_write(self.strobe_light_pin, 0)
+	        time.sleep(0.2)
         
 
 if __name__ == '__main__':
