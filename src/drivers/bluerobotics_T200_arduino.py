@@ -47,7 +47,7 @@ class ArduinoROS():
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
         self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
-        self.current_sensor_buffer_size = rospy.get_param("current_sensor_buffer_size", 3)
+        self.current_sensor_buffer_size = rospy.get_param("current_sensor_buffer_size", 30)
         self.position_lights_pin = rospy.get_param("position_ligts_pin", 11)
         self.strobe_light_pin = rospy.get_param("strobe_light_pin", 10)
         self.enable_lights_pin = rospy.get_param("enable_lights_pin",9)
@@ -57,6 +57,7 @@ class ArduinoROS():
         self.setpoint_limit = rospy.get_param("setpoint_limit", 0.9)
         self.zero_pwm = rospy.get_param("zero_pwm", 1500)
         self.max_pwm = rospy.get_param("max_pwm", 1700)
+        self.first_time = True
         # Array initialization
         right_current_buffer = np.array([])
         left_current_buffer = np.array([])
@@ -115,14 +116,11 @@ class ArduinoROS():
             right_current_buffer = np.roll(right_current_buffer, -1)
             right_current_buffer = np.insert(right_current_buffer,self.current_sensor_buffer_size-1,right_current_data)
             right_current_buffer = np.delete(right_current_buffer,self.current_sensor_buffer_size)
-            current_right_filtered = np.mean(right_current_buffer)
-            msg.current = current_right_filtered
+            msg.current = np.mean(right_current_buffer)
             self.thruster_current_right.publish(msg)
-            r.sleep()
 
             #LEFT THRUSTER CURRENT SENSOR
             current_left = self.controller.analog_read(self.current_sensor_pin_left)
-            self.first_time_left = True
             msg = Current()
             msg.header.stamp = rospy.Time.now()
             msg.thruster = 'left'
@@ -132,13 +130,11 @@ class ArduinoROS():
                     left_current_buffer = np.append(left_current_buffer,left_current_data)
                 self.first_time_left = False
             #roll,rewrite new value and do the mean
+            left_current_buffer = np.roll(left_current_buffer, -1)
             left_current_buffer = np.insert(left_current_buffer,self.current_sensor_buffer_size-1,left_current_data)
             left_current_buffer = np.delete(left_current_buffer,self.current_sensor_buffer_size)
-            current_left_filtered = np.mean(left_current_buffer)
-            msg.current = current_left_filtered
+            msg.current = np.mean(left_current_buffer) 
             self.thruster_current_left.publish(msg)
-            r.sleep()
-
 
             # Analog read produces a value of 0-1023, equating to 0v to 5.02v.
             # With a sensitivity of 66 mV per A the optimized -30 to 30 range
