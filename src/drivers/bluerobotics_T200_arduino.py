@@ -22,6 +22,7 @@ import rospy
 from ros_arduino_python.arduino_driver import Arduino
 import os, time
 import thread
+import numpy as np
 from serial.serialutil import SerialException
 from cola2_xiroi.msg import Current
 from cola2_msgs.msg import Setpoints
@@ -46,8 +47,9 @@ class ArduinoROS():
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
         self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
-        self.position_lights_pin = rospy.get_param("~position_ligts_pin", 11)
-        self.strobe_light_pin = rospy.get_param("~strobe_light_pin", 10)
+        self.current_sensor_buffer_size = rospy.get_param("current_sensor_buffer_size", 3)
+        self.position_lights_pin = rospy.get_param("position_ligts_pin", 11)
+        self.strobe_light_pin = rospy.get_param("strobe_light_pin", 10)
         self.enable_lights_pin = rospy.get_param("enable_lights_pin",9)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
         self.rising_rate = rospy.get_param("rising_rate", 0.5)
@@ -55,17 +57,17 @@ class ArduinoROS():
         self.setpoint_limit = rospy.get_param("setpoint_limit", 0.9)
         self.zero_pwm = rospy.get_param("zero_pwm", 1500)
         self.max_pwm = rospy.get_param("max_pwm", 1700)
-        self.first_time=True
-
-        # Callback for BatteryInfo
-        rospy.Subscriber("sensors/battery", PowerReading, self.battery_info)
-        self.soc = 0
+        # Array initialization
+        right_current_buffer = np.array([])
+        left_current_buffer = np.array([])
+        self.first_time_right = True
+        self.first_time_left = True
 
         #Services
-        self.e_pl_srv = rospy.Service('enable_position_lights', Empty, self.enable_lights_srv)
-        self.d_pl_srv = rospy.Service('disable_position_lights', Empty, self.disable_lights_srv)
-        self.e_sl = rospy.Service('enable_strobe_light', Empty, self.enable_strobe_light_srv)
-     	self.d_sl = rospy.Service('disable_strobe_light', Empty, self.disable_strobe_light_srv)
+        self.e_pl_srv = rospy.Service('sensors/enable_position_lights', Empty, self.enable_lights_srv)
+        self.d_pl_srv = rospy.Service('sensors/disable_position_lights', Empty, self.disable_lights_srv)
+        self.e_sl = rospy.Service('sensors/enable_strobe_light', Empty, self.enable_strobe_light_srv)
+     	self.d_sl = rospy.Service('sensors/disable_strobe_light', Empty, self.disable_strobe_light_srv)
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
@@ -73,11 +75,14 @@ class ArduinoROS():
 
         # Callback for thrusters
         rospy.Subscriber("setpoints", Setpoints, self.thruster_callback)
+        # Callback for BatteryInfo
+        rospy.Subscriber("sensors/battery", PowerReading, self.battery_info)
+        self.soc = 0
 
         # Publishers
         self.setpoints_corrected = rospy.Publisher("controller/setpoints_corrected", Setpoints, queue_size=1)
-        self.thruster_current_right = rospy.Publisher("controller/thruster_current_right",Current, queue_size=1)
-        self.thruster_current_left = rospy.Publisher("controller/thruster_current_left",Current, queue_size=1)
+        self.thruster_current_right = rospy.Publisher("sensors/thruster_current_right",Current, queue_size=1)
+        self.thruster_current_left = rospy.Publisher("sensors/thruster_current_left",Current, queue_size=1)
      
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
@@ -95,40 +100,53 @@ class ArduinoROS():
 
         # TODO: Timer
         while not rospy.is_shutdown():
+
             #RIGHT THRUSTER CURRENT SENSOR
             current_right = self.controller.analog_read(self.current_sensor_pin_right)
-            # print("  ")
-            # print "----------------"
-            # print (current_right)
-            # print "---------------"
-            # print("  ")
             msg = Current()
             msg.header.stamp = rospy.Time.now()
-            msg.current = ((current_right/1026.0*4.98) - 2.49)/0.066
             msg.thruster = 'right'
+            right_current_data = ((current_right/1026.0*5.01) - 2.5)/0.066
+            if(self.first_time_right==True):
+                for i in range(self.current_sensor_buffer_size):
+                    right_current_buffer = np.append(right_current_buffer,right_current_data)
+                self.first_time_right = False
+            #roll,rewrite new value and do the mean
+            right_current_buffer = np.roll(right_current_buffer, -1)
+            right_current_buffer = np.insert(right_current_buffer,self.current_sensor_buffer_size-1,right_current_data)
+            right_current_buffer = np.delete(right_current_buffer,self.current_sensor_buffer_size)
+            current_right_filtered = np.mean(right_current_buffer)
+            msg.current = current_right_filtered
             self.thruster_current_right.publish(msg)
             r.sleep()
-            #RIGHT THRUSTER CURRENT SENSOR
+
+            #LEFT THRUSTER CURRENT SENSOR
             current_left = self.controller.analog_read(self.current_sensor_pin_left)
-            # print("  ")
-            # print "----------------"
-            # print (current_left)
-            # print "---------------"
-            # print("  ")
+            self.first_time_left = True
             msg = Current()
             msg.header.stamp = rospy.Time.now()
-            msg.current = ((current_left/672.0*3.326) - 1.663)/0.066
             msg.thruster = 'left'
+            left_current_data = ((current_left/1026.0*5.01) - 2.5)/0.066
+            if(self.first_time_left==True):
+                for i in range(self.current_sensor_buffer_size):
+                    left_current_buffer = np.append(left_current_buffer,left_current_data)
+                self.first_time_left = False
+            #roll,rewrite new value and do the mean
+            left_current_buffer = np.insert(left_current_buffer,self.current_sensor_buffer_size-1,left_current_data)
+            left_current_buffer = np.delete(left_current_buffer,self.current_sensor_buffer_size)
+            current_left_filtered = np.mean(left_current_buffer)
+            msg.current = current_left_filtered
             self.thruster_current_left.publish(msg)
             r.sleep()
+
+
             # Analog read produces a value of 0-1023, equating to 0v to 5.02v.
             # With a sensitivity of 66 mV per A the optimized -30 to 30 range
-            #5.02V Vcc RIGHT THRUSTER CURRENT SENSOR, 3.326V Vcc RIGHT THRUSTER CURRENT SENSOR
+            #5.02V Vcc THRUSTER CURRENT SENSOR, 
             #0.066mV/A sensor current sensibility
             #2.5V --> 0A, 
       
-
-
+   
     def limitSetpoint(self, msg, time, old_msg, old_time):
         #Rate calculation
         rate = (msg - old_msg)/(time - old_time)
@@ -198,7 +216,6 @@ class ArduinoROS():
 
 
         # Setpoint to thrusters
-        # print self.setpoint_conversion(msg0), self.setpoint_conversion(msg1)
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
         corrected = Setpoints()
@@ -230,8 +247,6 @@ class ArduinoROS():
 
     def setpoint_conversion(self, setpoint):
         return self.zero_pwm + setpoint*(self.max_pwm-self.zero_pwm)
-
-    
     
     def enable_lights_srv(self, req):
         self.controller.digital_write(self.position_lights_pin,1)
@@ -258,7 +273,7 @@ class ArduinoROS():
     def strobe_led(self):
        # print(self.soc)
         if 150.0 >= self.soc and self.soc >= 75.0:
-            time.sleep(2.5)
+            time.sleep(2)
             for i in range(4):
                 self.controller.digital_write(self.strobe_light_pin, 1)
                 time.sleep(0.2)
@@ -266,7 +281,7 @@ class ArduinoROS():
                 time.sleep(0.2)
 
         elif 75.0 > self.soc and self.soc >= 50.0:
-            time.sleep(2.9)
+            time.sleep(2)
             for i in range(3):
                 self.controller.digital_write(self.strobe_light_pin, 1)
 	        time.sleep(0.2)
@@ -274,7 +289,7 @@ class ArduinoROS():
                 time.sleep(0.2)
                 
         elif 50.0 > self.soc and self.soc >= 25.0:
-            time.sleep(3.3)
+            time.sleep(3)
             for i in range(2):
                 self.controller.digital_write(self.strobe_light_pin, 1)
 	        time.sleep(0.2)
@@ -282,7 +297,7 @@ class ArduinoROS():
 	        time.sleep(0.2)
 
         elif 25.0 > self.soc and self.soc >= 0.0:
-            time.sleep(3.7)
+            time.sleep(3)
             for i in range(1):
                 self.controller.digital_write(self.strobe_light_pin, 1)
 	        time.sleep(0.2)
