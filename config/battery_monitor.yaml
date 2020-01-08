@@ -1,3 +1,3 @@
 diag_frequency: 1.0
-input_nominal: 13.8
-battery_dead_voltage: 9.5
+input_nominal: 13.0
+battery_dead_voltage: 11.0
