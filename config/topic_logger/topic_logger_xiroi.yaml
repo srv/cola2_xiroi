@@ -75,6 +75,8 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/sensors/imu_raw_driver
                         /xiroi/sensors/imu_raw_filtered
                         /xiroi/sensors/imu_raw_filtered_calibrated
+                        /xiroi/sensors/thruster_current_left
+                        /xiroi/sensors/thruster_current_right
                         /xiroi/teleoperation/ack
                         /xiroi/vehicle_status
                         /xiroi/virtual_cage/markers/cage
