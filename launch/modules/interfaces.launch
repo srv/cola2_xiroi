@@ -37,11 +37,11 @@
 
     <!-- MULTIMASTER -->
     <group if="$(arg enableMultimaster)">    
-        <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" >
+        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" >
             <param name="_mcast_group" value="224.0.0.1"/>
         </node>
         <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/>
         <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_topics_xiroi.yaml"/>
-        <node name="master_sync" pkg="master_sync_fkie" type="master_sync" output="log"/>
+        <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
     </group>
 </launch>
