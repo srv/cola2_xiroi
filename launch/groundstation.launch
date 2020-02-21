@@ -4,8 +4,8 @@
     <arg name="enableJoystick" default="true" />
     <arg name="enableRviz" default="false" />
     <arg name="openLoopTeleoperation" default="false" />
-    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/>
-     <!--<arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> TURBOT -->
+    <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> -->
+    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/> 
     
     <group ns="$(arg robot_name)">
         <!-- TELEOPERATION -->
