@@ -1,35 +1,67 @@
 controller/period: 0.1
+controller/n_dofs: 6
 controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
+controller/TCM: [1.0, 1.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 0.0, 0.0, 
+                 -0.45, 0.45]
 
-# Thruster 1 Right
-# controller/thruster_1_poly_positive: [0.08840795, 0.02673127, -0.001059348, 0.00002167531, -7.318635e-8, 0.0 ]
-# controller/thruster_1_poly_negative: [-0.08851049, -0.02377903, 0.0007218377, -0.00002925786, 4.229009e-7, 0.0]
-controller/thruster_1_max_force_positive: 30.0
-controller/thruster_1_max_force_negative: 30
-controller/thruster_1_poly_positive: [0.07396096852, 0.03409279687, 0.0009787984384,
-  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
-controller/thruster_1_poly_negative: [0.07396096852, 0.03409279687, 0.0009787984384,
-  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
+# Thruster 2 LEFt?
+# controller/thruster_2_poly_positive: [0.113634979,0.03019443346,0.0002099326111,-0.0000229600767,0.0000006215687733,-0.000000005729637685]
+# controller/thruster_2_poly_negative: [0.113634979,0.03019443346,0.0002099326111,-0.0000229600767,0.0000006215687733,-0.000000005729637685]
+controller/thruster_2_poly_positive: 
+[2.6244839172864447e-002,
+7.4719163549095816e-002,
+-6.4002692768751999e-003,
+4.0556570845077757e-004,
+-1.2121522691319051e-005,
+1.3634150880434932e-007,
+-2.66E-11]
+controller/thruster_2_poly_negative: 
+[-4.3930655545085295e-002,
+-3.6006270186910549e-002,
+-5.1984325936772439e-003,
+1.0692737087581005e-003,
+-8.3699073903589939e-005,
+2.8933374430623567e-006,
+-3.69E-08]
+controller/thruster_2_max_force_positive: 32.0
+controller/thruster_2_max_force_negative: 27.0
 
-# Thruster 2 Left
-# controller/thruster_2_poly_positive: [-0.01374556, 0.03255326, -0.001517637, 0.00004865344, -6.042736e-7, 1.788113e-9]
-# controller/thruster_2_poly_negative: [-0.08966519, -0.03581142, 0.002352283, -0.0001068795, 0.00000168304, -1.452702e-9]
-controller/thruster_2_max_force_positive: 30.0
-controller/thruster_2_max_force_negative: 30
-controller/thruster_2_poly_positive: [0.113634979, 0.03019443346, 0.0002099326111,
-  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
-controller/thruster_2_poly_negative: [0.113634979, 0.03019443346, 0.0002099326111,
-  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
+# Thruster 1 RIGHT?
+# controller/thruster_1_poly_positive: [0.07396096852,0.03409279687,0.0009787984384,-0.0001262653508,0.000004482405638,-0.00000005135358861]
+# controller/thruster_1_poly_negative: [0.07396096852,0.03409279687,0.0009787984384,-0.0001262653508,0.000004482405638,-0.00000005135358861]
+controller/thruster_2_poly_positive: 
+[5.5768893206774355e-002,
+5.8671481538603444e-002,
+-3.8477409824830091e-003,
+2.1072197221001150e-004,
+-4.7844958261303232e-006,
+-1.4441353619973193e-008,
+1.56E-09]
+controller/thruster_2_poly_negative: 
+[-2.0562410231650208e-001,
+4.0259063612722475e-002,
+-1.5253225916685558e-002,
+1.4335681936896263e-003,
+-6.6419493745222444e-005,
+1.4755363478364640e-006,
+-1.25E-08]
+controller/thruster_1_max_force_positive: 32.0
+controller/thruster_1_max_force_negative: 27.0
 
-# Enable thrusters
+
+# Enbale thrusters
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 0.7
+controller/max_velocity_x: 1.0
+
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
@@ -37,7 +69,7 @@ controller/max_velocity_pitch: 0.0
 controller/max_velocity_yaw: 0.45
 
 
-# Pose PID controller:
+# POSE PID CONTROLLER
 # The following parameters adjust the proportional–integral–derivative
 # controllers for each degree of freedom (DOF). i_limit represents the maximum
 # value the integral part can take (anti-windup), and fff allows a feed-forward
@@ -150,3 +182,48 @@ controller/max_wrench_Z: 30.0
 controller/max_wrench_Roll: 3.66
 controller/max_wrench_Pitch: 17.15
 controller/max_wrench_Yaw: 14.43
+
+
+# FIN ALLOCATOR
+controller/max_fin_force: 26.15
+controller/fin_distance_surge: 0.65
+controller/fin_distance_yaw: 0.14
+controller/max_fin_angle: 40.0
+controller/min_fin_angle: -40.0
+
+controller/force_to_fins_ratio: 13.0
+
+controller/FCM: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.14, 0.14, 0.65, 0.65, 0.0, 0.0]
+controller/fin_poly: [0.0, 1.0, 0.0, 0.0, 1.0, 0.0]
+
+# DEPTH TO PITCH PID CONTROLLER
+controller/d_p_kp: 0.15
+controller/d_p_ti: 12.0
+controller/d_p_td: 0.0
+controller/d_p_limit: 0.2
+controller/d_p_fff: 0.0
+
+# ROLL PID CONTROLLER
+controller/f_roll_kp: 0.4
+controller/f_roll_ti: 15.0
+controller/f_roll_td: 0.0
+controller/f_roll_i_limit: 0.25
+controller/f_roll_fff: 0.0
+
+# PITCH PID CONTROLLER
+controller/f_pitch_kp: 0.8
+controller/f_pitch_ti: 15.0
+controller/f_pitch_td: 8.0
+controller/f_pitch_i_limit: 0.1
+controller/f_pitch_fff: 0.0
+
+# The following values (must be between 0 and 1) adjust the percentage of
+# polynomial model that is used. A value of 1 means than the model is fully
+# taken into account in conjunction with the PID. A value of 0 means that the
+# model is not used
+controller/poly_surge_percentatge: 1.0
+controller/poly_sway_percentatge: 0.0
+controller/poly_heave_percentatge: 1.0
+controller/poly_roll_percentatge: 0.0
+controller/poly_pitch_percentatge: 0.0
+controller/poly_yaw_percentatge: 1.0
