@@ -2,8 +2,10 @@
     <!-- Params -->
     <arg name="robot_name"/>
     <arg name="enableThrusters"/>
+    <arg name="enableATX"/>
     <arg name="openLoopTeleoperation"/>
     <arg name="output" default="log"/>
+
 
     <!-- Openloop -->
     <rosparam command="load" file="$(find cola2_xiroi)/config/teleoperation.yaml"/>
@@ -38,5 +40,7 @@
     </node>
     
     <!-- Power Control -->
-    <include file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"> </include>
+    <group if="$(arg enableATX)">
+        <include file="$(find cola2_xiroi)/launch/modules/battery_monitor.launch"> </include>
+    </group>
 </launch>

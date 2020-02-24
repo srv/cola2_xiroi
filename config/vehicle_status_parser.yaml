@@ -13,9 +13,10 @@ vehicle_status_parser/dvl_data_age: ['/navigation/navigator', 'last_dvl_data']
 vehicle_status_parser/gps_data_age: ['/navigation/navigator', 'last_gps_data']
 vehicle_status_parser/navigation_data_age: ['/safety/vehicle_status_parser', 'last_nav_data']
 vehicle_status_parser/dvl_valid_data_age: ['/navigation/navigator', 'last_good_data']
-vehicle_status_parser/imu_data_age: ['/navigation/navigator', 'last_imu_data']
 vehicle_status_parser/wifi_data_age: ['/control/teleoperation', 'last_ack']
 vehicle_status_parser/modem_data_age: ['/safety/evologics_modem', 'last_modem_data']
-vehicle_status_parser/temperature: [['/safety/batteries_cyclinder', 'temperature'], ['/safety/computer_logger', 'cpu_temperature'], ['/safety/pc_cyclinder', 'temperature']]                    
-vehicle_status_parser/water: [['/safety/batteries_cylinder', 'water'], ['/safety/pc_cylinder', 'water']]
+vehicle_status_parser/temperature: [['/safety/batteries_cyclinder', 'temperature'],
+  ['/safety/computer_logger', 'cpu_temperature'], ['/safety/pc_cyclinder', 'temperature']]
+vehicle_status_parser/water: [['/safety/batteries_cylinder', 'water'], ['/safety/pc_cylinder',
+    'water']]
 

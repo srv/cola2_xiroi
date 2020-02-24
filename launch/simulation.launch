@@ -1,15 +1,16 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="colonia.yaml"/>
+    <arg name="place" default="illetes.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="joystickDevice" default="/dev/input/js0"/>
 
     <!-- Flags -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableJoystick" default="false"/>
+    <arg name="enableJoystick" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
-    <arg name="enableIqua" default="false"/>
-    <arg name="enableRviz" default="false"/>
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableRviz" default="true"/>
+
 
     <!-- ROBOT -->
     <include file="$(find cola2_xiroi)/launch/robot.launch">
@@ -20,6 +21,7 @@
         <arg name="enableIqua" value="$(arg enableIqua)"/>
         <arg name="sim" value="true"/>
         <arg name="enableThrusters" value="false"/>
+        <arg name="enableATX" default="false"/>
         <arg name="enableBB2wide" default="false"/>
         <arg name="enableBB2narrow" default="false"/>
         <arg name="enableUSBL" value="false"/>

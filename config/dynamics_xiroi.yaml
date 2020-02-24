@@ -26,12 +26,8 @@ dynamics/dv: 0.35
 dynamics/dh: 0.4
 dynamics/density: 1000.0
 #
-dynamics/thrusters_matrix: [-1, -1, 0, 0, 0,  
-                             0, 0, 0, 0, 1,  
-                             0, 0, -1, -1, 0,  
-                             0, 0, 0, 0, 0,  
-                             0, 0, 0.35, -0.35, 0,  
-                             -0.4, 0.4, 0, 0, 0]
+dynamics/thrusters_matrix: [-1, -1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, -1, 0, 0, 0,
+  0, 0, 0, 0, 0, 0.35, -0.35, 0, -0.4, 0.4, 0, 0, 0]
 #
 dynamics/tensor: [8.0, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 8.0]
 dynamics/damping: [.0, -65.0, .0, -130.0, -130.0, -130.0]
@@ -43,14 +39,14 @@ dynamics/initial_pose: [0.0, 0.0, 0.4, 0.0, 0.0, 0.0]
 dynamics/initial_velocity: [0, 0, 0, 0, 0, 0]
 #
 ## Collisions from UWSim.
-dynamics/contact_sensor_available: False
+dynamics/contact_sensor_available: false
 #
 ## WATER CURRENTs SIMULATION
 dynamics/current_mean: [0.05, 0.0, 0]
 dynamics/current_sigma: [0.01, 0.01, 0.01]
 dynamics/current_min: [-0.1, -0.0, -0.0]
 dynamics/current_max: [0.1, 0.0, 0.0]
-dynamics/current_enabled: False
+dynamics/current_enabled: false
 #
 #
 #

@@ -12,7 +12,7 @@
       <remap from="thrusters_data_acoustic" to="/turbot/controller/thruster_setpoints_throttle_acoustic"/>
       <remap from="nav_sts_acoustic" to="/turbot/navigator/navigation_throttle_acoustic"/>
       <remap from="emus_bms_acoustic" to="/turbot/emus_bms/emus_bms_acoustic"/>
-      <remap from="computer_logger_acoustic" to="/turbot/computer_logger_acoustic"/>
+      <!-- <remap from="computer_logger_acoustic" to="/turbot/computer_logger_acoustic"/> -->
     </node>
 
   </group>

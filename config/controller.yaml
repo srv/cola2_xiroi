@@ -4,6 +4,7 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
+<<<<<<< HEAD
 controller/TCM: [1.0, 1.0, 
                  0.0, 0.0, 
                  0.0, 0.0, 
@@ -56,12 +57,12 @@ controller/thruster_1_max_force_positive: 32.0
 controller/thruster_1_max_force_negative: 27.0
 
 
-
 # Enbale thrusters
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
 controller/max_velocity_x: 1.0
+
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
@@ -182,6 +183,7 @@ controller/max_wrench_Z: 30.0
 controller/max_wrench_Roll: 3.66
 controller/max_wrench_Pitch: 17.15
 controller/max_wrench_Yaw: 14.43
+<<<<<<< HEAD
 
 
 # FIN ALLOCATOR
@@ -227,3 +229,5 @@ controller/poly_heave_percentatge: 1.0
 controller/poly_roll_percentatge: 0.0
 controller/poly_pitch_percentatge: 0.0
 controller/poly_yaw_percentatge: 1.0
+=======
+>>>>>>> 086f68d3c95884ae7331aff9eeaa2aa735d4b474

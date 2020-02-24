@@ -49,7 +49,7 @@ dir_save_bagfiles = dir + '/bagfiles'
 # Load Topic list
 topics = rospy.get_param("topic_logger/topics")
 
-image_topics = []
+image_topics = [] 
 if rospy.has_param('topic_logger/image_topics'):
   image_topics = rospy.get_param("topic_logger/image_topics")
 
@@ -71,7 +71,8 @@ class TopicLogger:
     args = ''
     if len(sys.argv) > 1:
       # args = ' -o ' + folder + "/" + platform + date
-      args = ' -o ' + folder + "/" + platform
+      args = ' -o ' + folder 
+
     # Normal topics
     for t in topics:
       args = args + " " + t
@@ -90,8 +91,9 @@ class TopicLogger:
       now = datetime.datetime.now()
       fullday   = now.strftime("%Y%m%d")
       fullhour  = now.strftime("%H_%M_%S")
+      fullhour = fullhour +'_'+ req.platform
 
-      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles, fullday, fullhour, req.platform)
+      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles)
 
       if not os.path.exists(dir_save_curr_bagfile):
         os.makedirs(dir_save_curr_bagfile)

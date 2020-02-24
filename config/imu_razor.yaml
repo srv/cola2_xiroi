@@ -1,5 +1,5 @@
 ## USB port
-port: /dev/serial/by-id/usb-SparkFun_SFE_9DOF-D21_A4C791D251504B5259202020FF0B1B41-if00
+port: /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0
 
 
 ##### Calibration ####
@@ -30,7 +30,8 @@ magn_z_max: 600.0
 # extended calibration
 calibration_magn_use_extended: true
 magn_ellipsoid_center: [234.283, 445.665, -167.599]
-magn_ellipsoid_transform: [[0.988622, 0.0117084, 0.00528949], [0.0117084, 0.987907,-0.00720719], [0.00528949, -0.00720719, 0.927827]]
+magn_ellipsoid_transform: [[0.988622, 0.0117084, 0.00528949], [0.0117084, 0.987907,
+    -0.00720719], [0.00528949, -0.00720719, 0.927827]]
 
 # AHRS to robot calibration
 imu_yaw_calibration: 0
