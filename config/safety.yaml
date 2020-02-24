@@ -16,8 +16,8 @@ safety/usbl_safety_always_on: false
 safety/min_dvl_good_data: 20
 
 # Battery
-safety/min_battery_charge: 14.5
-safety/min_battery_voltage: 26.4
+safety/min_battery_charge: 5
+safety/min_battery_voltage: 5
 
 # Max Temperatures:
 # For xiroi: ['batteries', 'cpu', 'main_housing']
@@ -37,7 +37,8 @@ safe_depth_altitude/max_depth: 12.0
 safe_depth_altitude/min_altitude: 0.8
 
 # Set zero velocity
-set_zero_velocity/set_zero_velocity_axis: [[False, False, True, True, True, True], [True, True, False, True, True, True], [True, True, True, True, True, False]]
+set_zero_velocity/set_zero_velocity_axis: [[false, false, true, true, true, true],
+  [true, true, false, true, true, true], [true, true, true, true, true, false]]
 set_zero_velocity/set_zero_velocity_depth: 1.2
 
 # Define virtual cage (the vehicle is not allowed to move outside of this area)

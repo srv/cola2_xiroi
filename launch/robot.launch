@@ -5,7 +5,7 @@
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
@@ -18,7 +18,7 @@
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
-    <arg name="enableIqua" default="true"/>
+    <arg name="enableIqua" default="false"/>
     <arg name="enableMultimaster" default="false"/>
 
     <group ns="$(arg robot_name)">
@@ -53,6 +53,9 @@
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
+
+        <!-- Simulate Internal Sensors -->
+        <node name="sim_internal_sensors" pkg="cola2_xiroi" type="sim_internal_sensors.py" output="screen"/>
 
         <!-- Topic Logger -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>

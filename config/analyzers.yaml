@@ -8,35 +8,16 @@ analyzers:
   safety:
     type: GenericAnalyzer
     path: safety
-    name: [
-      'emus_bms',
-      'batteries',
-      'pc_cylinder',
-      'virtual_cage',
-      'safe_depth_altitude',
-      'cola2_watchdog',
-      'safety_supervisor',
-      'evologics_modem',
-      'vehicle_status_parser',
-      'computer_logger',
-      'battery_control_board']
+    name: ['emus_bms', 'batteries', 'pc_cylinder', 'virtual_cage', 'safe_depth_altitude',
+      'cola2_watchdog', 'safety_supervisor', 'evologics_modem', 'vehicle_status_parser',
+      'computer_logger', 'battery_control_board']
 
   navigation:
     type: GenericAnalyzer
     path: navigation
-    name: [
-      'pressure',
-      'imu',
-      'gps',
-      'dvl',
-      'navigator'
-      ]
+    name: ['pressure', 'imu', 'gps', 'dvl', 'navigator']
 
   control:
     type: GenericAnalyzer
     path: control
-    name: [
-      'controller',
-      'teleoperation',
-      'captain',
-      'joystick: Joystick Driver Status']
+    name: ['controller', 'teleoperation', 'captain', 'joystick: Joystick Driver Status']

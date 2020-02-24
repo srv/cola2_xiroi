@@ -1,27 +1,32 @@
 controller/period: 0.1
 controller/n_dofs: 6
-controller/n_thrusters: 3
+controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-  0.0, 0.0, 0.0, -0.16783, 0.16783]
+controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
 
 # Thruster 1
-controller/thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06, 3.25e-08]
-controller/thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05, 9.26e-07]
-controller/thruster_1_max_force_positive: 55.0
-controller/thruster_1_max_force_negative: 28.5
+controller/thruster_1_poly_positive: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
+controller/thruster_1_poly_negative: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
+controller/thruster_1_max_force_positive: 30.0
+controller/thruster_1_max_force_negative: 30.0
 
 # Thruster 2
-controller/thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
-controller/thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
-controller/thruster_2_max_force_positive: 71.5
+controller/thruster_2_poly_positive: [0.113634979, 0.03019443346, 0.0002099326111,
+  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
+controller/thruster_2_poly_negative: [0.113634979, 0.03019443346, 0.0002099326111,
+  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
+controller/thruster_2_max_force_positive: 30.0
 controller/thruster_2_max_force_negative: 30.0
 
 # Thruster 3
-controller/thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
-controller/thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
+controller/thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06,
+  6.12e-09]
+controller/thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05,
+  3.22e-07]
 controller/thruster_3_max_force_positive: 71.5
 controller/thruster_3_max_force_negative: 30.0
 
@@ -29,12 +34,12 @@ controller/thruster_3_max_force_negative: 30.0
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 0.5
+controller/max_velocity_x: 0.7
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
 controller/max_velocity_pitch: 0.0
-controller/max_velocity_yaw: 0.3
+controller/max_velocity_yaw: 0.45
 
 
 # POSE PID CONTROLLER

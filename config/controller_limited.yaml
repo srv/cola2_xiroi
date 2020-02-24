@@ -4,32 +4,30 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [1.0, 1.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 -0.45, 0.45]
+controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
 
 # Thruster 2
-controller/thruster_2_poly_positive: [0.113634979,0.03019443346,0.0002099326111,-0.0000229600767,0.0000006215687733,-0.000000005729637685]
-controller/thruster_2_poly_negative: [0.113634979,0.03019443346,0.0002099326111,-0.0000229600767,0.0000006215687733,-0.000000005729637685]
+controller/thruster_2_poly_positive: [0.113634979, 0.03019443346, 0.0002099326111,
+  -0.0000229600767, 0.0000006215687733, -0.000000005729637685]
+controller/thruster_2_poly_negative: [0.113634979, 0.03019443346, 0.0002099326111,
+  -0.0000229600767, 0.0000006215687733, -0.000000005729637685]
 controller/thruster_2_max_force_positive: 30.0
 controller/thruster_2_max_force_negative: 30.0
 
 # Thruster 1
-controller/thruster_1_poly_positive: [0.07396096852,0.03409279687,0.0009787984384,-0.0001262653508,0.000004482405638,-0.00000005135358861]
-controller/thruster_1_poly_negative: [0.07396096852,0.03409279687,0.0009787984384,-0.0001262653508,0.000004482405638,-0.00000005135358861]
+controller/thruster_1_poly_positive: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 0.000004482405638, -0.00000005135358861]
+controller/thruster_1_poly_negative: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 0.000004482405638, -0.00000005135358861]
 controller/thruster_1_max_force_positive: 30.0
 controller/thruster_1_max_force_negative: 30.0
-
 
 
 # Enbale thrusters
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 1.0
+controller/max_velocity_x: 0.7
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0

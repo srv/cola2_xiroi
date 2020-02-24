@@ -4,35 +4,34 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [1.0, 1.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 0.0, 0.0, 
-                 -0.45, 0.45]
+controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
 
 # Thruster 1 XIROI
-controller/thruster_1_poly_positive: [0.02275621, 0.0237506, -0.001432423, 0.00007044071, -0.000001406402, 9.661632e-09] 
-controller/thruster_1_poly_negative: [0.02406203, 0.0262397, -0.00107198, 0.00005489615, -0.000001089504, 5.075149e-09] 
-controller/thruster_1_max_force_positive: 54.0
-controller/thruster_1_max_force_negative: 32.0
+controller/thruster_1_poly_positive: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
+controller/thruster_1_poly_negative: [0.07396096852, 0.03409279687, 0.0009787984384,
+  -0.0001262653508, 4.482405638e-06, -5.135358861e-08]
+controller/thruster_1_max_force_positive: 30.0
+controller/thruster_1_max_force_negative: 30.0
 
 # Thruster 2 XIROI
-controller/thruster_2_poly_positive: [0.02492308, 0.02168452, -0.0001893677, -0.00002558581, 0.000001312218, -1.724296e-08]
-controller/thruster_2_poly_negative: [0.02566101, 0.04389938, -0.005009778, 0.0005109039, -0.00002516484, 4.597729e-07]
-controller/thruster_2_max_force_positive: 33.3
-controller/thruster_2_max_force_negative: 22.5
+controller/thruster_2_poly_positive: [0.113634979, 0.03019443346, 0.0002099326111,
+  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
+controller/thruster_2_poly_negative: [0.113634979, 0.03019443346, 0.0002099326111,
+  -2.29600767e-05, 6.215687733e-07, -5.729637685e-09]
+controller/thruster_2_max_force_positive: 30.0
+controller/thruster_2_max_force_negative: 30.0
 
 # Enbale thrusters
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 0.5
+controller/max_velocity_x: 0.7
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0
 controller/max_velocity_pitch: 0.0
-controller/max_velocity_yaw: 0.3
+controller/max_velocity_yaw: 0.45
 
 
 # POSE PID CONTROLLER

@@ -3,17 +3,17 @@
 
 sensors:
   gps:
-    required_at_startup: True
+    required_at_startup: true
     max_init_time: 15.0
     min_frequency: 0.0
     min_init_samples: 40.0
-    enable: True
+    enable: true
   imu:
-    required_at_startup: True
+    required_at_startup: true
     max_init_time: 15.0
     min_frequency: 5.0
     min_init_samples: 40.0
-    enable: True
+    enable: true
 
 
 

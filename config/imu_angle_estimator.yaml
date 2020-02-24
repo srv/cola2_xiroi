@@ -1,4 +1,3 @@
-
 # imu_angle_estimator.py config file
 imu_angle_estimator/imu_topic: "sensors/imu_raw_driver"
 imu_angle_estimator/mag_topic: "sensors/mag_raw_driver"
