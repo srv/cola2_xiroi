@@ -6,7 +6,7 @@
     <!-- Flags -->
     <arg name="sim"/>
     <arg name="simGPS"/>
-
+    <arg name="enableATX"/>
     <arg name="enableSafety"/>
     <arg name="enableThrusters"/>
     <arg name="openLoopTeleoperation"/>
@@ -28,6 +28,7 @@
     <include file="$(find cola2_xiroi)/launch/modules/control.launch">
         <arg name="robot_name"  value="$(arg robot_name)"/>
         <arg name="enableThrusters"      value="$(arg enableThrusters)"/>
+        <arg name="enableATX"      value="$(arg enableATX)"/>
         <arg name="openLoopTeleoperation"      value="$(arg openLoopTeleoperation)"/>
     </include>
         

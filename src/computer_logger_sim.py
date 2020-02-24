@@ -17,7 +17,6 @@ from sensor_msgs.msg import Temperature
 from std_msgs.msg import Float32
 
 
-
 class ComputerLogger(object):
     """Publishes CPU and RAM usage data and temperature from the vehicle computer."""
 
@@ -41,37 +40,39 @@ class ComputerLogger(object):
         # Show message
         rospy.loginfo("%s: initialized", self.name)
 
-
-        
     def iterate(self, event):
         """ Callback from the main timer """
+        try:
+            # Execute sensors command and parse output
+            p = subprocess.Popen(['sensors'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+            out, err = p.communicate()
+            splitted = out.split("\n")
 
-        max_core_temp = 100.0
+            max_core_temp = 100
 
-        # Use psutil to get cpu and ram usage
-        cpu_usage = 50.0
-        ram_usage = 50.0
+            # Use psutil to get cpu and ram usage
+            cpu_usage = 50
+            ram_usage = 50
 
-        self.diagnostic.add("cpu_temperature", str(max_core_temp))
-        self.diagnostic.set_level(DiagnosticStatus.OK)
+            self.diagnostic.add("cpu_temperature", str(max_core_temp))
+            self.diagnostic.set_level(DiagnosticStatus.OK)
 
-        #Temperature
-        msg = Temperature()
-        msg.header.stamp = rospy.Time.now()
-        msg.temperature = max_core_temp
-        msg.variance = 0  
-        self.pub_temp.publish(msg)
+            msg = Temperature()
+            msg.header.stamp = rospy.Time.now()
+            msg.temperature = max_core_temp
+            msg.variance = 0  # unknown
+            self.pub_temp.publish(msg)
 
-        #CPU usage
-        msg = Float32()
-        msg.data = cpu_usage
-        self.pub_cpu.publish(msg)
+            msg = Float32()
+            msg.data = cpu_usage
+            self.pub_cpu.publish(msg)
 
-        #RAM usage
-        msg.data = ram_usage
-        self.pub_ram.publish(msg)
+            msg.data = ram_usage
+            self.pub_ram.publish(msg)
 
+        except:
+            rospy.logwarn("%s: unable to get data: %s", self.name, sys.exc_info()[0])
 
 
 if __name__ == '__main__':
