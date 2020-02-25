@@ -22,6 +22,8 @@
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
 
+    
+
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
         <include file="$(find cola2_xiroi)/launch/modules/configs.launch">

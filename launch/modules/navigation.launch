@@ -17,6 +17,11 @@
             <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>
+        <node name="imu_angle_estimator" type="imu_angle_estimator.py" pkg="cola2_xiroi" output="screen">
+            <remap from="imu" to="sensors/imu_raw_filtered"/>
+            <remap from="mag" to="sensors/imu_mag_filtered"/>         
+        </node>
         <!-- GPS -->
         <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
             <param name="frame_id" value="world_ned"/>
