@@ -4,23 +4,27 @@
   <arg name="calibration" default="water" />
   <arg name="decimate" default="false"/>
   <arg name="decimation" default="2"/>
-  <arg name="processing" default="true"/>
+  <arg name="processing" default="false"/>
   <arg name="throttle" default="false"/>
   <arg name="left_ID" default="16401228"/>
   <arg name="right_ID" default="16401229"/>
 
   <!-- Driver -->
-  <include ns="$(arg base_topic)/left" file="$(find pointgrey_camera_driver)/launch/camera.launch" >
-      <arg name="camera_serial" value="$(arg left_ID)" />
-      <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/calibration_$(arg calibration).yaml" />
-      <arg name="camera_params" default="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/camera_params.yaml" />
-  </include>
-  <include ns="$(arg base_topic)/right" file="$(find pointgrey_camera_driver)/launch/camera.launch" >
-      <arg name="camera_serial" value="$(arg right_ID)" />
-      <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/calibration_$(arg calibration).yaml" />
-      <arg name="camera_params" default="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/camera_params.yaml" />
-      <arg name="image_flip" value="2" />
-  </include>
+  <group ns="$(arg base_topic)/left">
+    <include file="$(find pointgrey_camera_driver)/launch/camera.launch" >
+        <arg name="camera_serial" value="$(arg left_ID)" />
+        <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/calibration_$(arg calibration).yaml" />
+    </include>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/params.yaml"/>
+  </group>
+  <group ns="$(arg base_topic)/right">
+    <include file="$(find pointgrey_camera_driver)/launch/camera.launch" >
+        <arg name="camera_serial" value="$(arg right_ID)" />
+        <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/calibration_$(arg calibration).yaml" />
+        <!-- <arg name="image_flip" value="2" /> -->
+    </include>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/params.yaml" />
+  </group>
 
   <!-- Stereo Processing -->
   <include if="$(arg processing)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_pipeline.launch">

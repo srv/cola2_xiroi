@@ -5,7 +5,7 @@
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
@@ -19,7 +19,7 @@
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
-    <arg name="enableIqua" default="false"/>
+    <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
 
     <group ns="$(arg robot_name)">
