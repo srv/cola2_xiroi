@@ -43,7 +43,7 @@ class ComputerLogger(object):
     def iterate(self, event):
         """ Callback from the main timer """
         # try:
-        max_core_temp = 100.3
+        max_core_temp = 60
         # Use psutil to get cpu and ram usage
         cpu_usage = psutil.cpu_percent()
         virtual_memory = psutil.virtual_memory()

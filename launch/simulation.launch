@@ -6,10 +6,10 @@
 
     <!-- Flags -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableJoystick" default="true"/>
+    <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="enableIqua" default="true"/>
-    <arg name="enableRviz" default="true"/>
+    <arg name="enableRviz" default="false"/>
 
 
     <!-- ROBOT -->
@@ -48,7 +48,7 @@
             <remap from="/$(arg robot_name)/controller/thruster_setpoints" to="/$(arg robot_name)/controller/thruster_rpm"/>
         </node>
         <!-- Internal -->
-        <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors.py" output="screen"/>
+        <node name="sim_internal_sensors" pkg="cola2_xiroi" type="sim_internal_sensors.py"/>
         <!-- Thrusters -->
         <node name="sim_actuators" pkg="cola2_xiroi" type="sim_actuators.py" output="screen">
             <remap from="/control/thrusters_data" to="controller/thruster_setpoints"/>
