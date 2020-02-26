@@ -58,9 +58,11 @@
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
 
-        <!-- Simulate Internal Sensors -->
-        <node name="sim_internal_sensors" pkg="cola2_xiroi" type="sim_internal_sensors.py" output="screen"/>
-
+        <!-- Internal Sensors -->
+        <group unless="$(arg sim)">
+            <node name="internal_sensors" pkg="cola2_xiroi" type="internal_sensors.py" output="screen"/>
+        </group>
+             
         <!-- Topic Logger -->
 
         <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>

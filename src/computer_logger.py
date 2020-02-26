@@ -42,37 +42,28 @@ class ComputerLogger(object):
 
     def iterate(self, event):
         """ Callback from the main timer """
-        try:
-            # Execute sensors command and parse output
-            p = subprocess.Popen(['sensors'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # try:
+        max_core_temp = 100.3
+        # Use psutil to get cpu and ram usage
+        cpu_usage = psutil.cpu_percent()
+        virtual_memory = psutil.virtual_memory()
+        ram_usage = virtual_memory.percent
 
-            out, err = p.communicate()
-            splitted = out.split("\n")
+        self.diagnostic.add("cpu_temperature", str(max_core_temp))
+        self.diagnostic.set_level(DiagnosticStatus.OK)
 
-            max_core_temp = 100
+        msg = Temperature()
+        msg.header.stamp = rospy.Time.now()
+        msg.temperature = max_core_temp
+        msg.variance = 0  # unknown
+        self.pub_temp.publish(msg)
 
-            # Use psutil to get cpu and ram usage
-            cpu_usage = 50
-            ram_usage = 50
+        msg = Float32()
+        msg.data = cpu_usage
+        self.pub_cpu.publish(msg)
 
-            self.diagnostic.add("cpu_temperature", str(max_core_temp))
-            self.diagnostic.set_level(DiagnosticStatus.OK)
-
-            msg = Temperature()
-            msg.header.stamp = rospy.Time.now()
-            msg.temperature = max_core_temp
-            msg.variance = 0  # unknown
-            self.pub_temp.publish(msg)
-
-            msg = Float32()
-            msg.data = cpu_usage
-            self.pub_cpu.publish(msg)
-
-            msg.data = ram_usage
-            self.pub_ram.publish(msg)
-
-        except:
-            rospy.logwarn("%s: unable to get data: %s", self.name, sys.exc_info()[0])
+        msg.data = ram_usage
+        self.pub_ram.publish(msg)
 
 
 if __name__ == '__main__':

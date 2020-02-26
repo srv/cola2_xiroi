@@ -39,9 +39,6 @@ class SimSensorsGirona500:
         self.diagnostic_bat_cylinder = DiagnosticHelper("/batteries_cylinder", "Simulated")
         self.diagnostic_pc_cylinder = DiagnosticHelper("/pc_cylinder", "Simulated")
 
-        #Create subscriber
-        rospy.Subscriber("sensors/battery", PowerReading, self.pub_batteries_sensors)
-
         # Create publisher
         namespace = rospy.get_namespace()
         self.pub_battery = rospy.Publisher(
@@ -67,38 +64,20 @@ class SimSensorsGirona500:
         # Init periodic check timer
         rospy.Timer(rospy.Duration(1.0), self.pub_pc_cylinder_sensors)
         rospy.Timer(rospy.Duration(1.0), self.pub_batteries_cylinder_sensors)
-        # rospy.Timer(rospy.Duration(self.update_battery_time), self.pub_batteries_sensors)
+        rospy.Timer(rospy.Duration(self.update_battery_time), self.pub_batteries_sensors)
 
 
     def pub_batteries_sensors(self, event):
 
-        # soc_data = event.input_soc
-        # buffer = np.array([])
-
-
-        # if(self.first_time==True):
-        #     for i in range(self.sensor_buffer_size):
-        #         buffer = np.append(buffer,soc_data)
-        # self.first_time = False
-        # print buffer
-        # #roll,rewrite new value and do the mean
-        # buffer = np.roll(buffer, -1)
-        # buffer = np.insert(buffer,self.sensor_buffer_size-1,soc_data)
-        # buffer = np.delete(buffer,self.sensor_buffer_size)
-        # self.data = np.mean(buffer)
-    
-       
-
-
         battery_msg = BatteryState()
         battery_msg.header.stamp = rospy.Time.now()
-        battery_msg.voltage = event.volts_read_value[0]
-        # battery_msg.current = event.current
+        battery_msg.voltage = 12.3
+        battery_msg.current = 5.2
         battery_msg.current = 10.0
         battery_msg.capacity = 50.0
-        battery_msg.charge = event.input_soc
+        battery_msg.charge = 61.5
         battery_msg.design_capacity = 50.0
-        battery_msg.percentage = event.input_soc
+        battery_msg.percentage = 61.5
         battery_msg.power_supply_status = BatteryState.POWER_SUPPLY_STATUS_DISCHARGING
         battery_msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
         battery_msg.power_supply_technology = BatteryState.POWER_SUPPLY_TECHNOLOGY_LION
