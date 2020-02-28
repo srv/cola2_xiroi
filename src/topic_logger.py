@@ -44,6 +44,7 @@ import datetime
 import subprocess
 
 dir = rospy.get_param("topic_logger/dir", default='/home/' + os.getlogin())
+core_name = rospy.get_param("topic_logger/core_name")
 dir_save_bagfiles = dir + '/bagfiles'
 
 # Load Topic list
@@ -67,11 +68,10 @@ class TopicLogger:
   ## @param      topics   The topics
   ## @param      process  The process
   ##
-  def record(self, topics, folder, platform, split = False, size = 10000):
+  def record(self, topics, folder, mission , split = False, size = 10000):
     args = ''
     if len(sys.argv) > 1:
-      # args = ' -o ' + folder + "/" + platform + date
-      args = ' -o ' + folder 
+      args = ' -o ' + folder + "/" + mission
 
     # Normal topics
     for t in topics:
@@ -91,28 +91,24 @@ class TopicLogger:
       now = datetime.datetime.now()
       fullday   = now.strftime("%Y%m%d")
       fullhour  = now.strftime("%H_%M_%S")
-      fullhour = fullhour +'_'+ req.platform
+      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles,fullday, req.mission)
 
-      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles)
+      # dir_save_curr_bagfile = os.path.join(dir_save_bagfiles)
 
       if not os.path.exists(dir_save_curr_bagfile):
         os.makedirs(dir_save_curr_bagfile)
 
       self._recording = True
-      self.p = self.record(topics, dir_save_curr_bagfile, req.platform, split=False, size=10000)
+      # Current topics
+      self.p = self.record(topics, dir_save_curr_bagfile, 'topics_'+ core_name, split=False, size=10000)
       rospy.loginfo('Recording process started with PID: {0}'.format(self.p.pid))
 
       # Image topics
       if image_topics:
-        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images', split=False, size=10000)
+        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images_'+ core_name, split=False, size=10000)
         rospy.loginfo('Recording process started with PID: {0}'.format(self.p_img.pid))
 
-      # Point Cloud topics
-      if pc_topics:
-        self.p_pc = self.record(pc_topics, dir_save_curr_bagfile, 'pc', split=False, size=10000)
-        rospy.loginfo('Recording process started with PID: {0}'.format(self.p_pc.pid))
-
-      param_filename = "params.yaml"
+      param_filename = "params_"+ core_name + ".yaml"
       rospy.loginfo('Saving parameters in {0}'.format(dir_save_curr_bagfile + '/' + param_filename))
       process = subprocess.Popen('rosparam dump ' + param_filename, shell=True, cwd=dir_save_curr_bagfile)
       time.sleep(10)
