@@ -61,13 +61,6 @@ if rospy.has_param('/topic_logger/pc_topics'):
 class TopicLogger:
   _recording = False
 
-  ##
-  ## @brief      Record topics in a bagfile and return the subprocess
-  ##
-  ## @param      self     The object
-  ## @param      topics   The topics
-  ## @param      process  The process
-  ##
   def record(self, topics, folder, mission , split = False, size = 10000):
     args = ''
     if len(sys.argv) > 1:
@@ -93,8 +86,6 @@ class TopicLogger:
       fullhour  = now.strftime("%H_%M_%S")
       dir_save_curr_bagfile = os.path.join(dir_save_bagfiles,fullday, req.mission)
 
-      # dir_save_curr_bagfile = os.path.join(dir_save_bagfiles)
-
       if not os.path.exists(dir_save_curr_bagfile):
         os.makedirs(dir_save_curr_bagfile)
 
@@ -118,7 +109,7 @@ class TopicLogger:
       return RecordRequestResponse(False)
     return RecordRequestResponse(True)
 
-  #stop to record the topics
+   #stop to record the topics
   def stop_recording(self, req):
     if (self._recording):
       rospy.loginfo('Recording stop requested')
@@ -127,7 +118,7 @@ class TopicLogger:
       retcode = list_cmd.wait()
       assert retcode == 0, "List command returned %d" % retcode
       for str in list_output.split("\n"):
-        if (str.startswith('/record')):
+        if (str.startswith('/'+core_name+'/record')):
           os.system("rosnode kill " + str)
       self._recording = False
     else:
