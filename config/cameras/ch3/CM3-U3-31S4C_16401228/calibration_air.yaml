@@ -1,6 +1,6 @@
-image_width: 1024
-image_height: 768
-camera_name: left_optical
+image_width: 2048
+image_height: 1536
+camera_name: 16401228
 camera_matrix:
   rows: 3
   cols: 3
