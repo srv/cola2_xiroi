@@ -1,7 +1,7 @@
-frame_rate: 2
+frame_rate: 10
 auto_exposure: False 
 exposure: 1.35
-auto_shutter: False
+auto_shutter: True
 shutter_speed: 0.03
 auto_gain: False
 gain: 0

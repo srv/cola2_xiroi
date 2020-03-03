@@ -4,7 +4,7 @@
   <arg name="calibration" default="air" />
   <arg name="decimate" default="false"/>
   <arg name="decimation" default="2"/>
-  <arg name="processing" default="true"/>
+  <arg name="processing" default="false"/>
   <arg name="throttle" default="false"/>
   <arg name="left_ID" default="16401228"/>
   <arg name="right_ID" default="16401229"/>

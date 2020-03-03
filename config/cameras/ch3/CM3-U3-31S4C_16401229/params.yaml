@@ -1,4 +1,4 @@
-frame_rate: 10
+frame_rate: 15
 auto_exposure: False 
 exposure: 1.35
 auto_shutter: False
@@ -16,7 +16,7 @@ white_balance_blue: 800
 white_balance_red: 550
 
 enable_trigger: True
-trigger_mode: mode0
+trigger_mode: mode14
 trigger_source: gpio3
 trigger_polarity: False
 
