@@ -22,17 +22,19 @@ import numpy as np
 #TODO: This node should be generic. It means that it should read from a yaml file how many temperature, water ...
 #      ... and humidity sensors have to simulate (i.e., generate diagnostics) and with which names.
 
-class SimSensorsGirona500:
+class Sensors:
     def __init__(self, name):
         self.name = name
         self.battery_level = 93
         self.battery_consumption_per_second = 0.004
         self.update_battery_time = 3
         self.get_config()
-        self.first_time =True
-        right_current_buffer = np.array([])
-        self.sensor_buffer_size = 20
-        buffer = np.array([])
+
+        # Array initialization
+        self.soc_buffer = np.array([])
+        self.soc_buffer_size = 60
+        self.first_time = True
+
 
         # Set up diagnostics
         self.diagnostic_bat = DiagnosticHelper("/batteries", "Simulated")
@@ -40,7 +42,7 @@ class SimSensorsGirona500:
         self.diagnostic_pc_cylinder = DiagnosticHelper("/pc_cylinder", "Simulated")
 
         #Create subscriber
-        rospy.Subscriber("sensors/battery", PowerReading, self.pub_batteries_sensors)
+        rospy.Subscriber("sensors/battery", PowerReading, self.cb_batteries_sensors)
 
         # Create publisher
         namespace = rospy.get_namespace()
@@ -67,38 +69,29 @@ class SimSensorsGirona500:
         # Init periodic check timer
         rospy.Timer(rospy.Duration(1.0), self.pub_pc_cylinder_sensors)
         rospy.Timer(rospy.Duration(1.0), self.pub_batteries_cylinder_sensors)
-        # rospy.Timer(rospy.Duration(self.update_battery_time), self.pub_batteries_sensors)
 
 
-    def pub_batteries_sensors(self, event):
-
-        # soc_data = event.input_soc
-        # buffer = np.array([])
-
-
-        # if(self.first_time==True):
-        #     for i in range(self.sensor_buffer_size):
-        #         buffer = np.append(buffer,soc_data)
-        # self.first_time = False
-        # print buffer
-        # #roll,rewrite new value and do the mean
-        # buffer = np.roll(buffer, -1)
-        # buffer = np.insert(buffer,self.sensor_buffer_size-1,soc_data)
-        # buffer = np.delete(buffer,self.sensor_buffer_size)
-        # self.data = np.mean(buffer)
+    def cb_batteries_sensors(self, msg):
     
-       
-
-
+        soc_current_data = msg.input_soc
+        if(self.first_time==True):
+            for i in range(self.soc_buffer_size):
+                self.soc_buffer = np.append(self.soc_buffer,soc_current_data)
+            self.first_time = False
+        # roll,rewrite new value and do the mean
+        self.soc_buffer = np.roll(self.soc_buffer, -1)
+        self.soc_buffer = np.insert(self.soc_buffer,self.soc_buffer_size-1,soc_current_data)
+        self.soc_buffer = np.delete(self.soc_buffer,self.soc_buffer_size)
+        soc_data = np.mean(self.soc_buffer)
+        
         battery_msg = BatteryState()
         battery_msg.header.stamp = rospy.Time.now()
-        battery_msg.voltage = event.volts_read_value[0]
-        # battery_msg.current = event.current
-        battery_msg.current = 10.0
+        battery_msg.voltage = msg.volts_read_value[0]
+        battery_msg.current = msg.current
         battery_msg.capacity = 50.0
-        battery_msg.charge = event.input_soc
+        battery_msg.charge = soc_data
         battery_msg.design_capacity = 50.0
-        battery_msg.percentage = event.input_soc
+        battery_msg.percentage = soc_data
         battery_msg.power_supply_status = BatteryState.POWER_SUPPLY_STATUS_DISCHARGING
         battery_msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
         battery_msg.power_supply_technology = BatteryState.POWER_SUPPLY_TECHNOLOGY_LION
@@ -191,45 +184,11 @@ class SimSensorsGirona500:
         self.diagnostic_bat_cylinder.add("water", str(water_detected_msg.data))
         self.diagnostic_bat_cylinder.set_level(DiagnosticStatus.OK)
 
-    # def pub_batteries_sensors(self, event):
-
-    #     battery_msg = BatteryState()
-    #     battery_msg.header.stamp = rospy.Time.now()
-    #     battery_msg.voltage = 30.6
-    #     battery_msg.current = -30.02
-    #     battery_msg.charge = self.battery_level
-    #     battery_msg.capacity = float('nan')
-    #     battery_msg.design_capacity = float('nan')
-    #     battery_msg.percentage = float('nan')
-    #     battery_msg.power_supply_status = BatteryState.POWER_SUPPLY_STATUS_DISCHARGING
-    #     battery_msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
-    #     battery_msg.power_supply_technology = BatteryState.POWER_SUPPLY_TECHNOLOGY_LION
-    #     battery_msg.present = True
-    #     self.pub_battery.publish(battery_msg)
-
-    #     # Reduce battery level
-    #     self.battery_level = (self.battery_level -
-    #                           self.battery_consumption_per_second * self.update_battery_time)
-    #     if self.battery_level < 0.0:
-    #         self.battery_level = 0.0
-
-    #     # Publish diagnostic message
-    #     self.diagnostic_bat.add('charge', str(battery_msg.charge))
-    #     self.diagnostic_bat.add('voltage', str(battery_msg.voltage))
-    #     self.diagnostic_bat.add('minutes', str(self.battery_level * 3.15))
-    #     self.diagnostic_bat.add('status', "DISCHARGING")
-    #     if battery_msg.charge > 15.0:
-    #         self.diagnostic_bat.set_level(DiagnosticStatus.OK)
-    #     elif battery_msg.charge > 5.0:
-    #         self.diagnostic_bat.set_level(DiagnosticStatus.WARN, 'Low Battery')
-    #     else:
-    #         self.diagnostic_bat.set_level(DiagnosticStatus.ERROR, 'Recharge battery!')
-
 
 if __name__ == '__main__':
     try:
         rospy.init_node('sim_internal_sensors')
-        sim_sensors_girona500 = SimSensorsGirona500(rospy.get_name())
+        sim_sensors_girona500 = Sensors(rospy.get_name())
         rospy.spin()
     except rospy.ROSInterruptException:
         pass
