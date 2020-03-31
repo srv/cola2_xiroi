@@ -2,7 +2,7 @@
 
 import roslib
 import rospy
-from sensor_msgs.msg import Imu
+from sensor_msgs.msg import Imu, MagneticField
 from std_srvs.srv import Empty, EmptyResponse
 import tf
 import matplotlib
@@ -15,6 +15,7 @@ import sys
 from std_srvs.srv import Empty
 from cola2_msgs.msg import GoalDescriptor, NavSts
 from cola2_msgs.srv import Goto, GotoRequest
+from cola2_xiroi.srv import SharePosition
 from cola2_lib.utils.angles import wrap_angle
 from cola2_lib.utils.ned import NED
 from std_srvs.srv import Empty, EmptyRequest
@@ -29,18 +30,22 @@ class MagnetometerAutoCalibration:
         self.robot_frame_id = self.get_param('frames/base_link','xiroi')
         self.ned_origin_lat = self.get_param('navigator/ned_latitude')
         self.ned_origin_lon = self.get_param('navigator/ned_longitude')
-        self.adis_topic_name = self.get_param('magnetometer_star_calibration/imu_topic_name')
+        self.imu_topic_name = self.get_param('magnetometer_star_calibration/imu_topic_name')
+        self.magnetometer_topic_name = self.get_param('magnetometer_star_calibration/magnetometer_topic_name')
         self.frame_id = self.get_param('magnetometer_star_calibration/frame_id')
         self.calibration_file_path  = self.get_param('magnetometer_star_calibration/calibration_file_path')
         self.depth = self.get_param('magnetometer_star_calibration/depth', 0.0)
         self.radius = self.get_param('magnetometer_star_calibration/radius', 12.0)
         self.sides = self.get_param('magnetometer_star_calibration/sides', 5)
-        self.tolerance = self.get_param('magnetometer_star_calibration/tolerance', 2.0)
+        self.tolerance_x = self.get_param('magnetometer_star_calibration/tolerance_x', 2.0)
+        self.tolerance_y = self.get_param('magnetometer_star_calibration/tolerance_y', 2.0)
+        self.tolerance_z = self.get_param('magnetometer_star_calibration/tolerance_z', 2.0)
         self.acceleration_limit = self.get_param('magnetometer_star_calibration/acceleration_limit', 0.2)
         self.hard_iron_param_name = self.get_param('magnetometer_star_calibration/hard_iron_param_name', 2.0)
         self.soft_iron_param_name = self.get_param('magnetometer_star_calibration/soft_iron_param_name', 2.0)
 
         self.imu_received = False
+        self.mag_received = False
         self.record_imu = False
 
         # tf listener
@@ -74,8 +79,8 @@ class MagnetometerAutoCalibration:
             rospy.signal_shutdown('Error creating client to goto service')
 
         # Sevice server
-        self.start_srv = rospy.Service('control/start_magnetometer_calibration_star',
-                                       Goto,
+        self.start_srv = rospy.Service('control/magnetometer_calibration_start_point',
+                                       SharePosition,
                                        self.start_magnetometer_calibration_star)
         # Show message
         rospy.loginfo('[%s]: initialized', self.name)
@@ -95,28 +100,41 @@ class MagnetometerAutoCalibration:
         self.filtered_tilt_corrected_my_calib_vector = []
         self.filtered_tilt_corrected_mz_calib_vector = []
 
-        # Subscribe to IMU and nav_sts
-        imu_sub = rospy.Subscriber(self.imu_topic_name, sensor_msgs/Imu, self.imu_callback, queue_size=1)
-        nav_sub = rospy.Subscriber('/navigation/navigator', NavSts, self.nav_callback, queue_size=1)
+        # Subscribe to IMU, Magnetometer and nav_sts
+        imu_sub = rospy.Subscriber(self.imu_topic_name, Imu, self.imu_callback, queue_size=1)
+        magnetometer_sub = rospy.Subscriber(self.magnetometer_topic_name, MagneticField, self.magnetometer_callback, queue_size=1)
+        nav_sub = rospy.Subscriber('/xiroi/navigator/navigation', NavSts, self.nav_callback, queue_size=1)
 
         # Wait for IMU to be available
-        r = rospy.Rate(1) # 1 Hz
-        while not rospy.is_shutdown():
-            if (self.imu_received):
-                break
-            else:
-                rospy.loginfo('Waiting for IMU topic to be available')
-            r.sleep()
+        # r = rospy.Rate(1) # 1 Hz
+        # while not rospy.is_shutdown():
+        #     if (self.imu_received):
+        #         break
+        #     else:
+        #         rospy.loginfo('Waiting for IMU topic to be available')
+        #     r.sleep()
+
+        # Wait for Magnetometer to be available
+        # r = rospy.Rate(1) # 1 Hz
+        # while not rospy.is_shutdown():
+        #     if (self.mag_received):
+        #         break
+        #     else:
+        #         rospy.loginfo('Waiting for magnetometer topic to be available')
+        #     r.sleep()
 
         # remove any calibration
         rospy.set_param(self.soft_iron_param_name, '[1, 0, 0, 0, 1, 0, 0, 0, 1]')
         rospy.set_param(self.hard_iron_param_name, '[0.0, 0.0, 0.0]')
 
         """Enable start calibration maneuver."""
-        self.call_empty_srv('/control/enable_thrusters')
-        pose = self.ned.geodetic2ned([req.north_lat,
-                                      req.east_lon,
+        self.call_empty_srv('/xiroi/controller/enable_thrusters')
+        pose = self.ned.geodetic2ned([req.latitude,
+                                      req.longitude,
                                       0.0])
+        print (pose[0])
+        print("--------------")
+        print (pose[1])
         # Perform star maneuver
         text = '{0}: perform start maneuver at ({1}, {2}), depth {3} in a {4}m radius start of {5} sides.'.format(self.name, pose[0], pose[1], pose[2], self.radius, self.sides)
         rospy.loginfo(text)
@@ -124,6 +142,7 @@ class MagnetometerAutoCalibration:
 
         rospy.loginfo('[%s]: calling compute magnetometer calibration service', self.name)
         imu_sub.unregister()
+        magnetometer_sub.unregister()
         nav_sub.unregister()
         self.compute_magnetometer_calibration()
 
@@ -136,13 +155,28 @@ class MagnetometerAutoCalibration:
 
     def transit_to(self, pose):
         """Goto to position x, y, z, at velocity vel."""
-        goto_request = GotoRequest()
-        goto_request.north_lat = pose[0]
-        goto_request.east_lon = pose[1]
-        goto_request.z = pose[2]
-        goto_request.altitude_mode = False
-        goto_request.tolerance = self.tolerance
-        self.goto_srv(goto_request)
+        # // Define waypoint attributes
+        goto_req = GotoRequest()
+        goto_req.altitude = 0
+        goto_req.altitude_mode = False
+        goto_req.linear_velocity.x = 0.3
+        goto_req.position.x = pose[0]
+        goto_req.position.y = pose[1]
+        goto_req.position.z = 0.0
+        goto_req.position_tolerance.x = self.tolerance_x
+        goto_req.position_tolerance.y = self.tolerance_y
+        goto_req.position_tolerance.z = self.tolerance_z
+        goto_req.blocking = True
+        goto_req.keep_position = False
+        goto_req.disable_axis.x = False
+        goto_req.disable_axis.y = True
+        goto_req.disable_axis.z = False
+        goto_req.disable_axis.roll = True
+        goto_req.disable_axis.yaw = False
+        goto_req.disable_axis.pitch = True
+        goto_req.priority = 10
+        goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
+        self.goto_srv(goto_req)
         rospy.sleep(1.0)
 
     def star_segment(self, x1, y1, x2, y2, depth):
@@ -218,25 +252,34 @@ class MagnetometerAutoCalibration:
         self.filtered_tilt_corrected_mz_calib_vector = []
 
     def imu_callback(self, imu_message):
+        rospy.loginfo(' IMU CALLBACK')
         if self.record_imu:
-            acc_vector = matrix([[imu_message.AX],
-                                 [imu_message.AY],
-                                 [imu_message.AZ]])
+            acc_vector = matrix([[imu_message.linear_acceleration.x],
+                                 [imu_message.linear_acceleration.y],
+                                 [imu_message.linear_acceleration.z]])
             acc_vector = self.imu_rotation * acc_vector
-            mag_input = matrix([[imu_message.MX],
-                                [imu_message.MY],
-                                [imu_message.MZ]])
-            mag_vector = self.imu_rotation * mag_input
-
+        
             self.ax_calib_vector.append(acc_vector[0, 0])
             self.ay_calib_vector.append(acc_vector[1, 0])
             self.az_calib_vector.append(acc_vector[2, 0])
+            
+        if not self.imu_received:
+            self.imu_received = True
+    
+    def magnetometer_callback(self, mag_message):
+        rospy.loginfo(' MAG CALLBACK')
+        if self.record_mag:
+            mag_input = matrix([[mag_message.magnetic_field.x],
+                                [mag_message.magnetic_field.y],
+                                [mag_message.magnetic_field.z]])
+            mag_vector = self.imu_rotation * mag_input
+
             self.mx_calib_vector.append(mag_vector[0, 0])
             self.my_calib_vector.append(mag_vector[1, 0])
             self.mz_calib_vector.append(mag_vector[2, 0])
 
-        if not self.imu_received:
-            self.imu_received = True
+        if not self.mag_received:
+            self.mag_received = True
 
     def magnetometer_calibration_2d(self):
         """ Compute magnetometer calibration in 2d """
