@@ -132,9 +132,6 @@ class MagnetometerAutoCalibration:
         pose = self.ned.geodetic2ned([req.latitude,
                                       req.longitude,
                                       0.0])
-        print (pose[0])
-        print("--------------")
-        print (pose[1])
         # Perform star maneuver
         text = '{0}: perform start maneuver at ({1}, {2}), depth {3} in a {4}m radius start of {5} sides.'.format(self.name, pose[0], pose[1], pose[2], self.radius, self.sides)
         rospy.loginfo(text)

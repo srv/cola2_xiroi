@@ -13,6 +13,7 @@ from numpy import *
 import PyKDL
 import sys
 from std_srvs.srv import Empty
+from std_srvs.srv import Trigger, TriggerRequest
 from cola2_msgs.msg import GoalDescriptor, NavSts
 from cola2_msgs.srv import Goto, GotoRequest
 from cola2_xiroi.srv import SharePosition
@@ -32,6 +33,7 @@ class ReturnToNED:
         self.name = name
         self.ns = rospy.get_namespace()
         self.get_config()
+        self.ned = NED(self.ned_origin_lat, self.ned_origin_lon, 0.0)
 
         # Services clients
         try:
@@ -43,16 +45,42 @@ class ReturnToNED:
                          self.name)
             rospy.signal_shutdown('Error creating client to goto service')
 
+        try:
+            rospy.wait_for_service('captain/disable_all_and_set_idle', 20)
+            self.disable_all_and_set_idle_srv = rospy.ServiceProxy(
+                        'captain/disable_all_and_set_idle', Trigger)
+        except rospy.exceptions.ROSException:
+            rospy.logerr('%s: error creating client to disable_all service',
+                         self.name)
+            rospy.signal_shutdown('Error creating client to disable_all service')
+
         # Sevice server
         self.start_srv = rospy.Service('control/return_to_NED',
                                        Empty,
                                        self.return_to_NED)
+        
+        #Subscribers
+        rospy.Subscriber(self.ns + "navigator/navigation", NavSts,self.update_nav_sts,queue_size=1)
+
         # Show message
         rospy.loginfo('[%s]: initialized', self.name)
+    
+    def update_nav_sts(self, msg):
+        self.position_lat = msg.global_position.latitude
+        self.position_lon = msg.global_position.longitude
+        self.pose = self.ned.geodetic2ned([self.position_lat,
+                                      self.position_lon,
+                                      0.0])
+        self.check_distance()
 
     def return_to_NED(self, req):
+        """ This method sets the captain back to idle """
+        try:
+            self.disable_all_and_set_idle_srv(TriggerRequest())
+        except rospy.exceptions.ROSException:
+            rospy.logerr("Error setting captain to idle state")
 
-        """Goto to position x, y, z, at velocity vel."""
+        """Goto to NED position."""
         # // Define waypoint attributes
         goto_req = GotoRequest()
         goto_req.altitude = 0
@@ -77,12 +105,20 @@ class ReturnToNED:
         self.goto_srv(goto_req)
         rospy.sleep(1.0)
 
+    def check_distance(self):
+        self.distance =sqrt(self.pose[0]**2 + self.pose[1]**2)
+        if(self.distance > self.max_distance):
+            rospy.logwarning('Max distance reached, returning to NED origin')
+            self.return_to_NED()
+
+
     def get_config(self):
         """Define and load all necessary parameters from ROS param server."""
         # Define params to load
         param_dict = {
             'ned_origin_lat': (self.ns + "navigator/ned_latitude", 41.7777),
-            'ned_origin_lon': (self.ns + "navigator/ned_longitude", 3.0333)}
+            'ned_origin_lon': (self.ns + "navigator/ned_longitude", 3.0333),
+            'max_distance': (self.ns + "captain/max_distance_to_waypoint", 400)}
         # Load them
         param_loader.get_ros_params(self, param_dict)
 
