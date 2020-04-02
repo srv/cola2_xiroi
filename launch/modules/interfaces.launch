@@ -49,4 +49,7 @@
     <rosparam command="load" file="$(find cola2_xiroi)/config/magnetometer_star_calibration.yaml"/>
     <node name="magnetometer_star_calibration" pkg="cola2_xiroi" type="magnetometer_star_calibration.py" output="screen"> </node>
 
+    <!-- RETURN TO NED -->
+    <node name="return_to_NED" pkg="cola2_xiroi" type="return_to_NED.py" output="screen"> </node>
+
 </launch>
