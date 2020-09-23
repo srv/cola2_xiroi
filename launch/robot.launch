@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="cabrera.yaml"/>
+    <arg name="place" default="illetes.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -9,9 +9,9 @@
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableThrusters" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="openLoopTeleoperation" default="true"/>
+    <arg name="enableThrusters" default="true"/>
+    <arg name="openLoopTeleoperation" default="false"/>
 
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
@@ -19,10 +19,8 @@
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
-    <arg name="enableIqua" default="false"/>
+    <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
-
-    
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
@@ -36,11 +34,11 @@
             <arg name="place" value="$(arg place)"/>
             <arg name="robot_name" value="$(arg robot_name)"/>
             <arg name="sim" value="$(arg sim)"/>
+            <arg name="enableATX" value="$(arg enableATX)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
             <arg name="enableSafety" value="$(arg enableSafety)"/>
             <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>
-            <arg name="enableATX" value="$(arg enableATX)"/>
         </include>
 
         <!-- Load payload -->
@@ -58,19 +56,11 @@
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
 
-        <!-- Internal Sensors -->
-        <group unless="$(arg sim)">
-            <node name="internal_sensors" pkg="cola2_xiroi" type="sim_internal_sensors.py" output="screen"/>
-        </group>
-             
         <!-- Topic Logger -->
-
         <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
         <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
             <!-- <param name="dir" value="/data/media/xiroi"/> -->
-            <param name="core_name" value="xiroi"/>
         </node>
-
 
         <!-- <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/> -->
     </group>

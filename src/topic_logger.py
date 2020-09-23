@@ -44,13 +44,12 @@ import datetime
 import subprocess
 
 dir = rospy.get_param("topic_logger/dir", default='/home/' + os.getlogin())
-core_name = rospy.get_param("topic_logger/core_name")
 dir_save_bagfiles = dir + '/bagfiles'
 
 # Load Topic list
 topics = rospy.get_param("topic_logger/topics")
 
-image_topics = [] 
+image_topics = []
 if rospy.has_param('topic_logger/image_topics'):
   image_topics = rospy.get_param("topic_logger/image_topics")
 
@@ -61,11 +60,18 @@ if rospy.has_param('/topic_logger/pc_topics'):
 class TopicLogger:
   _recording = False
 
-  def record(self, topics, folder, mission , split = False, size = 10000):
+  ##
+  ## @brief      Record topics in a bagfile and return the subprocess
+  ##
+  ## @param      self     The object
+  ## @param      topics   The topics
+  ## @param      process  The process
+  ##
+  def record(self, topics, folder, platform, split = True, size=4000):
     args = ''
     if len(sys.argv) > 1:
-      args = ' -o ' + folder + "/" + mission
-
+      # args = ' -o ' + folder + "/" + platform + date
+      args = ' -o ' + folder + "/" + platform
     # Normal topics
     for t in topics:
       args = args + " " + t
@@ -82,24 +88,29 @@ class TopicLogger:
       rospy.loginfo('Recording start requested')
 
       now = datetime.datetime.now()
-      fullday   = now.strftime("%Y%m%d")
+      fullday   = now.strftime("%Y_%m_%d")
       fullhour  = now.strftime("%H_%M_%S")
-      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles,fullday, req.mission)
+
+      dir_save_curr_bagfile = os.path.join(dir_save_bagfiles, fullday, fullhour)
 
       if not os.path.exists(dir_save_curr_bagfile):
         os.makedirs(dir_save_curr_bagfile)
 
       self._recording = True
-      # Current topics
-      self.p = self.record(topics, dir_save_curr_bagfile, 'topics_'+ core_name, split=False, size=10000)
+      self.p = self.record(topics, dir_save_curr_bagfile,'topics', split=True, size=4000)
       rospy.loginfo('Recording process started with PID: {0}'.format(self.p.pid))
 
       # Image topics
       if image_topics:
-        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images_'+ core_name, split=False, size=10000)
+        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images', split=True, size=4000)
         rospy.loginfo('Recording process started with PID: {0}'.format(self.p_img.pid))
 
-      param_filename = "params_"+ core_name + ".yaml"
+      # Point Cloud topics
+      if pc_topics:
+        self.p_pc = self.record(pc_topics, dir_save_curr_bagfile, 'pc', split=True, size=4000)
+        rospy.loginfo('Recording process started with PID: {0}'.format(self.p_pc.pid))
+
+      param_filename = "params.yaml"
       rospy.loginfo('Saving parameters in {0}'.format(dir_save_curr_bagfile + '/' + param_filename))
       process = subprocess.Popen('rosparam dump ' + param_filename, shell=True, cwd=dir_save_curr_bagfile)
       time.sleep(10)
@@ -109,7 +120,6 @@ class TopicLogger:
       return RecordRequestResponse(False)
     return RecordRequestResponse(True)
 
-   #stop to record the topics
   def stop_recording(self, req):
     if (self._recording):
       rospy.loginfo('Recording stop requested')
@@ -118,7 +128,7 @@ class TopicLogger:
       retcode = list_cmd.wait()
       assert retcode == 0, "List command returned %d" % retcode
       for str in list_output.split("\n"):
-        if (str.startswith('/'+core_name+'/record')):
+        if (str.startswith('/xiroi/record_')):
           os.system("rosnode kill " + str)
       self._recording = False
     else:
