@@ -21,6 +21,19 @@
         <param name="gyro_bias_y"  value="-0.0016" type="double" />
         <param name="gyro_bias_z"  value="-0.0065" type="double" />
 
+        <param name="mag_bias_x"   value="-0.0672372" type="double" />
+        <param name="mag_bias_y"   value="-0.0361426" type="double" />
+        <param name="mag_bias_z"   value="0.376318" type="double" />
+        <param name="mag_trans_xx" value="0.938791" type="double" />
+        <param name="mag_trans_xy" value="0.0536806" type="double" />
+        <param name="mag_trans_xz" value="-0.0228044" type="double" />
+        <param name="mag_trans_yx" value="0.0536806" type="double" />
+        <param name="mag_trans_yy" value="0.94832" type="double" />
+        <param name="mag_trans_yz" value="0.0346809" type="double" />
+        <param name="mag_trans_zx" value="-0.0228044" type="double" />
+        <param name="mag_trans_zy" value="0.0346809" type="double" />
+        <param name="mag_trans_zz" value="0.944665" type="double" />
+
         <param name="accels_var"   value="0.0" type="double" />
         <param name="gyros_var"    value="0.0" type="double" />
         <param name="mags_var"     value="0.0" type="double" />

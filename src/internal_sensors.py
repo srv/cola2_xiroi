@@ -69,7 +69,6 @@ class Sensors:
         # Init periodic check timer
         rospy.Timer(rospy.Duration(1.0), self.pub_pc_cylinder_sensors)
         rospy.Timer(rospy.Duration(1.0), self.pub_batteries_cylinder_sensors)
-        # rospy.Timer(rospy.Duration(self.update_battery_time), self.pub_batteries_sensors)
 
 
     def cb_batteries_sensors(self, msg):
@@ -88,8 +87,7 @@ class Sensors:
         battery_msg = BatteryState()
         battery_msg.header.stamp = rospy.Time.now()
         battery_msg.voltage = msg.volts_read_value[0]
-        # battery_msg.current = msg.current
-        battery_msg.current = 10.0
+        battery_msg.current = msg.current
         battery_msg.capacity = 50.0
         battery_msg.charge = soc_data
         battery_msg.design_capacity = 50.0

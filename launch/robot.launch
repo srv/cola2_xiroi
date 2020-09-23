@@ -1,17 +1,17 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="illetes.yaml"/>
+    <arg name="place" default="cabrera.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="openLoopTeleoperation" default="false"/>
+    <arg name="openLoopTeleoperation" default="true"/>
 
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
@@ -19,7 +19,7 @@
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
     <!-- Interfaces -->
-    <arg name="enableIqua" default="true"/>
+    <arg name="enableIqua" default="false"/>
     <arg name="enableMultimaster" default="false"/>
 
     
@@ -60,7 +60,7 @@
 
         <!-- Internal Sensors -->
         <group unless="$(arg sim)">
-            <node name="internal_sensors" pkg="cola2_xiroi" type="internal_sensors.py" output="screen"/>
+            <node name="internal_sensors" pkg="cola2_xiroi" type="sim_internal_sensors.py" output="screen"/>
         </group>
              
         <!-- Topic Logger -->

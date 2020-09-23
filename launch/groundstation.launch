@@ -3,9 +3,9 @@
     <arg name="robot_name" default="xiroi"/>
     <arg name="enableJoystick" default="true" />
     <arg name="enableRviz" default="false" />
-    <arg name="openLoopTeleoperation" default="false" />
+    <arg name="openLoopTeleoperation" default="true" />
     <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> -->
-    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_DA3D9191-joystick"/> 
+    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/> 
     
     <group ns="$(arg robot_name)">
         <!-- TELEOPERATION -->
@@ -33,7 +33,7 @@
     <node if="$(arg enableRviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/sim_xiroi.rviz"/>
 
     <!-- ROSBRIDGE -->
-    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
-    <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server"/>
+    <!-- <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+    <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server"/> -->
 </launch>
 
