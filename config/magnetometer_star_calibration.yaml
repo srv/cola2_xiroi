@@ -1,0 +1,13 @@
+magnetometer_star_calibration/imu_topic_name: 'xiroi/sensors/imu_raw_driver'
+magnetometer_star_calibration/magnetometer_topic_name: 'xiroi/sensors/imu_mag'
+magnetometer_star_calibration/frame_id: 'xiroi/base_link'
+magnetometer_star_calibration/calibration_file_path: '/home/xiroigs/bagfiles/imu_calibration'
+magnetometer_star_calibration/depth: 3.0
+magnetometer_star_calibration/radius: 20.0
+magnetometer_star_calibration/sides: 5
+magnetometer_star_calibration/tolerance_x: 2.0
+magnetometer_star_calibration/tolerance_y: 2.0
+magnetometer_star_calibration/tolerance_z: 2.0
+magnetometer_star_calibration/acceleration_limit: 0.20
+magnetometer_star_calibration/hard_iron_param_name: '/xiroi/navigator/hard_iron'
+magnetometer_star_calibration/soft_iron_param_name: '/xiroi/navigator/soft_iron'

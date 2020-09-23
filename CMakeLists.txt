@@ -68,6 +68,7 @@ add_service_files(
   SetNedOrigin.srv
   EnableNavStatus.srv
   RecordRequest.srv
+  SharePosition.srv
 )
 
 ## Generate actions in the 'action' folder
