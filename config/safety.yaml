@@ -16,8 +16,8 @@ safety/usbl_safety_always_on: false
 safety/min_dvl_good_data: 20
 
 # Battery
-safety/min_battery_charge: 5
-safety/min_battery_voltage: 5
+safety/min_battery_charge: 20
+safety/min_battery_voltage: 11
 
 # Max Temperatures:
 # For xiroi: ['batteries', 'cpu', 'main_housing']
