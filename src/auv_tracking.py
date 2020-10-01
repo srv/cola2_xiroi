@@ -32,12 +32,13 @@ class AUVTracking:
         # Initialize some parameters
         self.asv_data = False
         self.auv_data = False
+        self.tracking = False
         self.max_distance = 10
         # Get config parameters
         self.name = name
         self.ns = rospy.get_namespace()
-        self.get_config()
-        self.ned = NED(self.ned_origin_lat, self.ned_origin_lon, 0.0)
+        # self.get_config()
+        # self.ned = NED(self.ned_origin_lat, self.ned_origin_lon, 0.0)
         
         # Services clients
         try:
@@ -52,20 +53,21 @@ class AUVTracking:
         try:
             rospy.wait_for_service('captain/disable_all_and_set_idle', 20)
             self.disable_all_and_set_idle_srv = rospy.ServiceProxy(
-                        'captain/disable_all_and_set_idle', Trigger)
+                        '/xiroi/captain/disable_all_and_set_idle', Trigger)
         except rospy.exceptions.ROSException:
             rospy.logerr('%s: error creating client to disable_all service',
                          self.name)
             rospy.signal_shutdown('Error creating client to disable_all service')
-
+        
+        
         # Sevice server
-        self.start_srv = rospy.Service('control/enable_tracking',
+        self.enable_tracking_srv = rospy.Service('control/enable_tracking',
                                        Empty,
-                                       self.tracking)
+                                       self.enable_tracking)
 
-        self.start_srv = rospy.Service('control/disable_tracking',
+        self.disable_tracking_srv = rospy.Service('control/disable_tracking',
                                        Empty,
-                                       self.stop_tracking)
+                                       self.disable_tracking)
         
         #Subscribers
         #Xiroi position
@@ -78,70 +80,65 @@ class AUVTracking:
                          NavSts,
                          self.update_auv_nav_sts,
                          queue_size=1)
-
-
-        # Timer for the publish method
-        if(self.auv_data and self.asv_data):
-            rospy.Timer(rospy.Duration(30), self.tracking)
-    
+   
     def update_asv_nav_sts(self, msg):
-        self.asv_position_lat = msg.global_position.latitude
-        self.asv_position_lon = msg.global_position.longitude
-        self.asv_pose = self.ned.geodetic2ned([self.asv_position_lat,
-                                      self.asv_position_lon,
-                                      0.0])
+        self.asv_position_north = msg.position.north
+        self.asv_position_east = msg.position.east
         self.asv_data = True
 
     def update_auv_nav_sts(self, msg):
-        self.auv_position_lat = msg.global_position.latitude
-        self.auv_position_lon = msg.global_position.longitude
-        self.auv_pose = self.ned.geodetic2ned([self.auv_position_lat,
-                                      self.auv_position_lon,
-                                      0.0])
+        self.auv_position_north = msg.position.north
+        self.auv_position_east = msg.position.east
         self.auv_data = True
+        self.check_distance()
 
-    def stop_tracking(self, req):
+    def disable_tracking(self, req):
+        self.tracking = False
+        self.disable_all_and_set_idle_srv()
+        rospy.logwarn('AUV tracking DISABLED')
+        return EmptyResponse()
 
-    def tracking(self, req):
-        if(self.auv_data and self.asv_data):
-            self.distance = sqrt((self.auv_pose[0]-self.asv_pose[0])**2 + (self.auv_pose[1]-self.asv_pose[1])**2)
-        else:
-            rospy.loginfo('No AUV or ASV position received')
-            return
-        if(self.distance > self.max_distance):
-            rospy.loginfo('Max distance reached, enable tracking')
-            goto_res = GotoResponse()
-            goto_req = GotoRequest()
-            goto_req.altitude = 0
-            goto_req.altitude_mode = False
-            goto_req.linear_velocity.x = 0.4
-            goto_req.position.x = self.auv_pose[0]
-            goto_req.position.y = self.auv_pose[1]
-            goto_req.position.z = 0.0
-            goto_req.position_tolerance.x = 2.0
-            goto_req.position_tolerance.y = 2.0
-            goto_req.position_tolerance.z = 2.0
-            goto_req.blocking = True
-            goto_req.keep_position = True
-            goto_req.disable_axis.x = False
-            goto_req.disable_axis.y = True
-            goto_req.disable_axis.z = False
-            goto_req.disable_axis.roll = True
-            goto_req.disable_axis.yaw = False
-            goto_req.disable_axis.pitch = True
-            goto_req.priority = 60 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
-            goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
-            self.goto_srv(goto_req, goto_res)
-            res.message = "AUV tracking enabled"
-            res.success = true
+    def enable_tracking(self, req):
+        self.tracking = True
+        self.check_distance()
+        return EmptyResponse()
+
+    def start_tracking(self):
+        """ This method sets the captain back to idle """
+        self.disable_all_and_set_idle_srv()
+        """Goto to AUV position."""
+        # // Define Goto attributes    
+        goto_req = GotoRequest()
+        goto_req.altitude = 0
+        goto_req.altitude_mode = False
+        goto_req.linear_velocity.x = 0.4
+        goto_req.position.x = self.auv_position_north
+        goto_req.position.y = self.auv_position_east
+        goto_req.position.z = 0.0
+        goto_req.position_tolerance.x = 2.0
+        goto_req.position_tolerance.y = 2.0
+        goto_req.position_tolerance.z = 2.0
+        goto_req.blocking = True
+        goto_req.keep_position = False
+        goto_req.disable_axis.x = False
+        goto_req.disable_axis.y = True
+        goto_req.disable_axis.z = False
+        goto_req.disable_axis.roll = True
+        goto_req.disable_axis.yaw = False
+        goto_req.disable_axis.pitch = True
+        goto_req.priority = 10 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
+        goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
+        self.goto_srv(goto_req)
 
     def check_distance(self):
-        if(self.auv_data and self.asv_data):
-            self.distance = sqrt((self.auv_pose[0]-self.asv_pose[0])**2 + (self.auv_pose[1]-self.asv_pose[1])**2)
-        if(self.distance > self.max_distance):
-            rospy.logwarn('Max distance reached, enable tracking')
-            self.tracking()
+        # print("check_distance")
+        if(self.auv_data and self.asv_data and self.tracking) :
+            self.distance = sqrt((self.auv_position_north-self.asv_position_north)**2 + (self.auv_position_east-self.asv_position_east)**2)
+            print (self.distance)
 
+        if(self.tracking and self.distance > self.max_distance):
+            rospy.logwarn('AUV tracking ENABLED')
+            self.start_tracking()
 
     def get_config(self):
         """Define and load all necessary parameters from ROS param server."""
@@ -151,7 +148,6 @@ class AUVTracking:
             'ned_origin_lon': (self.ns + "navigator/ned_longitude", 3.0333)}
         # Load them
         param_loader.get_ros_params(self, param_dict)
-
 
 if __name__ == '__main__':
     try:
