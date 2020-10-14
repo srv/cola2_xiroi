@@ -51,14 +51,15 @@ class AUVTracking:
             rospy.signal_shutdown('Error creating client to goto service')
 
         try:
-            rospy.wait_for_service('captain/disable_all_and_set_idle', 20)
-            self.disable_all_and_set_idle_srv = rospy.ServiceProxy(
-                        '/xiroi/captain/disable_all_and_set_idle', Trigger)
+            rospy.wait_for_service('captain/disable_goto', 20)
+            self.disable_goto_srv = rospy.ServiceProxy(
+                        'captain/disable_goto', Trigger)
         except rospy.exceptions.ROSException:
-            rospy.logerr('%s: error creating client to disable_all service',
+            rospy.logerr('%s: error creating client to disable goto service',
                          self.name)
-            rospy.signal_shutdown('Error creating client to disable_all service')
-        
+            rospy.signal_shutdown('Error creating client to disable goto service')
+
+               
         
         # Sevice server
         self.enable_tracking_srv = rospy.Service('control/enable_tracking',
@@ -80,6 +81,9 @@ class AUVTracking:
                          NavSts,
                          self.update_auv_nav_sts,
                          queue_size=1)
+
+        # Init periodic check timer
+        rospy.Timer(rospy.Duration(1), self.check_distance)
    
     def update_asv_nav_sts(self, msg):
         self.asv_position_north = msg.position.north
@@ -90,22 +94,17 @@ class AUVTracking:
         self.auv_position_north = msg.position.north
         self.auv_position_east = msg.position.east
         self.auv_data = True
-        self.check_distance()
+        self.disable_goto_srv()
 
     def disable_tracking(self, req):
         self.tracking = False
-        self.disable_all_and_set_idle_srv()
-        rospy.logwarn('AUV tracking DISABLED')
-        return EmptyResponse()
+        self.disable_goto_srv()
 
     def enable_tracking(self, req):
         self.tracking = True
-        self.check_distance()
-        return EmptyResponse()
 
     def start_tracking(self):
         """ This method sets the captain back to idle """
-        self.disable_all_and_set_idle_srv()
         """Goto to AUV position."""
         # // Define Goto attributes    
         goto_req = GotoRequest()
@@ -126,18 +125,17 @@ class AUVTracking:
         goto_req.disable_axis.roll = True
         goto_req.disable_axis.yaw = False
         goto_req.disable_axis.pitch = True
-        goto_req.priority = 10 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
+        goto_req.priority = 5 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
         goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
         self.goto_srv(goto_req)
+        rospy.sleep(1.0)
 
-    def check_distance(self):
-        # print("check_distance")
+    def check_distance(self,event):
         if(self.auv_data and self.asv_data and self.tracking) :
             self.distance = sqrt((self.auv_position_north-self.asv_position_north)**2 + (self.auv_position_east-self.asv_position_east)**2)
-            print (self.distance)
 
         if(self.tracking and self.distance > self.max_distance):
-            rospy.logwarn('AUV tracking ENABLED')
+            self.disable_goto_srv()
             self.start_tracking()
 
     def get_config(self):
