@@ -13,6 +13,7 @@ from numpy import *
 import PyKDL
 import sys
 from std_srvs.srv import Empty
+from visualization_msgs.msg import Marker
 from std_srvs.srv import Trigger, TriggerRequest
 from cola2_msgs.msg import GoalDescriptor, NavSts
 from cola2_msgs.srv import Goto, GotoRequest,GotoResponse
@@ -33,7 +34,10 @@ class AUVTracking:
         self.asv_data = False
         self.auv_data = False
         self.tracking = False
-        self.max_distance = 10
+        self.radius=11
+        self.security_radius = 15 
+        self.repulsion_radius = 5
+        self.depth_threshold = 3
         # Get config parameters
         self.name = name
         self.ns = rospy.get_namespace()
@@ -58,6 +62,24 @@ class AUVTracking:
             rospy.logerr('%s: error creating client to disable goto service',
                          self.name)
             rospy.signal_shutdown('Error creating client to disable goto service')
+        
+        try:
+            rospy.wait_for_service('captain/enable_keep_position_non_holonomic', 20)
+            self.enable_keep_position_non_holonomic_srv = rospy.ServiceProxy(
+                        'captain/enable_keep_position_non_holonomic', Trigger)
+        except rospy.exceptions.ROSException:
+            rospy.logerr('%s: error creating client to captain/enable_keep_position_non_holonomic service',
+                         self.name)
+            rospy.signal_shutdown('Error creating client to captain/enable_keep_position_non_holonomic service')
+
+        # try:
+        #     rospy.wait_for_service('captain/disable_keep_position_non_holonomic', 20)
+        #     self.disable_keep_position_non_holonomic_srv = rospy.ServiceProxy(
+        #                 'captain/disable_keep_position_non_holonomic', Trigger)
+        # except rospy.exceptions.ROSException:
+        #     rospy.logerr('%s: error creating client to captain/disable_keep_position_non_holonomic service',
+        #                  self.name)
+        #     rospy.signal_shutdown('Error creating client to captain/disable_keep_position_non_holonomic service')
 
                
         
@@ -81,6 +103,9 @@ class AUVTracking:
                          NavSts,
                          self.update_auv_nav_sts,
                          queue_size=1)
+        #Publishers
+        self.markerPub_1 = rospy.Publisher('repulsionRadius',Marker,queue_size=1)
+        self.markerPub_2 = rospy.Publisher('SafetyRadius',Marker,queue_size=1)
 
         # Init periodic check timer
         rospy.Timer(rospy.Duration(1), self.check_distance)
@@ -93,6 +118,8 @@ class AUVTracking:
     def update_auv_nav_sts(self, msg):
         self.auv_position_north = msg.position.north
         self.auv_position_east = msg.position.east
+        self.security_marker()
+        self.repulsion_marker()
         self.auv_data = True
         self.disable_goto_srv()
 
@@ -102,6 +129,7 @@ class AUVTracking:
 
     def enable_tracking(self, req):
         self.tracking = True
+
 
     def start_tracking(self):
         """ This method sets the captain back to idle """
@@ -131,12 +159,21 @@ class AUVTracking:
         rospy.sleep(1.0)
 
     def check_distance(self,event):
-        if(self.auv_data and self.asv_data and self.tracking) :
-            self.distance = sqrt((self.auv_position_north-self.asv_position_north)**2 + (self.auv_position_east-self.asv_position_east)**2)
+        if(self.auv_data and self.asv_data) :
+            self.x_distance = self.auv_position_north-self.asv_position_north
+            self.y_distance = self.auv_position_east-self.asv_position_east
+            self.radius = sqrt((self.x_distance)**2 + (self.y_distance)**2)
+            print (self.radius)
 
-        if(self.tracking and self.distance > self.max_distance):
-            self.disable_goto_srv()
+        if(self.radius > self.security_radius):
             self.start_tracking()
+
+        elif(self.radius < self.security_radius and self.radius>self.repulsion_radius):
+            self.disable_goto_srv()
+            self.enable_keep_position_non_holonomic_srv
+
+        else:
+            print ("repulsion")
 
     def get_config(self):
         """Define and load all necessary parameters from ROS param server."""
@@ -146,6 +183,54 @@ class AUVTracking:
             'ned_origin_lon': (self.ns + "navigator/ned_longitude", 3.0333)}
         # Load them
         param_loader.get_ros_params(self, param_dict)
+
+    def security_marker(self):
+        self.security = Marker()
+        self.security.header.frame_id = "world_ned"
+        self.security.header.stamp = rospy.Time.now()
+        self.security.ns = "turbot"
+        self.security.id = 0
+        self.security.type = Marker.CYLINDER
+        self.security.action = Marker.ADD
+        self.security.pose.position.x = self.auv_position_north
+        self.security.pose.position.y = self.auv_position_east
+        self.security.pose.position.z = 0
+        self.security.pose.orientation.x = 0
+        self.security.pose.orientation.y = 0
+        self.security.pose.orientation.z = 0
+        self.security.pose.orientation.w = 1.0
+        self.security.scale.x = self.security_radius*2
+        self.security.scale.y = self.security_radius*2
+        self.security.scale.z = 0.1
+        self.security.color.r = 0.0
+        self.security.color.g = 1.0
+        self.security.color.b = 0.0
+        self.security.color.a = 0.3
+        self.markerPub_2.publish(self.security)
+
+    def repulsion_marker(self):
+        self.robotMarker = Marker()
+        self.robotMarker.header.frame_id = "world_ned"
+        self.robotMarker.header.stamp = rospy.Time.now()
+        self.robotMarker.ns = "turbot"
+        self.robotMarker.id = 0
+        self.robotMarker.type = Marker.CYLINDER
+        self.robotMarker.action = Marker.ADD
+        self.robotMarker.pose.position.x = self.auv_position_north
+        self.robotMarker.pose.position.y = self.auv_position_east
+        self.robotMarker.pose.position.z = 0
+        self.robotMarker.pose.orientation.x = 0
+        self.robotMarker.pose.orientation.y = 0
+        self.robotMarker.pose.orientation.z = 0
+        self.robotMarker.pose.orientation.w = 1.0
+        self.robotMarker.scale.x = self.repulsion_radius*2
+        self.robotMarker.scale.y = self.repulsion_radius*2
+        self.robotMarker.scale.z = 0.1
+        self.robotMarker.color.r = 1.0
+        self.robotMarker.color.g = 0.0
+        self.robotMarker.color.b = 0.0
+        self.robotMarker.color.a = 0.3
+        self.markerPub_1.publish(self.robotMarker)
 
 if __name__ == '__main__':
     try:
