@@ -34,6 +34,7 @@ class AUVTracking:
         self.asv_data = False
         self.auv_data = False
         self.tracking = False
+        self.first_repulsion = False
         self.initialized = False
         self.radius=11
         self.acceptance_radius = 50 
@@ -149,7 +150,6 @@ class AUVTracking:
         self.repulsion_marker()
         self.follow_marker()
         self.auv_data = True
-        self.disable_goto_srv()
 
     def disable_tracking(self, req):
         self.disable_goto_srv()
@@ -163,13 +163,14 @@ class AUVTracking:
 
 
     def start_tracking(self, position_x, position_y):
+        self.disable_goto_srv()
         """ This method sets the captain back to idle """
         """Goto to AUV position."""
         # // Define Goto attributes    
         goto_req = GotoRequest()
         goto_req.altitude = 0
         goto_req.altitude_mode = False
-        goto_req.linear_velocity.x = 2.0
+        goto_req.linear_velocity.x = 5.0
         goto_req.position.x = position_x
         goto_req.position.y = position_y
         goto_req.position.z = 0.0
@@ -184,10 +185,9 @@ class AUVTracking:
         goto_req.disable_axis.roll = True
         goto_req.disable_axis.yaw = False
         goto_req.disable_axis.pitch = True
-        goto_req.priority = 5 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
+        goto_req.priority = 10 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
         goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
         self.goto_srv(goto_req)
-        rospy.sleep(1.0)
 
     def check_distance(self,event):
         if(self.auv_data and self.asv_data and self.tracking) :
@@ -198,21 +198,34 @@ class AUVTracking:
             self.initialized = True
 
         if(self.radius > self.goal_radius):
+            print("FOLLOW")
+            self.first_repulsion = True
+            # self.enable_thrusters_srv()
             self.disable_keep_position_srv()
             self.start_tracking(self.auv_position_north,self.auv_position_east)
 
         elif(self.repulsion_radius <= self.radius <= self.goal_radius):
+            self.first_repulsion = True
+            self.disable_goto_srv()
+            print("WAIT")
+            # self.enable_thrusters_srv()
             self.enable_keep_position_non_holonomic_srv()
 
         elif(self.radius <= self.repulsion_radius and self.initialized):
+            print("REPULSION")
             self.disable_keep_position_srv()
-            self.extract_safety_position()
-            self.start_tracking(self.x,self.y)
+            # self.disable_thrusters_srv()
+            if (self.first_repulsion):
+                self.extract_safety_position()
+                self.start_tracking(self.x,self.y)
+            self.first_repulsion = False 
 
     def extract_safety_position(self):
         self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
         self.x =  (self.auv_position_north - self.asv_position_north) + self.acceptance_radius
         self.y = (self.m*(self.x-self.asv_position_north))+self.asv_position_east
+        return
+        
 
     def goal_marker(self):
         self.goal = Marker()
