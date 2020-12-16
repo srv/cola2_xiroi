@@ -10,12 +10,13 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import datetime
 from numpy import *
+from math import *
 import PyKDL
 import sys
 from std_srvs.srv import Empty
 from visualization_msgs.msg import Marker
 from std_srvs.srv import Trigger, TriggerRequest
-from cola2_msgs.msg import GoalDescriptor, NavSts
+from cola2_msgs.msg import GoalDescriptor, NavSts, BodyVelocityReq
 from cola2_msgs.srv import Goto, GotoRequest,GotoResponse
 from cola2_xiroi.srv import SharePosition
 from cola2_lib.utils.angles import wrap_angle
@@ -36,10 +37,10 @@ class AUVTracking:
         self.tracking = False
         self.first_repulsion = False
         self.initialized = False
-        self.radius=11
-        self.acceptance_radius = 50 
-        self.goal_radius = self.acceptance_radius - 5 
-        self.repulsion_radius = 40
+        self.radius= -1
+        self.acceptance_radius = 15 
+        self.repulsion_radius = 4
+        self.goal_radius = self.acceptance_radius - self.repulsion_radius 
         self.depth_threshold = 3
         
         # Get config parameters
@@ -130,22 +131,54 @@ class AUVTracking:
                          NavSts,
                          self.update_auv_nav_sts,
                          queue_size=1)
+
+        rospy.Subscriber("/turbot/controller/body_velocity_req",
+                        BodyVelocityReq,
+                        self.update_auv_bvr,
+                        queue_size=1)
         #Publishers
-        self.markerPub_repulsion = rospy.Publisher('repulsionRadius',Marker,queue_size=1)
-        self.markerPub_goal = rospy.Publisher('goalRadius',Marker,queue_size=1)
-        self.markerPub_follow = rospy.Publisher('followRadius',Marker,queue_size=1)
+        self.corrected_bvr = rospy.Publisher("/xiroi/controller/body_velocity_req",
+                                                BodyVelocityReq,
+                                                queue_size=1)
+        self.markerPub_repulsion = rospy.Publisher('repulsionRadius',
+                                                    Marker,
+                                                    queue_size=1)
+
+        self.markerPub_goal = rospy.Publisher('goalRadius',
+                                                Marker,
+                                                queue_size=1)
+
+        self.markerPub_follow = rospy.Publisher('followRadius',
+                                                Marker,
+                                                queue_size=1)
 
         # Init periodic check timer
         rospy.Timer(rospy.Duration(1), self.check_distance)
    
+    def update_auv_bvr(self, msg):
+        self.velocity_request_linear_x = msg.twist.linear.x
+        self.velocity_request_linear_y = msg.twist.linear.y
+        self.velocity_request_linear_z = msg.twist.linear.z
+        self.velocity_request_angular_x = msg.twist.angular.x
+        self.velocity_request_angular_y = msg.twist.angular.y
+        self.velocity_request_angular_z = msg.twist.angular.z
+        self.disable_axis_x = msg.disable_axis.x
+        self.disable_axis_y = msg.disable_axis.y
+        self.disable_axis_z = msg.disable_axis.z
+        self.disable_axis_roll= msg.disable_axis.roll
+        self.disable_axis_pitch = msg.disable_axis.pitch
+        self.disable_axis_yaw = msg.disable_axis.yaw
+
     def update_asv_nav_sts(self, msg):
         self.asv_position_north = msg.position.north
         self.asv_position_east = msg.position.east
+        self.asv_yaw = msg.orientation.yaw
         self.asv_data = True
 
     def update_auv_nav_sts(self, msg):
         self.auv_position_north = msg.position.north
         self.auv_position_east = msg.position.east
+        self.auv_position_depth = msg.position.depth
         self.goal_marker()
         self.repulsion_marker()
         self.follow_marker()
@@ -194,15 +227,17 @@ class AUVTracking:
             self.x_distance = self.auv_position_north-self.asv_position_north
             self.y_distance = self.auv_position_east-self.asv_position_east
             self.radius = sqrt((self.x_distance)**2 + (self.y_distance)**2)
-            print (self.radius)
             self.initialized = True
+            print (self.radius)
+            
 
         if(self.radius > self.goal_radius):
             print("FOLLOW")
             self.first_repulsion = True
             # self.enable_thrusters_srv()
-            self.disable_keep_position_srv()
-            self.start_tracking(self.auv_position_north,self.auv_position_east)
+            #self.disable_keep_position_srv()
+            # self.start_tracking(self.auv_position_north,self.auv_position_east)
+            self.follow_strategy()
 
         elif(self.repulsion_radius <= self.radius <= self.goal_radius):
             self.first_repulsion = True
@@ -218,6 +253,7 @@ class AUVTracking:
             if (self.first_repulsion):
                 self.extract_safety_position()
                 self.start_tracking(self.x,self.y)
+                # self.repulsion()
             self.first_repulsion = False 
 
     def extract_safety_position(self):
@@ -225,7 +261,76 @@ class AUVTracking:
         self.x =  (self.auv_position_north - self.asv_position_north) + self.acceptance_radius
         self.y = (self.m*(self.x-self.asv_position_north))+self.asv_position_east
         return
-        
+
+    def repulsion(self):
+        print("repulsion codeeee")
+
+        self.normalized_repulsive_force_x = (self.velocity_request_linear_x / self.radius)
+        self.normalized_repulsive_force_y = (self.velocity_request_linear_y / self.radius)
+        self.normalized_velocity = sqrt((self.velocity_request_linear_x**2)+(self.velocity_request_linear_y**2))
+
+        if (self.normalized_velocity!=0):
+            self.velocity_x = self.velocity_request_linear_x/self.normalized_velocity
+            self.velocity_y = self.velocity_request_linear_y/self.normalized_velocity
+            self.corrected_velocity_x = (self.velocity_x - self.normalized_repulsive_force_x)*self.normalized_velocity
+            self.corrected_velocity_y = (self.velocity_y - self.normalized_repulsive_force_y)*self.normalized_velocity
+            print("1111111111")
+            self.corrected_bvr_pusblisher(self.corrected_velocity_x,self.corrected_velocity_y)
+
+        else:
+            self.velocity_x = 0.0
+            self.velocity_y = 0.0
+            self.corrected_velocity_x = (self.velocity_x - self.normalized_repulsive_force_x)*self.normalized_velocity
+            self.corrected_velocity_y = (self.velocity_y - self.normalized_repulsive_force_y)*self.normalized_velocity
+            print("222222222222222")
+            self.corrected_bvr_pusblisher(self.corrected_velocity_x,self.corrected_velocity_y)
+
+    def follow_strategy(self):
+        constant_linear_velocity = 0.8
+        constant_angular_velocity = 25
+        # constant_distance = 5
+        # distance_error = constant_distance - self.radius
+        alpha_ref = atan2(self.y_distance,self.x_distance)
+        angle_error = alpha_ref - self.asv_yaw
+
+        self.angular_velocity = constant_angular_velocity * angle_error
+        self.xr = constant_linear_velocity*cos(angle_error)
+        self.yr = constant_linear_velocity*sin(angle_error)
+
+        if(self.xr < 0 ):
+            self.xr = 0
+
+        self.corrected_bvr_pusblisher(self.xr, self.yr,self.angular_velocity)
+    
+    def corrected_bvr_pusblisher(self,corrected_velocity_x,corrected_velocity_y,corrected_angular_z):
+        # NEW PRIORITY DEFINITIONS
+        # PRIORITY_TELEOPERATION_LOW = 0
+        # PRIORITY_SAFETY_LOW = 5
+        # PRIORITY_NORMAL = 10
+        # PRIORITY_NORMAL_HIGH = 20
+        # PRIORITY_TELEOPERATION = 40
+        # PRIORITY_SAFETY = 45
+        # PRIORITY_SAFETY_HIGH  = 50
+        # PRIORITY_TELEOPERATION_HIGH = 60 
+        print ("bvr publisher")
+        bvr = BodyVelocityReq()
+        bvr.header.frame_id    = "/xiroi/base_link"
+        bvr.header.stamp       = rospy.Time.now()
+        bvr.goal.requester     =  self.name
+        bvr.disable_axis.x     = False
+        bvr.disable_axis.y     = False
+        bvr.disable_axis.z     = True
+        bvr.disable_axis.roll  = True
+        bvr.disable_axis.pitch = True
+        bvr.disable_axis.yaw   = False
+        bvr.twist.linear.x     = corrected_velocity_x
+        bvr.twist.linear.y     = corrected_velocity_y
+        bvr.twist.linear.z     = 0.0
+        bvr.twist.angular.x    = 0.0
+        bvr.twist.angular.y    = 0.0
+        bvr.twist.angular.z    = corrected_angular_z
+        bvr.goal.priority      = 20.0
+        self.corrected_bvr.publish(bvr)
 
     def goal_marker(self):
         self.goal = Marker()
