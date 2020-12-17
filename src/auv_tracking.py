@@ -39,9 +39,9 @@ class AUVTracking:
         self.first_repulsion = False
         self.initialized = False
         self.radius= -1
-        self.acceptance_radius = 15
         self.repulsion_radius = 4
-        self.goal_radius = 7
+        self.goal_radius = self.repulsion_radius + 2
+        self.acceptance_radius = self.repulsion_radius*3
         self.depth_threshold = 3
         
         # Get config parameters
@@ -242,49 +242,40 @@ class AUVTracking:
 
         elif(self.repulsion_radius <= self.radius <= self.goal_radius):
             self.first_repulsion = True
-            self.disable_goto_srv()
+            # self.disable_goto_srv()
             print("WAIT")
-            # self.enable_thrusters_srv()
             self.enable_keep_position_non_holonomic_srv()
 
         elif(self.radius <= self.repulsion_radius and self.initialized):
             print("REPULSION")
             self.disable_keep_position_srv()
-            # self.disable_thrusters_srv()
-            if (self.first_repulsion):
-                self.extract_safety_position()
-                self.start_tracking(self.x,self.y)
-                # self.repulsion()
-            self.first_repulsion = False 
+            # if (self.first_repulsion):
+            self.extract_safety_position()
+            self.repulsion_strategy(-self.x, -self.y)
+            # self.first_repulsion = False 
 
     def extract_safety_position(self):
+        print("EXTRACT SAFETY POSITION")
         self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
-        self.x =  (self.auv_position_north - self.asv_position_north) + self.acceptance_radius
-        self.y = (self.m*(self.x-self.asv_position_north))+self.asv_position_east
+        self.x =  (self.auv_position_north - self.asv_position_north) + self.repulsion_radius
+        self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
         return
 
-    def repulsion(self):
-        print("repulsion codeeee")
+    def repulsion_strategy(self, position_x, position_y):
+        print("REPULSION STRATEGY")
+        constant_linear_velocity = 0.9
+        constant_angular_velocity = 25 
+        linear_velocity = constant_linear_velocity
+        alpha_ref = atan2(position_y,position_x)
+        angle_error = alpha_ref - self.asv_yaw
 
-        self.normalized_repulsive_force_x = (self.velocity_request_linear_x / self.radius)
-        self.normalized_repulsive_force_y = (self.velocity_request_linear_y / self.radius)
-        self.normalized_velocity = sqrt((self.velocity_request_linear_x**2)+(self.velocity_request_linear_y**2))
+        self.angular_velocity = constant_angular_velocity * angle_error
+        self.xr = linear_velocity*cos(angle_error)
+        self.yr = linear_velocity*sin(angle_error)
 
-        if (self.normalized_velocity!=0):
-            self.velocity_x = self.velocity_request_linear_x/self.normalized_velocity
-            self.velocity_y = self.velocity_request_linear_y/self.normalized_velocity
-            self.corrected_velocity_x = (self.velocity_x - self.normalized_repulsive_force_x)*self.normalized_velocity
-            self.corrected_velocity_y = (self.velocity_y - self.normalized_repulsive_force_y)*self.normalized_velocity
-            print("1111111111")
-            self.corrected_bvr_pusblisher(self.corrected_velocity_x,self.corrected_velocity_y)
 
-        else:
-            self.velocity_x = 0.0
-            self.velocity_y = 0.0
-            self.corrected_velocity_x = (self.velocity_x - self.normalized_repulsive_force_x)*self.normalized_velocity
-            self.corrected_velocity_y = (self.velocity_y - self.normalized_repulsive_force_y)*self.normalized_velocity
-            print("222222222222222")
-            self.corrected_bvr_pusblisher(self.corrected_velocity_x,self.corrected_velocity_y)
+        self.corrected_bvr_pusblisher(self.xr, self.yr,self.angular_velocity)
+
 
     def follow_strategy(self):
         constant_linear_velocity = 0.9
