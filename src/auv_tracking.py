@@ -285,7 +285,8 @@ class AUVTracking:
         print (velocity_adjustment)
         linear_velocity = velocity_adjustment * constant_linear_velocity
         alpha_ref = atan2(self.y_distance,self.x_distance)
-        angle_error = alpha_ref - self.asv_yaw
+        #obtain the minimum agle between both robots
+        angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
 
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
