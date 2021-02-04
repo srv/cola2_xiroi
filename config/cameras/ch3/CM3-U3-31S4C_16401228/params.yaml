@@ -1,17 +1,17 @@
 frame_rate: 10
-auto_exposure: False 
+auto_exposure: True 
 exposure: 1.35
 auto_shutter: True
 shutter_speed: 0.03
-auto_gain: False
+auto_gain: True
 gain: 0
 brightness: 0
-auto_sharpness: False 
+auto_sharpness: True 
 sharpness: 1024.0
 auto_saturation: False
 saturation: 100.0
 gamma: 1.0
-auto_white_balance: False
+auto_white_balance: True
 white_balance_blue: 800
 white_balance_red: 550
 

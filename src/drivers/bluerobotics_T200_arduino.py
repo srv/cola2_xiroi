@@ -51,6 +51,7 @@ class ArduinoROS():
         self.position_lights_pin = rospy.get_param("position_ligts_pin", 11)
         self.strobe_light_pin = rospy.get_param("strobe_light_pin", 10)
         self.enable_lights_pin = rospy.get_param("enable_lights_pin",9)
+        self.usbl_pin = rospy.get_param("usbl_pin",2)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
         self.rising_rate = rospy.get_param("rising_rate", 0.5)
         self.falling_rate = rospy.get_param("falling_rate", 1.0)
@@ -65,10 +66,12 @@ class ArduinoROS():
         self.first_time_left = True
 
         #Services
-        self.e_pl_srv = rospy.Service('sensors/enable_position_lights', Empty, self.enable_lights_srv)
-        self.d_pl_srv = rospy.Service('sensors/disable_position_lights', Empty, self.disable_lights_srv)
-        self.e_sl = rospy.Service('sensors/enable_strobe_light', Empty, self.enable_strobe_light_srv)
-     	self.d_sl = rospy.Service('sensors/disable_strobe_light', Empty, self.disable_strobe_light_srv)
+        self.e_pl_srv = rospy.Service('position_lights_on', Empty, self.enable_lights_srv)
+        self.d_pl_srv = rospy.Service('position_lights_off', Empty, self.disable_lights_srv)
+        self.e_sl = rospy.Service('strobe_light_on', Empty, self.enable_strobe_light_srv)
+     	self.d_sl = rospy.Service('strobe_light_off', Empty, self.disable_strobe_light_srv)
+        self.e_usbl = rospy.Service('usbl_on', Empty, self.enable_usbl_srv)
+     	self.d_usbl = rospy.Service('usbl_off', Empty, self.disable_usbl_srv)
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
@@ -94,10 +97,15 @@ class ArduinoROS():
         self.controller.digital_pin_mode(self.position_lights_pin, 1)
         self.controller.digital_pin_mode(self.strobe_light_pin, 1)
         self.controller.digital_pin_mode(self.enable_lights_pin,1)
+        self.controller.digital_pin_mode(self.usbl_pin,1)
+        #set the pin 3 to HIGH to obtaing 5V to power the USBL relay.
+        self.controller.digital_pin_mode(3,1)
 
         self.controller.digital_write(self.position_lights_pin,0)
         self.controller.digital_write(self.strobe_light_pin,0)
         self.controller.digital_write(self.enable_lights_pin,1)
+        self.controller.digital_write(self.usbl_pin,1)
+        self.controller.digital_write(3,1)
 
         # TODO: Timer
         while not rospy.is_shutdown():
@@ -258,6 +266,14 @@ class ArduinoROS():
 
     def disable_strobe_light_srv(self, req):
 	  self.controller.digital_write(self.strobe_light_pin,0)
+	  return EmptyResponse()
+
+    def enable_usbl_srv(self, req):
+	  self.controller.digital_write(self.usbl_pin,1)
+	  return EmptyResponse()
+
+    def disable_usbl_srv(self, req):
+	  self.controller.digital_write(self.usbl_pin,0)
 	  return EmptyResponse()
 	
     # Service callback functions   

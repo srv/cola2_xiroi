@@ -82,7 +82,8 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/virtual_cage/markers/cage
                         /xiroi/virtual_cage/parameter_descriptions
                         /xiroi/virtual_cage/parameter_updates
-                        /ecosonda/range
+                        /xiroi/sensors/thruster_current_left
+                        /xiroi/sensors/thruster_current_right
                         "]
 
 topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 
