@@ -50,4 +50,7 @@
         <remap from="nav_sts" to="navigator/navigation"/>
     </node>
 
+    <!-- AUV tracking -->
+    <node name="auv_tracking" pkg="cola2_xiroi" type="auv_tracking.py" respawn="true" output="screen"/>
+
 </launch>

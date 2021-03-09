@@ -5,15 +5,14 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /tf1/Status1
         - /navigator_odometry1/Shape1
         - /old_odometry1/Shape1
         - /Imu1/Axes properties1
         - /PoseWithCovariance1/Covariance1
         - /PoseWithCovariance1/Covariance1/Position1
-        - /PointCloud21/Status1
+        - /Odometry2/Status1
       Splitter Ratio: 0.30062630772590637
-    Tree Height: 409
+    Tree Height: 462
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -49,6 +48,40 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        turbot/base_link:
+          Value: true
+        turbot/depth:
+          Value: true
+        turbot/dvl:
+          Value: true
+        turbot/dvl_altitude:
+          Value: true
+        turbot/gps:
+          Value: true
+        turbot/imu:
+          Value: true
+        turbot/imu_filter:
+          Value: true
+        turbot/modem:
+          Value: true
+        turbot/pressure:
+          Value: true
+        turbot/stereo_down:
+          Value: true
+        turbot/stereo_down/base:
+          Value: true
+        turbot/stereo_down/left_optical:
+          Value: true
+        turbot/stereo_stick:
+          Value: true
+        turbot/thruster_0:
+          Value: true
+        turbot/thruster_1:
+          Value: true
+        turbot/thruster_2:
+          Value: true
+        world:
+          Value: true
         world_ned:
           Value: true
         xiroi/base_link:
@@ -71,19 +104,46 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        world_ned:
-          xiroi/dynamics:
-            {}
-          xiroi/odom:
-            xiroi/base_link:
-              xiroi/gps:
+        world:
+          world_ned:
+            turbot/base_link:
+              turbot/dvl:
+                turbot/dvl_altitude:
+                  {}
+              turbot/gps:
                 {}
-              xiroi/imu:
+              turbot/imu:
                 {}
-              xiroi/thruster_1:
+              turbot/imu_filter:
                 {}
-              xiroi/thruster_2:
+              turbot/modem:
                 {}
+              turbot/pressure:
+                turbot/depth:
+                  {}
+              turbot/stereo_stick:
+                turbot/stereo_down/base:
+                  turbot/stereo_down:
+                    turbot/stereo_down/left_optical:
+                      {}
+              turbot/thruster_0:
+                {}
+              turbot/thruster_1:
+                {}
+              turbot/thruster_2:
+                {}
+            xiroi/dynamics:
+              {}
+            xiroi/odom:
+              xiroi/base_link:
+                xiroi/gps:
+                  {}
+                xiroi/imu:
+                  {}
+                xiroi/thruster_1:
+                  {}
+                xiroi/thruster_2:
+                  {}
       Update Interval: 0
       Value: true
     - Class: rviz/Axes
@@ -222,7 +282,7 @@ Visualization Manager:
       Marker Topic: /xiroi/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
-        {}
+        /xiroi/pilot: true
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -276,7 +336,7 @@ Visualization Manager:
           Scale: 100
           Value: true
         Value: true
-      Enabled: true
+      Enabled: false
       Head Length: 0
       Head Radius: 0
       Name: PoseWithCovariance
@@ -285,7 +345,7 @@ Visualization Manager:
       Shape: Arrow
       Topic: /xiroi/sensors/gps
       Unreliable: false
-      Value: true
+      Value: false
     - Class: rviz/Image
       Enabled: true
       Image Topic: /xiroi/stereo_down/scaled_x2/left/image_raw
@@ -329,7 +389,7 @@ Visualization Manager:
       Use rainbow: true
       Value: true
     - Class: rviz/Image
-      Enabled: true
+      Enabled: false
       Image Topic: /xiroi/class_1
       Max Value: 1
       Median window: 5
@@ -339,6 +399,131 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
+      Value: false
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /turbot/captain/trajectory_path
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 1000
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /turbot/navigator/odometry
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 1000
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 252; 233; 79
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /xiroi/dynamics/odometry
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/PointStamped
+      Color: 115; 210; 22
+      Enabled: true
+      History Length: 1
+      Name: PointStamped
+      Radius: 1
+      Topic: /xiroi/pilot/goal
+      Unreliable: false
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /xiroi/robotMarker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /xiroi/SafetyRadius
+      Name: Marker
+      Namespaces:
+        turbot: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /xiroi/repulsionRadius
+      Name: Marker
+      Namespaces:
+        turbot: true
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
@@ -363,11 +548,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 7.429348945617676
+      Scale: 8.770275115966797
       Target Frame: xiroi/base_link
       Value: TopDownOrtho (rviz)
-      X: -0.6070327758789062
-      Y: 0.34199759364128113
+      X: 13.838531494140625
+      Y: -5.005453586578369
     Saved: ~
 Window Geometry:
   Displays:
@@ -377,9 +562,9 @@ Window Geometry:
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000002e9000003cefc0200000006fb000000100044006900730070006c0061007900730100000016000001d6000000c900fffffffb0000000a0056006900650077007300000001b2000000a4000000a400fffffffb0000000c00430061006d00650072006100000001a50000016c0000000000000000fb0000000c00430061006d0065007200610100000208000001dc0000000000000000fb0000000a0049006d00610067006501000001f20000011f0000001600fffffffb0000000a0049006d0061006700650100000317000000cd0000001600ffffff000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f00000000000000000000044e000003ce00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000002e9000003cefc0200000006fb000000100044006900730070006c00610079007301000000160000020b000000c900fffffffb0000000a0056006900650077007300000001b2000000a4000000a400fffffffb0000000c00430061006d00650072006100000001a50000016c0000000000000000fb0000000c00430061006d0065007200610100000208000001dc0000000000000000fb0000000a0049006d00610067006501000001d4000000940000000000000000fb0000000a0049006d0061006700650100000227000001bd0000001600ffffff000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f0000001600ffffff0000044e000003ce00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1853
-  X: 67
+  X: 1987
   Y: 27
