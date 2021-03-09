@@ -10,8 +10,10 @@ right_thruster_pin: 0
 current_sensor_pin_left: 0
 current_sensor_pin_right: 1
 current_sensor_buffer_size: 90
+current_sensor_left_power_pin: 13
 #Relay parameters
 usbl_pin: 2
+usbl_relay_power_pin: 3
 #Setpoints ramp
 activate_ramp: true
 rising_rate: 0.65

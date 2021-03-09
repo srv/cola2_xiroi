@@ -9,10 +9,9 @@
 
     <!-- USBL -->
     <group if="$(arg enableUSBL)">
-        <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_sea.yaml"/>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_pool.yaml"/>
         <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
         <include file="$(find cola2_xiroi)/launch/payload/evologics_usbl.launch"/>
-        <!-- <node pkg="tf" type="static_transform_publisher" name="xiroi_to_usbl" args="0.5 0.0 0.7 0.0 0.0 0.0 /xiroi /usbl 100" /> -->
     </group>
 
     <!-- Stereo Bumblebee Narrow-->

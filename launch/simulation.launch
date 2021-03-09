@@ -1,8 +1,8 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="illetes.yaml"/>
+    <arg name="place" default="bendinat.yaml"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="joystickDevice" default="/dev/input/js0"/>
+    <arg name="joystickDevice" default="usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/>
 
     <!-- Flags -->
     <arg name="enableSafety" default="true"/>

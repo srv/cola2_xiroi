@@ -46,12 +46,14 @@ class ArduinoROS():
         self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
-        self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
+        # self.current_sensor_right_power_pin = rospy.get_param("current_sensor_right_power_pin", 13)
+        # self.current_sensor_left_power_pin = rospy.get_param("current_sensor_left_power_pin", 3)
+        self.usbl_relay_power_pin = rospy.get_param("usbl_relay_power_pin", 3)
+        self.usbl_pin = rospy.get_param("usbl_pin",2)
         self.current_sensor_buffer_size = rospy.get_param("current_sensor_buffer_size", 30)
         self.position_lights_pin = rospy.get_param("position_ligts_pin", 11)
         self.strobe_light_pin = rospy.get_param("strobe_light_pin", 10)
         self.enable_lights_pin = rospy.get_param("enable_lights_pin",9)
-        self.usbl_pin = rospy.get_param("usbl_pin",2)
         self.activate_ramp = rospy.get_param("activate_ramp", True)
         self.rising_rate = rospy.get_param("rising_rate", 0.5)
         self.falling_rate = rospy.get_param("falling_rate", 1.0)
@@ -98,8 +100,10 @@ class ArduinoROS():
         self.controller.digital_pin_mode(self.strobe_light_pin, 1)
         self.controller.digital_pin_mode(self.enable_lights_pin,1)
         self.controller.digital_pin_mode(self.usbl_pin,1)
-        #set the pin 3 to HIGH to obtaing 5V to power the USBL relay.
-        self.controller.digital_pin_mode(3,1)
+
+        #set the digital PWM pins  to HIGH to obtaing 5V.
+        self.controller.digital_pin_mode(self.usbl_relay_power_pin,1)
+        # self.controller.digital_pin_mode (self.current_sensor_right_power_pin, 1)
 
         self.controller.digital_write(self.position_lights_pin,0)
         self.controller.digital_write(self.strobe_light_pin,0)

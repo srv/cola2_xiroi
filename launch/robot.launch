@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="illetes.yaml"/>
+    <arg name="place" default="portals_vells.yaml"/>
     <arg name="robot_name" default="xiroi"/>
 
     <!-- Flags -->
@@ -8,7 +8,7 @@
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="true"/>
+    <arg name="enableSafety" default="false"/>
     <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
@@ -17,10 +17,11 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
+    <arg name="enableUSBL" default="true"/>
+
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
-    <arg name="enableMultimaster" default="false"/>
+    <arg name="enableMultimaster" default="true"/>
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->

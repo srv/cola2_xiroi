@@ -19,12 +19,9 @@ names, logos, or trademarks of contributors.
 
 import roslib
 import rospy
-
 from ned_tools import utils, utils_ros
-
 from sensor_msgs.msg import Imu, MagneticField
 from std_srvs.srv import Empty, EmptyResponse
-
 import tf
 import matplotlib
 matplotlib.use('Agg')
@@ -145,7 +142,7 @@ class IMU_ANGLE_ESTIMATOR:
         self.gx = gyr_vector[0, 0]
         self.gy = gyr_vector[1, 0]
         self.gz = gyr_vector[2, 0]
-
+        
         # Callback produces computation
         try:
             self.compute()
