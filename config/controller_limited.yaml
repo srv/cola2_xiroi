@@ -38,7 +38,7 @@ controller/thruster_1_max_force_negative: 27.0
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
-controller/max_velocity_x: 0.7
+controller/max_velocity_x: 1.0
 controller/max_velocity_y: 0.0
 controller/max_velocity_z: 0.3
 controller/max_velocity_roll: 0.0

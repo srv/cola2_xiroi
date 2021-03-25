@@ -39,9 +39,9 @@ class AUVTracking:
         self.first_repulsion = False
         self.initialized = False
         self.radius= -1
-        self.repulsion_radius = 4
-        self.goal_radius = self.repulsion_radius + 2
-        self.acceptance_radius = self.repulsion_radius*3
+        self.repulsion_radius = 10
+        self.goal_radius = self.repulsion_radius *3
+        self.acceptance_radius = self.repulsion_radius*5
         self.depth_threshold = 3
         
         # Get config parameters
@@ -69,9 +69,9 @@ class AUVTracking:
             rospy.signal_shutdown('Error creating client to disable goto service')
         # enable_keep_position service
         try:
-            rospy.wait_for_service('captain/enable_keep_position_non_holonomic', 20)
-            self.enable_keep_position_non_holonomic_srv = rospy.ServiceProxy(
-                        'captain/enable_keep_position_non_holonomic', Trigger)
+            rospy.wait_for_service('captain/enable_keep_position_holonomic', 20)
+            self.enable_keep_position_holonomic_srv = rospy.ServiceProxy(
+                        'captain/enable_keep_position_holonomic', Trigger)
         except rospy.exceptions.ROSException:
             rospy.logerr('%s: error creating client to captain/enable_keep_position_non_holonomic service',
                          self.name)
@@ -154,7 +154,7 @@ class AUVTracking:
                                                 queue_size=1)
 
         # Init periodic check timer
-        rospy.Timer(rospy.Duration(1), self.check_distance)
+        rospy.Timer(rospy.Duration(0.1), self.check_distance)
    
     def update_auv_bvr(self, msg):
         self.velocity_request_linear_x = msg.twist.linear.x
@@ -219,7 +219,7 @@ class AUVTracking:
         goto_req.disable_axis.roll = True
         goto_req.disable_axis.yaw = False
         goto_req.disable_axis.pitch = True
-        goto_req.priority = 10 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
+        goto_req.priority = 0 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
         goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
         self.goto_srv(goto_req)
 
@@ -236,7 +236,7 @@ class AUVTracking:
             print("FOLLOW")
             self.first_repulsion = True
             # self.enable_thrusters_srv()
-            self.disable_keep_position_srv()
+            self.disable_keep_position_srv() 
             # self.start_tracking(self.auv_position_north,self.auv_position_east)
             self.follow_strategy()
 
@@ -244,7 +244,7 @@ class AUVTracking:
             self.first_repulsion = True
             # self.disable_goto_srv()
             print("WAIT")
-            self.enable_keep_position_non_holonomic_srv()
+            self.enable_keep_position_holonomic_srv() 
 
         elif(self.radius <= self.repulsion_radius and self.initialized):
             print("REPULSION")
@@ -278,7 +278,7 @@ class AUVTracking:
 
 
     def follow_strategy(self):
-        constant_linear_velocity = 0.9
+        constant_linear_velocity = 7
         constant_angular_velocity = 25 
         distance_error = self.radius - self.goal_radius 
         velocity_adjustment = np.clip(distance_error, a_min=0, a_max=1)
@@ -324,7 +324,7 @@ class AUVTracking:
         bvr.twist.angular.x    = 0.0
         bvr.twist.angular.y    = 0.0
         bvr.twist.angular.z    = corrected_angular_z
-        bvr.goal.priority      = 20.0
+        bvr.goal.priority      = 20
         self.corrected_bvr.publish(bvr)
 
     def goal_marker(self):

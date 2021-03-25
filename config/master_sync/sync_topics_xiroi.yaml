@@ -8,8 +8,9 @@ master_sync/sync_topics: [/tf,
                           /turbot/controller/thrusters_setpoints_throttle,
                           /turbot/navigator/odometry,
                           /turbot/navigator/usbl_ned,
-                          /turbot/joy
-                        ]
+                          /turbot/joy,
+                          /turbot/controller/body_velocity_req]
+
 master_sync/sync_services: [
                           /turbot/captain/disable_all_and_set_idle, 
                           /turbot/captain/disable_all_keep_positions, 
