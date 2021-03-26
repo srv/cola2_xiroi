@@ -10,6 +10,7 @@
 
 import rospy
 from std_msgs.msg import Bool
+import numpy as np
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 from cola2_msgs.msg import VehicleStatus, MissionStatus, CaptainStatus, NavSts
 from std_msgs.msg import Int32
@@ -26,6 +27,12 @@ class VehicleStatusParser:
     """
 
     def __init__(self, name):
+        # Battery SoC and voltage mean
+        self.soc_buffer = np.array([])
+        self.volts_buffer = np.array([])
+        self.first_time_soc = True
+        self.first_time_voltage = True
+        self.buffer_size = rospy.get_param("buffer_size", 50)
 
         self.name = name
 
@@ -39,14 +46,15 @@ class VehicleStatusParser:
         self.init_navigator_check = False
         self.last_navigator_callback = rospy.Time.now().to_sec()
 
-        namespace = rospy.get_namespace()
 
-        # Create Publisher
+
+        namespace = rospy.get_namespace()
+              # Create Publisher
         self.pub_vehicle_sts = rospy.Publisher(namespace + "vehicle_status", VehicleStatus, queue_size=1)
 
         # Initialize battery data
         self.status.battery_charge  = 100.0
-        self.status.battery_voltage = 12  # Which value do I put? This should not be here...
+        self.status.battery_voltage = 14  # Which value do I put? This should not be here...
         self.last_battery_charge  = rospy.Time.now()
         self.last_battery_voltage = rospy.Time.now()
 
@@ -97,8 +105,29 @@ class VehicleStatusParser:
 
     def update_battery_info(self, battery_msg):
         """Update timeout in vehicle status."""
-        self.status.battery_charge = battery_msg.input_soc
-        self.status.battery_voltage = battery_msg.volts_read_value[1]
+
+        if(self.first_time_soc==True):
+            for i in range(self.buffer_size):
+                self.soc_buffer = np.append(self.soc_buffer,battery_msg.input_soc)
+        self.first_time_soc = False
+
+        #roll,rewrite new value and do the mean
+        self.soc_buffer = np.roll(self.soc_buffer, -1)
+        self.soc_buffer = np.insert(self.soc_buffer,self.buffer_size-1,battery_msg.input_soc)
+        self.soc_buffer = np.delete(self.soc_buffer,self.buffer_size)
+        self.status.battery_charge = np.mean(self.soc_buffer)
+        print (self.status.battery_charge)
+
+        if(self.first_time_voltage==True):
+            for i in range(self.buffer_size):
+                self.volts_buffer = np.append(self.volts_buffer,battery_msg.volts_read_value[0])
+        self.first_time_voltage = False
+
+        #roll,rewrite new value and do the mean
+        self.volts_buffer = np.roll(self.volts_buffer, -1)
+        self.volts_buffer = np.insert(self.volts_buffer,self.buffer_size-1,battery_msg.volts_read_value[0])
+        self.volts_buffer = np.delete(self.volts_buffer,self.buffer_size)
+        self.status.battery_voltage = np.mean(self.volts_buffer)
 
 
     def update_timeout(self, watchdog_msg):
@@ -243,16 +272,17 @@ class VehicleStatusParser:
 	            self.status.temperature[i] = -1000
 
             # Water inside
-            for i in range(0, len(self.diag_water)):
-                if __getDiagnostic__(status, self.diag_water[i][0]):
-                    self.water[i] = __getDiagnostic__(status, self.diag_water[i][0], self.diag_water[i][1], 'False') == 'True'
-                    self.last_water_inside = rospy.Time.now()
-            if any(self.water):
-                self.status.water_detected = True
-            else:
-                self.status.water_detected = False
-            if (rospy.Time.now() - self.last_water_inside) > dt:
-                self.status.water_detected = True
+            # for i in range(0, len(self.diag_water)):
+            #     if __getDiagnostic__(status, self.diag_water[i][0]):
+            #         self.water[i] = __getDiagnostic__(status, self.diag_water[i][0], self.diag_water[i][1], 'False') == 'True'
+            #         self.last_water_inside = rospy.Time.now()
+            # if any(self.water):
+            #     self.status.water_detected = True
+            # else:
+            #     self.status.water_detected = False
+            # if (rospy.Time.now() - self.last_water_inside) > dt:
+            #     self.status.water_detected = True
+            self.status.water_detected = False
 
             # Get virtual cage status
             if __getDiagnostic__(status, self.diag_inside_virtual_cage[0]):
