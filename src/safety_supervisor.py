@@ -159,7 +159,7 @@ class SafetySupervisor(object):
         self.diagnostic.add('battery_charge', str(battery_charge))
         if battery_charge < self.min_battery_charge or battery_voltage < self.min_battery_voltage:
             self.status_code[StatusCode.BATTERY_ERROR] = '1'
-            self.call_recovery_action("Battery Level below threshold!", RecoveryAction.ABORT_AND_SURFACE)
+            self.call_recovery_action("Battery Level below threshold!", RecoveryAction.INFORMATIVE)
         elif battery_charge < 1.5*self.min_battery_charge:
             self.status_code[StatusCode.LOW_BATTERY_WARNING] = '1'
             self.call_recovery_action("Battery Level Low", RecoveryAction.INFORMATIVE)
