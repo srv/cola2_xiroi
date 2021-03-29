@@ -75,7 +75,7 @@ class TopicLogger:
     # Normal topics
     for t in topics:
       args = args + " " + t
-    command = "rosbag record --lz4"
+    command = "rosbag record"
     if split:
       command = command + " --split --size " + str(size)
     command = command + args

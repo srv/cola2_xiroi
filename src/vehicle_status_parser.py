@@ -116,7 +116,6 @@ class VehicleStatusParser:
         self.soc_buffer = np.insert(self.soc_buffer,self.buffer_size-1,battery_msg.input_soc)
         self.soc_buffer = np.delete(self.soc_buffer,self.buffer_size)
         self.status.battery_charge = np.mean(self.soc_buffer)
-        print (self.status.battery_charge)
 
         if(self.first_time_voltage==True):
             for i in range(self.buffer_size):

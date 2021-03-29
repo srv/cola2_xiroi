@@ -1,4 +1,3 @@
-
-string mission
+#string mission
 ---
 bool success
