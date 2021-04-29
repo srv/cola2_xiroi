@@ -40,8 +40,8 @@ class AUVTracking:
         self.initialized = False
         self.radius= -1
         self.repulsion_radius = 10
-        self.goal_radius = self.repulsion_radius *3
-        self.acceptance_radius = self.repulsion_radius*5
+        self.anchor_radius = self.repulsion_radius *3
+        self.follow_radius = self.repulsion_radius*5
         self.depth_threshold = 3
         
         # Get config parameters
@@ -145,7 +145,7 @@ class AUVTracking:
                                                     Marker,
                                                     queue_size=1)
 
-        self.markerPub_goal = rospy.Publisher('goalRadius',
+        self.markerPub_anchor = rospy.Publisher('anchorRadius',
                                                 Marker,
                                                 queue_size=1)
 
@@ -180,7 +180,7 @@ class AUVTracking:
         self.auv_position_north = msg.position.north
         self.auv_position_east = msg.position.east
         self.auv_position_depth = msg.position.depth
-        self.goal_marker()
+        self.anchor_marker()
         self.repulsion_marker()
         self.follow_marker()
         self.auv_data = True
@@ -232,7 +232,7 @@ class AUVTracking:
             print (self.radius)
             
 
-        if(self.radius > self.goal_radius):
+        if(self.radius > self.anchor_radius):
             print("FOLLOW")
             self.first_repulsion = True
             # self.enable_thrusters_srv()
@@ -240,7 +240,7 @@ class AUVTracking:
             # self.start_tracking(self.auv_position_north,self.auv_position_east)
             self.follow_strategy()
 
-        elif(self.repulsion_radius <= self.radius <= self.goal_radius):
+        elif(self.repulsion_radius <= self.radius <= self.anchor_radius):
             self.first_repulsion = True
             # self.disable_goto_srv()
             print("WAIT")
@@ -257,7 +257,8 @@ class AUVTracking:
     def extract_safety_position(self):
         print("EXTRACT SAFETY POSITION")
         self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
-        self.x =  (self.auv_position_north - self.asv_position_north) + self.repulsion_radius
+        # self.x =  (self.auv_position_north - self.asv_position_north) + self.repulsion_radius
+        self.x =  (self.auv_position_north - self.asv_position_north) 
         self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
         return
 
@@ -267,8 +268,9 @@ class AUVTracking:
         constant_angular_velocity = 25 
         linear_velocity = constant_linear_velocity
         alpha_ref = atan2(position_y,position_x)
+        #obtain the minimum agle between both robots
         angle_error = alpha_ref - self.asv_yaw
-
+        # angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
         self.yr = linear_velocity*sin(angle_error)
@@ -280,10 +282,15 @@ class AUVTracking:
     def follow_strategy(self):
         constant_linear_velocity = 7
         constant_angular_velocity = 25 
-        distance_error = self.radius - self.goal_radius 
-        velocity_adjustment = np.clip(distance_error, a_min=0, a_max=1)
-        print (velocity_adjustment)
-        linear_velocity = velocity_adjustment * constant_linear_velocity
+
+        if (self.radius<self.follow_radius and self.radius>self.anchor_radius):
+            # Normalice the radius
+            self.velocity_adjustment = (self.radius-(self.anchor_radius))/(self.follow_radius-(self.anchor_radius))
+        else:
+            self.velocity_adjustment = 1  
+
+        print(self.velocity_adjustment)
+        linear_velocity = self.velocity_adjustment * constant_linear_velocity
         alpha_ref = atan2(self.y_distance,self.x_distance)
         #obtain the minimum agle between both robots
         angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
@@ -327,29 +334,29 @@ class AUVTracking:
         bvr.goal.priority      = 20
         self.corrected_bvr.publish(bvr)
 
-    def goal_marker(self):
-        self.goal = Marker()
-        self.goal.header.frame_id = "world_ned"
-        self.goal.header.stamp = rospy.Time.now()
-        self.goal.ns = "turbot"
-        self.goal.id = 0
-        self.goal.type = Marker.CYLINDER
-        self.goal.action = Marker.ADD
-        self.goal.pose.position.x = self.auv_position_north
-        self.goal.pose.position.y = self.auv_position_east
-        self.goal.pose.position.z = 0
-        self.goal.pose.orientation.x = 0
-        self.goal.pose.orientation.y = 0
-        self.goal.pose.orientation.z = 0
-        self.goal.pose.orientation.w = 1.0
-        self.goal.scale.x = self.goal_radius*2
-        self.goal.scale.y = self.goal_radius*2
-        self.goal.scale.z = 0.1
-        self.goal.color.r = 0.0
-        self.goal.color.g = 1.0
-        self.goal.color.b = 0.0
-        self.goal.color.a = 0.3
-        self.markerPub_goal.publish(self.goal)
+    def anchor_marker(self):
+        self.anchor = Marker()
+        self.anchor.header.frame_id = "world_ned"
+        self.anchor.header.stamp = rospy.Time.now()
+        self.anchor.ns = "turbot"
+        self.anchor.id = 0
+        self.anchor.type = Marker.CYLINDER
+        self.anchor.action = Marker.ADD
+        self.anchor.pose.position.x = self.auv_position_north
+        self.anchor.pose.position.y = self.auv_position_east
+        self.anchor.pose.position.z = 0
+        self.anchor.pose.orientation.x = 0
+        self.anchor.pose.orientation.y = 0
+        self.anchor.pose.orientation.z = 0
+        self.anchor.pose.orientation.w = 1.0
+        self.anchor.scale.x = self.anchor_radius*2
+        self.anchor.scale.y = self.anchor_radius*2
+        self.anchor.scale.z = 0.1
+        self.anchor.color.r = 0.0
+        self.anchor.color.g = 1.0
+        self.anchor.color.b = 0.0
+        self.anchor.color.a = 0.3
+        self.markerPub_anchor.publish(self.anchor)
 
     def repulsion_marker(self):
         self.robotMarker = Marker()
@@ -390,8 +397,8 @@ class AUVTracking:
         self.follow.pose.orientation.y = 0
         self.follow.pose.orientation.z = 0
         self.follow.pose.orientation.w = 1.0
-        self.follow.scale.x = self.acceptance_radius*2
-        self.follow.scale.y = self.acceptance_radius*2
+        self.follow.scale.x = self.follow_radius*2
+        self.follow.scale.y = self.follow_radius*2
         self.follow.scale.z = 0.1
         self.follow.color.r = 0.0
         self.follow.color.g = 0.0
