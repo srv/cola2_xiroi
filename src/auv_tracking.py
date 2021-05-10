@@ -39,10 +39,10 @@ class AUVTracking:
         self.first_repulsion = False
         self.initialized = False
         self.radius= -1
-        self.repulsion_radius = 10
-        self.anchor_radius = self.repulsion_radius *3
-        self.follow_radius = self.repulsion_radius*5
-        self.depth_threshold = 3
+        self.repulsion_radius = rospy.get_param("/xiroi/repulsion_radius", default=10)
+        self.anchor_radius = rospy.get_param("/xiroi/anchor_radius", default=20)
+        self.follow_radius = rospy.get_param("/xiroi/follow_radius", default=50)
+        self.depth_threshold = rospy.get_param("/xiroi/depth_threshold", default=3)
         
         # Get config parameters
         self.name = name
@@ -251,16 +251,16 @@ class AUVTracking:
             self.disable_keep_position_srv()
             # if (self.first_repulsion):
             self.extract_safety_position()
-            self.repulsion_strategy(-self.x, -self.y)
+            self.repulsion_strategy(self.x, self.y)
             # self.first_repulsion = False 
 
     def extract_safety_position(self):
         print("EXTRACT SAFETY POSITION")
-        self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
-        # self.x =  (self.auv_position_north - self.asv_position_north) + self.repulsion_radius
-        self.x =  (self.auv_position_north - self.asv_position_north) 
-        self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
-        return
+        # self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
+        # self.x =  (self.auv_position_north - self.asv_position_north) 
+        # self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
+        self.x = self.asv_position_north +1
+        self.y = self.asv_position_east
 
     def repulsion_strategy(self, position_x, position_y):
         print("REPULSION STRATEGY")
@@ -269,8 +269,8 @@ class AUVTracking:
         linear_velocity = constant_linear_velocity
         alpha_ref = atan2(position_y,position_x)
         #obtain the minimum agle between both robots
-        angle_error = alpha_ref - self.asv_yaw
-        # angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
+        # angle_error = alpha_ref - self.asv_yaw
+        angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
         self.yr = linear_velocity*sin(angle_error)

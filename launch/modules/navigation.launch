@@ -51,7 +51,6 @@
     </node>
 
     <!-- AUV tracking -->
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/auv_tracking.yaml"/>
-    <node name="auv_tracking" pkg="cola2_xiroi" type="auv_tracking.py" respawn="true" output="screen"/> -->
+    <include file="$(find cola2_xiroi)/launch/modules/auv_follow.launch"/>
 
 </launch>
