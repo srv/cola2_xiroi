@@ -259,8 +259,16 @@ class AUVTracking:
         # self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
         # self.x =  (self.auv_position_north - self.asv_position_north) 
         # self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
-        self.x = self.asv_position_north +1
-        self.y = self.asv_position_east
+        if(self.auv_position_north > self.asv_position_north):
+            self.x = self.asv_position_north -1
+        else:
+            self.x = self.asv_position_north +1
+        
+        if(self.auv_position_east > self.asv_position_east):
+            self.y = self.asv_position_east -1
+        else:
+            self.y = self.asv_position_east +1
+
 
     def repulsion_strategy(self, position_x, position_y):
         print("REPULSION STRATEGY")
@@ -284,7 +292,7 @@ class AUVTracking:
         constant_angular_velocity = 25 
 
         if (self.radius<self.follow_radius and self.radius>self.anchor_radius):
-            # Normalice the radius
+            # Normalice the velocity
             self.velocity_adjustment = (self.radius-(self.anchor_radius))/(self.follow_radius-(self.anchor_radius))
         else:
             self.velocity_adjustment = 1  
