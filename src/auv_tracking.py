@@ -39,6 +39,7 @@ class AUVTracking:
         self.first_repulsion = False
         self.initialized = False
         self.radius= -1
+        self.x =0
         self.repulsion_radius = rospy.get_param("/xiroi/repulsion_radius", default=10)
         self.anchor_radius = rospy.get_param("/xiroi/anchor_radius", default=20)
         self.follow_radius = rospy.get_param("/xiroi/follow_radius", default=50)
@@ -180,6 +181,7 @@ class AUVTracking:
         self.auv_position_north = msg.position.north
         self.auv_position_east = msg.position.east
         self.auv_position_depth = msg.position.depth
+        self.auv_yaw = msg.orientation.yaw
         self.anchor_marker()
         self.repulsion_marker()
         self.follow_marker()
@@ -256,18 +258,18 @@ class AUVTracking:
 
     def extract_safety_position(self):
         print("EXTRACT SAFETY POSITION")
-        # self.m = (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north)
-        # self.x =  (self.auv_position_north - self.asv_position_north) 
-        # self.y = (self.m*(self.x-self.asv_position_north))+ self.asv_position_east
-        if(self.auv_position_north > self.asv_position_north):
-            self.x = self.asv_position_north -1
+        self.m =-(1/ (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north))
+        #recta punt pendent
+        self.pointx = self.asv_position_north
+        self.pointy = self.asv_position_east
+        #self.y - self.pointx = m*(self.x - self.pointy)
+        if (self.auv_position_north > self.asv_position_north):
+            self.x = self.x-1
         else:
-            self.x = self.asv_position_north +1
-        
-        if(self.auv_position_east > self.asv_position_east):
-            self.y = self.asv_position_east -1
-        else:
-            self.y = self.asv_position_east +1
+            self.x = self.x+1
+
+        self.y = self.m*(self.x - self.pointy) + self.pointx 
+
 
 
     def repulsion_strategy(self, position_x, position_y):
