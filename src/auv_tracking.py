@@ -103,7 +103,7 @@ class AUVTracking:
         self.markerPub_follow = rospy.Publisher('followRadius',
                                                 Marker,
                                                 queue_size=1)
-
+        
         # Init periodic check timer
         rospy.Timer(rospy.Duration(0.01), self.check_distance)
 
@@ -142,19 +142,19 @@ class AUVTracking:
             print (self.radius)
             
 
-        if(self.radius > self.anchor_radius):
+        if(self.radius > self.anchor_radius and self.tracking):
             print("FOLLOW")
             self.enable_thrusters_srv()
             self.first_repulsion = True
             self.follow_strategy()
 
-        elif(self.repulsion_radius <= self.radius <= self.anchor_radius):
+        elif(self.repulsion_radius <= self.radius <= self.anchor_radius and self.tracking):
             self.first_repulsion = True
             self.disable_thrusters_srv()
             print("WAIT")
 
 
-        elif(self.radius <= self.repulsion_radius and self.initialized):
+        elif(self.radius <= self.repulsion_radius and self.initialized and self.tracking):
             print("REPULSION")
             self.enable_thrusters_srv()
             self.extract_safety_position()
