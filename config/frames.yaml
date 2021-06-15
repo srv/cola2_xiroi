@@ -6,4 +6,5 @@ frames:
     imu: "xiroi/imu"
     gps: "xiroi/gps"
     origin_suffix: "origin"
+    usbl: "xiroi/usbl"
   robot: "xiroi"

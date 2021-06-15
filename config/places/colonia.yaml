@@ -1,2 +1,9 @@
 navigator/ned_latitude: 39.326284
 navigator/ned_longitude: 2.986278
+
+
+# IMU CALIBRATION
+# imu_2021_05_17_11_25_22.yaml
+imu_angle_estimator/soft_iron: [[1.03011130318, -0.0422863050951, 0.0], [-0.0422863050951, 1.05938406544, 0.0], [0.0, 0.0, 1.0]]
+imu_angle_estimator/hard_iron: [[0.0169495615928], [-0.128329491954], [0.0]]
+

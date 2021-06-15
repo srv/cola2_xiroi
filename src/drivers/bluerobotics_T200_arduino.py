@@ -46,7 +46,10 @@ class ArduinoROS():
         self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
-        self.current_sensor_power_pin = rospy.get_param("current_sensor_power_pin", 3)
+        # self.current_sensor_right_power_pin = rospy.get_param("current_sensor_right_power_pin", 13)
+        # self.current_sensor_left_power_pin = rospy.get_param("current_sensor_left_power_pin", 3)
+        self.usbl_relay_power_pin = rospy.get_param("usbl_relay_power_pin", 3)
+        self.usbl_pin = rospy.get_param("usbl_pin",2)
         self.current_sensor_buffer_size = rospy.get_param("current_sensor_buffer_size", 30)
         self.position_lights_pin = rospy.get_param("position_ligts_pin", 11)
         self.strobe_light_pin = rospy.get_param("strobe_light_pin", 10)
@@ -65,10 +68,12 @@ class ArduinoROS():
         self.first_time_left = True
 
         #Services
-        self.e_pl_srv = rospy.Service('sensors/enable_position_lights', Empty, self.enable_lights_srv)
-        self.d_pl_srv = rospy.Service('sensors/disable_position_lights', Empty, self.disable_lights_srv)
-        self.e_sl = rospy.Service('sensors/enable_strobe_light', Empty, self.enable_strobe_light_srv)
-     	self.d_sl = rospy.Service('sensors/disable_strobe_light', Empty, self.disable_strobe_light_srv)
+        self.e_pl_srv = rospy.Service('position_lights_on', Empty, self.enable_lights_srv)
+        self.d_pl_srv = rospy.Service('position_lights_off', Empty, self.disable_lights_srv)
+        self.e_sl = rospy.Service('strobe_light_on', Empty, self.enable_strobe_light_srv)
+     	self.d_sl = rospy.Service('strobe_light_off', Empty, self.disable_strobe_light_srv)
+        self.e_usbl = rospy.Service('usbl_on', Empty, self.enable_usbl_srv)
+     	self.d_usbl = rospy.Service('usbl_off', Empty, self.disable_usbl_srv)
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
@@ -94,10 +99,17 @@ class ArduinoROS():
         self.controller.digital_pin_mode(self.position_lights_pin, 1)
         self.controller.digital_pin_mode(self.strobe_light_pin, 1)
         self.controller.digital_pin_mode(self.enable_lights_pin,1)
+        self.controller.digital_pin_mode(self.usbl_pin,1)
+
+        #set the digital PWM pins  to HIGH to obtaing 5V.
+        self.controller.digital_pin_mode(self.usbl_relay_power_pin,1)
+        # self.controller.digital_pin_mode (self.current_sensor_right_power_pin, 1)
 
         self.controller.digital_write(self.position_lights_pin,0)
         self.controller.digital_write(self.strobe_light_pin,0)
         self.controller.digital_write(self.enable_lights_pin,1)
+        self.controller.digital_write(self.usbl_pin,1)
+        self.controller.digital_write(3,1)
 
         # TODO: Timer
         while not rospy.is_shutdown():
@@ -258,6 +270,14 @@ class ArduinoROS():
 
     def disable_strobe_light_srv(self, req):
 	  self.controller.digital_write(self.strobe_light_pin,0)
+	  return EmptyResponse()
+
+    def enable_usbl_srv(self, req):
+	  self.controller.digital_write(self.usbl_pin,1)
+	  return EmptyResponse()
+
+    def disable_usbl_srv(self, req):
+	  self.controller.digital_write(self.usbl_pin,0)
 	  return EmptyResponse()
 	
     # Service callback functions   

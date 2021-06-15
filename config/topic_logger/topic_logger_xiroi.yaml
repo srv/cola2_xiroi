@@ -1,16 +1,16 @@
 
 topic_logger/topics: ["/diagnostics
-                        /sensors/min_diagnostics
                         /tf
                         /tf_static
-                        /xiroi/batteries/status
-                        /xiroi/captain/status
-                        /xiroi/captain/trajectory_path
-                        /xiroi/cola2_watchdog/elapsed_time
-                        /xiroi/computer_logger/cpu_usage
-                        /xiroi/computer_logger/ram_usage
-                        /xiroi/computer_logger/temperature
-                        /xiroi/controller/body_force_req
+                        /turbot/controller/body_velocity_req
+                        /turbot/joy
+                        /turbot/navigator/navigation
+                        /turbot/navigator/navigation_throttle
+                        /turbot/vehicle_status
+                        /xiroi/captain/captain_status
+                        /xiroi/captain/mission_status
+                        /xiroi/client_count
+                        /xiroi/connected_clients
                         /xiroi/controller/body_velocity_req
                         /xiroi/controller/fins_data
                         /xiroi/controller/merged_body_force_req
@@ -22,67 +22,48 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/controller/parameter_descriptions
                         /xiroi/controller/parameter_updates
                         /xiroi/controller/setpoints_corrected
-                        /xiroi/controller/thruster_current
                         /xiroi/controller/thruster_setpoints
+                        /xiroi/controller/thruster_setpoints_throttle
                         /xiroi/controller/world_waypoint_req
                         /xiroi/diagnostics
-                        /xiroi/diagnostics_agg
-                        /xiroi/diagnostics_toplevel_state
                         /xiroi/ekf_map/odometry
-                        /xiroi/ekf_map/set_pose
+                        /xiroi/followRadius
+                        /xiroi/goalRadius
                         /xiroi/imu/rpy/filtered
                         /xiroi/imu/rpy/raw
-                        /xiroi/imu_madgwick/parameter_descriptions
-                        /xiroi/imu_madgwick/parameter_updates
-                        /xiroi/imu_memsense_node/parameter_descriptions
-                        /xiroi/imu_memsense_node/parameter_updates
                         /xiroi/input_to_teleoperation/ack
                         /xiroi/input_to_teleoperation/output
-                        /xiroi/joint_states
-                        /xiroi/joy
+                        /xiroi/master_discovery/changes
+                        /xiroi/master_discovery/linkstats
                         /xiroi/navigator/navigation
                         /xiroi/navigator/navigation_throttle
-                        /xiroi/navigator/odometry
                         /xiroi/param_logger/params_string
                         /xiroi/pilot/goal
                         /xiroi/pilot/waypoint_marker
-                        /xiroi/pilot/world_section_req/cancel
-                        /xiroi/pilot/world_section_req/feedback
-                        /xiroi/pilot/world_section_req/goal
-                        /xiroi/pilot/world_section_req/result
                         /xiroi/pilot/world_section_req/status
                         /xiroi/pilot/world_waypoint_req/cancel
                         /xiroi/pilot/world_waypoint_req/feedback
                         /xiroi/pilot/world_waypoint_req/goal
                         /xiroi/pilot/world_waypoint_req/result
                         /xiroi/pilot/world_waypoint_req/status
-                        /xiroi/recovery_action/external_recovery_action
-                        /xiroi/recovery_actions/external_recovery_action
-                        /xiroi/safe_depth_altitude/parameter_descriptions
-                        /xiroi/safe_depth_altitude/parameter_updates
-                        /xiroi/safety_supervisor/status
+                        /xiroi/repulsionRadius
                         /xiroi/sensors/battery
                         /xiroi/sensors/gps
-                        /xiroi/sensors/gps_diagnostics
                         /xiroi/sensors/gps_raw
                         /xiroi/sensors/imu
+                        /xiroi/sensors/imu_angle_estimator
                         /xiroi/sensors/imu_mag
-                        /xiroi/sensors/imu_mag_calibrated
-                        /xiroi/sensors/imu_mag_filtered
-                        /xiroi/sensors/imu_mag_filtered_calibrated
                         /xiroi/sensors/imu_raw
-                        /xiroi/sensors/imu_raw_calibrated
                         /xiroi/sensors/imu_raw_driver
                         /xiroi/sensors/imu_raw_filtered
                         /xiroi/sensors/imu_raw_filtered_calibrated
                         /xiroi/sensors/thruster_current_left
                         /xiroi/sensors/thruster_current_right
                         /xiroi/teleoperation/ack
-                        /xiroi/vehicle_status
-                        /xiroi/virtual_cage/markers/cage
-                        /xiroi/virtual_cage/parameter_descriptions
-                        /xiroi/virtual_cage/parameter_updates
-                        /ecosonda/range
+                        /xiroi/evologics_channel
+                        /xiroi/evologics_sync
+                        /turbot/modem_delayed
+                        /xiroi/usbllong
                         "]
 
 topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 

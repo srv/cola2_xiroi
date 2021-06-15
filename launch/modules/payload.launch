@@ -5,14 +5,14 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
+    <arg name="environment" default="sea"/>
 
 
     <!-- USBL -->
-    <group if="$(arg enableUSBL)">
-        <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_usbl.yaml"/>
-        <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
-        <include file="$(find cola2_xiroi)/launch/payload/evologics_usbl.launch"/>
-        <node pkg="tf" type="static_transform_publisher" name="xiroi_to_usbl" args="0.5 0.0 0.7 0.0 0.0 0.0 /xiroi /usbl 100" />
+    <group if="$(arg enableUSBL)">   
+        <include file="$(find cola2_xiroi)/launch/payload/evologics_usbl.launch">
+            <arg name="environment" value="$(arg environment)"/>
+        </include>
     </group>
 
     <!-- Stereo Bumblebee Narrow-->

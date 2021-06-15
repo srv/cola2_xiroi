@@ -1,0 +1,82 @@
+<mission>
+  <mission_step>
+    <maneuver type="waypoint">
+      <position>
+        <latitude>39.53465940265079</latitude>
+        <longitude>2.590770123991813</longitude>
+        <z>0.0</z>
+        <altitude_mode>False</altitude_mode>
+      </position>
+      <speed>0.4</speed>
+      <tolerance>
+        <x>2.0</x>
+        <y>2.0</y>
+        <z>1.0</z>
+      </tolerance>
+    </maneuver>
+  </mission_step>
+  <mission_step>
+    <maneuver type="waypoint">
+      <position>
+        <latitude>39.53511255039097</latitude>
+        <longitude>2.590770123991813</longitude>
+        <z>0.0</z>
+        <altitude_mode>False</altitude_mode>
+      </position>
+      <speed>0.4</speed>
+      <tolerance>
+        <x>2.0</x>
+        <y>2.0</y>
+        <z>1.0</z>
+      </tolerance>
+    </maneuver>
+  </mission_step>
+  <mission_step>
+    <maneuver type="waypoint">
+      <position>
+        <latitude>39.53511254947936</latitude>
+        <longitude>2.591230488623017</longitude>
+        <z>0.0</z>
+        <altitude_mode>False</altitude_mode>
+      </position>
+      <speed>0.4</speed>
+      <tolerance>
+        <x>2.0</x>
+        <y>2.0</y>
+        <z>1.0</z>
+      </tolerance>
+    </maneuver>
+  </mission_step>
+  <mission_step>
+    <maneuver type="waypoint">
+      <position>
+        <latitude>39.5346594017392</latitude>
+        <longitude>2.591230485629902</longitude>
+        <z>0.0</z>
+        <altitude_mode>False</altitude_mode>
+      </position>
+      <speed>0.4</speed>
+      <tolerance>
+        <x>2.0</x>
+        <y>2.0</y>
+        <z>1.0</z>
+      </tolerance>
+    </maneuver>
+  </mission_step>
+  <mission_step>
+    <maneuver type="waypoint">
+      <position>
+        <latitude>39.53465940265079</latitude>
+        <longitude>2.590770123991813</longitude>
+        <z>0.0</z>
+        <altitude_mode>False</altitude_mode>
+      </position>
+      <speed>0.4</speed>
+      <tolerance>
+        <x>2.0</x>
+        <y>2.0</y>
+        <z>1.0</z>
+      </tolerance>
+    </maneuver>
+  </mission_step>
+</mission>

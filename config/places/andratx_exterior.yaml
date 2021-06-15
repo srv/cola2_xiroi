@@ -1,0 +1,54 @@
+### LOCALIZATION ###
+# NED origin
+navigator/ned_latitude: 39.543330
+navigator/ned_longitude: 2.377940
+
+# IMU calibration
+# imu_angle_estimator/soft_iron: [[1.06871469183, 7.88821049927e-15, -0.00161103340424], [7.88821049927e-15, 1.0, -1.84941098844e-16], [-0.00161103340424, -1.84941098845e-16, 1.00003777109]]
+# imu_angle_estimator/hard_iron: [[-0.0345944003741], [5.74475301904e-13], [-0.117326851428]]
+imu_angle_estimator/soft_iron: [[1.0911967206, 5.34864253179e-15, -0.00109236965556], [5.34864253179e-15, 1.0, -6.40669397072e-17], [-0.00109236965556, -6.4066939708e-17, 1.00001308459]]
+imu_angle_estimator/hard_iron: [[0.000380076581253], [5.86997517574e-13], [-0.119884301909]]
+
+# DVL
+safety/min_dvl_update: 10.0
+safety/min_dvl_good_data: 20
+teledyne_explorer_dvl/maximum_tracking_depth: "00200" # units decimeters. Range from 0 to 65535dm
+
+# COLA2 Nav
+navigator/use_usbl_data: true
+navigator/declination_in_degrees: 1.39
+navigator/dvl_max_v: 1.2
+
+### SAFETY ###
+captain/controlled_surface_depth: 0.0
+safety/timeout: 3000
+safety/min_wifi_update: 60.0
+safety/min_altitude_update: 60.0
+safety/min_modem_update: 300
+safe_depth_altitude/max_depth: 20.0
+safe_depth_altitude/min_altitude: 0.5
+captain/max_distance_to_waypoint: 300.0
+
+virtual_cage/north_origin: -500.0
+virtual_cage/east_origin: -500.0
+virtual_cage/north_longitude: 1000.0
+virtual_cage/east_longitude: 1000.0
+virtual_cage/calls_keep_position: true
+
+### CONTROL ###
+# Max waypoint speed
+controller/max_velocity_x: 0.5
+controller/max_velocity_z: 0.3
+controller/max_velocity_yaw: 0.3
+
+# Speeds in teleoperation
+teleoperation/max_vel: [0.7, 0.0, 0.2, 0.0, 0.0, 0.3]
+teleoperation/min_vel: [-0.3, -0.0, -0.3, 0.0, 0.0, -0.3]
+
+### PILOT ###
+# Parameters for the standard line-of-sight (LOS) controller
+pilot/los_cte/delta: 3.5                        # Lookahead distance
+pilot/los_cte/distance_to_max_velocity: 2.0     # Speed transition ramp distance
+pilot/los_cte/max_surge_velocity: 0.45          # Highest allowed vehicle speed
+pilot/los_cte/min_surge_velocity: 0.05          # Lowest allowed vehicle speed
+pilot/los_cte/min_velocity_ratio: 0.1           # Slope of the velocity increase or decrease

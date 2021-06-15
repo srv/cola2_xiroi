@@ -37,11 +37,19 @@
 
     <!-- MULTIMASTER -->
     <group if="$(arg enableMultimaster)">    
-        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" >
-            <param name="_mcast_group" value="224.0.0.1"/>
-        </node>
-        <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/>
+        <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/discovery.yaml"/> -->
+        <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/>  -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_topics_xiroi.yaml"/>
+        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" >
+            <param name="mcast_group" value="224.0.0.1"/>
+        </node>       
+
         <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
     </group>
+
+    <!-- STAR MAGNETOMETER CALIBRATION -->
+    <rosparam command="load" file="$(find cola2_xiroi)/config/magnetometer_star_calibration.yaml"/>
+    <node name="magnetometer_star_calibration" pkg="cola2_xiroi" type="magnetometer_star_calibration.py" output="screen"> </node>
+ 
+
 </launch>

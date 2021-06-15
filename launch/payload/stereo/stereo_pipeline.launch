@@ -1,0 +1,36 @@
+<launch>
+  <arg name="stereo" default="stereo_down"/>
+  <arg name="camera" default="ch3" />   
+  <arg name="enable_decimate_x2" default="true"/>
+  <arg name="enable_decimate_x4" default="false"/>
+
+  <!-- x1 decimate -->
+  <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
+    <arg name="stereo" value="$(arg stereo)" />
+    <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x1.yaml" />
+  </include>
+
+  <!-- x2 decimate -->
+  <group if="$(arg enable_decimate_x2)">
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_crop_decimate.launch" >
+      <arg name="stereo" value="$(arg stereo)" />
+      <arg name="decimation" value="2" />
+    </include>
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
+      <arg name="stereo" value="$(arg stereo)/scaled_x2" />
+      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x2.yaml"/>
+    </include>
+  </group>
+
+  <!-- x4 decimate -->
+  <group if="$(arg enable_decimate_x4)">
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_crop_decimate.launch" >
+      <arg name="stereo" value="$(arg stereo)" />
+      <arg name="decimation" value="4" />
+    </include>
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
+      <arg name="stereo" value="$(arg stereo)/scaled_x4" />
+      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x4.yaml"/>
+    </include>
+  </group>
+</launch>

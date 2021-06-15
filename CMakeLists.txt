@@ -60,14 +60,16 @@ find_package(catkin REQUIRED COMPONENTS
    ComputerData.msg
    MinimalDiagnostic.msg
    PowerReading.msg
+   ImuAngleEstimatorInfo.msg
  )
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
   SetNedOrigin.srv
-  EnableNavStatus.srv
   RecordRequest.srv
+  EnableNavStatus.srv
+  SharePosition.srv
 )
 
 ## Generate actions in the 'action' folder

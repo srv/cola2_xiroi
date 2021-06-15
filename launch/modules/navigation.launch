@@ -17,6 +17,11 @@
             <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>         
             <remap from="imu/data" to="sensors/imu_raw"/>      
         </node>
+        <rosparam command="load" file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml"/>
+        <node name="imu_angle_estimator" type="imu_angle_estimator.py" pkg="cola2_xiroi" output="screen">
+            <remap from="imu" to="sensors/imu_raw"/>
+            <remap from="mag" to="sensors/imu_mag"/>         
+        </node>
         <!-- GPS -->
         <node if="$(arg simGPS)" name="nav_sat_pub" pkg="cola2_xiroi" type="nav_sat_pub" respawn="true">
             <param name="frame_id" value="world_ned"/>
@@ -44,5 +49,8 @@
         <param name="places_dir" value="$(find cola2_xiroi)/config/places" />
         <remap from="nav_sts" to="navigator/navigation"/>
     </node>
+
+    <!-- AUV tracking -->
+    <include file="$(find cola2_xiroi)/launch/modules/auv_follow.launch"/>
 
 </launch>

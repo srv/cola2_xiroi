@@ -1,25 +1,25 @@
 <launch>
   <arg name="enableEvologicsDriver"   default="true"/>
+  <arg name="environment" default="sea"/>
 
   <!-- Evologics driver -->
   <group if="$(arg enableEvologicsDriver)">
     <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_usbl.yaml"/>
-    <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_pool.yaml"/>
-    <param name="evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_$(arg environment).yaml"/>
+    <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
     <node name="evologics_ros_sync_usbl" pkg="evologics_ros_sync" type="evologics_ros_usbl.py" output="screen">
-      <remap from="modem_delayed" to="sensors/modem_delayed"/>
-
+      <remap from="modem_delayed" to="/turbot/modem_delayed"/>
+      <remap from="usbllong" to="usbllong"/>
       <remap from="thrusters_data_acoustic" to="/turbot/controller/thruster_setpoints_throttle_acoustic"/>
       <remap from="nav_sts_acoustic" to="/turbot/navigator/navigation_throttle_acoustic"/>
-      <remap from="emus_bms_acoustic" to="/turbot/emus_bms/emus_bms_acoustic"/>
-      <remap from="computer_logger_acoustic" to="/turbot/computer_logger_acoustic"/>
+      <remap from="vehicle_status_acoustic" to="/turbot/vehicle_status/vehicle_status_acoustic"/>
+      <remap from="elapsed_time_acoustic" to="/turbot/cola2_watchdog/elapsed_time_acoustic"/>
     </node>
 
   </group>
 
   <!-- USBL POSITION -->
   <node pkg="usbl_position" name="usbl_position" type="usbl_position" output="screen">
-    <remap from="/usbl_position/modem_delayed" to="sensors/modem_delayed"/>
-    <remap from="/sensors/buoy" to="sensors/gps"/>
+    <remap from="usbl_position/modem_delayed" to="/turbot/modem_delayed"/>
   </node>
 </launch>
