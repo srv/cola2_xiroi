@@ -1,11 +1,12 @@
 <launch>
   <arg name="enableEvologicsDriver"   default="true"/>
+  <arg name="environment" default="sea"/>
 
   <!-- Evologics driver -->
   <group if="$(arg enableEvologicsDriver)">
     <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_usbl.yaml"/>
-    <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_sea.yaml"/> -->
-    <param name="evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
+    <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_$(arg environment).yaml"/>
+    <param name="/evologics/config_srv_dir" value="$(find cola2_xiroi)/config/usbl/evologics_services.yaml"/>
     <node name="evologics_ros_sync_usbl" pkg="evologics_ros_sync" type="evologics_ros_usbl.py" output="screen">
       <remap from="modem_delayed" to="/turbot/modem_delayed"/>
       <remap from="usbllong" to="usbllong"/>

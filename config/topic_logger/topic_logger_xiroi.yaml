@@ -60,6 +60,10 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/sensors/thruster_current_left
                         /xiroi/sensors/thruster_current_right
                         /xiroi/teleoperation/ack
+                        /xiroi/evologics_channel
+                        /xiroi/evologics_sync
+                        /turbot/modem_delayed
+                        /xiroi/usbllong
                         "]
 
 topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 

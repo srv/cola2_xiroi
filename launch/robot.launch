@@ -1,14 +1,15 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="portals_vells.yaml"/>
+    <arg name="place" default="andratx_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
+    <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
@@ -49,6 +50,7 @@
             <arg name="enableBB2wide" value="$(arg enableBB2wide)"/>
             <arg name="enableUSBL" value="$(arg enableUSBL)"/>
             <arg name="enableCH3" value="$(arg enableCH3)"/>
+            <arg name="environment" value="$(arg environment)"/>
         </include>
 
         <!-- Load interfaces -->
