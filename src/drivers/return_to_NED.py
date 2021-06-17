@@ -55,23 +55,13 @@ class ReturnToNED:
             rospy.signal_shutdown('Error creating client to disable_all service')
 
         # Sevice server
-        self.start_srv = rospy.Service('control/return_to_NED',
+        self.start_srv = rospy.Service('safety/return_to_NED',
                                        Empty,
                                        self.return_to_NED)
-        
-        #Subscribers
-        rospy.Subscriber(self.ns + "navigator/navigation", NavSts,self.update_nav_sts,queue_size=1)
 
         # Show message
         rospy.loginfo('[%s]: initialized', self.name)
     
-    def update_nav_sts(self, msg):
-        self.position_lat = msg.global_position.latitude
-        self.position_lon = msg.global_position.longitude
-        self.pose = self.ned.geodetic2ned([self.position_lat,
-                                      self.position_lon,
-                                      0.0])
-        self.check_distance()
 
     def return_to_NED(self, req):
         """ This method sets the captain back to idle """
@@ -85,7 +75,7 @@ class ReturnToNED:
         goto_req = GotoRequest()
         goto_req.altitude = 0
         goto_req.altitude_mode = False
-        goto_req.linear_velocity.x = 0.3
+        goto_req.linear_velocity.x = 0.5
         goto_req.position.x = self.ned_origin_lat
         goto_req.position.y = self.ned_origin_lon
         goto_req.position.z = 0.0
@@ -101,15 +91,9 @@ class ReturnToNED:
         goto_req.disable_axis.yaw = False
         goto_req.disable_axis.pitch = True
         goto_req.priority = 60 #PRIORITY_TELEOPERATION_LOW = 0 PRIORITY_SAFETY_LOW = 5 PRIORITY_NORMAL = 10 PRIORITY_SAFETY = 30 PRIORITY_TELEOPERATION = 40 PRIORITY_SAFETY_HIGH  = 50 PRIORITY_TELEOPERATION_HIGH = 60
-        goto_req.reference = 0 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
+        goto_req.reference = 1 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
         self.goto_srv(goto_req)
         rospy.sleep(1.0)
-
-    def check_distance(self):
-        self.distance =sqrt(self.pose[0]**2 + self.pose[1]**2)
-        if(self.distance > self.max_distance):
-            rospy.logwarning('Max distance reached, returning to NED origin')
-            self.return_to_NED()
 
 
     def get_config(self):
@@ -121,7 +105,7 @@ class ReturnToNED:
             'max_distance': (self.ns + "captain/max_distance_to_waypoint", 400)}
         # Load them
         param_loader.get_ros_params(self, param_dict)
-
+       
 
 if __name__ == '__main__':
     try:

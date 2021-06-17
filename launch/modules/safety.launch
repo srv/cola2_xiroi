@@ -18,5 +18,9 @@
         <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
     </node>
     <node name="vehicle_status_parser" pkg="cola2_xiroi" type="vehicle_status_parser.py" respawn="true" output="screen"/>
-     <node name="computer_logger" pkg="cola2_xiroi" type="computer_logger.py" respawn="true" output="screen"/>
+    <node name="computer_logger" pkg="cola2_xiroi" type="computer_logger.py" respawn="true" output="screen"/>
+    
+    <!-- RETURN TO NED -->
+    <node name="return_to_NED" pkg="cola2_xiroi" type="return_to_NED.py" output="screen"/>
+    
 </launch>
