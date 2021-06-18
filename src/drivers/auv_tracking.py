@@ -92,7 +92,7 @@ class AUVTracking:
         self.corrected_bvr = rospy.Publisher("/xiroi/controller/body_velocity_req",
                                                 BodyVelocityReq,
                                                 queue_size=1)
-                                                
+
         self.markerPub_repulsion = rospy.Publisher('repulsionRadius',
                                                     Marker,
                                                     queue_size=1)
@@ -167,7 +167,6 @@ class AUVTracking:
             self.x = self.asv_position_north-1
         else:
             self.x = self.asv_position_north+1
-
         self.y = self.m*(self.x - self.pointy) + self.pointx 
 
  
@@ -182,8 +181,6 @@ class AUVTracking:
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
         self.yr = linear_velocity*sin(angle_error)
-
-
         self.corrected_bvr_pusblisher(self.xr, self.yr,self.angular_velocity)
 
 
@@ -195,18 +192,14 @@ class AUVTracking:
             self.velocity_adjustment = (self.radius-(self.anchor_radius))/(self.follow_radius-(self.anchor_radius))
         else:
             self.velocity_adjustment = 1  
-
         linear_velocity = self.velocity_adjustment * constant_linear_velocity
         alpha_ref = atan2(self.y_distance,self.x_distance)
         angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
-
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
         self.yr = linear_velocity*sin(angle_error)
-
         if(self.xr < 0 ):
             self.xr = 0
-
         self.corrected_bvr_pusblisher(self.xr, self.yr,self.angular_velocity)
     
     def corrected_bvr_pusblisher(self,corrected_velocity_x,corrected_velocity_y,corrected_angular_z):
