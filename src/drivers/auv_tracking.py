@@ -92,6 +92,7 @@ class AUVTracking:
         self.corrected_bvr = rospy.Publisher("/xiroi/controller/body_velocity_req",
                                                 BodyVelocityReq,
                                                 queue_size=1)
+                                                
         self.markerPub_repulsion = rospy.Publisher('repulsionRadius',
                                                     Marker,
                                                     queue_size=1)
@@ -139,34 +140,29 @@ class AUVTracking:
             self.y_distance = self.auv_position_east-self.asv_position_east
             self.radius = sqrt((self.x_distance)**2 + (self.y_distance)**2)
             self.initialized = True
-            print (self.radius)
-            
-
+          
         if(self.radius > self.anchor_radius and self.tracking):
-            print("FOLLOW")
+            rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
             self.enable_thrusters_srv()
             self.first_repulsion = True
             self.follow_strategy()
 
         elif(self.repulsion_radius <= self.radius <= self.anchor_radius and self.tracking):
+            rospy.loginfo("----------------- ADRIFT STRATEGY -----------------")
             self.first_repulsion = True
             self.disable_thrusters_srv()
-            print("WAIT")
-
+           
 
         elif(self.radius <= self.repulsion_radius and self.initialized and self.tracking):
-            print("REPULSION")
+            rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
             self.enable_thrusters_srv()
             self.extract_safety_position()
             self.repulsion_strategy(self.x, self.y)
 
     def extract_safety_position(self):
-        print("EXTRACT SAFETY POSITION")
         self.m =-(1/ (self.auv_position_east-self.asv_position_east)/(self.auv_position_north-self.asv_position_north))
-        #recta punt pendent
         self.pointx = self.asv_position_north
         self.pointy = self.asv_position_east
-        #self.y - self.pointx = m*(self.x - self.pointy)
         if (self.auv_position_north > self.asv_position_north):
             self.x = self.asv_position_north-1
         else:
@@ -177,13 +173,11 @@ class AUVTracking:
  
 
     def repulsion_strategy(self, position_x, position_y):
-        print("REPULSION STRATEGY")
         constant_linear_velocity = 4
         constant_angular_velocity = 2 
         linear_velocity = constant_linear_velocity
         alpha_ref = atan2(position_y,position_x)
         #obtain the minimum agle between both robots
-        # angle_error = alpha_ref - self.asv_yaw
         angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
         self.angular_velocity = constant_angular_velocity * angle_error
         self.xr = linear_velocity*cos(angle_error)
@@ -198,15 +192,12 @@ class AUVTracking:
         constant_angular_velocity = 2 
 
         if (self.radius<self.follow_radius and self.radius>self.anchor_radius):
-            # Normalice the velocity
             self.velocity_adjustment = (self.radius-(self.anchor_radius))/(self.follow_radius-(self.anchor_radius))
         else:
             self.velocity_adjustment = 1  
 
-        print(self.velocity_adjustment)
         linear_velocity = self.velocity_adjustment * constant_linear_velocity
         alpha_ref = atan2(self.y_distance,self.x_distance)
-        #obtain the minimum agle between both robots
         angle_error = atan2(sin(alpha_ref-self.asv_yaw), cos(alpha_ref-self.asv_yaw))
 
         self.angular_velocity = constant_angular_velocity * angle_error
@@ -228,7 +219,6 @@ class AUVTracking:
         # PRIORITY_SAFETY = 45
         # PRIORITY_SAFETY_HIGH  = 50
         # PRIORITY_TELEOPERATION_HIGH = 60 
-        print ("bvr publisher")
         bvr = BodyVelocityReq()
         bvr.header.frame_id    = "/xiroi/base_link"
         bvr.header.stamp       = rospy.Time.now()

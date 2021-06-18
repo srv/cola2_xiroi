@@ -135,8 +135,8 @@ include_directories(
 )
 
 set(HEADER_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/src/include/sensor_aggregator.hpp"
-    "${CMAKE_CURRENT_LIST_DIR}/src/include/sensor.hpp")
+    "${CMAKE_CURRENT_LIST_DIR}/src/drivers/include/sensor_aggregator.hpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/drivers/include/sensor.hpp")
 
 #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -msse4.2")
 #set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -msse4.2")
@@ -164,7 +164,7 @@ set(HEADER_FILES
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(sensor_aggregator src/sensor_aggregator.cpp)
+add_executable(sensor_aggregator src/drivers/sensor_aggregator.cpp)
 target_link_libraries(sensor_aggregator ${catkin_LIBRARIES})
 add_dependencies(sensor_aggregator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
