@@ -144,5 +144,4 @@ class TopicLogger:
 
 if __name__ == "__main__":
   if (not os.path.exists(dir_save_bagfiles)):
-    os.makedirs(dir_save_bagfiles)
-  TopicLogger()
+    os.makedirs(dir_

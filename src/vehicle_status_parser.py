@@ -16,7 +16,7 @@ from cola2_msgs.msg import VehicleStatus, MissionStatus, CaptainStatus, NavSts
 from std_msgs.msg import Int32
 from cola2_lib.rosutils.diagnostic_helper import DiagnosticHelper
 from cola2_lib.rosutils import param_loader
-from m4atx_battery_monitor.msg import PowerReading
+from cola2_xiroi.msg import PowerReading
 
 class VehicleStatusParser:
     """

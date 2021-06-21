@@ -11,8 +11,8 @@ Panels:
         - /PoseWithCovariance1/Covariance1
         - /PoseWithCovariance1/Covariance1/Position1
         - /Odometry2/Status1
-      Splitter Ratio: 0.30062630772590637
-    Tree Height: 462
+      Splitter Ratio: 0.5941176414489746
+    Tree Height: 911
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -52,17 +52,27 @@ Visualization Manager:
           Value: true
         turbot/depth:
           Value: true
+        turbot/depth_map_origin:
+          Value: true
+        turbot/depth_odom_origin:
+          Value: true
         turbot/dvl:
           Value: true
         turbot/dvl_altitude:
           Value: true
         turbot/gps:
           Value: true
+        turbot/gps_origin:
+          Value: true
         turbot/imu:
           Value: true
         turbot/imu_filter:
           Value: true
         turbot/modem:
+          Value: true
+        turbot/modem_origin:
+          Value: true
+        turbot/odom:
           Value: true
         turbot/pressure:
           Value: true
@@ -106,31 +116,40 @@ Visualization Manager:
       Tree:
         world:
           world_ned:
-            turbot/base_link:
-              turbot/dvl:
-                turbot/dvl_altitude:
+            turbot/depth_map_origin:
+              {}
+            turbot/gps_origin:
+              {}
+            turbot/modem_origin:
+              {}
+            turbot/odom:
+              turbot/base_link:
+                turbot/dvl:
+                  turbot/dvl_altitude:
+                    {}
+                turbot/gps:
                   {}
-              turbot/gps:
-                {}
-              turbot/imu:
-                {}
-              turbot/imu_filter:
-                {}
-              turbot/modem:
-                {}
-              turbot/pressure:
-                turbot/depth:
+                turbot/imu:
                   {}
-              turbot/stereo_stick:
-                turbot/stereo_down/base:
-                  turbot/stereo_down:
-                    turbot/stereo_down/left_optical:
-                      {}
-              turbot/thruster_0:
-                {}
-              turbot/thruster_1:
-                {}
-              turbot/thruster_2:
+                turbot/imu_filter:
+                  {}
+                turbot/modem:
+                  {}
+                turbot/pressure:
+                  turbot/depth:
+                    {}
+                turbot/stereo_stick:
+                  turbot/stereo_down/base:
+                    turbot/stereo_down:
+                      turbot/stereo_down/left_optical:
+                        {}
+                turbot/thruster_0:
+                  {}
+                turbot/thruster_1:
+                  {}
+                turbot/thruster_2:
+                  {}
+              turbot/depth_odom_origin:
                 {}
             xiroi/dynamics:
               {}
@@ -282,7 +301,7 @@ Visualization Manager:
       Marker Topic: /xiroi/pilot/waypoint_marker
       Name: pilot_waypoint
       Namespaces:
-        /xiroi/pilot: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/Marker
@@ -347,7 +366,7 @@ Visualization Manager:
       Unreliable: false
       Value: false
     - Class: rviz/Image
-      Enabled: true
+      Enabled: false
       Image Topic: /xiroi/stereo_down/scaled_x2/left/image_raw
       Max Value: 1
       Median window: 5
@@ -357,7 +376,7 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -503,15 +522,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /xiroi/robotMarker
-      Name: Marker
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /xiroi/SafetyRadius
+      Marker Topic: /xiroi/repulsionRadius
       Name: Marker
       Namespaces:
         turbot: true
@@ -519,7 +530,15 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /xiroi/repulsionRadius
+      Marker Topic: /xiroi/anchorRadius
+      Name: Marker
+      Namespaces:
+        turbot: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /xiroi/followRadius
       Name: Marker
       Namespaces:
         turbot: true
@@ -538,7 +557,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: 0
+      Angle: 5.327165126800537e-7
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -548,23 +567,23 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 8.770275115966797
+      Scale: 7.733635902404785
       Target Frame: xiroi/base_link
       Value: TopDownOrtho (rviz)
-      X: 13.838531494140625
-      Y: -5.005453586578369
+      X: 31.018569946289062
+      Y: 2.040070056915283
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1025
+  Height: 1023
   Hide Left Dock: false
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000002e9000003cefc0200000006fb000000100044006900730070006c00610079007301000000160000020b000000c900fffffffb0000000a0056006900650077007300000001b2000000a4000000a400fffffffb0000000c00430061006d00650072006100000001a50000016c0000000000000000fb0000000c00430061006d0065007200610100000208000001dc0000000000000000fb0000000a0049006d00610067006501000001d4000000940000000000000000fb0000000a0049006d0061006700650100000227000001bd0000001600ffffff000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f0000001600ffffff0000044e000003ce00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000020000000000000156000003ccfc0200000006fb000000100044006900730070006c0061007900730100000016000003cc000000c900fffffffb0000000a0056006900650077007300000001b2000000a4000000a400fffffffb0000000c00430061006d00650072006100000001a50000016c0000000000000000fb0000000c00430061006d0065007200610100000208000001dc0000000000000000fb0000000a0049006d006100670065000000018c000000940000001600fffffffb0000000a0049006d00610067006500000001d2000002100000001600ffffff000000010000017a000003d3fc0200000001fb0000000a0049006d00610067006500000001f90000017f0000000000000000000005e1000003cc00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1853
-  X: 1987
+  X: 67
   Y: 27

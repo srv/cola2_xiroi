@@ -16,7 +16,7 @@ from cola2_lib.rosutils.diagnostic_helper import DiagnosticHelper
 from cola2_lib.rosutils import param_loader
 from diagnostic_msgs.msg import DiagnosticStatus
 from std_msgs.msg import Empty, Bool
-from m4atx_battery_monitor.msg import PowerReading
+from cola2_xiroi.msg import PowerReading
 import numpy as np
 
 #TODO: This node should be generic. It means that it should read from a yaml file how many temperature, water ...
