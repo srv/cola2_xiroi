@@ -142,19 +142,19 @@ class AUVTracking:
             self.initialized = True
           
         if(self.radius > self.anchor_radius and self.tracking):
-            rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
+            # rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
             self.enable_thrusters_srv()
             self.first_repulsion = True
             self.follow_strategy()
 
         elif(self.repulsion_radius <= self.radius <= self.anchor_radius and self.tracking):
-            rospy.loginfo("----------------- ADRIFT STRATEGY -----------------")
+            # rospy.loginfo("----------------- ADRIFT STRATEGY -----------------")
             self.first_repulsion = True
             self.disable_thrusters_srv()
            
 
         elif(self.radius <= self.repulsion_radius and self.initialized and self.tracking):
-            rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
+            # rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
             self.enable_thrusters_srv()
             self.extract_safety_position()
             self.repulsion_strategy(self.x, self.y)

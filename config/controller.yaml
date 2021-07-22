@@ -4,12 +4,12 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-controller/TCM: [1.0, 1.0, 
+controller/TCM: [-1.0, -1.0, 
                  0.0, 0.0, 
                  0.0, 0.0, 
                  0.0, 0.0, 
                  0.0, 0.0, 
-                 -0.45, 0.45]
+                 0.45, -0.45]
 
 # Thruster 2 LEFt?
 controller/thruster_2_poly_positive: [0.113634979,0.03019443346,0.0002099326111,-0.0000229600767,0.0000006215687733,-0.000000005729637685]

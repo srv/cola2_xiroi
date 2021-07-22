@@ -38,7 +38,8 @@ class ArduinoROS():
 
         # Cleanup when termniating the node
         rospy.on_shutdown(self.shutdown)
-        self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0")
+        # self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0")
+        self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008ipb-if00-port0")
         self.baud = int(rospy.get_param("~baud",57600))
         self.timeout = rospy.get_param("~timeout",0.5)
         self.base_frame = rospy.get_param("base_frame", 'base_link')

@@ -1,11 +1,12 @@
-port: /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0
+port: /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008ipb-if00-port0
 baud: 57600
 timeout: 0.5
 rate: 50
 base_frame: base_link
 #Thrusters pins
-left_thruster_pin: 1
-right_thruster_pin: 0
+left_thruster_pin: 0
+right_thruster_pin: 1
+
 #Current sensor parameters
 current_sensor_pin_left: 0
 current_sensor_pin_right: 1
@@ -18,7 +19,7 @@ usbl_relay_power_pin: 3
 activate_ramp: true
 rising_rate: 0.65
 falling_rate: 0.95
-setpoint_limit: 1.0
+setpoint_limit: 0.75
 
 #Thruster characteristics
 zero_pwm: 1500
