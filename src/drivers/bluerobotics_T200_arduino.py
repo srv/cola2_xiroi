@@ -39,9 +39,10 @@ class ArduinoROS():
         # Cleanup when termniating the node
         rospy.on_shutdown(self.shutdown)
         # self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008iB3-if00-port0")
-        self.port = rospy.get_param("~port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008ipb-if00-port0")
-        self.baud = int(rospy.get_param("~baud",57600))
-        self.timeout = rospy.get_param("~timeout",0.5)
+        # self.port = rospy.get_param("port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A6008ipb-if00-port0")
+        self.port = rospy.get_param("port", "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A9007KY9-if00-port0")  
+        self.baud = int(rospy.get_param("baud",57600))
+        self.timeout = rospy.get_param("timeout",0.5)
         self.base_frame = rospy.get_param("base_frame", 'base_link')
         self.left_thruster_pin = rospy.get_param("left_thruster_pin", 0)
         self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
@@ -223,9 +224,11 @@ class ArduinoROS():
             self.old_msg0 = msg0
             self.old_msg1 = msg1
 
+        print("Setpoint 0:", self.setpoint_conversion(msg0))
+        print("Setpoint 1:", self.setpoint_conversion(msg1))
 
         # Setpoint to thrusters
-        self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0))
+        self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0)) 
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
         corrected = Setpoints()
         corrected.header.stamp = msg.header.stamp

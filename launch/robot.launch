@@ -21,8 +21,8 @@
     <arg name="enableUSBL" default="false"/>
 
     <!-- Interfaces -->
-    <arg name="enableIqua" default="false"/>
-    <arg name="enableMultimaster" default="false"/>
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableMultimaster" default="true"/>
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
