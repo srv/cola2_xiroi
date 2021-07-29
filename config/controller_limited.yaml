@@ -4,8 +4,6 @@ controller/n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-# controller/TCM: [-1.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45] # Andratx last day
-# controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45] # Old
 controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.45, -0.45] # New
 
 # Thruster 2
