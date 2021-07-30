@@ -224,9 +224,6 @@ class ArduinoROS():
             self.old_msg0 = msg0
             self.old_msg1 = msg1
 
-        print("Setpoint 0:", self.setpoint_conversion(msg0))
-        print("Setpoint 1:", self.setpoint_conversion(msg1))
-
         # Setpoint to thrusters
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0)) 
         self.controller.servo_write(self.right_thruster_pin, self.setpoint_conversion(msg1))
