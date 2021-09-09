@@ -1,9 +1,11 @@
 evologics:
-    set_initialization_params: True
     driver:
+        set_initialization_params: True
         physical_interface_timeout: 0.1
         response_timeout: 4.0
         modem_pos_timeout: 0.2
+        usbl_on: 'usbl_on'
+        wait_for_relay: True
     acoustic:
         source_level: 0 # [0 (max) ->  3 (min)]  
         gain: 0         # 0-1
@@ -15,7 +17,6 @@ evologics:
         address: '192.168.1.245:9200'
         id: 1
         loop_period: 0.02 # Look for new acoustic messages
-        wait_for_relay: True
     modem:
         address: '/dev/ttyS11'
         id: 2
