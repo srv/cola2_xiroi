@@ -44,8 +44,8 @@ class ArduinoROS():
         self.baud = int(rospy.get_param("baud",57600))
         self.timeout = rospy.get_param("timeout",0.5)
         self.base_frame = rospy.get_param("base_frame", 'base_link')
-        self.left_thruster_pin = rospy.get_param("left_thruster_pin", 0)
-        self.right_thruster_pin = rospy.get_param("right_thruster_pin", 1)
+        self.left_thruster_pin = rospy.get_param("left_thruster_pin", 1)
+        self.right_thruster_pin = rospy.get_param("right_thruster_pin", 0)
         self.current_sensor_pin_right = rospy.get_param("current_sensor_pin_right", 0)
         self.current_sensor_pin_left = rospy.get_param("current_sensor_pin_left", 1)
         # self.current_sensor_right_power_pin = rospy.get_param("current_sensor_right_power_pin", 13)
@@ -223,9 +223,6 @@ class ArduinoROS():
             self.old_time = time
             self.old_msg0 = msg0
             self.old_msg1 = msg1
-
-        print("Setpoint 0:", self.setpoint_conversion(msg0))
-        print("Setpoint 1:", self.setpoint_conversion(msg1))
 
         # Setpoint to thrusters
         self.controller.servo_write(self.left_thruster_pin, self.setpoint_conversion(msg0)) 
