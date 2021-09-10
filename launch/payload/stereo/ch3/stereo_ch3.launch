@@ -6,8 +6,11 @@
   <arg name="decimation" default="2"/>
   <arg name="processing" default="true"/>
   <arg name="throttle" default="false"/>
+  <!-- right -->
   <arg name="left_ID" default="16401228"/>
+  <!-- left: -->
   <arg name="right_ID" default="16401229"/>
+
   <arg name="frame_rate" value="5" />
 
   <!-- Driver -->

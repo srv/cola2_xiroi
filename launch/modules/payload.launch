@@ -34,7 +34,7 @@
     </include>
 
     <!-- Stereo CH3 -->
-    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/modules/mono_ch3.launch">
+    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/payload/stereo/ch3/stereo_ch3.launch">
     </include>
 
     <!-- Lights -->
