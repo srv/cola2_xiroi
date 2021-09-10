@@ -94,6 +94,7 @@ class ReturnToNED:
         goto_req.reference = 1 #REFERENCE_NED=0  REFERENCE_GLOBAL=1 REFERENCE_VEHICLE=2
         self.goto_srv(goto_req)
         rospy.sleep(1.0)
+        return EmptyResponse()
 
 
     def get_config(self):

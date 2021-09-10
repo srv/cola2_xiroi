@@ -4,8 +4,8 @@ evologics:
         physical_interface_timeout: 0.1
         response_timeout: 1.5
         modem_pos_timeout: 0.2
-        usbl_on: 'usbl_on'
-        wait_for_relay: True
+        wait_for_service: True
+        service_name: '/xiroi/usbl_on'
     acoustic:
         source_level: 3 # [0 (max) ->  3 (min)]  
         gain: 1 #0
