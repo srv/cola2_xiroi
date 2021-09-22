@@ -1,11 +1,11 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="bendinat.yaml"/>
+    <arg name="place" default="cabrera_santa_maria_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="joystickDevice" default="usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/>
 
     <!-- Flags -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="enableIqua" default="true"/>

@@ -19,7 +19,7 @@
         <include file="$(find rosbridge_server)/launch/rosbridge_tcp.launch">
             <arg name="port" value="9091"/>
         </include>
-        <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" output="screen">
+        <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" output="log">
             <param name="authenticate" value="false" />
             <param name="port" value="8888"/>
             <param name="address" value=""/>
@@ -40,11 +40,11 @@
         <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/discovery.yaml"/> -->
         <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/>  -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_topics_xiroi.yaml"/>
-        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" output="screen" >
+        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" output="log" >
             <param name="mcast_group" value="224.0.0.1"/>
         </node>       
 
-        <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="screen"/>
+        <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
     </group>
 
     <!-- STAR MAGNETOMETER CALIBRATION -->

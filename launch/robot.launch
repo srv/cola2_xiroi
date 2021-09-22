@@ -13,6 +13,8 @@
     <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
+    <arg name="AUV_tracking" default="false"/>
+
 
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
@@ -39,6 +41,7 @@
             <arg name="enableATX" value="$(arg enableATX)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
             <arg name="enableSafety" value="$(arg enableSafety)"/>
+            <!-- <arg name="AUV_tracking" value="$(arg AUV_tracking)"/> -->
             <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>
         </include>

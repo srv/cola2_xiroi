@@ -10,7 +10,7 @@
     <node name="recovery_actions" pkg="cola2_safety" type="recovery_actions.py" output="screen"/>
     <node name="safety_supervisor" pkg="cola2_xiroi" type="safety_supervisor.py" output="screen"/>
     <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude.py" output="screen"/>
-    <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/>
+    <!-- <node name="set_zero_velocity" pkg="cola2_safety" type="set_zero_velocity.py" output="screen"/> -->
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage.py" output="screen"/>
     <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
         <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>

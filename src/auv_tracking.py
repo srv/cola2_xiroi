@@ -36,7 +36,7 @@ class AUVTracking:
         self.asv_data = False
         self.auv_data = False
         self.tracking = False
-        self.first_repulsion = False
+        # self.first_repulsion = False
         self.initialized = False
         self.radius= -1
         self.x =0
@@ -87,6 +87,11 @@ class AUVTracking:
                          NavSts,
                          self.update_auv_nav_sts,
                          queue_size=1)
+
+        rospy.Subscriber("/turbot/navigator/navigation_throttle_acoustic",
+                         NavSts,
+                         self.update_auv_nav_sts,
+                         queue_size=1)                
 
         #Publishers
         self.corrected_bvr = rospy.Publisher("/xiroi/controller/body_velocity_req",
@@ -140,21 +145,22 @@ class AUVTracking:
             self.y_distance = self.auv_position_east-self.asv_position_east
             self.radius = sqrt((self.x_distance)**2 + (self.y_distance)**2)
             self.initialized = True
-          
+            rospy.loginfo(self.radius)
+
         if(self.radius > self.anchor_radius and self.tracking):
-            # rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
+            rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
             self.enable_thrusters_srv()
-            self.first_repulsion = True
+            # self.first_repulsion = True
             self.follow_strategy()
 
         elif(self.repulsion_radius <= self.radius <= self.anchor_radius and self.tracking):
-            # rospy.loginfo("----------------- ADRIFT STRATEGY -----------------")
-            self.first_repulsion = True
-            self.disable_thrusters_srv()
+            rospy.loginfo("----------------- ADRIFT STRATEGY -----------------")
+            # self.first_repulsion = True
+            # self.disable_thrusters_srv()
            
 
         elif(self.radius <= self.repulsion_radius and self.initialized and self.tracking):
-            # rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
+            rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
             self.enable_thrusters_srv()
             self.extract_safety_position()
             self.repulsion_strategy(self.x, self.y)

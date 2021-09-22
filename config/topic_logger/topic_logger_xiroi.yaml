@@ -64,6 +64,7 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/evologics_sync
                         /turbot/modem_delayed
                         /xiroi/usbllong
+                        /turbot/navigator/navigation_throttle_acoustic
                         "]
 
 topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 

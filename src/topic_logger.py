@@ -89,7 +89,7 @@ class TopicLogger:
 
       now = datetime.datetime.now()
       fullday   = now.strftime("%Y_%m_%d")
-      fullhour  = now.strftime("%H_%M_%S")
+      fullhour  = "xiroi_"+now.strftime("%H_%M_%S")
 
       dir_save_curr_bagfile = os.path.join(dir_save_bagfiles, fullday, fullhour)
 
@@ -97,12 +97,12 @@ class TopicLogger:
         os.makedirs(dir_save_curr_bagfile)
 
       self._recording = True
-      self.p = self.record(topics, dir_save_curr_bagfile,'topics', split=True, size=4000)
+      self.p = self.record(topics, dir_save_curr_bagfile,'xiroi_topics', split=True, size=4000)
       rospy.loginfo('Recording process started with PID: {0}'.format(self.p.pid))
 
       # Image topics
       if image_topics:
-        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'images', split=True, size=4000)
+        self.p_img = self.record(image_topics, dir_save_curr_bagfile, 'xiroi_images', split=True, size=4000)
         rospy.loginfo('Recording process started with PID: {0}'.format(self.p_img.pid))
 
       # Point Cloud topics
@@ -110,7 +110,7 @@ class TopicLogger:
         self.p_pc = self.record(pc_topics, dir_save_curr_bagfile, 'pc', split=True, size=4000)
         rospy.loginfo('Recording process started with PID: {0}'.format(self.p_pc.pid))
 
-      param_filename = "params.yaml"
+      param_filename = "xiroi_params.yaml"
       rospy.loginfo('Saving parameters in {0}'.format(dir_save_curr_bagfile + '/' + param_filename))
       process = subprocess.Popen('rosparam dump ' + param_filename, shell=True, cwd=dir_save_curr_bagfile)
       time.sleep(10)

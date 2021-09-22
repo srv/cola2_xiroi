@@ -1,6 +1,7 @@
 <launch>
     <arg name="sim"/>
     <arg name="simGPS"/>
+    <!-- <arg name="AUV_tracking"/> -->
 
 
     <!--Frames-->
@@ -51,6 +52,9 @@
     </node>
 
     <!-- AUV tracking -->
-    <include file="$(find cola2_xiroi)/launch/modules/auv_follow.launch"/>
+    <!-- <group if="$(arg AUV_tracking)">
+        <include file="$(find cola2_xiroi)/launch/modules/auv_follow.launch"/>
+    </group> -->
+
 
 </launch>
