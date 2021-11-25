@@ -31,6 +31,12 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/goalRadius
                         /xiroi/imu/rpy/filtered
                         /xiroi/imu/rpy/raw
+                        /xiroi/imu_angle_estimator/imu
+                        /xiroi/imu_angle_estimator/imu_info
+                        /xiroi/imu_madgwick/parameter_descriptions
+                        /xiroi/imu_madgwick/parameter_updates
+                        /xiroi/imu_memsense_node/parameter_descriptions
+                        /xiroi/imu_memsense_node/parameter_updates
                         /xiroi/input_to_teleoperation/ack
                         /xiroi/input_to_teleoperation/output
                         /xiroi/master_discovery/changes
@@ -53,7 +59,11 @@ topic_logger/topics: ["/diagnostics
                         /xiroi/sensors/imu
                         /xiroi/sensors/imu_angle_estimator
                         /xiroi/sensors/imu_mag
+                        /xiroi/sensors/imu_mag_calibrated
+                        /xiroi/sensors/imu_mag_filtered
+                        /xiroi/sensors/imu_mag_filtered_calibrated
                         /xiroi/sensors/imu_raw
+                        /xiroi/sensors/imu_raw_calibrated
                         /xiroi/sensors/imu_raw_driver
                         /xiroi/sensors/imu_raw_filtered
                         /xiroi/sensors/imu_raw_filtered_calibrated
