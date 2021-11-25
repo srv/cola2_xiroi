@@ -1,7 +1,7 @@
 <launch>
     <!--  ################  Input arguments  ################  -->
     <arg name="robot_name" default="xiroi"/>
-    <arg name="enableUSBL" default="true"/>
+    <arg name="enableUSBL" default="false"/>
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
