@@ -1,2 +1,9 @@
 navigator/ned_latitude: 39.543785
 navigator/ned_longitude: 2.37884166667
+#IMU CALIBRATION
+imu_madgwick:
+  mag_bias_x: 0.0           #Magnetometer bias (hard iron correction), x component. Range: -10.0 to 10.0
+  mag_bias_y: 0.0           #Magnetometer bias (hard iron correction), y component. Range: -10.0 to 10.0
+  mag_bias_z: 0.0           #Magnetometer bias (hard iron correction), z component. Range: -10.0 to 10.0
+
+  # imu_angle_estimator/hard_iron: [[0.0146593654695], [-0.0919052515981], [0.0]]

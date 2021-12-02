@@ -168,6 +168,10 @@ add_executable(sensor_aggregator src/sensor_aggregator.cpp)
 target_link_libraries(sensor_aggregator ${catkin_LIBRARIES})
 add_dependencies(sensor_aggregator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(pose_tf_broadcaster_gps src/pose_tf_broadcaster_gps.cpp)
+target_link_libraries(pose_tf_broadcaster_gps ${catkin_LIBRARIES})
+add_dependencies(pose_tf_broadcaster_gps ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 add_executable(nav_status src/nav_status.cpp)
 add_executable(nav_sat_pub src/nav_sat_pub.cpp)
 target_link_libraries(nav_status ${catkin_LIBRARIES})

@@ -1,7 +1,7 @@
 <launch>
   <arg name="enableEvologicsDriver"   default="true"/>
   <arg name="environment" default="sea"/>
-
+  
   <!-- Evologics driver -->
   <group if="$(arg enableEvologicsDriver)">
     <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/evologics_$(arg environment).yaml"/>
@@ -22,4 +22,10 @@
   <node pkg="usbl_position" name="usbl_position" type="usbl_position" output="screen">
     <remap from="usbl_position/modem_delayed" to="/turbot/modem_delayed"/>
   </node>
+<!-- 
+  <!-- Static transform -->
+  <node name="pose_tf_broadcaster_gps" pkg="cola2_turbot" type="pose_tf_broadcaster_gps" respawn="true" output="screen" >
+    <remap from="gps" to="sensors/gps_raw" />
+  </node>
+  <node name="usbl_tf" pkg="tf" type="static_transform_publisher" args="0.32 0 0.8 0 0 0 gps_usbl usbl 100"/> -->
 </launch>

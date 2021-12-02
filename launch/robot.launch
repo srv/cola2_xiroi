@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="cabrera_santa_maria_exterior.yaml"/>
+    <arg name="place" default="andratx.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
@@ -9,8 +9,8 @@
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
-    <arg name="enableATX" default="false"/>
+    <arg name="enableSafety" default="true"/>
+    <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
@@ -23,8 +23,8 @@
     <arg name="enableUSBL" default="false"/>
 
     <!-- Interfaces -->
-    <arg name="enableIqua" default="false"/>
-    <arg name="enableMultimaster" default="false"/>
+    <arg name="enableIqua" default="true"/>
+    <arg name="enableMultimaster" default="true"/>
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
