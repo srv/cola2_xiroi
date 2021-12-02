@@ -74,8 +74,8 @@ class ArduinoROS():
         self.d_pl_srv = rospy.Service('position_lights_off', Empty, self.disable_lights_srv)
         self.e_sl = rospy.Service('strobe_light_on', Empty, self.enable_strobe_light_srv)
      	self.d_sl = rospy.Service('strobe_light_off', Empty, self.disable_strobe_light_srv)
-        self.e_usbl = rospy.Service('usbl_on', Empty, self.enable_usbl_srv)
-     	self.d_usbl = rospy.Service('usbl_off', Empty, self.disable_usbl_srv)
+        self.e_usbl = rospy.Service('usbl_off', Empty, self.enable_usbl_srv)#enable-->open relay-->disable usbl
+     	self.d_usbl = rospy.Service('usbl_on', Empty, self.disable_usbl_srv)#disable--> close relay -->enable usbl
 
         # Overall loop rate: should be faster than fastest sensor rate
         self.rate = int(rospy.get_param("~rate", 50))
@@ -110,7 +110,7 @@ class ArduinoROS():
         self.controller.digital_write(self.position_lights_pin,0)
         self.controller.digital_write(self.strobe_light_pin,0)
         self.controller.digital_write(self.enable_lights_pin,1)
-        self.controller.digital_write(self.usbl_pin,1)
+        self.controller.digital_write(self.usbl_pin,0)
         self.controller.digital_write(3,1)
 
         # TODO: Timer
