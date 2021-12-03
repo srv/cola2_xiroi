@@ -6,60 +6,19 @@ controller/n_thrusters: 2
 # to the force or torque generated in each axis of the robot
 controller/TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.45, -0.45] # New
 
-# Thruster 1 RIGHT
-# controller/thruster_1_poly_positive: [-0.1514793, 0.1684252, -0.03181305, 0.003370873, -0.0001612667, 0.000002814513]
-# controller/thruster_1_poly_negative: [-0.1514793, 0.1684252, -0.03181305, 0.003370873, -0.0001612667, 0.000002814513]
-# controller/thruster_1_max_force_positive: 30.0
-# controller/thruster_1_max_force_negative: 30.0
-
-# Thruster 2 LEFT
-# controller/thruster_2_poly_positive: [0.4315288, -0.129906, 0.02313694, -0.001523693, 0.00004627463, -0.000000525]
-# controller/thruster_2_poly_negative: [0.4315288, -0.129906, 0.02313694, -0.001523693, 0.00004627463, -0.000000525]
-# controller/thruster_2_max_force_positive: 30.0
-# controller/thruster_2_max_force_negative: 30.0
-
-
-
-# Thruster 2
-# controller/thruster_2_poly_positive: [0.113634979, 0.03019443346, 0.0002099326111,
-#                                       -0.0000229600767, 0.0000006215687733, -0.000000005729637685]
-# controller/thruster_2_poly_negative: [0.113634979, 0.03019443346, 0.0002099326111,
-#                                       -0.0000229600767, 0.0000006215687733, -0.000000005729637685]
-# controller/thruster_2_max_force_positive: 30.0
-# controller/thruster_2_max_force_negative: 30.0
-
-# Thruster 1
-# controller/thruster_1_poly_positive: [0.07396096852, 0.03409279687, 0.0009787984384,
-#                                       -0.0001262653508, 0.000004482405638, -0.00000005135358861]
-# controller/thruster_1_poly_negative: [0.07396096852, 0.03409279687, 0.0009787984384,
-#                                       -0.0001262653508, 0.000004482405638, -0.00000005135358861]
-# controller/thruster_1_max_force_positive: 30.0
-# controller/thruster_1_max_force_negative: 30.0
-
-# # # Thruster 1 RIGHT
-# controller/thruster_1_poly_positive: [1.9956458900602453e-001,-3.9738812498622905e-002,1.4902770877101295e-002,-1.4743493671407826e-003,7.2958617019554497e-005,-1.7702919464946440e-006,1.6701208492916615e-008]
-# controller/thruster_1_poly_negative: [-4.1391440295949244e-001,3.5795560024540185e-001,-7.3644656761049851e-002,7.9814249763839242e-003,-4.4212392300834781e-004,1.2075099280036146e-005,-1.2896639718536054e-007]
-# controller/thruster_1_max_force_positive: 32.0
-# controller/thruster_1_max_force_negative: 27.0
-
-# # # Thruster 2 LEFT
-# controller/thruster_2_poly_positive: [1.9956458900602453e-001,-3.9738812498622905e-002,1.4902770877101295e-002,-1.4743493671407826e-003,7.2958617019554497e-005,-1.7702919464946440e-006,1.6701208492916615e-008]
-# controller/thruster_2_poly_negative: [-4.1391440295949244e-001,3.5795560024540185e-001,-7.3644656761049851e-002,7.9814249763839242e-003,-4.4212392300834781e-004,1.2075099280036146e-005,-1.2896639718536054e-007]
-# controller/thruster_2_max_force_positive: 32.0
-# controller/thruster_2_max_force_negative: 27.0
-
-# Thruster 2: powered al 20V 30A
-controller/thruster_2_poly_positive: [0.0458171, 0.0460689, -0.00206953, 7.37993e-005, -1.51489e-006, 1.57927e-008, -6.41261e-011]
-controller/thruster_2_poly_negative: [-0.032443, 0.0528824, 0.00285769, 0.000134249, 3.64091e-006, 4.95956e-008, 2.58894e-010]
-controller/thruster_2_max_force_positive: 64
-controller/thruster_2_max_force_negative: 47
+#X-->Força [N], Y-->Setpoints 
 # Thruster 1 powered al 20V 30A
-controller/thruster_1_poly_positive: [0.0458171, 0.0460689, -0.00206953, 7.37993e-005, -1.51489e-006, 1.57927e-008, -6.41261e-011]
-controller/thruster_1_poly_negative: [-0.032443, 0.0528824, 0.00285769, 0.000134249, 3.64091e-006, 4.95956e-008, 2.58894e-010]
+controller/thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+controller/thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
 controller/thruster_1_max_force_positive: 64
 controller/thruster_1_max_force_negative: 47
+# Thruster 2: powered al 20V 30A
+controller/thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+controller/thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+controller/thruster_2_max_force_positive: 64
+controller/thruster_2_max_force_negative: 47
 
-# Enbale thrusters
+# Enable thrusters
 controller/enable_thrusters: false
 
 # Maximum velocity for each DOF
