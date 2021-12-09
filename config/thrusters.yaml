@@ -24,4 +24,4 @@ setpoint_limit: 1
 
 #Thruster characteristics
 zero_pwm: 1500
-max_pwm: 1800 # 1900 MAX 
+max_pwm: 1900 # 1900 MAX 
