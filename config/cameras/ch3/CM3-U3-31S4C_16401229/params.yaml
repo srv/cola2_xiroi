@@ -1,23 +1,23 @@
-frame_rate: 15
-auto_exposure: False 
+frame_rate: 10
+auto_exposure: True 
 exposure: 1.35
-auto_shutter: False
+auto_shutter: True
 shutter_speed: 0.03
-auto_gain: False
+auto_gain: True
 gain: 0
 brightness: 0
-auto_sharpness: False 
+auto_sharpness: True 
 sharpness: 1024.0
 auto_saturation: False
 saturation: 100.0
 gamma: 1.0
-auto_white_balance: False
+auto_white_balance: True
 white_balance_blue: 800
 white_balance_red: 550
 
-enable_trigger: True
-trigger_mode: mode14
-trigger_source: gpio3
+enable_trigger: False
+trigger_mode: mode0
+trigger_source: gpio2
 trigger_polarity: False
 
 enable_strobe1: False
@@ -25,7 +25,7 @@ strobe1_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
 strobe1_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
 strobe1_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)
 
-enable_strobe2: False
+enable_strobe2: True
 strobe2_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
 strobe2_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
 strobe2_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)

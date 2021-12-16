@@ -15,9 +15,9 @@ auto_white_balance: True
 white_balance_blue: 800
 white_balance_red: 550
 
-enable_trigger: False
-trigger_mode: mode0
-trigger_source: gpio2
+enable_trigger: True
+trigger_mode: mode14
+trigger_source: gpio3
 trigger_polarity: False
 
 enable_strobe1: False
@@ -25,7 +25,7 @@ strobe1_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
 strobe1_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
 strobe1_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)
 
-enable_strobe2: True
+enable_strobe2: False
 strobe2_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
 strobe2_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
 strobe2_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)
