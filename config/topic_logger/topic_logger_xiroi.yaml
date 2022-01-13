@@ -1,5 +1,6 @@
 
-topic_logger/topics: ["/diagnostics
+topic_logger/topics: [
+                        /diagnostics
                         /tf
                         /tf_static
                         /turbot/controller/body_velocity_req
@@ -75,21 +76,27 @@ topic_logger/topics: ["/diagnostics
                         /turbot/modem_delayed
                         /xiroi/usbllong
                         /turbot/navigator/navigation_throttle_acoustic
-                        "]
+                        ]
 
-topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 
-                            /xiroi/stereo_wide/right/image_raw 
-                            /xiroi/stereo_wide/left/camera_info 
-                            /xiroi/stereo_wide/right/camera_info 
-                            /xiroi/stereo_narrow/left/image_raw 
-                            /xiroi/stereo_narrow/right/image_raw 
-                            /xiroi/stereo_narrow/left/camera_info 
-                            /xiroi/stereo_narrow/right/camera_info
-                            /xiroi/ch3/camera_info
-                            /xiroi/ch3/image_raw
-                            /chameleon3/camera_info  
-                            /chameleon3/image_raw 
+topic_logger/image_topics: [/xiroi/stereo_ch3/left/image_raw
                             /xiroi/stereo_ch3/left/camera_info
+                            /xiroi/stereo_ch3/right/image_raw
                             /xiroi/stereo_ch3/right/camera_info
-                            /xiroi/stereo_ch3/left/image_raw
-                            /xiroi/stereo_ch3/right/image_raw"]
+                            ]
+
+# topic_logger/image_topics: ["/xiroi/stereo_wide/left/image_raw 
+#                             /xiroi/stereo_wide/right/image_raw 
+#                             /xiroi/stereo_wide/left/camera_info 
+#                             /xiroi/stereo_wide/right/camera_info 
+#                             /xiroi/stereo_narrow/left/image_raw 
+#                             /xiroi/stereo_narrow/right/image_raw 
+#                             /xiroi/stereo_narrow/left/camera_info 
+#                             /xiroi/stereo_narrow/right/camera_info
+#                             /xiroi/ch3/camera_info
+#                             /xiroi/ch3/image_raw
+#                             /chameleon3/camera_info  
+#                             /chameleon3/image_raw 
+#                             /xiroi/stereo_ch3/left/camera_info
+#                             /xiroi/stereo_ch3/right/camera_info
+#                             /xiroi/stereo_ch3/left/image_raw
+#                             /xiroi/stereo_ch3/right/image_raw"]

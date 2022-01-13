@@ -1,153 +1,19 @@
 
 # # FRAME RATE
-# When unspecified, the driver will use the default framerate as given by the
-# camera itself. Use the parameter 'acquisition_frame_rate_enable' to enable 
-# manual frame rate control, and 'acquisition_frame_rate' to set the frame 
-# rate value.
-# acquisition_frame_rate_enable: True
-# acquisition_frame_rate: 3
+acquisition_frame_rate_enable: true
+acquisition_frame_rate: 2
 
-acquisition_frame_rate: 10
-acquisition_frame_rate_enable: false
-enable_trigger: 'On'
-trigger_selector: FrameStart
-trigger_activation_mode: RisingEdge
-trigger_source: Line3
-trigger_overlap_mode: ReadOut
-exposure_auto: 'On'
-exposure_time: 300
-auto_exposure_time_upper_limit: 300000
-auto_gain: 'On'
-image_format_color_coding: BayerRG16
-auto_white_balance: Continuous
-reverse_x: False
-reverse_y: False
+# Exposure
+exposure_mode: Timed
+# exposure_auto: 'Off'
+exposure_auto: Continuous
+auto_exposure_time_upper_limit: 80000 # microseconds
+# exposure_time: 5000 # microseconds
 
-# # TRIGGER SLAVE
-# acquisition_frame_rate_enable: Continuous
-# enable_trigger: 'On'
-# line_selector: Line3
-# line_mode: Input
-# line_source: FrameTriggerWait
-# trigger_overlap_mode: Read-out
-# trigger_activation_mode: RisingEdge
-# trigger_overlap_mode: Off
+# Gain
+gain_selector: All
+auto_gain: Continuous
+gain: 0.0
 
 
 
-# acquisition_frame_rate_enable: false
-# enable_trigger: 'On'
-# line_source: FrameTriggerWait
-# trigger_activation_mode: FallingEdge
-# trigger_source: Line3
-# trigger_overlap_mode: ReadOut
-
-
-
-# trigger_selector: AcquisitionStart
-# exposure_auto: 'On'
-# exposure_time: 300
-# auto_exposure_time_upper_limit: 300000
-# auto_gain: 'On'
-# image_format_color_coding: BayerRG16
-# auto_white_balance: Continuous
-# reverse_x: False
-# reverse_y: False
-
-
-# line_selector: Line3
-# line_mode: Input
-# line_source: FrameTriggerWait
-# trigger_overlap_mode: Read-out
-# trigger_activation_mode: RisingEdge
-# trigger_overlap_mode: Off
-
-# line_selector: Line3
-# trigger_overlap_mode: Read-out
-# trigger_activation_mode: RisingEdge
-# trigger_overlap_mode: Off
-# line_source: FrameTriggerWait
-# line_mode: Input
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # TRIGGER MASTER
-# enable_trigger: On
-# trigger_source: Line2
-# trigger_overlap_mode: Off
-# line_mode: Output
-
-# frame_rate: 10
-# auto_exposure: True 
-# exposure: 1.35
-# auto_shutter: True
-# shutter_speed: 0.03
-# auto_gain: True
-# gain: 0
-# brightness: 0
-# auto_sharpness: True 
-# sharpness: 1024.0
-# auto_saturation: False
-# saturation: 100.0
-# gamma: 1.0
-# auto_white_balance: True
-# white_balance_blue: 800
-# white_balance_red: 550
-
-# enable_trigger: False
-# trigger_mode: mode0
-# trigger_source: gpio2
-# trigger_polarity: False
-
-# enable_strobe1: False
-# strobe1_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
-# strobe1_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
-# strobe1_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)
-
-# enable_strobe2: True
-# strobe2_polarity": 0 # "GPIO Strobe Polarity", 0, edit_method = polarities)
-# strobe2_delay": 0.0 #  "The delay between capture and strobe out (in milliseconds).", 0.0, 0.0, 1000.0)
-# strobe2_duration": 0.0 # "Strobe duration (in milliseconds)", 0.0, 0.0, 1000.0)

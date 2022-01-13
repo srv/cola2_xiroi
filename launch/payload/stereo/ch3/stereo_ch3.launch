@@ -1,40 +1,46 @@
 <launch>
 
+    <arg name="robot_name" default="xiroi"/>
+
     <arg name="camera"         default="ch3" />   
     <arg name="base_topic"     default="stereo_$(arg camera)" />
     <arg name="calibration"    default="air" />
     <arg name="decimate"       default="false"/>
     <arg name="decimation"     default="2"/>
-    <arg name="processing"     default="false"/>
+    <arg name="processing"     default="true"/>
     <arg name="throttle"       default="false"/>
 
     <arg name="left_ID"        default="16401228" />
     <arg name="right_ID"       default="16401229" />
 
-    <group ns="$(arg base_topic)/left">
-        <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/params.yaml" ns="spinnaker_camera_nodelet"/>
-        <include file="$(find spinnaker_camera_driver)/launch/camera.launch" >
-            <arg name="camera_serial" value="$(arg left_ID)" />
-            <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/calibration_$(arg calibration).yaml" />
-            <arg name="camera_flip" value="true" />
+    <group ns="$(arg robot_name)">
+
+        <group ns="$(arg base_topic)/left">
+            <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/params.yaml" ns="spinnaker_camera_nodelet"/>
+            <include file="$(find spinnaker_camera_driver)/launch/camera.launch" >
+                <arg name="camera_serial" value="$(arg left_ID)" />
+                <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/calibration_$(arg calibration).yaml" />
+                <arg name="camera_flip" value="true" />
+            </include>
+        </group>
+
+        <group ns="$(arg base_topic)/right">
+            <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/params.yaml" ns="spinnaker_camera_nodelet"/>
+            <include file="$(find spinnaker_camera_driver)/launch/camera.launch" >
+                <arg name="camera_serial" value="$(arg right_ID)" />
+                <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/calibration_$(arg calibration).yaml" />
+                <arg name="camera_flip" value="false" />
+            </include>
+        </group>
+
+
+        <!-- Stereo Processing -->
+        <include if="$(arg processing)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_pipeline.launch">
+            <arg name="stereo" value="$(arg base_topic)"/>
+            <arg name="camera" value="$(arg camera)"/>
         </include>
+
     </group>
-
-    <group ns="$(arg base_topic)/right">
-        <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/params.yaml" ns="spinnaker_camera_nodelet"/>
-        <include file="$(find spinnaker_camera_driver)/launch/camera.launch" >
-            <arg name="camera_serial" value="$(arg right_ID)" />
-            <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/calibration_$(arg calibration).yaml" />
-            <arg name="camera_flip" value="false" />
-        </include>
-    </group>
-
-
-    <!-- Stereo Processing -->
-    <include if="$(arg processing)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_pipeline.launch">
-        <arg name="stereo" value="$(arg base_topic)"/>
-        <arg name="camera" value="$(arg camera)"/>
-    </include>
 
 
 
