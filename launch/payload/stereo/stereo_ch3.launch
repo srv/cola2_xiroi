@@ -1,16 +1,16 @@
 <launch>
 
     <!-- ROBOT -->
-    <arg name="robot_name"              default="xiroi"/>
+    <arg name="robot_name"               default="xiroi"/>
 
     <!-- CAMERA -->
-    <arg name="camera"                  default="ch3" />   
-    <arg name="base_topic"              default="stereo_$(arg camera)" />
+    <arg name="camera"                   default="ch3" />   
+    <arg name="base_topic"               default="stereo_$(arg camera)" />
 
     <!-- DRIVER -->
-    <arg name="calibration"             default="air" />
-    <arg name="left_ID"                 default="16401228" />
-    <arg name="right_ID"                default="16401229" />
+    <arg name="calibration"              default="air" />
+    <arg name="left_ID"                  default="16401228" />
+    <arg name="right_ID"                 default="16401229" />
 
     <!-- PROCESSING -->
     <arg name="processing"               default="true"/>
@@ -20,10 +20,13 @@
     <arg name="enable_decimate_x8"       default="false"/>
     <arg name="enable_decimate_altitude" default="true"/>
     <arg name="filter_altitude"          default="true"/>
-    <!-- <arg name="decimation"     default="2"/> -->
-    
-    <arg name="throttle"                 default="false"/>
+    <!-- <arg name="decimation"          default="2"/> -->
 
+    <!-- VISUAL ALTIMETER -->
+    <arg name="enable_altimeter"         default="true"/>
+    
+    <!-- THROTTLE -->
+    <arg name="throttle"                 default="false"/>
 
     <group ns="$(arg robot_name)">
 
@@ -46,7 +49,6 @@
             </include>
         </group>
 
-
         <!-- Stereo processing pipeline -->
         <include if="$(arg processing)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_pipeline.launch">
             <arg name="stereo" value="$(arg base_topic)"/>
@@ -58,6 +60,13 @@
             <arg name="enable_decimate_altitude" value="$(arg enable_decimate_altitude)" />
             <arg name="filter_altitude" value="$(arg filter_altitude)" />
         </include>
+
+        <!-- Visual altimeter -->
+        <group if="$(arg enable_altimeter)">
+            <node pkg="visual_altimeter" type="visual_altimeter" name="visual_altimeter" respawn="false" output="log">
+                <remap from="point_cloud" to="$(arg base_topic)/scaled_altitude/points2_filtered" />
+            </node>
+        </group>
 
     </group>
 

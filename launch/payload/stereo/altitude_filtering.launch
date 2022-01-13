@@ -23,8 +23,8 @@
   <group unless="$(arg launch_in_nuc)">
     <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
     <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
-        <remap from="~input" to="/stereo_down/scaled_x2/points2" />
-        <remap from="~output" to="/stereo_down/scaled_x2/points2_filtered" />
+        <remap from="~input" to="$(arg stereo)/points2" />
+        <remap from="~output" to="$(arg stereo)/points2_filtered" />
         <rosparam>
         filter_field_name: z
         filter_limit_min: 0.5
