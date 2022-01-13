@@ -1,20 +1,33 @@
 <launch>
 
-    <arg name="robot_name" default="xiroi"/>
+    <!-- ROBOT -->
+    <arg name="robot_name"              default="xiroi"/>
 
-    <arg name="camera"         default="ch3" />   
-    <arg name="base_topic"     default="stereo_$(arg camera)" />
-    <arg name="calibration"    default="air" />
-    <arg name="decimate"       default="false"/>
-    <arg name="decimation"     default="2"/>
-    <arg name="processing"     default="true"/>
-    <arg name="throttle"       default="false"/>
+    <!-- CAMERA -->
+    <arg name="camera"                  default="ch3" />   
+    <arg name="base_topic"              default="stereo_$(arg camera)" />
 
-    <arg name="left_ID"        default="16401228" />
-    <arg name="right_ID"       default="16401229" />
+    <!-- DRIVER -->
+    <arg name="calibration"             default="air" />
+    <arg name="left_ID"                 default="16401228" />
+    <arg name="right_ID"                default="16401229" />
+
+    <!-- PROCESSING -->
+    <arg name="processing"               default="true"/>
+    <arg name="enable_decimate_x1"       default="false"/>
+    <arg name="enable_decimate_x2"       default="true"/>
+    <arg name="enable_decimate_x4"       default="false"/>
+    <arg name="enable_decimate_x8"       default="false"/>
+    <arg name="enable_decimate_altitude" default="true"/>
+    <arg name="filter_altitude"          default="true"/>
+    <!-- <arg name="decimation"     default="2"/> -->
+    
+    <arg name="throttle"                 default="false"/>
+
 
     <group ns="$(arg robot_name)">
 
+        <!-- Driver -->
         <group ns="$(arg base_topic)/left">
             <rosparam command="load" file="$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/params.yaml" ns="spinnaker_camera_nodelet"/>
             <include file="$(find spinnaker_camera_driver)/launch/camera.launch" >
@@ -34,10 +47,16 @@
         </group>
 
 
-        <!-- Stereo Processing -->
+        <!-- Stereo processing pipeline -->
         <include if="$(arg processing)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_pipeline.launch">
             <arg name="stereo" value="$(arg base_topic)"/>
             <arg name="camera" value="$(arg camera)"/>
+            <arg name="enable_decimate_x1" value="$(arg enable_decimate_x1)" />
+            <arg name="enable_decimate_x2" value="$(arg enable_decimate_x2)" />
+            <arg name="enable_decimate_x4" value="$(arg enable_decimate_x4)" />
+            <arg name="enable_decimate_x8" value="$(arg enable_decimate_x8)" />
+            <arg name="enable_decimate_altitude" value="$(arg enable_decimate_altitude)" />
+            <arg name="filter_altitude" value="$(arg filter_altitude)" />
         </include>
 
     </group>

@@ -1,8 +1,18 @@
 <launch>
-  <arg name="stereo" default="stereo_down"/>
+  
+  <!-- CAMERA -->
   <arg name="camera" default="ch3" />   
-  <arg name="enable_decimate_x2" default="true"/>
+  <arg name="stereo" default="stereo_$(arg camera)"/>
+
+  <!-- DECIMATION -->
+  <arg name="enable_decimate_x1" default="true"/>
+  <arg name="enable_decimate_x2" default="false"/>
   <arg name="enable_decimate_x4" default="false"/>
+  <arg name="enable_decimate_x8" default="false"/>
+
+  <!-- VISUAL ALTITUDE -->
+  <arg name="enable_decimate_altitude" default="false"/>
+  <arg name="filter_altitude" default="false"/>  
 
   <!-- x1 decimate -->
   <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
@@ -33,4 +43,37 @@
       <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x4.yaml"/>
     </include>
   </group>
+
+  <!-- x8 decimate -->
+  <group if="$(arg enable_decimate_x8)">
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_crop_decimate.launch" >
+      <arg name="stereo" value="$(arg stereo)" />
+      <arg name="decimation" value="8" />
+    </include>
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
+      <arg name="stereo" value="$(arg stereo)/scaled_x8" />
+      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x8.yaml"/>
+    </include>
+  </group>
+
+  <!-- altitude decimate -->
+  <group if="$(arg enable_decimate_altitude)">
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_crop_decimate.launch" >
+      <arg name="stereo" value="$(arg stereo)" />
+      <arg name="decimation" value="2" /> <!-- 8 -->
+      <arg name="name" value="altitude" />
+    </include>
+    <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
+      <arg name="stereo" value="$(arg stereo)/scaled_altitude" />
+      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x8.yaml"/>
+    </include>
+    <group if="$(arg filter_altitude)">
+       <include file="$(find cola2_xiroi)/launch/payload/stereo/altitude_filtering.launch" >
+       <arg name="stereo" value="$(arg stereo)/scaled_altitude" />
+       </include>
+    </group>
+  </group>
+
+
+
 </launch>
