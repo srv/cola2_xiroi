@@ -37,6 +37,7 @@
                 <arg name="camera_serial" value="$(arg left_ID)" />
                 <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg left_ID)/calibration_$(arg calibration).yaml" />
                 <arg name="camera_flip" value="true" />
+                <arg name="frame_id" value="$(arg robot_name)/stereo_ch3/left_optical" />
             </include>
         </group>
 
@@ -46,6 +47,7 @@
                 <arg name="camera_serial" value="$(arg right_ID)" />
                 <arg name="camera_info_url" value="file://$(find cola2_xiroi)/config/cameras/$(arg camera)/CM3-U3-31S4C_$(arg right_ID)/calibration_$(arg calibration).yaml" />
                 <arg name="camera_flip" value="false" />
+                <arg name="frame_id" value="$(arg robot_name)/stereo_ch3/right_optical" />
             </include>
         </group>
 

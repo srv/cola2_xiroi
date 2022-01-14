@@ -6,5 +6,7 @@ frames:
     imu: "xiroi/imu"
     gps: "xiroi/gps"
     origin_suffix: "origin"
+    stereo_camera: "xiroi/stereo_ch3"
+    stereo_camera_optical: "xiroi/stereo_ch3/left_optical"
     usbl: "xiroi/usbl"
   robot: "xiroi"
