@@ -14,7 +14,6 @@
       <remap from="vehicle_status_acoustic" to="/turbot/vehicle_status/vehicle_status_acoustic"/>
       <remap from="elapsed_time_acoustic" to="/turbot/cola2_watchdog/elapsed_time_acoustic"/>
     </node>
-
   </group>
 
   <!-- USBL POSITION -->
@@ -22,10 +21,8 @@
   <node pkg="usbl_position" name="usbl_position" type="usbl_position" output="screen">
     <remap from="usbl_position/modem_delayed" to="/turbot/modem_delayed"/>
   </node>
-<!-- 
-  <!-- Static transform -->
-  <node name="pose_tf_broadcaster_gps" pkg="cola2_turbot" type="pose_tf_broadcaster_gps" respawn="true" output="screen" >
-    <remap from="gps" to="sensors/gps_raw" />
+
+  <!-- TF broadcaster -->
+  <node name="pose_tf_broadcaster_usbl_fix" pkg="cola2_turbot" type="pose_tf_broadcaster_usbl_fix" respawn="true" output="screen" >
   </node>
-  <node name="usbl_tf" pkg="tf" type="static_transform_publisher" args="0.32 0 0.8 0 0 0 gps_usbl usbl 100"/> -->
 </launch>

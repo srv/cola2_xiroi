@@ -7,4 +7,5 @@ frames:
     gps: "xiroi/gps"
     origin_suffix: "origin"
     usbl: "xiroi/usbl"
+    usbl_fix: "xiroi/usbl_fix"
   robot: "xiroi"
