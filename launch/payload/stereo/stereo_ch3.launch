@@ -63,11 +63,19 @@
             <arg name="filter_altitude" value="$(arg filter_altitude)" />
         </include>
 
-        <!-- Visual altimeter -->
+        <!-- Visual altimeter & depth -->
         <group if="$(arg enable_altimeter)">
+
             <node pkg="visual_altimeter" type="visual_altimeter" name="visual_altimeter" respawn="false" output="log">
                 <remap from="point_cloud" to="$(arg base_topic)/scaled_altitude/points2_filtered" />
             </node>
+
+            <node name="visual_depth" pkg="cola2_xiroi" type="visual_depth.py" output="screen">
+                <param name = "base_link_frame_id" value = "xiroi/base_link"/>
+                <param name = "sensor_frame_id" value = "xiroi/stereo_ch3/left_optical"/>
+                <param name = "base_link_to_water_surface" value = "0.07" />
+            </node>
+
         </group>
 
     </group>

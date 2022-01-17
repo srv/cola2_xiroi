@@ -75,7 +75,7 @@
   </group>
 
   <!-- Publish Static Transforms -->
-  <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick" args="0.32 0 1.15 0.0 0.0 0.0 /xiroi/base_link /xiroi/stereo_ch3_stick 100" />
+  <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick" args="0.32 0 1.22 0.0 0.0 0.0 /xiroi/base_link /xiroi/stereo_ch3_stick 100" />
   <node pkg="tf" type="static_transform_publisher" name="stick_to_stereo" args="0.0 0.0 0.0 1.57 0.0 0.0 /xiroi/stereo_ch3_stick xiroi/stereo_ch3 100" />
   <node pkg="tf" type="static_transform_publisher" name="stereo_to_left_optical" args="-0.052 0.0 0.0 0.0 0.0 0.0 /xiroi/stereo_ch3 xiroi/stereo_ch3/left_optical 100" />
   <!-- Base line: 0.099m
