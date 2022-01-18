@@ -60,7 +60,7 @@
   <group if="$(arg enable_decimate_altitude)">
     <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_crop_decimate.launch" >
       <arg name="stereo" value="$(arg stereo)" />
-      <arg name="decimation" value="2" /> <!-- 8 -->
+      <arg name="decimation" value="4" /> <!-- 8 -->
       <arg name="name" value="altitude" />
     </include>
     <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >

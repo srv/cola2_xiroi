@@ -36,7 +36,7 @@ class VisualDepth:
             self.transform.transform.rotation.w = 1.0
 
 
-        rospy.Subscriber("/xiroi/visual_altimeter/altitude", Range, self.callback)
+        rospy.Subscriber("visual_altimeter/altitude", Range, self.callback)
 
         self.pub = rospy.Publisher('depth', Range, queue_size = 10)
 
@@ -44,7 +44,6 @@ class VisualDepth:
     def callback(self, range_msg):
 
         if range_msg.range > 0.0:
-            print(self.transform.transform.translation.z + range_msg.range)
             depth = self.transform.transform.translation.z + range_msg.range - self.OFFSET
 
         else:
