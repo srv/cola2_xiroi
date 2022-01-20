@@ -1,17 +1,17 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx.yaml"/>
+    <arg name="place" default="illetes.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
 
