@@ -1,7 +1,7 @@
 
 # # FRAME RATE
 acquisition_frame_rate_enable: true
-acquisition_frame_rate: 2
+acquisition_frame_rate: 6
 
 # Exposure
 exposure_mode: Timed

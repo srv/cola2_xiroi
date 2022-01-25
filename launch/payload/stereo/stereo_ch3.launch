@@ -15,8 +15,8 @@
     <!-- PROCESSING -->
     <arg name="processing"               default="true"/>
     <arg name="enable_decimate_x1"       default="false"/>
-    <arg name="enable_decimate_x2"       default="false"/>
-    <arg name="enable_decimate_x4"       default="true"/>
+    <arg name="enable_decimate_x2"       default="true"/>
+    <arg name="enable_decimate_x4"       default="false"/>
     <arg name="enable_decimate_x8"       default="false"/>
     <arg name="enable_decimate_altitude" default="true"/>
     <arg name="filter_altitude"          default="true"/>
@@ -26,7 +26,7 @@
     <arg name="enable_altimeter"         default="true"/>
     
     <!-- THROTTLE -->
-    <arg name="throttle"                 default="false"/>
+    <arg name="throttle"                 default="true"/>
 
     <group ns="$(arg robot_name)">
 
