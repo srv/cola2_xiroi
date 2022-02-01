@@ -2,9 +2,11 @@
     <!-- PARAMS -->
     <arg name="robot_name" default="xiroi"/>
     <arg name="enableJoystick" default="true" />
-    <arg name="enableRviz" default="true" />
-    <arg name="openLoopTeleoperation" default="true" />
-    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/> 
+    <arg name="enableRviz" default="false" />
+    <arg name="openLoopTeleoperation" default="false" />
+    <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/>  -->
+    <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> 
+    
     
     <group ns="$(arg robot_name)">
         <!-- TELEOPERATION -->
