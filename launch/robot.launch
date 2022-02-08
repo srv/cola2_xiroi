@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx.yaml"/>
+    <arg name="place" default="cabrera.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
@@ -11,7 +11,7 @@
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
 

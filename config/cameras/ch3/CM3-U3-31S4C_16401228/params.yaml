@@ -1,13 +1,13 @@
 
 # # FRAME RATE
 acquisition_frame_rate_enable: true
-acquisition_frame_rate: 2
+acquisition_frame_rate: 6
 
 # Exposure
 exposure_mode: Timed
 # exposure_auto: 'Off'
 exposure_auto: Continuous
-auto_exposure_time_upper_limit: 80000 # microseconds
+auto_exposure_time_upper_limit: 5500 # microseconds
 # exposure_time: 5000 # microseconds
 
 # Gain

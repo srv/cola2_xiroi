@@ -1,4 +1,8 @@
 navigator/ned_latitude: 39.533687
 navigator/ned_longitude: 2.590453
-imu_angle_estimator/soft_iron: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-imu_angle_estimator/hard_iron: [0, 0, 0]
+# imu_angle_estimator/soft_iron: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+# imu_angle_estimator/hard_iron: [0, 0, 0]
+
+# imu_2022_01_20_11_27_12.yaml
+imu_angle_estimator/soft_iron: [[1.04851124565, -0.0633231963676, 0.0], [-0.0633231963676, 1.08265768368, 0.0], [0.0, 0.0, 1.0]]
+imu_angle_estimator/hard_iron: [[0.0409670385199], [-0.0729671727817], [0.0]]

@@ -1,12 +1,14 @@
-
+topic_logger/dir: '/media/xiroi/MyPassport/bagfiles/xiroi'
 topic_logger/topics: [
                         /diagnostics
                         /tf
                         /tf_static
                         /turbot/controller/body_velocity_req
                         /turbot/joy
+                        /turbot/modem_delayed
                         /turbot/navigator/navigation
                         /turbot/navigator/navigation_throttle
+                        /turbot/navigator/navigation_throttle_acoustic
                         /turbot/vehicle_status
                         /xiroi/captain/captain_status
                         /xiroi/captain/mission_status
@@ -26,8 +28,11 @@ topic_logger/topics: [
                         /xiroi/controller/thruster_setpoints
                         /xiroi/controller/thruster_setpoints_throttle
                         /xiroi/controller/world_waypoint_req
+                        /xiroi/depth
                         /xiroi/diagnostics
                         /xiroi/ekf_map/odometry
+                        /xiroi/evologics_channel
+                        /xiroi/evologics_sync
                         /xiroi/followRadius
                         /xiroi/goalRadius
                         /xiroi/imu/rpy/filtered
@@ -71,11 +76,8 @@ topic_logger/topics: [
                         /xiroi/sensors/thruster_current_left
                         /xiroi/sensors/thruster_current_right
                         /xiroi/teleoperation/ack
-                        /xiroi/evologics_channel
-                        /xiroi/evologics_sync
-                        /turbot/modem_delayed
                         /xiroi/usbllong
-                        /turbot/navigator/navigation_throttle_acoustic
+                        /xiroi/visual_altimeter/altitude
                         ]
 
 topic_logger/image_topics: [/xiroi/stereo_ch3/left/image_raw
