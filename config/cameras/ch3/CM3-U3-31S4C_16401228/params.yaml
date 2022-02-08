@@ -7,7 +7,7 @@ acquisition_frame_rate: 6
 exposure_mode: Timed
 # exposure_auto: 'Off'
 exposure_auto: Continuous
-auto_exposure_time_upper_limit: 15000 # microseconds
+auto_exposure_time_upper_limit: 5500 # microseconds
 # exposure_time: 5000 # microseconds
 
 # Gain

@@ -65,7 +65,7 @@
     </include>
     <include file="$(find cola2_xiroi)/launch/payload/stereo/stereo_image_proc.launch" >
       <arg name="stereo" value="$(arg stereo)/scaled_altitude" />
-      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x8.yaml"/>
+      <arg name="disparity_params" value="$(find cola2_xiroi)/config/cameras/ch3/disparity_params_x4.yaml"/>
     </include>
     <group if="$(arg filter_altitude)">
        <include file="$(find cola2_xiroi)/launch/payload/stereo/altitude_filtering.launch" >
@@ -75,11 +75,14 @@
   </group>
 
   <!-- Publish Static Transforms -->
-  <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick" args="0.32 0 1.22 0.0 0.0 0.0 /xiroi/base_link /xiroi/stereo_ch3_stick 100" />
+  <node pkg="tf" type="static_transform_publisher" name="xiroi_to_stereo_stick" args="0.32 0 1.25 0.0 0.0 0.0 /xiroi/base_link /xiroi/stereo_ch3_stick 100" />
   <node pkg="tf" type="static_transform_publisher" name="stick_to_stereo" args="0.0 0.0 0.0 1.57 0.0 0.0 /xiroi/stereo_ch3_stick xiroi/stereo_ch3 100" />
   <node pkg="tf" type="static_transform_publisher" name="stereo_to_left_optical" args="-0.052 0.0 0.0 0.0 0.0 0.0 /xiroi/stereo_ch3 xiroi/stereo_ch3/left_optical 100" />
   <!-- Base line: 0.099m
        center_to_left: 0.052 m
        center_to_right: 0.047 m -->
+  <!-- Camera: 0,063m
+        Stick_to_frame: 1,08m
+        Frame_to_base_link: 0,0925m -->
 
 </launch>

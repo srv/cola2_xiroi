@@ -1,12 +1,12 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="illetes.yaml"/>
+    <arg name="place" default="cabrera.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>

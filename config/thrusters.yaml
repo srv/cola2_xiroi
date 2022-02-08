@@ -20,8 +20,8 @@ usbl_relay_power_pin: 3
 activate_ramp: true
 rising_rate: 0.65
 falling_rate: 0.95
-setpoint_limit: 1
+setpoint_limit: 0.8
 
 #Thruster characteristics
 zero_pwm: 1500
-max_pwm: 1900 # 1900 MAX 
+max_pwm: 1800 # 1900 MAX 
