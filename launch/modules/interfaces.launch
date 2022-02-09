@@ -47,6 +47,17 @@
         <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
     </group>
 
+    <!-- WIRELESS LINK MONITORING -->
+    <group if="$(arg enableWirelessLinkMonitoring)">
+        <node name="wireless_quality" pkg="cola2_xiroi" type="wireless_quality.py" output="screen"> 
+            <param name="hostname" value="192.168.1.226"/>
+            <param name="username" value="ubnt"/>
+            <param name="password" value="undereaterpass"/>
+        </node> 
+    </group>
+
+
+
     <!-- STAR MAGNETOMETER CALIBRATION -->
     <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/magnetometer_star_calibration.yaml"/>
     <node name="magnetometer_star_calibration" pkg="cola2_xiroi" type="magnetometer_star_calibration.py" output="screen"> </node> -->

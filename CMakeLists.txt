@@ -61,6 +61,7 @@ find_package(catkin REQUIRED COMPONENTS
    MinimalDiagnostic.msg
    PowerReading.msg
    ImuAngleEstimatorInfo.msg
+   WirelessLink.msg
  )
 
 ## Generate services in the 'srv' folder
