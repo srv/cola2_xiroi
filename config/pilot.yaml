@@ -45,9 +45,9 @@
 #OLD :
 # Parameters for the standard line-of-sight (LOS) controller
 pilot/los_cte/delta: 2.5                          # 3.5 Lookahead distance # baixar ?
-pilot/los_cte/distance_to_max_velocity: 4.0     # Speed transition ramp distance
-pilot/los_cte/max_surge_velocity: 0.8          # Highest allowed vehicle speed
-pilot/los_cte/min_surge_velocity: 0.05           # Lowest allowed vehicle speed
+pilot/los_cte/distance_to_max_velocity: 6.0     # Speed transition ramp distance
+pilot/los_cte/max_surge_velocity: 0.5          # Highest allowed vehicle speed
+pilot/los_cte/min_surge_velocity: 0.2           # Lowest allowed vehicle speed
 pilot/los_cte/min_velocity_ratio: 0.1           # Slope of the velocity increase or decrease
 
 # Parameters for the goto controller
