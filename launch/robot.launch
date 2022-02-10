@@ -1,17 +1,17 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="illetes.yaml"/>
+    <arg name="place" default="cabrera.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
 
@@ -25,6 +25,8 @@
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
+    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    
 
     <group ns="$(arg robot_name)">
         <!-- Load general configs-->
@@ -60,6 +62,7 @@
         <include file="$(find cola2_xiroi)/launch/modules/interfaces.launch">
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
+            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
         </include>
 
         <!-- Topic Logger -->
