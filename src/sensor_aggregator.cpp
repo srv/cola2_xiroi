@@ -1,7 +1,7 @@
 #include "include/sensor_aggregator.h"
 
 SensorAggregator::SensorAggregator()
-    : nhp_("~"), north_(0), east_(0), initial_robot_pose_is_set_(false), tf_catched_(false) {
+    : nhp_("~"), north_(0), east_(0), initial_robot_pose_is_set_(false), tf_catched_(false), previous_nort_(0.0), previous_east_(0.0), previous_time_(0.0), counter(0) {
 
   // Setup the node name
   node_name_ = ros::this_node::getName();
@@ -14,6 +14,7 @@ SensorAggregator::SensorAggregator()
   // Get sensor parameters
   nh_.param("sensors/gps_init_filter_size", gps_init_filter_size_, 8);
   nh_.param("sensors/gps_max_ned_dist", gps_max_ned_dist_, 500.0);
+  nh_.param("sensors/max_speed", max_speed_, 2.0) ;
 
   // Frames
   nh_.param("frames/map", map_frame_id_, std::string(""));
@@ -154,21 +155,57 @@ void SensorAggregator::updateGps(const GpsMsg& msg) {
 
       // Set the pose
       setPose(north_mean, east_mean, depth, msg->position_covariance[0], msg->position_covariance[4], msg->position_covariance[8], msg->header.stamp);
+
+      previous_nort_ = north ;
+      previous_east_ = east ;
+      previous_time_ = msg->header.stamp ;
+
+      // Create a new pose
+      PoseMsg pose_msg;
+      pose_msg.header.stamp = msg->header.stamp;
+      pose_msg.header.frame_id = msg->header.frame_id;
+      pose_msg.pose.pose.position.x = north;
+      pose_msg.pose.pose.position.y = east;
+      // Do not use depth from geodetic2Ned as it is different from zero!
+      pose_msg.pose.pose.position.z = 0.0;
+
+      pose_msg.pose.covariance[0] = msg->position_covariance[0];
+      pose_msg.pose.covariance[7] = msg->position_covariance[4];
+
+      gps_->publish(pose_msg);
+      return;
+
     }
+    
+    double delta_t = msg->header.stamp.toSec() - previous_time_.toSec() ;
+    double distance = sqrt(pow((north - previous_nort_),2) + pow((east - previous_east_),2)) ;
+    double velocity = distance / delta_t ;
 
-    // Create a new pose
-    PoseMsg pose_msg;
-    pose_msg.header.stamp = msg->header.stamp;
-    pose_msg.header.frame_id = msg->header.frame_id;
-    pose_msg.pose.pose.position.x = north;
-    pose_msg.pose.pose.position.y = east;
-    // Do not use depth from geodetic2Ned as it is different from zero!
-    pose_msg.pose.pose.position.z = 0.0;
+    if(velocity < max_speed_){
 
-    pose_msg.pose.covariance[0] = msg->position_covariance[0];
-    pose_msg.pose.covariance[7] = msg->position_covariance[4];
+      // Create a new pose
+      PoseMsg pose_msg;
+      pose_msg.header.stamp = msg->header.stamp;
+      pose_msg.header.frame_id = msg->header.frame_id;
+      pose_msg.pose.pose.position.x = north;
+      pose_msg.pose.pose.position.y = east;
+      // Do not use depth from geodetic2Ned as it is different from zero!
+      pose_msg.pose.pose.position.z = 0.0;
 
-    gps_->publish(pose_msg);
+      pose_msg.pose.covariance[0] = msg->position_covariance[0];
+      pose_msg.pose.covariance[7] = msg->position_covariance[4];
+
+      gps_->publish(pose_msg);
+
+      previous_nort_ = north ;
+      previous_east_ = east ;
+      previous_time_ = msg->header.stamp ;
+
+    } else {
+
+      ROS_WARN("Velocity filter: GPS is lost!") ;
+
+    }
     
   } 
 }
