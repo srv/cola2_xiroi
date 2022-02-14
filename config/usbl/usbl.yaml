@@ -7,4 +7,4 @@ sensors:
     rssi_max: -10 # def -20
     rssi_min: -95 # def -85
     integrity_min: 85 # def 100
-    crs: "xyz"
+    crs: "ned"

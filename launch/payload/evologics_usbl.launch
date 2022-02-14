@@ -19,10 +19,10 @@
   <!-- USBL POSITION -->
   <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/usbl.yaml"/>
   <node pkg="usbl_position" name="usbl_position" type="usbl_position" output="screen">
-    <remap from="usbl_position/modem_delayed" to="/turbot/modem_delayed"/>
+    <remap from="/modem_delayed" to="/turbot/modem_delayed"/>
   </node>
 
   <!-- TF broadcaster -->
-  <node name="pose_tf_broadcaster_usbl_fix" pkg="cola2_turbot" type="pose_tf_broadcaster_usbl_fix" respawn="true" output="screen" >
-  </node>
+  <!-- <node name="pose_tf_broadcaster_usbl_fix" pkg="cola2_turbot" type="pose_tf_broadcaster_usbl_fix" respawn="true" output="screen" >
+  </node> -->
 </launch>
