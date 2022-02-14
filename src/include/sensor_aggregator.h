@@ -101,6 +101,13 @@ class SensorAggregator {
   std::string set_pose_;
   ros::Publisher pose_pub_;
 
+  // Velocity filter
+  ros::Time previous_time_ ;
+  double previous_nort_ ;
+  double previous_east_ ;
+  int counter ;
+  double max_speed_;
+
 
   // NED conversion library instance
   Ned* ned_;

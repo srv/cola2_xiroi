@@ -5,6 +5,7 @@
     <!-- Flags -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="true"/>
+    <arg name="enableWirelessLinkMonitoring" default="true"/>
 
     <!-- Throttle messages -->
     <node name="nav_sts_throttle" pkg="topic_tools" type="throttle" args="messages navigator/navigation 4.0"/>
@@ -46,6 +47,17 @@
 
         <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
     </group>
+
+    <!-- WIRELESS LINK MONITORING -->
+    <group if="$(arg enableWirelessLinkMonitoring)">
+        <node name="wireless_quality" pkg="cola2_xiroi" type="wireless_quality.py" output="screen"> 
+            <param name="host_name" value="192.168.1.230"/>
+            <param name="username" value="ubnt"/>
+            <param name="password" value="undereaterpass"/>
+        </node> 
+    </group>
+
+
 
     <!-- STAR MAGNETOMETER CALIBRATION -->
     <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/magnetometer_star_calibration.yaml"/>
