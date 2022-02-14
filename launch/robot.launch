@@ -25,7 +25,10 @@
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
+
+    <!-- Wireless Monitoring -->    
     <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="host_name" default="192.168.1.230"/>
     
 
     <group ns="$(arg robot_name)">
@@ -62,6 +65,12 @@
         <include file="$(find cola2_xiroi)/launch/modules/interfaces.launch">
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
+            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
+        </include>
+
+        <!-- Load Wireless Monitoring -->
+        <include file="$(find cola2_xiroi)/launch/modules/wireless_monitoring.launch">
+            <arg name="host_name" value="$(arg host_name)"/>
             <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
         </include>
 

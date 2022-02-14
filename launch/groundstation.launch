@@ -6,6 +6,9 @@
     <arg name="openLoopTeleoperation" default="false" />
     <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/>  -->
     <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> 
+    <!-- Wireless Monitoring -->    
+    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="host_name" default="192.168.1.225"/>
     
     
     <group ns="$(arg robot_name)">
@@ -28,6 +31,12 @@
         <group if="$(arg openLoopTeleoperation)">
             <node pkg="cola2_xiroi" type="logitech_joy.py" name="open_loop_teleoperation"  output="screen" respawn="false" />
         </group>
+         <!-- Load Wireless Monitoring -->
+        <include file="$(find cola2_xiroi)/launch/modules/wireless_monitoring.launch">
+            <arg name="host_name" value="$(arg host_name)"/>
+            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
+        </include>
+
     </group>
 
     <!-- RViz -->
