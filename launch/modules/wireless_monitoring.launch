@@ -9,7 +9,7 @@
     <!-- WIRELESS LINK MONITORING -->
     <group if="$(arg enableWirelessLinkMonitoring)">
         <node name="wireless_quality" pkg="cola2_xiroi" type="wireless_quality.py" output="screen"> 
-            <param name="host_name" value="192.168.1.230"/>
+            <param name="host_name" value="$(arg host_name)"/>
             <param name="username" value="ubnt"/>
             <param name="password" value="undereaterpass"/>
         </node> 
