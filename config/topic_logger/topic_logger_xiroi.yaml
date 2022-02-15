@@ -50,6 +50,7 @@ topic_logger/topics: [
                         /xiroi/navigator/navigation
                         /xiroi/navigator/navigation_throttle
                         /xiroi/network_analysis/wireless_quality
+                        /gs_xiroi/network_analysis/wireless_quality
                         /xiroi/param_logger/params_string
                         /xiroi/pilot/goal
                         /xiroi/pilot/waypoint_marker

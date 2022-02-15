@@ -41,11 +41,11 @@
         <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/discovery.yaml"/> -->
         <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_xiroi.yaml"/>  -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/master_sync/sync_topics_xiroi.yaml"/>
-        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" output="log" >
+        <node pkg="fkie_master_discovery" type="master_discovery" name="master_discovery" output="log" respawn="true" >
             <param name="mcast_group" value="224.0.0.1"/>
         </node>       
 
-        <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log"/>
+        <node pkg="fkie_master_sync" name="master_sync" type="master_sync" output="log" respawn="true"/>
     </group>
 
     <!-- WIRELESS LINK MONITORING -->
