@@ -1,0 +1,10 @@
+<launch>
+    <!--  ################  Input arguments  ################  -->
+    <arg name="environment" default="sea"/>
+
+    <group ns="xiroi">   
+        <include file="$(find cola2_xiroi)/launch/payload/evologics_usbl.launch">
+            <arg name="environment" value="$(arg environment)"/>
+        </include>
+    </group>
+</launch>
