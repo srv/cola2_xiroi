@@ -9,7 +9,7 @@ msg = WirelessLink()
 
 
 def wireless_quality(pep):
-	hostname = rospy.get_param('host_name', '192.168.1.230')
+	hostname = rospy.get_param('~host_name')
 	username = rospy.get_param('username', 'ubnt')
 	password = rospy.get_param('password', 'underwaterpass')
 	update_rate = rospy.get_param('~update_rate', 1)	
