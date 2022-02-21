@@ -63,11 +63,10 @@
         <include file="$(find cola2_xiroi)/launch/modules/interfaces.launch">
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
-            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
         </include>
 
         <!-- Load Wireless Monitoring -->
-        <include file="$(find cola2_xiroi)/launch/modules/wireless_monitoring.launch">
+        <include file="$(find link_quality)/launch/wireless_monitoring.launch">
             <arg name="host_name" value="$(arg host_name)"/>
             <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
         </include>
