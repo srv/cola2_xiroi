@@ -10,7 +10,7 @@
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="enableIqua" default="false"/>
     <arg name="enableRviz" default="true"/>
-    <arg name="AUV_tracking" default="false"/>
+    <arg name="AUV_tracking" default="true"/>
  
 
     <!-- ROBOT -->
@@ -29,6 +29,7 @@
         <arg name="enableBB2narrow" default="false"/>
         <arg name="enableUSBL" value="false"/>
         <arg name="enableCH3" value="false"/>
+        <arg name="enableTopicLogger" value="false"/>
     </include>
 
     <!-- GROUNDSTATION -->

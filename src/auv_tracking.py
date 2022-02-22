@@ -149,7 +149,7 @@ class AUVTracking:
 
         if(self.radius > self.anchor_radius and self.tracking):
             rospy.loginfo("----------------- TRACKING STRATEGY -----------------")
-            self.enable_thrusters_srv()
+            # self.enable_thrusters_srv()
             # self.first_repulsion = True
             self.follow_strategy()
 
@@ -161,7 +161,7 @@ class AUVTracking:
 
         elif(self.radius <= self.repulsion_radius and self.initialized and self.tracking):
             rospy.loginfo("----------------- REPULSION STRATEGY -----------------")
-            self.enable_thrusters_srv()
+            # self.enable_thrusters_srv()
             self.extract_safety_position()
             self.repulsion_strategy(self.x, self.y)
 
@@ -179,7 +179,7 @@ class AUVTracking:
 
     def repulsion_strategy(self, position_x, position_y):
         constant_linear_velocity = 0.8
-        constant_angular_velocity = 0.5 
+        constant_angular_velocity = 0.3 
         linear_velocity = constant_linear_velocity
         alpha_ref = atan2(position_y,position_x)
         #obtain the minimum agle between both robots

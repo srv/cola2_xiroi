@@ -5,12 +5,12 @@
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
-    <arg name="sim" default="true"/>
+    <arg name="sim" default="false"/>
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableATX" default="false"/>
+    <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="true"/>
@@ -26,6 +26,7 @@
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
     <arg name="enableWirelessLinkMonitoring" default="false"/>
+    <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     
 
@@ -72,10 +73,12 @@
         </include>
 
         <!-- Topic Logger -->
-        <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
-        <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
-        </node> -->
-
+        <group if="$(arg enableTopicLogger)">
+            <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
+            <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen"/>
+        </group>
+  
+  
         <!-- <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/> -->
     </group>
 
