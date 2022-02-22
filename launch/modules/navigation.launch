@@ -1,8 +1,7 @@
 <launch>
     <arg name="sim"/>
     <arg name="simGPS"/>
-    <!-- <arg name="AUV_tracking"/> -->
-
+    <arg name="AUV_tracking"/>
 
     <!--Frames-->
     <rosparam command="load" file="$(find cola2_xiroi)/config/frames.yaml"/>
@@ -52,9 +51,9 @@
     </node>
 
     <!-- AUV tracking -->
-    <!-- <group if="$(arg AUV_tracking)">
+    <group if="$(arg AUV_tracking)">
         <include file="$(find cola2_xiroi)/launch/modules/auv_follow.launch"/>
-    </group> -->
+    </group>
 
 
 </launch>

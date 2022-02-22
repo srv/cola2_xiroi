@@ -10,7 +10,7 @@
     <arg name="enableSafety"/>
     <arg name="enableThrusters"/>
     <arg name="openLoopTeleoperation"/>
-    <!-- <arg name="AUV_tracking"/> -->
+    <arg name="AUV_tracking"/>
 
 
     <!--  #################  Load safety nodes  #################  -->
@@ -23,7 +23,7 @@
     <include file="$(find cola2_xiroi)/launch/modules/navigation.launch">
         <arg name="sim"             value="$(arg sim)"/>
         <arg name="simGPS"          value="$(arg simGPS)"/>
-        <!-- <arg name="AUV_tracking"    value="$(arg AUV_tracking)"/> -->
+        <arg name="AUV_tracking"    value="$(arg AUV_tracking)"/>
 
     </include>
    

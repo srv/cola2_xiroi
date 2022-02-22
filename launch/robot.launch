@@ -5,15 +5,15 @@
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
-    <arg name="sim" default="false"/>
+    <arg name="sim" default="true"/>
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
-    <arg name="enableATX" default="true"/>
+    <arg name="enableATX" default="false"/>
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
-    <arg name="AUV_tracking" default="false"/>
+    <arg name="AUV_tracking" default="true"/>
 
 
     <!-- Payload -->
@@ -24,8 +24,8 @@
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
-    <arg name="enableMultimaster" default="true"/>
-    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="enableMultimaster" default="false"/>
+    <arg name="enableWirelessLinkMonitoring" default="false"/>
     <arg name="host_name" default="192.168.1.230"/>
     
 
@@ -44,7 +44,7 @@
             <arg name="enableATX" value="$(arg enableATX)"/>
             <arg name="simGPS" value="$(arg simGPS)"/>
             <arg name="enableSafety" value="$(arg enableSafety)"/>
-            <!-- <arg name="AUV_tracking" value="$(arg AUV_tracking)"/> -->
+            <arg name="AUV_tracking" value="$(arg AUV_tracking)"/>
             <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
             <arg name="enableThrusters" value="$(arg enableThrusters)"/>
         </include>
@@ -72,9 +72,9 @@
         </include>
 
         <!-- Topic Logger -->
-        <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
+        <!-- <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_xiroi.yaml"/>
         <node name="topic_logger" pkg="cola2_xiroi" type="topic_logger.py" respawn="true" output="screen">
-        </node>
+        </node> -->
 
         <!-- <node name="stereo_throttle" pkg="topic_tools" type="throttle" args="messages /xiroi/stereo_narrow/right/image_rect_color 2.0"/> -->
     </group>

@@ -8,9 +8,10 @@
     <arg name="enableSafety" default="true"/>
     <arg name="enableJoystick" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
-    <arg name="enableIqua" default="true"/>
-    <arg name="enableRviz" default="false"/>
-
+    <arg name="enableIqua" default="false"/>
+    <arg name="enableRviz" default="true"/>
+    <arg name="AUV_tracking" default="false"/>
+ 
 
     <!-- ROBOT -->
     <include file="$(find cola2_xiroi)/launch/robot.launch">
@@ -20,6 +21,8 @@
         <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)"/>
         <arg name="enableIqua" value="$(arg enableIqua)"/>
         <arg name="sim" value="true"/>
+        <arg name="enableWirelessLinkMonitoring" value="false"/>
+        <arg name="AUV_tracking" value="$(arg AUV_tracking)"/>
         <arg name="enableThrusters" value="false"/>
         <arg name="enableATX" default="false"/>
         <arg name="enableBB2wide" default="false"/>
@@ -35,6 +38,7 @@
         <arg name="enableRviz" value="$(arg enableRviz)" />
         <arg name="openLoopTeleoperation" value="$(arg openLoopTeleoperation)" />
         <arg name="joystickDevice" value="$(arg joystickDevice)"/>
+        <arg name="enableWirelessLinkMonitoring" value="false"/>
     </include>
 
     <!-- SIMULATE SENSORS and ACTUATORS -->
