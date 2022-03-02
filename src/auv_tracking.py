@@ -178,7 +178,7 @@ class AUVTracking:
  
 
     def repulsion_strategy(self, position_x, position_y):
-        constant_linear_velocity = 0.8
+        constant_linear_velocity = 1.2
         constant_angular_velocity = 0.3 
         linear_velocity = constant_linear_velocity
         alpha_ref = atan2(position_y,position_x)
@@ -191,7 +191,7 @@ class AUVTracking:
 
 
     def follow_strategy(self):
-        constant_linear_velocity = 0.3
+        constant_linear_velocity = 0.8
         constant_angular_velocity = 0.5
 
         if (self.radius<self.follow_radius and self.radius>self.anchor_radius):

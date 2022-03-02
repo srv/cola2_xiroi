@@ -37,6 +37,7 @@ import rospy
 from std_srvs.srv import Empty
 from cola2_xiroi.srv import RecordRequest, RecordRequestResponse
 import string
+import pytz
 import os
 import sys
 import time
@@ -87,7 +88,9 @@ class TopicLogger:
     if (not self._recording):
       rospy.loginfo('Recording start requested')
 
-      now = datetime.datetime.now()
+      tz = pytz.timezone('Europe/Madrid')
+
+      now = datetime.datetime.now(tz)
       fullday   = now.strftime("%Y_%m_%d")
       fullhour  = "xiroi_"+now.strftime("%H_%M_%S")
 
