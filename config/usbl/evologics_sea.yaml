@@ -9,16 +9,21 @@ evologics:
         log_file: '/home/xiroi/logs/evologics'
     acoustic:
         source_level: 0 # [0 (max) ->  3 (min)]  
-        gain: 0         # 0-1
+        gain: 1 # 0 normal gain, 1 low gain
         cluster_size: 4 #10
-        packet_time: 750 # range: 50-1000 default :750  
+        packet_time: 600 # range: 50-1000 default :750  
+        im_retry_count: 5
         retry_count: 3 #10
         retry_timeout: 1000 #4000
     usbl:
         address: '192.168.1.245:9200'
         id: 1
         loop_period: 0.02 # Look for new acoustic messages
+        source_level_control: 0
+        carrier_waveform: 0
     modem:
         address: '/dev/ttyS11'
         id: 2
         loop_period: 0.1 # Get new nav_sts for the pbm
+        source_level_control: 1
+        carrier_waveform: 1
