@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx.yaml"/>
+    <arg name="place" default="bendinat.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
@@ -9,7 +9,7 @@
     <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="true"/>
+    <arg name="enableSafety" default="false"/>
     <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
@@ -21,11 +21,13 @@
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
     <arg name="enableUSBL" default="false"/>
+    <arg name="enableMagnetometer" default="true"/>
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="false"/>
     <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="enableAcousticLinkMonitoring" default="true"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     
@@ -58,6 +60,7 @@
             <arg name="enableUSBL" value="$(arg enableUSBL)"/>
             <arg name="enableCH3" value="$(arg enableCH3)"/>
             <arg name="environment" value="$(arg environment)"/>
+            <arg name="enableMagnetometer" value="$(arg enableMagnetometer)"/>
         </include>
 
         <!-- Load interfaces -->
@@ -71,6 +74,12 @@
             <arg name="host_name" value="$(arg host_name)"/>
             <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
         </include>
+          <!-- Load Acoustic Monitoring -->
+        <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
+            <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>
+        </include>
+
+         
 
         <!-- Topic Logger -->
         <group if="$(arg enableTopicLogger)">

@@ -50,6 +50,7 @@ topic_logger/topics: [
                         /xiroi/navigator/navigation
                         /xiroi/navigator/navigation_throttle
                         /xiroi/network_analysis/wireless_quality
+                        /xiroi/network_analysis/acoustic_quality
                         /gs_xiroi/network_analysis/wireless_quality
                         /xiroi/param_logger/params_string
                         /xiroi/pilot/goal
@@ -75,6 +76,7 @@ topic_logger/topics: [
                         /xiroi/sensors/imu_raw_driver
                         /xiroi/sensors/imu_raw_filtered
                         /xiroi/sensors/imu_raw_filtered_calibrated
+                        /xiroi/sensors/magnetometer_1540
                         /xiroi/sensors/thruster_current_left
                         /xiroi/sensors/thruster_current_right
                         /xiroi/teleoperation/ack
