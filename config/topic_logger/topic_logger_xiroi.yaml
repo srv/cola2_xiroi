@@ -1,4 +1,4 @@
-topic_logger/dir: '/media/xiroi/MyPassport/bagfiles/xiroi'
+topic_logger/dir: '/media/xiroi/Samsung_T5'
 topic_logger/topics: [
                         /diagnostics
                         /tf

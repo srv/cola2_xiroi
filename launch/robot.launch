@@ -1,33 +1,33 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="bendinat.yaml"/>
+    <arg name="place" default="andratx.yaml"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="environment" default="sea"/>
+    <arg name="environment" default="pool"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="false"/>
+    <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
-    <arg name="AUV_tracking" default="true"/>
+    <arg name="AUV_tracking" default="false"/>
 
 
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
-    <arg name="enableMagnetometer" default="true"/>
+    <arg name="enableUSBL" default="true"/>
+    <arg name="enableMagnetometer" default="false"/>
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
-    <arg name="enableMultimaster" default="false"/>
-    <arg name="enableWirelessLinkMonitoring" default="true"/>
-    <arg name="enableAcousticLinkMonitoring" default="true"/>
+    <arg name="enableMultimaster" default="true"/>
+    <arg name="enableWirelessLinkMonitoring" default="false"/>
+    <arg name="enableAcousticLinkMonitoring" default="false"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     
@@ -78,8 +78,6 @@
         <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
             <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>
         </include>
-
-         
 
         <!-- Topic Logger -->
         <group if="$(arg enableTopicLogger)">

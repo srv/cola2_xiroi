@@ -2,7 +2,7 @@
     <!--  ################  Input arguments  ################  -->
     <arg name="environment" default="sea"/>
 
-    <group ns="xiroi">   
+    <group ns="$(arg robot_name)">   
         <include file="$(find cola2_xiroi)/launch/payload/evologics_usbl.launch">
             <arg name="environment" value="$(arg environment)"/>
         </include>
