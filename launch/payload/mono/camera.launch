@@ -9,13 +9,13 @@
   <arg name="base_topic"               default="stereo_$(arg camera)" />
 
   <!-- PROCESSING -->
-  <arg name="processing"               default="true"/>
+  <arg name="processing"               default="false"/>
   <arg name="decimation"               default="4"/>
 
 
   <!-- DRIVER -->
   <arg name="calibration"              default="water" />
-  <arg name="right_ID"                 default="16401229" />
+  <arg name="right_ID"                 default="16401228" />
 
   <group ns="$(arg robot_name)">
 

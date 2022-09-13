@@ -35,7 +35,7 @@
     </include>
 
     <!-- Stereo CH3 -->
-    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/payload/stereo/ch3/stereo_ch3.launch"/>
+    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_ch3.launch"/>
 
     <!-- Magnetoemter -->
     <include if="$(arg enableMagnetometer)" file="$(find magnetometer_1540)/magnetometer_1540.launch"/>

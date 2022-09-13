@@ -1,17 +1,17 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx.yaml"/>
+    <arg name="place" default="andratx_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="pool"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="true"/>
+    <arg name="enableThrusters" default="false"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
 
@@ -20,7 +20,7 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="true"/>
+    <arg name="enableUSBL" default="false"/>
     <arg name="enableMagnetometer" default="false"/>
 
     <!-- Interfaces -->
@@ -68,16 +68,18 @@
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
-
-        <!-- Load Wireless Monitoring -->
-        <include file="$(find link_quality)/launch/wireless_monitoring.launch">
-            <arg name="host_name" value="$(arg host_name)"/>
-            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
-        </include>
-          <!-- Load Acoustic Monitoring -->
-        <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
-            <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>
-        </include>
+        
+        <group if="$(arg enableWirelessLinkMonitoring)">
+            <!-- Load Wireless Monitoring -->
+            <include file="$(find link_quality)/launch/wireless_monitoring.launch">
+                <arg name="host_name" value="$(arg host_name)"/>
+                <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
+            </include>
+            <!-- Load Acoustic Monitoring -->
+            <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
+                <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>
+            </include>
+        </group>
 
         <!-- Topic Logger -->
         <group if="$(arg enableTopicLogger)">

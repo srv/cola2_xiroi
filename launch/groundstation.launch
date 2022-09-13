@@ -7,7 +7,7 @@
     <!-- <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_BB9796E6-joystick"/>  -->
     <arg name="joystickDevice"  default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_2F85961A-joystick"/> 
     <!-- Wireless Monitoring -->    
-    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <!-- <arg name="enableWirelessLinkMonitoring" default="false"/> -->
     <arg name="host_name" default="192.168.1.230"/>
     
     
@@ -35,10 +35,10 @@
 
     <group ns="gs_xiroi">
         <!-- Load Wireless Monitoring -->
-        <include file="$(find link_quality)/launch/wireless_monitoring.launch">
+        <!-- <include file="$(find link_quality)/launch/wireless_monitoring.launch">
             <arg name="host_name" value="$(arg host_name)"/>
             <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
-        </include>
+        </include> -->
 
         <!-- Topic Logger gs -->
         <rosparam command="load" file="$(find cola2_xiroi)/config/topic_logger/topic_logger_gs.yaml"/>
