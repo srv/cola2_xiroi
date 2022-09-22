@@ -8,25 +8,25 @@
     <arg name="base_topic"               default="stereo_$(arg camera)" />
 
     <!-- DRIVER -->
-    <arg name="calibration"              default="water" />
+    <arg name="calibration"              default="air" />
     <arg name="left_ID"                  default="16401228" />
     <arg name="right_ID"                 default="16401229" />
 
     <!-- PROCESSING -->
-    <arg name="processing"               default="true"/>
+    <arg name="processing"               default="false"/>
     <arg name="enable_decimate_x1"       default="true"/>
     <arg name="enable_decimate_x2"       default="false"/>
     <arg name="enable_decimate_x4"       default="false"/>
-    <arg name="enable_decimate_x8"       default="true"/>
-    <arg name="enable_decimate_altitude" default="true"/>
-    <arg name="filter_altitude"          default="true"/>
+    <arg name="enable_decimate_x8"       default="false"/>
+    <arg name="enable_decimate_altitude" default="false"/>
+    <arg name="filter_altitude"          default="false"/>
     <!-- <arg name="decimation"          default="2"/> -->
 
     <!-- VISUAL ALTIMETER -->
-    <arg name="enable_altimeter"         default="true"/>
+    <arg name="enable_altimeter"         default="false"/>
     
     <!-- THROTTLE -->
-    <arg name="throttle"                 default="true"/>
+    <arg name="throttle"                 default="false"/>
 
     <group ns="$(arg robot_name)">
 
