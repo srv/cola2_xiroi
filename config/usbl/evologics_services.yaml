@@ -6,6 +6,6 @@
 6: "/turbot/topic_logger/stop_recording"
 7: "/turbot/lights_on"
 8: "/turbot/lights_off"
-9: "/turbot/laser_on"
+9: "/turbot/send_burst"
 10: "/turbot/emergency_surface"
 11: "/turbot/imu_angle_estimator/calibrate_magnetometer"
