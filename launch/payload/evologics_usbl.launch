@@ -14,7 +14,8 @@
       <remap from="nav_sts_acoustic" to="/turbot/navigator/navigation_throttle_acoustic"/>
       <remap from="vehicle_status_acoustic" to="/turbot/vehicle_status/vehicle_status_acoustic"/>
       <remap from="elapsed_time_acoustic" to="/turbot/cola2_watchdog/elapsed_time_acoustic"/>
-      <remap from="payload_acoustic" to="/mine_conf_acoustic"/>
+      <remap from="payload_acoustic" to="/turbot/mine_conf_acoustic"/>
+      <remap from="burst_acoustic" to="/turbot/burst_acoustic"/>
     </node>
   </group>
 
@@ -22,6 +23,11 @@
   <rosparam command="load" file="$(find cola2_xiroi)/config/usbl/usbl.yaml"/>
   <node pkg="usbl_position" name="usbl_position" type="usbl_position" output="screen">
     <remap from="/modem_delayed" to="/turbot/modem_delayed"/>
+  </node>
+
+  <node name="acoustic_image_counter" pkg="evologics_ros_sync" type="acoustic_image_counter.py" output="screen" respawn="false">
+    <remap from="acoustic_image_counter" to="acoustic_image_counter"/>
+    <remap from="acoustic_image" to="/turbot/burst_acoustic"/>
   </node>
 
   <!-- TF broadcaster -->

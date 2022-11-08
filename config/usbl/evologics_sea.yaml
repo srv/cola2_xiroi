@@ -22,6 +22,8 @@ evologics:
         loop_period: 0.02 # Look for new acoustic messages
         source_level_control: 0
         carrier_waveform: 0
+        burst_first_timeout: 30
+        burst_second_timeout: 240
     modem:
         interface: 'serial'
         address: ['/dev/ttyS11', 19200]
@@ -29,3 +31,4 @@ evologics:
         loop_period: 0.5 # Get new nav_sts for the pbm
         source_level_control: 1
         carrier_waveform: 1
+        burst_timeout: 30
