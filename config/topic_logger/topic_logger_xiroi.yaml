@@ -31,6 +31,7 @@ topic_logger/topics: [
                       /xiroi/controller/thruster_setpoints
                       /xiroi/controller/thruster_setpoints_throttle
                       /xiroi/controller/world_waypoint_req
+                      /xiroi/decompressed_image_acoustic
                       /xiroi/depth
                       /xiroi/diagnostics
                       /xiroi/ekf_map/odometry
