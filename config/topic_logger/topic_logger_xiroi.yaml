@@ -86,6 +86,9 @@ topic_logger/topics: [
                       /xiroi/teleoperation/ack
                       /xiroi/usbllong
                       /xiroi/visual_altimeter/altitude
+                      /xiroi/network_analysis/wireless_quality
+                      /xiroi/network_analysis/acoustic_quality
+                      /gs_xiroi/network_analysis/wireless_quality
                       ]
 
 topic_logger/image_topics: [/xiroi/stereo_ch3/left/image_raw

@@ -24,6 +24,6 @@ sensors/usbl_min_depth: 0.5
 sensors/gps_only_for_init: false
 sensors/gps_init_filter_size: 4
 sensors/gps_max_ned_dist: 1000
-sensors/max_speed: 1.5
+sensors/max_speed: 3.5
 
 sensors/max_num_errors: 100

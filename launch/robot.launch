@@ -1,12 +1,12 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx_exterior.yaml"/>
+    <arg name="place" default="uib_cti.yaml"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="environment" default="pool"/>
+    <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
@@ -26,8 +26,8 @@
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="true"/>
-    <arg name="enableWirelessLinkMonitoring" default="false"/>
-    <arg name="enableAcousticLinkMonitoring" default="false"/>
+    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="enableAcousticLinkMonitoring" default="true"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     
@@ -75,6 +75,9 @@
                 <arg name="host_name" value="$(arg host_name)"/>
                 <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
             </include>
+        </group>
+        
+        <group if="$(arg enableWirelessLinkMonitoring)">
             <!-- Load Acoustic Monitoring -->
             <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
                 <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>

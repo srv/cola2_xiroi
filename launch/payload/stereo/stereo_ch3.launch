@@ -8,7 +8,7 @@
     <arg name="base_topic"               default="stereo_$(arg camera)" />
 
     <!-- DRIVER -->
-    <arg name="calibration"              default="air" />
+    <arg name="calibration"              default="water" />
     <arg name="left_ID"                  default="16401228" />
     <arg name="right_ID"                 default="16401229" />
 
