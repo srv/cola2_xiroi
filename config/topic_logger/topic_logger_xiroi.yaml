@@ -11,6 +11,13 @@ topic_logger/topics: [
                       /turbot/navigator/navigation
                       /turbot/navigator/navigation_throttle
                       /turbot/navigator/navigation_throttle_acoustic
+                      /turbot/cola2_watchdog/elapsed_time_acoustic
+                      /turbot/controller/thruster_setpoints_throttle_acoustic
+                      /turbot/vehicle_status/vehicle_status_acoustic
+                      /xiroi/evologics_channel                         
+                      /xiroi/evologics_status                            
+                      /xiroi/evologics_sync                               
+                      /xiroi/usbllong   
                       /turbot/vehicle_status
                       /xiroi/acoustic_image_counter
                       /xiroi/captain/captain_status

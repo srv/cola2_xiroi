@@ -1,6 +1,6 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="uib_cti.yaml"/>
+    <arg name="place" default="andratx_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
@@ -11,7 +11,7 @@
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
     <arg name="AUV_tracking" default="false"/>
 
@@ -20,13 +20,13 @@
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
+    <arg name="enableUSBL" default="true"/>
     <arg name="enableMagnetometer" default="false"/>
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
     <arg name="enableMultimaster" default="true"/>
-    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="enableWirelessLinkMonitoring" default="false"/>
     <arg name="enableAcousticLinkMonitoring" default="true"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
