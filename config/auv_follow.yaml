@@ -1,4 +1,4 @@
-repulsion_radius: 20
-anchor_radius: 30
-follow_radius: 45
+repulsion_radius: 30
+anchor_radius: 40
+follow_radius: 50
 depth_threshold: 3

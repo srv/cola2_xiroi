@@ -173,7 +173,8 @@ class AUVTracking:
             self.x = self.asv_position_north-1
         else:
             self.x = self.asv_position_north+1
-        self.y = self.m*(self.x - self.pointy) + self.pointx 
+        # self.y = self.m*(self.x - self.pointy) + self.pointx 
+        self.y = self.m*(self.x - self.pointx) + self.pointy 
 
  
 
