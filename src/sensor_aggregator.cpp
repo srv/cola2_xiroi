@@ -181,6 +181,8 @@ void SensorAggregator::updateGps(const GpsMsg& msg) {
     double distance = sqrt(pow((north - previous_nort_),2) + pow((east - previous_east_),2)) ;
     double velocity = distance / delta_t ;
 
+    // ROS_INFO_STREAM("Max speed: " << max_speed_);
+
     if(velocity < max_speed_){
 
       // Create a new pose

@@ -6,6 +6,7 @@
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
     <arg name="environment" default="sea"/>
+    <arg name="enableMagnetometer" default="true"/>
 
 
     <!-- USBL -->
@@ -34,9 +35,10 @@
     </include>
 
     <!-- Stereo CH3 -->
-    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/payload/stereo/ch3/stereo_ch3.launch">
-    <!-- <include if="$(arg enableCH3)" file="$(find spinnaker_camera_driver)/launch/stereo.launch"> -->
-    </include>
+    <include if="$(arg enableCH3)" file="$(find cola2_xiroi)/launch/payload/stereo/stereo_ch3.launch"/>
+
+    <!-- Magnetoemter -->
+    <include if="$(arg enableMagnetometer)" file="$(find magnetometer_1540)/magnetometer_1540.launch"/>
 
     <!-- Lights -->
      <!-- <node name="vehicle_lights" pkg="cola2_xiroi" type="lights_arduino.py" output="screen"/> -->

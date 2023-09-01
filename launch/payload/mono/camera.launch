@@ -9,7 +9,7 @@
   <arg name="base_topic"               default="stereo_$(arg camera)" />
 
   <!-- PROCESSING -->
-  <arg name="processing"               default="true"/>
+  <arg name="processing"               default="false"/>
   <arg name="decimation"               default="4"/>
 
 

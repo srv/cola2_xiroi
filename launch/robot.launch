@@ -1,31 +1,33 @@
 <launch>
     <!-- Params -->
-    <arg name="place" default="andratx.yaml"/>
+    <arg name="place" default="andratx_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
     <arg name="environment" default="sea"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="true"/>
+    <arg name="simGPS" default="false"/>
 
     <!-- Core -->
     <arg name="enableSafety" default="true"/>
     <arg name="enableATX" default="true"/>
-    <arg name="enableThrusters" default="false"/>
+    <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
-    <arg name="AUV_tracking" default="true"/>
+    <arg name="AUV_tracking" default="false"/>
 
 
     <!-- Payload -->
     <arg name="enableBB2narrow" default="false"/>
     <arg name="enableBB2wide" default="false"/>
     <arg name="enableCH3" default="false"/>
-    <arg name="enableUSBL" default="false"/>
+    <arg name="enableUSBL" default="true"/>
+    <arg name="enableMagnetometer" default="false"/>
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
-    <arg name="enableMultimaster" default="false"/>
-    <arg name="enableWirelessLinkMonitoring" default="true"/>
+    <arg name="enableMultimaster" default="true"/>
+    <arg name="enableWirelessLinkMonitoring" default="false"/>
+    <arg name="enableAcousticLinkMonitoring" default="true"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     
@@ -58,6 +60,7 @@
             <arg name="enableUSBL" value="$(arg enableUSBL)"/>
             <arg name="enableCH3" value="$(arg enableCH3)"/>
             <arg name="environment" value="$(arg environment)"/>
+            <arg name="enableMagnetometer" value="$(arg enableMagnetometer)"/>
         </include>
 
         <!-- Load interfaces -->
@@ -65,12 +68,21 @@
             <arg name="enableIqua" value="$(arg enableIqua)"/>
             <arg name="enableMultimaster" value="$(arg enableMultimaster)"/>
         </include>
-
-        <!-- Load Wireless Monitoring -->
-        <include file="$(find link_quality)/launch/wireless_monitoring.launch">
-            <arg name="host_name" value="$(arg host_name)"/>
-            <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
-        </include>
+        
+        <group if="$(arg enableWirelessLinkMonitoring)">
+            <!-- Load Wireless Monitoring -->
+            <include file="$(find link_quality)/launch/wireless_monitoring.launch">
+                <arg name="host_name" value="$(arg host_name)"/>
+                <arg name="enableWirelessLinkMonitoring" value="$(arg enableWirelessLinkMonitoring)"/>
+            </include>
+        </group>
+        
+        <group if="$(arg enableWirelessLinkMonitoring)">
+            <!-- Load Acoustic Monitoring -->
+            <include file="$(find link_quality)/launch/acoustic_monitoring.launch">
+                <arg name="enableAcousticLinkMonitoring" value="$(arg enableAcousticLinkMonitoring)"/>
+            </include>
+        </group>
 
         <!-- Topic Logger -->
         <group if="$(arg enableTopicLogger)">

@@ -18,6 +18,32 @@ controller/thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004
 controller/thruster_2_max_force_positive: 64
 controller/thruster_2_max_force_negative: 47
 
+
+# Thruster 1 RIGHT
+# controller/thruster_1_poly_positive: [-0.1514793, 0.1684252, -0.03181305, 0.003370873, -0.0001612667, 0.000002814513]
+# controller/thruster_1_poly_negative: [-0.1514793, 0.1684252, -0.03181305, 0.003370873, -0.0001612667, 0.000002814513]
+# controller/thruster_1_max_force_positive: 30.0
+# controller/thruster_1_max_force_negative: 30.0
+
+# Thruster 2 LEFT
+# controller/thruster_2_poly_positive: [0.4315288, -0.129906, 0.02313694, -0.001523693, 0.00004627463, -0.000000525]
+# controller/thruster_2_poly_negative: [0.4315288, -0.129906, 0.02313694, -0.001523693, 0.00004627463, -0.000000525]
+# controller/thruster_2_max_force_positive: 30.0
+# controller/thruster_2_max_force_negative: 30.0
+
+
+# # # Thruster 1 RIGHT
+# controller/thruster_1_poly_positive: [1.9956458900602453e-001,-3.9738812498622905e-002,1.4902770877101295e-002,-1.4743493671407826e-003,7.2958617019554497e-005,-1.7702919464946440e-006,1.6701208492916615e-008]
+# controller/thruster_1_poly_negative: [-4.1391440295949244e-001,3.5795560024540185e-001,-7.3644656761049851e-002,7.9814249763839242e-003,-4.4212392300834781e-004,1.2075099280036146e-005,-1.2896639718536054e-007]
+# controller/thruster_1_max_force_positive: 32.0
+# controller/thruster_1_max_force_negative: 27.0
+
+# # # Thruster 2 LEFT
+# controller/thruster_2_poly_positive: [1.9956458900602453e-001,-3.9738812498622905e-002,1.4902770877101295e-002,-1.4743493671407826e-003,7.2958617019554497e-005,-1.7702919464946440e-006,1.6701208492916615e-008]
+# controller/thruster_2_poly_negative: [-4.1391440295949244e-001,3.5795560024540185e-001,-7.3644656761049851e-002,7.9814249763839242e-003,-4.4212392300834781e-004,1.2075099280036146e-005,-1.2896639718536054e-007]
+# controller/thruster_2_max_force_positive: 32.0
+# controller/thruster_2_max_force_negative: 27.0
+
 # Enable thrusters
 controller/enable_thrusters: false
 

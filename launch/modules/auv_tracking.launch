@@ -1,8 +1,8 @@
 <launch>
     <arg name="robot_name" default="xiroi"/>
-    <!-- Uncomment the ns if you want to launch the node out of the Xiroi architecture -->
-    <!-- <group ns="$(arg robot_name)"> -->
+    <!-- Uncomment the ns if you want to launch the node out of the architecture -->
+    <group ns="$(arg robot_name)">
         <rosparam command="load" file="$(find cola2_xiroi)/config/auv_follow.yaml"/>
         <node name="auv_tracking" pkg="cola2_xiroi" type="auv_tracking.py" respawn="true" output="screen"/>
-    <!-- </group> -->
+    </group>
 </launch>
