@@ -2,14 +2,14 @@
     <!-- Params -->
     <arg name="place" default="andratx_exterior.yaml"/>
     <arg name="robot_name" default="xiroi"/>
-    <arg name="environment" default="sea"/>
+    <arg name="environment" default="pool"/>
 
     <!-- Flags -->
     <arg name="sim" default="false"/>
-    <arg name="simGPS" default="false"/>
+    <arg name="simGPS" default="true"/>
 
     <!-- Core -->
-    <arg name="enableSafety" default="true"/>
+    <arg name="enableSafety" default="false"/>
     <arg name="enableATX" default="true"/>
     <arg name="enableThrusters" default="true"/>
     <arg name="openLoopTeleoperation" default="false"/>
@@ -25,9 +25,9 @@
 
     <!-- Interfaces -->
     <arg name="enableIqua" default="true"/>
-    <arg name="enableMultimaster" default="true"/>
+    <arg name="enableMultimaster" default="false"/>
     <arg name="enableWirelessLinkMonitoring" default="false"/>
-    <arg name="enableAcousticLinkMonitoring" default="true"/>
+    <arg name="enableAcousticLinkMonitoring" default="false"/>
     <arg name="enableTopicLogger" default="true"/>
     <arg name="host_name" default="192.168.1.230"/>
     

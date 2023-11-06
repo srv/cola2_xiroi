@@ -1,4 +1,4 @@
-topic_logger/dir: '/media/xiroi/Samsung_T5'
+topic_logger/dir: '/media/xiroi/Samsung_T51'
 topic_logger/topics: [
                       /diagnostics
                       /tf

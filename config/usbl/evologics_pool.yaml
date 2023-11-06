@@ -22,7 +22,7 @@ evologics:
         source_level_control: 0
         carrier_waveform: 0
         burst_first_timeout: 30
-        burst_second_timeout: 240
+        burst_second_timeout: 300
     modem:
         interface: 'serial'
         address: ['/dev/ttyS11', 19200]
