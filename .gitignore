@@ -12,6 +12,8 @@ build/
 msg_gen/
 srv_gen/
 doc/
+.vscode/
+.vscode/*
 
 # Subfolders in src
 # src/*/
