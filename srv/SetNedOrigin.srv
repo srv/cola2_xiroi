@@ -1,6 +1,0 @@
-# Set GPS position as the NED origin
-string place
-
----
-
-string success

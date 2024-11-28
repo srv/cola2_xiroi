@@ -1,9 +1,0 @@
-<launch>
-  <node pkg="m4atx_battery_monitor" type="m4atx_battery_monitor" name="m4atx" output="screen">
-    <rosparam command="load" file="$(find cola2_xiroi)/config/battery_monitor.yaml"/>
-    <remap from="battery_status_m4atx" to="/xiroi/sensors/battery"/>
-  </node>
-</launch>
-
-<!-- if there are permissions problems with USB ATX ports run : sudo chmod a+rw /dev/bus/usb/001/003 or 004
-to fix the problem being sure that Microchip Technology, Inc is BUS 001 DEV 003  -->

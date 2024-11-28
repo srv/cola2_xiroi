@@ -1,7 +1,0 @@
-
-usbl_calibration/acoustic_channel_topic: '/diagnostics/evologics_channel'
-usbl_calibration/acoustic_sync_topic: '/diagnostics/evologics_sync'
-usbl_calibration/depth: 2.0
-usbl_calibration/radius: 20.0
-usbl_calibration/sides: 5
-usbl_calibration/tolerance: 3.0

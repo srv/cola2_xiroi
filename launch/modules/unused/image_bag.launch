@@ -1,2 +1,0 @@
-rosbag record --split --size=1024 /xiroi/stereo_narrow/left/image_raw /xiroi/stereo_narrow/right/image_raw  /xiroi/stereo_narrow/left/camera_info                                               │···························································
-/xiroi/stereo_narrow/right/camera_info    

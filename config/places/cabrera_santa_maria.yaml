@@ -1,8 +1,0 @@
-navigator/ned_latitude:  39.15026474
-navigator/ned_longitude: 2.94915509224
-
-
-# IMU CALIBRATION
-imu_angle_estimator/soft_iron: [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-imu_angle_estimator/hard_iron: [0, 0, 0]
-

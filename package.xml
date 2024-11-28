@@ -1,80 +1,20 @@
 <?xml version="1.0"?>
-<package>
-  <name>cola2_xiroi</name>
-  <version>1.0.0</version>
-  <description>The cola2_xiroi package</description>
-
-  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
-  <!-- Example:  -->
-  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="antoni@todo.todo">antoni</maintainer>
-
-
-  <!-- One license tag required, multiple allowed, one license per tag -->
-  <!-- Commonly used license strings: -->
-  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
-
-
-  <!-- Url tags are optional, but mutiple are allowed, one per tag -->
-  <!-- Optional attribute type can be: website, bugtracker, or repository -->
-  <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/cola2_xiroi</url> -->
-
-
-  <!-- Author tags are optional, mutiple are allowed, one per tag -->
-  <!-- Authors do not have to be maintianers, but could be -->
-  <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
-
-
-  <!-- The *_depend tags are used to specify dependencies -->
-  <!-- Dependencies can be catkin packages or system dependencies -->
-  <!-- Examples: -->
-  <!-- Use build_depend for packages you need at compile time: -->
-     <build_depend>message_generation</build_depend> 
-  <!-- Use buildtool_depend for build tool packages: -->
-  <!--   <buildtool_depend>catkin</buildtool_depend> -->
-  <!-- Use run_depend for packages you need at runtime: -->
-     <run_depend>message_runtime</run_depend> 
-  <!-- Use test_depend for packages you need only for testing: -->
-  <!--   <test_depend>gtest</test_depend> -->
+<package format="2">
+  <name>cola2_sparus2</name>
+  <version>24.1.0</version>
+  <description>The cola2_sparus2 package</description>
+  <maintainer email="software@iquarobotics.com">Iqua Robotics</maintainer>
+  <license>Iqua Robotics</license>
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>auv_msgs</build_depend>
-  <build_depend>cola2_lib</build_depend>  
-  <build_depend>ned_tools</build_depend>
-  <build_depend>cola2_msgs</build_depend>
-  <build_depend>dynamic_reconfigure</build_depend>
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>std_srvs</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>tf_conversions</build_depend>
-  <build_depend>std_msgs</build_depend>
 
-  
-  <run_depend>auv_msgs</run_depend>
-  <run_depend>cola2_lib</run_depend>  
-  <run_depend>ned_tools</run_depend>
-  <run_depend>cola2_msgs</run_depend>
-  <run_depend>dynamic_reconfigure</run_depend>
-  <run_depend>geometry_msgs</run_depend>
-  <run_depend>std_srvs</run_depend>
-  <run_depend>nav_msgs</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>rospy</run_depend>
-  <run_depend>sensor_msgs</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>tf_conversions</run_depend>
-  <run_depend>std_msgs</run_depend>
+  <!-- ROS Dependencies -->
+  <depend>diagnostic_aggregator</depend>
+  <depend>joy</depend>
+  <depend>rosbridge_server</depend>
+  <depend>rviz</depend>
+  <depend>tf</depend>
+  <depend>topic_tools</depend>
 
-
-  <!-- The export tag contains other, unspecified, tags -->
-  <export>
-    <!-- Other tools can request additional information be placed here -->
-
-  </export>
+  <!-- COLA2 Dependencies -->
+  <depend>sparus2_description</depend>
 </package>
