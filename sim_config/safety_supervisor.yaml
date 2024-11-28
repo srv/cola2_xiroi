@@ -1,5 +1,5 @@
 # Safety supervisor general parameters
-emergency_surface_setpoints: [-0.3, 0.0, 0.0]  # Be careful here!
+emergency_surface_setpoints: [0.0, 0.0, 0.0]  # Be careful here!
 drop_weight_service: ""
 safety_rule_names: ["batteries", "battery_control_board", "captain", "check_enabled_abort_and_surface", "check_enabled_emergency_surface", "check_enabled_informative", "teleoperation", "manual", "navigator", "temperature_batteries", "temperature_cpu", "temperature_pc_cylinder", "virtual_cage", "watchdog_timer", "water_inside"]
 
@@ -57,7 +57,7 @@ temperature_cpu/diagnostic_status_name: "/safety/computer_logger"
 temperature_cpu/max_temperature: 80.0
 temperature_pc_cylinder/type: "Temperature"
 temperature_pc_cylinder/diagnostic_status_name: "/safety/battery_control_board"
-temperature_pc_cylinder/max_temperature: 80.0
+temperature_pc_cylinder/max_temperature: 800.0
 
 # Virtual cage safety rule
 virtual_cage/type: "VirtualCage"

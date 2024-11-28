@@ -1,3 +1,3 @@
-# COLA2_SPARUS2
+# COLA2_xiroi
 
-SPARUS2 AUV specific files for the COLA2 software architecture.
+xiroi AUV specific files for the COLA2 software architecture.

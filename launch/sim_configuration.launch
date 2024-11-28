@@ -4,13 +4,13 @@
   <arg name="robot_xacro"/>
 
   <!-- Load robot description -->
-  <include file="$(find sparus2_description)/launch/sparus2_description.launch">
+  <include file="$(find xiroi_description)/launch/xiroi_description.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="robot_xacro" value="$(arg robot_xacro)"/>
   </include>
 
   <!-- Config folder -->
-  <arg name="config_folder" value="$(find cola2_sparus2)/sim_config"/>
+  <arg name="config_folder" value="$(find cola2_xiroi)/sim_config"/>
 
   <!-- Common configs -->
   <rosparam command="load" ns="captain" file="$(arg config_folder)/captain.yaml"/>

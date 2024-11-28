@@ -1,12 +1,13 @@
 <launch>
   <!-- Configurable arguments -->
-  <arg name="robot_name" default="sparus2"/>
-  <arg name="enable_keyboard" default="true"/>
+  <arg name="robot_name" default="xiroi"/>
+  <arg name="enable_keyboard" default="false"/>
   <arg name="enable_joystick" default="false"/>
   <arg name="joystick_device" default="/dev/input/js0"/>
-  <arg name="enable_gui" default="true"/>
-  <arg name="enable_rviz" default="true"/>
-  <arg name="robot_xacro" default="$(find sparus2_description)/urdf/payload.urdf.xacro"/>
+  <arg name="enable_gui" default="false"/>
+  <arg name="enable_rviz" default="false"/>
+  <arg name="safety" default="false"/>
+  <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Static transform -->
   <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
@@ -14,7 +15,7 @@
   <!-- Namespace with robot name -->
   <group ns="$(arg robot_name)">
     <!-- Load configs (do not modify) -->
-    <include file="$(find cola2_sparus2)/launch/sim_configuration.launch">
+    <include file="$(find cola2_xiroi)/launch/sim_configuration.launch">
       <arg name="robot_name" value="$(arg robot_name)"/>
       <arg name="robot_xacro" value="$(arg robot_xacro)"/>
     </include>
@@ -25,8 +26,9 @@
     <!-- ################################################################################## -->
 
     <!-- Load core -->
-    <include file="$(find cola2_sparus2)/launch/sim_core.launch">
+    <include file="$(find cola2_xiroi)/launch/sim_core.launch">
       <arg name="robot_name" value="$(arg robot_name)"/>
+      <arg name="safety_flag" value="$(arg safety)"/>
     </include>
 
     <!-- Keyboard -->
@@ -60,5 +62,5 @@
   </group>
 
   <!-- RViz -->
-  <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_sparus2)/scene/sparus2.rviz"/>
+  <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/xiroi.rviz"/>
 </launch>

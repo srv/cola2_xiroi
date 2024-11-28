@@ -1,18 +1,21 @@
 <launch>
   <!-- Input arguments -->
   <arg name="robot_name"/>
+  <arg name="safety_flag"/>
 
   <!-- Safety nodes -->
-  <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
-    <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>
-    <remap from="/diagnostics_agg" to="/$(arg robot_name)/diagnostics_agg"/>
-    <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
-  </node>
-  <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude_node" output="screen"/>
-  <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor_node" output="screen"/>
-  <node name="safety_supervisor_checker" pkg="cola2_safety" type="safety_supervisor_checker_node" output="screen"/>
-  <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage_node" output="screen"/>
-  <node name="watchdog_timer" pkg="cola2_safety" type="watchdog_timer_node" output="screen"/>
+  <group if="$(arg safety_flag)">
+    <node name="diagnostic_aggregator" pkg="diagnostic_aggregator" type="aggregator_node">
+      <remap from="/diagnostics" to="/$(arg robot_name)/diagnostics"/>
+      <remap from="/diagnostics_agg" to="/$(arg robot_name)/diagnostics_agg"/>
+      <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
+    </node>
+    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude_node" output="screen"/>
+    <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor_node" output="screen"/>
+    <node name="safety_supervisor_checker" pkg="cola2_safety" type="safety_supervisor_checker_node" output="screen"/>
+    <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage_node" output="screen"/>
+    <node name="watchdog_timer" pkg="cola2_safety" type="watchdog_timer_node" output="screen"/>
+  </group>
 
   <!-- Simulation nodes -->
   <node name="dynamics" pkg="cola2_sim" type="dynamics_node"/>

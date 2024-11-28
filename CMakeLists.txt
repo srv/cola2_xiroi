@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   topic_tools
 
   # COLA2 Dependencies
-  sparus2_description
+  xiroi_description
 )
 
 # Declare things to be passed to dependent projects

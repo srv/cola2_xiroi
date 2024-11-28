@@ -1,43 +1,37 @@
 period: 0.1
-n_thrusters: 3
+n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-TCM: [0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-  -0.16783, 0.16783]
+TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
+
 
 # Thruster 1
-thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06, 3.25e-08]
-thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05, 9.26e-07]
-thruster_1_max_force_positive: 55.0
-thruster_1_max_force_negative: 28.5
+thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_1_max_force_positive: 64
+thruster_1_max_force_negative: 47
 
 # Thruster 2
-thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
-thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
-thruster_2_max_force_positive: 71.5
-thruster_2_max_force_negative: 30.0
-
-# Thruster 3
-thruster_3_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
-thruster_3_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
-thruster_3_max_force_positive: 71.5
-thruster_3_max_force_negative: 30.0
+thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_2_max_force_positive: 64
+thruster_2_max_force_negative: 47
 
 # Enbale thrusters
-enable_thrusters: false
+enable_thrusters: true
 
 # Maximum velocity for each DOF
-max_velocity_x: 0.5
+max_velocity_x: 0.8
 max_velocity_y: 0.0
-max_velocity_z: 0.3
+max_velocity_z: 0.0
 max_velocity_roll: 0.0
 max_velocity_pitch: 0.0
-max_velocity_yaw: 0.3
+max_velocity_yaw: 0.45
 
 # Set zero velocity parameters
 set_zero_velocity_depth: 1.0
-set_zero_velocity_axes: [true, false, true, false, false, true]
+set_zero_velocity_axes: [true, false, false, false, false, true]
 
 
 # POSE PID CONTROLLER

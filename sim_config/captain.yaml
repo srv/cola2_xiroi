@@ -5,7 +5,7 @@ max_distance_to_waypoint: 750.0
 safety_keep_position_depth: 0.0
 
 # If true, the safety keep position goes to the NED origin. If false, it just keeps position
-safety_keep_position_goes_to_ned_origin: true
+safety_keep_position_goes_to_ned_origin: false
 
 # If true, the standalone keep positions will reset when a navigation jump is detected
 reset_keep_position_on_navigation_jump: true
