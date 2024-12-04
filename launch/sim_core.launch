@@ -26,7 +26,7 @@
   <node name="navigator" pkg="cola2_nav" type="navigator_node" output="screen"/>
 
   <!-- Control stack -->
-  <node name="captain" pkg="cola2_control" type="captain_node" output="screen">
+  <node name="captain" pkg="cola2_control" type="captain_node" output="log">
     <param name="vehicle_config_launch_mission_package" value="cola2_$(arg robot_name)"/>
   </node>
   <node name="controller" pkg="cola2_control" type="controller_node"/>

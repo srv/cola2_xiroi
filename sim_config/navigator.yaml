@@ -1,7 +1,7 @@
 # Initialize EKF filter using GPS information
 initialize_filter_from_gps: true
 # GPS samples to init position
-gps_samples_to_init: 5
+gps_samples_to_init: 4
 
 # Apply GPS updates in the EKF filter
 use_gps_data: true

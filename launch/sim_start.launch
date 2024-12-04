@@ -1,7 +1,7 @@
 <launch>
   <!-- Configurable arguments -->
   <arg name="robot_name" default="xiroi"/>
-  <arg name="enable_keyboard" default="false"/>
+  <arg name="enable_keyboard" default="true"/>
   <arg name="enable_joystick" default="false"/>
   <arg name="joystick_device" default="/dev/input/js0"/>
   <arg name="enable_gui" default="false"/>
@@ -10,7 +10,7 @@
   <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Static transform -->
-  <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
+  <!-- <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/> -->
 
   <!-- Namespace with robot name -->
   <group ns="$(arg robot_name)">

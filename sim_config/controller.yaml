@@ -7,16 +7,24 @@ TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
 
 
 # Thruster 1
-thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
-thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
-thruster_1_max_force_positive: 64
-thruster_1_max_force_negative: 47
+# thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+# thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+# thruster_1_max_force_positive: 64
+# thruster_1_max_force_negative: 47
+thruster_1_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06, 3.25e-08]
+thruster_1_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05, 9.26e-07]
+thruster_1_max_force_positive: 55.0
+thruster_1_max_force_negative: 28.5
 
 # Thruster 2
-thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
-thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
-thruster_2_max_force_positive: 64
-thruster_2_max_force_negative: 47
+# thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+# thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+# thruster_2_max_force_positive: 64
+# thruster_2_max_force_negative: 47
+thruster_2_poly_positive: [0.0499, 0.0701, -0.00581, 0.000247, -4.67e-06, 3.25e-08]
+thruster_2_poly_negative: [0.022, 0.176, -0.0261, 0.00199, -7.026e-05, 9.26e-07]
+thruster_2_max_force_positive: 55.0
+thruster_2_max_force_negative: 28.5
 
 # Enbale thrusters
 enable_thrusters: true
