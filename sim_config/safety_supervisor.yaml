@@ -65,7 +65,7 @@ virtual_cage/enables_abort_and_surface: false
 
 # Watchdog timer safety rule
 watchdog_timer/type: "WatchdogTimer"
-watchdog_timer/timeout: 3600
+watchdog_timer/timeout: 36000
 
 # Water inside safety rules
 water_inside/type: "CombinedWaterInside"

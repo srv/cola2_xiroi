@@ -17,8 +17,8 @@ use_dvl_data: false
 enable_debug: false
 
 # NED origin when not init by GPS
-ned_latitude: 41.7777
-ned_longitude: 3.0333
+ned_latitude: 39.543330
+ned_longitude: 2.377940
 
 # Init depth sensor when GPS is first initialized
 initialize_depth_sensor_offset: true
