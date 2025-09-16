@@ -19,11 +19,12 @@
 
   <!-- Simulation nodes -->
   <node name="dynamics" pkg="cola2_sim" type="dynamics_node"/>
-  <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_auv_nav_sensors_node.py" output="screen"/>
+  <node name="sim_asv_nav_sensors" pkg="cola2_sim" type="sim_asv_nav_sensors_node.py" output="screen"/>
   <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors_node" output="screen"/>
 
   <!-- Navigation -->
-  <node name="navigator" pkg="cola2_nav" type="navigator_node" output="screen"/>
+  <!-- This node is modified to work as a surface vehicle asv (no DVL, no depth) -->
+  <node name="navigator" pkg="cola2_nav" type="navigator_surface_node" output="screen"/>
 
   <!-- Control stack -->
   <node name="captain" pkg="cola2_control" type="captain_node" output="log">
