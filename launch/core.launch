@@ -1,7 +1,10 @@
 <launch>
   <!-- Input arguments -->
-  <arg name="robot_name"/>
-  <arg name="safety_flag"/>
+  <!-- <arg name="robot_name"/>
+  <arg name="robot_xacro"/> -->
+  <!-- only for debugging purposes: -->
+  <arg name="robot_name" default="xiroi"/>
+  <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Safety nodes -->
   <group if="$(arg safety_flag)">
@@ -10,7 +13,7 @@
       <remap from="/diagnostics_agg" to="/$(arg robot_name)/diagnostics_agg"/>
       <remap from="/diagnostics_toplevel_state" to="/$(arg robot_name)/diagnostics_toplevel_state"/>
     </node>
-    <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude_node" output="screen"/>
+    <!-- <node name="safe_depth_altitude" pkg="cola2_safety" type="safe_depth_altitude_node" output="screen"/> -->
     <node name="safety_supervisor" pkg="cola2_safety" type="safety_supervisor_node" output="screen"/>
     <node name="safety_supervisor_checker" pkg="cola2_safety" type="safety_supervisor_checker_node" output="screen"/>
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage_node" output="screen"/>
@@ -36,10 +39,22 @@
 
   <!-- Sensor nodes -->
   <!-- IMU -->
-  <include file="$(find memsense_imu)/launch/imu_memsense.launch"/>
+  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen">
+    <remap from="/imu/data" to="/sensors/imu_raw_driver" />
+    <remap from="/imu/data_calibrated" to="/sensors/imu_raw_calibrated" />
+    <remap from="/imu/data_filtered" to="/sensors/imu_raw_filtered" />
+    <remap from="/imu/data_filtered_calibrated" to="/sensors/imu_raw_filtered_calibrated" />
+  </node>
+
+  <!-- <include file="$(find memsense_imu)/launch/imu_memsense.launch"/> -->
 
   <!-- GPS -->
-  <include file="$(find emlid_reach_tcp)/launch/gps_emlid.launch"/>
+  <node name="emlid_gps" pkg="emlid_reach_tcp" type="emlid_driver.py" output="screen">
+    <remap from="/emlid_gps" to="/sensors/gps_raw" />
+    <remap from="/diagnostics" to="/sensors/gps_diagnostics" />
+  </node>
+
+  <!-- <include file="$(find emlid_reach_tcp)/launch/gps_emlid.launch"/> -->
 
   
   <!-- Log -->

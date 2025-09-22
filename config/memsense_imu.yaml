@@ -1,0 +1,44 @@
+polling_rate: 150.0
+filter_rate: 10.0
+frame_id: "xiroi/imu"
+serial_port: "/dev/serial/by-id/usb-Silicon_Labs_CP2101_USB_to_UART_Bridge_Controller_0001-if00-port0"
+imu_type: "nIMU_3temp"
+
+accels_range: 19.62
+gyros_range: 2.617993877991494
+mags_range: 1.8999999999999999
+
+accel_bias_x: -1.54475
+accel_bias_y: -1.21532
+accel_bias_z: -1.02359
+
+gyro_bias_x: 0.0192
+gyro_bias_y: -0.0016
+gyro_bias_z: -0.0065
+
+mag_bias_x: -0.0672372
+mag_bias_y: -0.0361426
+mag_bias_z: 0.376318
+mag_trans_xx: 0.938791
+mag_trans_xy: 0.0536806
+mag_trans_xz: -0.0228044
+mag_trans_yx: 0.0536806
+mag_trans_yy: 0.94832
+mag_trans_yz: 0.0346809
+mag_trans_zx: -0.0228044
+mag_trans_zy: 0.0346809
+mag_trans_zz: 0.944665
+
+accels_var: 0.0
+gyros_var: 0.0
+mags_var: 0.0
+
+# remappings:
+#   imu/data: sensors/imu_raw_driver
+#   imu/data_calibrated: sensors/imu_raw_calibrated
+#   imu/data_filtered: sensors/imu_raw_filtered
+#   imu/data_filtered_calibrated: sensors/imu_raw_filtered_calibrated
+#   imu/mag: sensors/imu_mag
+#   imu/mag_calibrated: sensors/imu_mag_calibrated
+#   imu/mag_filtered: sensors/imu_mag_filtered
+#   imu/mag_filtered_calibrated: sensors/imu_mag_filtered_calibrated

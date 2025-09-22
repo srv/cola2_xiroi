@@ -1,16 +1,19 @@
 <launch>
   <!-- Input arguments -->
-  <arg name="robot_name"/>
-  <arg name="robot_xacro"/>
+  <!-- <arg name="robot_name"/>
+  <arg name="robot_xacro"/> -->
+  <!-- only for debugging purposes: -->
+  <arg name="robot_name" default="xiroi"/>
+  <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Load robot description -->
-  <include file="$(find orat_description)/launch/orat_description.launch">
+  <include file="$(find xiroi_description)/launch/xiroi_description.launch">
     <arg name="robot_name" value="$(arg robot_name)"/>
     <arg name="robot_xacro" value="$(arg robot_xacro)"/>
   </include>
 
   <!-- Config folder -->
-  <arg name="config_folder" value="$(find cola2_orat)/config"/>
+  <arg name="config_folder" value="$(find cola2_xiroi)/config"/>
 
   <!-- Common configs -->
   <rosparam command="load" ns="captain" file="$(arg config_folder)/captain.yaml"/>
@@ -20,22 +23,25 @@
   <rosparam command="load" ns="mission_reporter" file="$(arg config_folder)/mission_reporter.yaml"/>
   <rosparam command="load" ns="navigator" file="$(arg config_folder)/navigator.yaml"/>
   <rosparam command="load" ns="pilot" file="$(arg config_folder)/pilot.yaml"/>
-  <rosparam command="load" ns="safe_depth_altitude" file="$(arg config_folder)/safe_depth_altitude.yaml"/>
+  <!-- <rosparam command="load" ns="safe_depth_altitude" file="$(arg config_folder)/safe_depth_altitude.yaml"/> -->
   <rosparam command="load" ns="safety_supervisor" file="$(arg config_folder)/safety_supervisor.yaml"/>
   <rosparam command="load" ns="teleoperation" file="$(arg config_folder)/teleoperation.yaml"/>
   <rosparam command="load" ns="virtual_cage" file="$(arg config_folder)/virtual_cage.yaml"/>
 
   <!-- Real configs -->
-  <rosparam command="load" ns="adis_imu" file="$(arg config_folder)/adis_imu.yaml"/>
+  <rosparam command="load" ns="imu_razor" file="$(arg config_folder)/imu_razor.yaml"/>
+  <rosparam command="load" ns="imu_madgwick" file="$(arg config_folder)/imu_madgwick.yaml"/>
+  <rosparam command="load" ns="imu_angle_estimator" file="$(arg config_folder)/imu_angle_estimator.yaml"/>
   <rosparam command="load" ns="battery_control_board" file="$(arg config_folder)/battery_control_board.yaml"/>
   <rosparam command="load" ns="chrony_time" file="$(arg config_folder)/chrony_time.yaml"/>
-  <rosparam command="load" ns="comms" file="$(arg config_folder)/comms.yaml"/>
-  <rosparam command="load" ns="evologics_modem" file="$(arg config_folder)/evologics_modem.yaml"/>
-  <rosparam command="load" ns="exail_phinsc3_ins" file="$(arg config_folder)/exail_phinsc3_ins.yaml"/>
-  <rosparam command="load" ns="iqua_r869_joystick" file="$(arg config_folder)/iqua_r869_joystick.yaml"/>
-  <rosparam command="load" ns="iqua_t350_thrusters" file="$(arg config_folder)/iqua_t350_thrusters.yaml"/>
+  <!-- For now, we won't use USBL -->
+  <!-- <rosparam command="load" ns="comms" file="$(arg config_folder)/comms.yaml"/> -->
+  <!-- <rosparam command="load" ns="evologics_modem" file="$(arg config_folder)/evologics_modem.yaml"/> -->
+  <!-- <rosparam command="load" ns="exail_phinsc3_ins" file="$(arg config_folder)/exail_phinsc3_ins.yaml"/> -->
+  <rosparam command="load" ns="joystick_logitech" file="$(arg config_folder)/joystick_logitech.yaml"/>
+  <rosparam command="load" ns="thrusters" file="$(arg config_folder)/thrusters.yaml"/>
   <rosparam command="load" ns="main_control_board" file="$(arg config_folder)/main_control_board.yaml"/>
-  <rosparam command="load" ns="ntrip_client" file="$(arg config_folder)/ntrip_client.yaml"/>
-  <rosparam command="load" ns="teledyne_rdi_dvl" file="$(arg config_folder)/teledyne_rdi_dvl.yaml"/>
-  <rosparam command="load" ns="ublox_zedf9p_gps" file="$(arg config_folder)/ublox_zedf9p_gps.yaml"/>
+  <!-- <rosparam command="load" ns="ntrip_client" file="$(arg config_folder)/ntrip_client.yaml"/> -->
+  <!-- <rosparam command="load" ns="teledyne_rdi_dvl" file="$(arg config_folder)/teledyne_rdi_dvl.yaml"/> -->
+  <rosparam command="load" ns="gps_emlid" file="$(arg config_folder)/gps_emlid.yaml"/>
 </launch>
