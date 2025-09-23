@@ -1,6 +1,6 @@
 # Safety supervisor general parameters
-# emergency_surface_setpoints: [-0.3, 0.0, 0.0]  # Be careful here!
-# drop_weight_service: ""
+emergency_surface_setpoints: [-0.3, 0.0, 0.0]  # Be careful here!
+drop_weight_service: ""
 safety_rule_names: ["batteries", "battery_control_board", "captain", "check_enabled_informative", "teleoperation",
   "manual", "navigator", "temperature_batteries", "temperature_cpu", "temperature_pc_cylinder",
   "virtual_cage", "watchdog_timer", "comms"]
@@ -34,9 +34,10 @@ manual/type: "Manual"
 navigator/type: "Navigator"
 navigator/nav_data_timeout: 2.0
 navigator/imu_data_timeout: 10.0
-# navigator/depth_data_timeout: 10.0
-# navigator/altitude_data_timeout: 30.0
-# navigator/dvl_data_timeout: 30.0
+# the next 3 timeouts are set to 1, but they won't be used
+navigator/depth_data_timeout: 1.0
+navigator/altitude_data_timeout: 1.0
+navigator/dvl_data_timeout: 1.0
 navigator/gps_data_timeout: 30.0
 navigator/min_frequency: 18.0
 

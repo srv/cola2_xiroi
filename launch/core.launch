@@ -5,6 +5,7 @@
   <!-- only for debugging purposes: -->
   <arg name="robot_name" default="xiroi"/>
   <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
+  <arg name="safety_flag" default="false"/>
 
   <!-- Safety nodes -->
   <group if="$(arg safety_flag)">
@@ -26,7 +27,10 @@
   <node name="evologics_modem" pkg="evologics_modem" type="evologics_modem_node" respawn="true" output="screen"/> -->
 
   <!-- Navigation -->
-  <node name="navigator" pkg="cola2_nav" type="navigator_surface_node" output="screen"/>
+  <node name="navigator" pkg="cola2_nav" type="navigator_surface_node" output="screen">
+    <remap from="/xiroi/navigator/imu" to="/xiroi/imu/data_filtered_calibrated"/>
+    <remap from="/xiroi/navigator/gps" to="/xiroi/emlid_gps"/>
+  </node>
 
   <!-- Control stack -->
   <node name="captain" pkg="cola2_control" type="captain_node" output="screen">
@@ -39,12 +43,12 @@
 
   <!-- Sensor nodes -->
   <!-- IMU -->
-  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen">
-    <remap from="/imu/data" to="/sensors/imu_raw_driver" />
+  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen"/>
+    <!-- <remap from="/imu/data" to="/sensors/imu_raw_driver" />
     <remap from="/imu/data_calibrated" to="/sensors/imu_raw_calibrated" />
     <remap from="/imu/data_filtered" to="/sensors/imu_raw_filtered" />
     <remap from="/imu/data_filtered_calibrated" to="/sensors/imu_raw_filtered_calibrated" />
-  </node>
+  </node> -->
 
   <!-- <include file="$(find memsense_imu)/launch/imu_memsense.launch"/> -->
 
@@ -62,7 +66,8 @@
   <node name="cola2_version" pkg="cola2_log" type="cola2_version_node.py" output="screen"/>
   <node name="computer_logger" pkg="cola2_log" type="computer_logger_node.py" respawn="true" output="screen"/>
   <node name="default_param_handler" pkg="cola2_log" type="default_param_handler_node.py" respawn="true" output="screen">
-    <param name="config_folder" value="config"/>
+    <param name="config_pkg" value="cola2_xiroi" />
+    <param name="config_folder" value="config" />
   </node>
   <node name="mission_reporter" pkg="cola2_log" type="mission_reporter" output="screen"/>
   <node name="param_logger" pkg="cola2_log" type="param_logger_node.py" output="screen"/>

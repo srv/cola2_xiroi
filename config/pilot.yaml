@@ -1,4 +1,5 @@
 # Parameters for the standard line-of-sight (LOS) controller
+section/tolerance_z: 1.0
 section/delta: 2.5                          # 3.5 Lookahead distance # baixar ?
 section/distance_to_max_velocity: 6.0     # Speed transition ramp distance
 section/max_surge_velocity: 0.5          # Highest allowed vehicle speed

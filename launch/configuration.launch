@@ -29,9 +29,10 @@
   <rosparam command="load" ns="virtual_cage" file="$(arg config_folder)/virtual_cage.yaml"/>
 
   <!-- Real configs -->
-  <rosparam command="load" ns="imu_razor" file="$(arg config_folder)/imu_razor.yaml"/>
+  <!-- <rosparam command="load" ns="imu_razor" file="$(arg config_folder)/imu_razor.yaml"/>
   <rosparam command="load" ns="imu_madgwick" file="$(arg config_folder)/imu_madgwick.yaml"/>
-  <rosparam command="load" ns="imu_angle_estimator" file="$(arg config_folder)/imu_angle_estimator.yaml"/>
+  <rosparam command="load" ns="imu_angle_estimator" file="$(arg config_folder)/imu_angle_estimator.yaml"/> -->
+  <rosparam command="load" ns="memsense_imu" file="$(arg config_folder)/memsense_imu.yaml"/>
   <rosparam command="load" ns="battery_control_board" file="$(arg config_folder)/battery_control_board.yaml"/>
   <rosparam command="load" ns="chrony_time" file="$(arg config_folder)/chrony_time.yaml"/>
   <!-- For now, we won't use USBL -->
@@ -43,5 +44,5 @@
   <rosparam command="load" ns="main_control_board" file="$(arg config_folder)/main_control_board.yaml"/>
   <!-- <rosparam command="load" ns="ntrip_client" file="$(arg config_folder)/ntrip_client.yaml"/> -->
   <!-- <rosparam command="load" ns="teledyne_rdi_dvl" file="$(arg config_folder)/teledyne_rdi_dvl.yaml"/> -->
-  <rosparam command="load" ns="gps_emlid" file="$(arg config_folder)/gps_emlid.yaml"/>
+  <rosparam command="load" ns="emlid_gps" file="$(arg config_folder)/emlid_gps.yaml"/>
 </launch>

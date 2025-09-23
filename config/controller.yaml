@@ -58,6 +58,9 @@ max_velocity_roll: 0.0
 max_velocity_pitch: 0.0
 max_velocity_yaw: 0.45
 
+# Set zero velocity parameters
+set_zero_velocity_depth: 1.0
+set_zero_velocity_axes: [true, false, true, false, false, true]
 
 # POSE PID CONTROLLER
 # The following parameters adjust the proportional–integral–derivative
