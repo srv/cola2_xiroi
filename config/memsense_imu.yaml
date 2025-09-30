@@ -1,6 +1,6 @@
 polling_rate: 150.0
 filter_rate: 10.0
-frame_id: "xiroi/imu"
+frame_id: "xiroi/base_link"
 serial_port: "/dev/serial/by-id/usb-Silicon_Labs_CP2101_USB_to_UART_Bridge_Controller_0001-if00-port0"
 imu_type: "nIMU_3temp"
 
@@ -29,9 +29,9 @@ mag_trans_zx: -0.0228044
 mag_trans_zy: 0.0346809
 mag_trans_zz: 0.944665
 
-accels_var: 0.0
-gyros_var: 0.0
-mags_var: 0.0
+accels_var: 0.01
+gyros_var: 0.001
+mags_var: 0.01
 
 # remappings:
 #   imu/data: sensors/imu_raw_driver

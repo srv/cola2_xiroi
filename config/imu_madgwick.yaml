@@ -1,0 +1,14 @@
+gain: 0.3 #Gain of the filter. Higher values lead to faster convergence but more noise. Lower values lead to slower convergence but smoother signal. Range: 0.0 to 1.0
+stateless: false #If set to true, don't publish a filtered orientation. Instead, publish the stateless estimate of the orientation based on the latest accelerometer (and optionally magnetometer) readings alone. Useful for debugging.
+constant_dt: 0.1
+publish_debug_topics: true
+world_frame: enu
+use_mag: true
+use_magnetic_field_msg: true
+fixed_frame: xiroi/base_link
+publish_tf: false
+zeta: 0.0                 #Gyro drift gain (approx. rad/s). Range: -1.0 to 1.0
+# mag_bias_x: 0.0           #Magnetometer bias (hard iron correction), x component. Range: -10.0 to 10.0
+# mag_bias_y: 0.0           #Magnetometer bias (hard iron correction), y component. Range: -10.0 to 10.0
+# mag_bias_z: 0.0           #Magnetometer bias (hard iron correction), z component. Range: -10.0 to 10.0
+orientation_stddev: 0.0   #Standard deviation of the orientation estimate. Range: 0.0 to 1.0

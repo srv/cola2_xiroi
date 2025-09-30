@@ -28,8 +28,8 @@
 
   <!-- Navigation -->
   <node name="navigator" pkg="cola2_nav" type="navigator_surface_node" output="screen">
-    <remap from="/xiroi/navigator/imu" to="/xiroi/imu/data_filtered_calibrated"/>
-    <remap from="/xiroi/navigator/gps" to="/xiroi/emlid_gps"/>
+    <remap from="navigator/imu" to="sensors/imu_raw"/>
+    <remap from="navigator/gps" to="sensors/gps_raw"/>
   </node>
 
   <!-- Control stack -->
@@ -43,12 +43,29 @@
 
   <!-- Sensor nodes -->
   <!-- IMU -->
-  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen"/>
-    <!-- <remap from="/imu/data" to="/sensors/imu_raw_driver" />
-    <remap from="/imu/data_calibrated" to="/sensors/imu_raw_calibrated" />
-    <remap from="/imu/data_filtered" to="/sensors/imu_raw_filtered" />
-    <remap from="/imu/data_filtered_calibrated" to="/sensors/imu_raw_filtered_calibrated" />
-  </node> -->
+  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen">
+    <remap from="imu/data" to="sensors/imu_raw_driver" />
+    <remap from="imu/data_calibrated" to="sensors/imu_raw_calibrated" />
+    <remap from="imu/data_filtered" to="sensors/imu_raw_filtered" />
+    <remap from="imu/data_filtered_calibrated" to="sensors/imu_raw_filtered_calibrated" />
+    <remap from="imu/mag" to= "sensors/imu_mag" /> 
+    <remap from="imu/mag_calibrated" to= "sensors/imu_mag_calibrated" /> 
+    <remap from="imu/mag_filtered" to= "sensors/imu_mag_filtered" />
+    <remap from="imu/mag_filtered_calibrated" to="sensors/imu_mag_filtered_calibrated" /> 
+  </node>
+  <node name="imu_filter_madgwick" pkg="imu_filter_madgwick" type="imu_filter_node" output="screen">
+    <remap from="imu/data_raw" to="sensors/imu_raw_calibrated"/>
+    <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>
+    <remap from="imu/data" to="sensors/imu_raw"/>
+  </node>
+  <node name="imu_angle_estimator" pkg="cola2_xiroi" type="imu_angle_estimator.py" output="screen">
+    <rosparam file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml" command="load"/>
+    <remap from="imu" to="sensors/imu_raw"/>
+    <remap from="mag" to="sensors/imu_mag"/>
+  </node>
+
+
+ 
 
   <!-- <include file="$(find memsense_imu)/launch/imu_memsense.launch"/> -->
 
