@@ -15,16 +15,17 @@
     <node name="safety_supervisor_checker" pkg="cola2_safety" type="safety_supervisor_checker_node" output="screen"/>
     <node name="virtual_cage" pkg="cola2_safety" type="virtual_cage_node" output="screen"/>
     <node name="watchdog_timer" pkg="cola2_safety" type="watchdog_timer_node" output="screen"/>
+    <!-- <node name="vehicle_status_parser" pkg="cola2_xiroi" type="vehicle_status_parser.py" output="screen"/> -->
   </group>
 
   <!-- Simulation nodes -->
   <node name="dynamics" pkg="cola2_sim" type="dynamics_node"/>
-  <node name="sim_asv_nav_sensors" pkg="cola2_sim" type="sim_asv_nav_sensors_node.py" output="screen"/>
+  <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_asv_nav_sensors_node.py" output="screen"/>
   <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors_node" output="screen"/>
 
   <!-- Navigation -->
   <!-- This node is modified to work as a surface vehicle asv (no DVL, no depth) -->
-  <node name="navigator" pkg="cola2_nav" type="navigator_surface_node" output="screen"/>
+  <node name="navigator" pkg="cola2_nav" type="navigator_node" output="screen"/>
 
   <!-- Control stack -->
   <node name="captain" pkg="cola2_control" type="captain_node" output="log">
@@ -40,6 +41,7 @@
   <node name="cola2_version" pkg="cola2_log" type="cola2_version_node.py" output="screen"/>
   <node name="computer_logger" pkg="cola2_log" type="computer_logger_node.py" respawn="true" output="screen"/>
   <node name="default_param_handler" pkg="cola2_log" type="default_param_handler_node.py" respawn="true" output="screen">
+    <!-- <param name="config_pkg" value="cola2_xiroi"/> -->
     <param name="config_folder" value="sim_config"/>
   </node>
   <node name="mission_reporter" pkg="cola2_log" type="mission_reporter" output="screen"/>

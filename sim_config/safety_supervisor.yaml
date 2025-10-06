@@ -54,7 +54,7 @@ temperature_batteries/diagnostic_status_name: "/safety/batteries"
 temperature_batteries/max_temperature: 55.0
 temperature_cpu/type: "Temperature"
 temperature_cpu/diagnostic_status_name: "/safety/computer_logger"
-temperature_cpu/max_temperature: 80.0
+temperature_cpu/max_temperature: 90.0
 temperature_pc_cylinder/type: "Temperature"
 temperature_pc_cylinder/diagnostic_status_name: "/safety/battery_control_board"
 temperature_pc_cylinder/max_temperature: 800.0

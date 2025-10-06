@@ -1,12 +1,12 @@
 <launch>
   <!-- Configurable arguments -->
   <arg name="robot_name" default="xiroi"/>
-  <arg name="enable_keyboard" default="false"/>
+  <arg name="enable_keyboard" default="true"/>
   <arg name="enable_joystick" default="false"/>
   <arg name="joystick_device" default="/dev/input/js0"/>
-  <arg name="enable_gui" default="false"/>
+  <arg name="enable_gui" default="true"/>
   <arg name="enable_rviz" default="false"/>
-  <arg name="safety" default="false"/>
+  <arg name="safety" default="true"/>
   <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Static transform -->
