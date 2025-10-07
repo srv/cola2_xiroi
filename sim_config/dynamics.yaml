@@ -27,14 +27,18 @@ thrusters_symmetric: true
 thrusters_matrix: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
 
 # Thruster 1
-thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
-thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
+  3.55075e-009]
+thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
+  1.2464e-008]
 thruster_1_max_force_positive: 64
 thruster_1_max_force_negative: 47
 
 # Thruster 2
-thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
-thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
+  3.55075e-009]
+thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
+  1.2464e-008]
 thruster_2_max_force_positive: 64
 thruster_2_max_force_negative: 47
 

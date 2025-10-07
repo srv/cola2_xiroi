@@ -20,7 +20,7 @@
 
   <!-- Simulation nodes -->
   <node name="dynamics" pkg="cola2_sim" type="dynamics_node"/>
-  <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_asv_nav_sensors_node.py" output="screen"/>
+  <node name="sim_auv_nav_sensors" pkg="cola2_sim" type="sim_auv_nav_sensors_node.py" output="screen"/>
   <node name="sim_internal_sensors" pkg="cola2_sim" type="sim_internal_sensors_node" output="screen"/>
 
   <!-- Navigation -->
@@ -35,6 +35,30 @@
   <node name="pilot" pkg="cola2_control" type="pilot_node" output="screen"/>
   <node name="teleoperation" pkg="cola2_control" type="teleoperation_node" output="screen"/>
   <node name="test_thrusters" pkg="cola2_control" type="test_thrusters.py" output="screen"/>
+
+  <!-- REAL IMU DATA -->
+  <node name="memsense_imu" pkg="memsense_imu" type="imu_node" output="screen">
+    <rosparam file="$(find cola2_xiroi)/config/memsense_imu.yaml" command="load"/>
+    <remap from="imu/data" to="sensors/imu_raw_driver" />
+    <remap from="imu/data_calibrated" to="sensors/imu_raw_calibrated" />
+    <remap from="imu/data_filtered" to="sensors/imu_raw_filtered" />
+    <remap from="imu/data_filtered_calibrated" to="sensors/imu_raw_filtered_calibrated" />
+    <remap from="imu/mag" to= "sensors/imu_mag" /> 
+    <remap from="imu/mag_calibrated" to= "sensors/imu_mag_calibrated" /> 
+    <remap from="imu/mag_filtered" to= "sensors/imu_mag_filtered" />
+    <remap from="imu/mag_filtered_calibrated" to="sensors/imu_mag_filtered_calibrated" /> 
+  </node>
+  <node name="imu_filter_madgwick" pkg="imu_filter_madgwick" type="imu_filter_node" output="screen">
+    <rosparam file="$(find cola2_xiroi)/config/imu_madgwick.yaml" command="load"/>
+    <remap from="imu/data_raw" to="sensors/imu_raw_calibrated"/>
+    <remap from="imu/mag" to="sensors/imu_mag_calibrated"/>
+    <remap from="imu/data" to="navigator/imu"/>
+  </node>
+  <node name="imu_angle_estimator" pkg="cola2_xiroi" type="imu_angle_estimator.py" output="screen">
+    <rosparam file="$(find cola2_xiroi)/config/imu_angle_estimator.yaml" command="load"/>
+    <remap from="imu" to="sensors/imu_raw"/>
+    <remap from="mag" to="sensors/imu_mag"/>
+  </node>
 
   <!-- Log -->
   <node name="bag_recorder" pkg="cola2_log" type="bag_recorder_node.py" output="screen"/>

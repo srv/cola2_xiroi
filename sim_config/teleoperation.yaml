@@ -3,8 +3,8 @@ max_pos: [10.0, 10.0, 2.0, 3.14159265359, 3.14159265359, 3.14159265359]
 min_pos: [-10.0, -10.0, -2.0, -3.14159265359, -3.14159265359, -3.14159265359]
 
 # Minimum and maximum velocities for each degree of fredom (m/s or rad/s)
-max_vel: [0.5, 0.0, 0.35, 0.0, 0.0, 0.3]
-min_vel: [-0.25, 0.0, -0.35, 0.0, 0.0, -0.3]
+max_vel: [0.5, 0.0, 0.3]
+min_vel: [-0.25, 0.0, -0.3]
 
 # Initial state of the controllers (pose vs. velocity)
 pose_controlled_axis: [false, false, false, false, false, false]
