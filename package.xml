@@ -14,7 +14,11 @@
   <depend>rviz</depend>
   <depend>tf</depend>
   <depend>topic_tools</depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>  
 
   <!-- COLA2 Dependencies -->
   <depend>xiroi_description</depend>
+  <depend>cola2_msgs</depend>
+  <depend>cola2_lib_ros</depend>
 </package>

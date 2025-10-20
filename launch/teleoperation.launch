@@ -1,5 +1,5 @@
 <launch>
-  <arg name="joystickDevice" default="/dev/input/js0"/>
+  <arg name="joystickDevice" default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_C79690F7-joystick"/>
   <!-- Joystick -->
   <group ns="xiroi">
     <node respawn="true" pkg="joy" type="joy_node" name="joystick">

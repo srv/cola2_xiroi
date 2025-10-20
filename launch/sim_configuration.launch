@@ -14,7 +14,7 @@
 
   <!-- Common configs -->
   <rosparam command="load" ns="captain" file="$(arg config_folder)/captain.yaml"/>
-  <rosparam command="load" ns="controller" file="$(arg config_folder)/controller.yaml"/>
+  <rosparam command="load" ns="controller" file="$(find cola2_sparus2)/sim_config/controller.yaml"/>
   <rosparam command="load" ns="default_param_handler" file="$(arg config_folder)/default_param_handler.yaml"/>
   <rosparam command="load" ns="diagnostic_aggregator" file="$(arg config_folder)/diagnostic_aggregator.yaml"/>
   <rosparam command="load" ns="logitech_fx10_to_teleoperation" file="$(arg config_folder)/logitech_fx10_to_teleoperation.yaml"/>
@@ -28,6 +28,6 @@
 
   <!-- Simulation configs -->
   <rosparam command="load" ns="dynamics" file="$(arg config_folder)/dynamics.yaml"/>
-  <rosparam command="load" ns="sim_auv_nav_sensors" file="$(arg config_folder)/sim_auv_nav_sensors.yaml"/>
+  <rosparam command="load" ns="sim_auv_nav_sensors" file="$(arg config_folder)/sim_asv_nav_sensors.yaml"/>
   <rosparam command="load" ns="sim_internal_sensors" file="$(arg config_folder)/sim_internal_sensors.yaml"/>
 </launch>

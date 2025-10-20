@@ -3,23 +3,48 @@ n_thrusters: 2
 
 # Thruster control matrix. This matrix specifies how each thruster contributes
 # to the force or torque generated in each axis of the robot
-TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.45, 0.45]
+TCM: [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.45, -0.45]
 
-#X-->Força [N], Y-->Setpoints 
+# TCM: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.16783, 0.16783]
+
+
+#X-->Força [N], Y-->Setpoints  !!!!!!!!!!!!!!!!!!
 # Thruster 1 powered al 20V 30A
-thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
-  3.55075e-009]
-thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
-  1.2464e-008]
-thruster_1_max_force_positive: 64.0
-thruster_1_max_force_negative: 47.0
-# Thruster 2: powered al 20V 30A
-thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
-  3.55075e-009]
-thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
-  1.2464e-008]
-thruster_2_max_force_positive: 64.0
-thruster_2_max_force_negative: 47.0
+# thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
+#   3.55075e-009]
+# thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
+#   1.2464e-008]
+# thruster_1_max_force_positive: 64.0
+# thruster_1_max_force_negative: 47.0
+# # Thruster 2: powered al 20V 30A
+# thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007,
+#   3.55075e-009]
+# thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006,
+#   1.2464e-008]
+# thruster_2_max_force_positive: 64.0
+# thruster_2_max_force_negative: 47.0
+
+# Thruster 1
+thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+thruster_1_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_1_max_force_positive: 64
+thruster_1_max_force_negative: 47
+
+# thruster_1_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+# thruster_1_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
+# thruster_1_max_force_positive: 71.5
+# thruster_1_max_force_negative: 30.0
+
+# Thruster 2
+thruster_2_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
+thruster_2_poly_negative: [-0.0338261, 0.0506817, 0.00231313, 8.52004e-005, 1.64995e-006, 1.2464e-008]
+thruster_2_max_force_positive: 64
+thruster_2_max_force_negative: 47
+
+# thruster_2_poly_positive: [0.06815, 0.05144, -0.00278, 8.48e-05, -1.18e-06, 6.12e-09]
+# thruster_2_poly_negative: [0.0772, 0.1186, -0.0139, 0.00092, -2.81e-05, 3.22e-07]
+# thruster_2_max_force_positive: 71.5
+# thruster_2_max_force_negative: 30.0
 
 # # Thruster 1
 # # thruster_1_poly_positive: [0.0473783, 0.0439118, -0.00165504, 4.53733e-005, -6.42983e-007, 3.55075e-009]
@@ -45,16 +70,18 @@ thruster_2_max_force_negative: 47.0
 enable_thrusters: false
 
 # Maximum velocity for each DOF
-max_velocity_x: 0.7
+max_velocity_x: 0.8
+# max_velocity_x: 0.5
 max_velocity_y: 0.0
 max_velocity_z: 0.0
 max_velocity_roll: 0.0
 max_velocity_pitch: 0.0
 max_velocity_yaw: 0.45
+# max_velocity_yaw: 0.3
 
 # Set zero velocity parameters
 set_zero_velocity_depth: 1.0
-set_zero_velocity_axes: [true, false, true, false, false, true]
+set_zero_velocity_axes: [true, false, false, false, false, true]
 
 
 # POSE PID CONTROLLER
@@ -75,6 +102,7 @@ p_sway_i_limit: 0.0
 p_sway_fff: 0.0
 
 p_heave_kp: 1.2
+# p_heave_kp: 0.0
 p_heave_ti: 0.0
 p_heave_td: 0.0
 p_heave_i_limit: 0.0
@@ -124,6 +152,12 @@ t_heave_td: 0.0
 t_heave_i_limit: 0.1
 t_heave_fff: 0.05
 
+# t_heave_kp: 0.0
+# t_heave_ti: 0.0
+# t_heave_td: 0.0
+# t_heave_i_limit: 1.0
+# t_heave_fff: 0.0
+
 t_roll_kp: 0.0
 t_roll_ti: 0.0
 t_roll_td: 0.0
@@ -156,6 +190,10 @@ poly_heave_A: 0.0
 poly_heave_B: 4.0
 poly_heave_C: 250.0
 
+# poly_heave_A: 0.0
+# poly_heave_B: 0.0
+# poly_heave_C: 0.0
+
 poly_roll_A: 0.0
 poly_roll_B: 0.0
 poly_roll_C: 0.0
@@ -175,4 +213,8 @@ max_wrench_Y: 0.0
 max_wrench_Z: 30.0
 max_wrench_Roll: 3.66
 max_wrench_Pitch: 17.15
+# max_wrench_Y: 0.0
+# max_wrench_Z: 0.0
+# max_wrench_Roll: 0.0
+# max_wrench_Pitch: 0.0
 max_wrench_Yaw: 14.43

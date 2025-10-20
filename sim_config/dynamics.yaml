@@ -1,5 +1,5 @@
 # Frames
-world_frame_id: "world_ned"
+world_frame_id: "map"
 
 # Period
 period: 0.05

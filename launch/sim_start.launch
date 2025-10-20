@@ -1,16 +1,17 @@
 <launch>
   <!-- Configurable arguments -->
   <arg name="robot_name" default="xiroi"/>
-  <arg name="enable_keyboard" default="true"/>
-  <arg name="enable_joystick" default="false"/>
-  <arg name="joystick_device" default="/dev/input/js0"/>
+  <arg name="enable_keyboard" default="false"/>
+  <arg name="enable_joystick" default="true"/>
+  <arg name="joystick_device" default="/dev/input/by-id/usb-Logitech_Wireless_Gamepad_F710_C79690F7-joystick"/>
   <arg name="enable_gui" default="true"/>
   <arg name="enable_rviz" default="false"/>
-  <arg name="safety" default="true"/>
   <arg name="robot_xacro" default="$(find xiroi_description)/urdf/payload.urdf.xacro"/>
 
   <!-- Static transform -->
-  <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/>
+  <!-- <node name="world2ned" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 3.1415 world world_ned 100"/> -->
+  <!-- <node name="world2map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 world map"/> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0 map xiroi/odom 100" /> -->
 
   <!-- Namespace with robot name -->
   <group ns="$(arg robot_name)">
@@ -28,7 +29,6 @@
     <!-- Load core -->
     <include file="$(find cola2_xiroi)/launch/sim_core.launch">
       <arg name="robot_name" value="$(arg robot_name)"/>
-      <arg name="safety_flag" value="$(arg safety)"/>
     </include>
 
     <!-- Keyboard -->
@@ -62,5 +62,5 @@
   </group>
 
   <!-- RViz -->
-  <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_xiroi)/scene/xiroi.rviz"/>
+  <node if="$(arg enable_rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find cola2_sparus2)/scene/sparus2.rviz"/>
 </launch>

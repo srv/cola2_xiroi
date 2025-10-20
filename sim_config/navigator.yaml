@@ -1,7 +1,7 @@
 # Initialize EKF filter using GPS information
 initialize_filter_from_gps: true
 # GPS samples to init position
-gps_samples_to_init: 4
+gps_samples_to_init: 10
 
 # Apply GPS updates in the EKF filter
 use_gps_data: true
@@ -21,11 +21,11 @@ ned_latitude: 39.543330
 ned_longitude: 2.377940
 
 # Init depth sensor when GPS is first initialized
-initialize_depth_sensor_offset: true
+initialize_depth_sensor_offset: false
 # Real distance between depth sensor and water surface
 surface_to_depth_sensor_distance: 0.05
 # Depth sensor offset value (can be overwritten by srvSetDepthSensorOffset)
-depth_sensor_offset: 10.0
+depth_sensor_offset: 0.0
 
 # Ignore DVL velocities bigger than
 dvl_max_v: 2.5
